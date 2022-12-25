@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Jaspe</string>
+    <string name="home_label">Home</string>
+    <string name="favorite_label">Favorites</string>
+    <string name="help_label">Help</string>
+    <string name="search_label">Search</string>
+    <string name="offers_label">Offers of the day</string>
+</resources>

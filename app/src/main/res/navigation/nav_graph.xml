@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.bruno13palhano.jaspe.ui.HomeFragment"
+        android:label="@string/app_name"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="com.bruno13palhano.jaspe.ui.FavoritesFragment"
+        android:label="@string/favorite_label"
+        tools:layout="@layout/fragment_favorites" />
+
+    <fragment
+        android:id="@+id/helpFragment"
+        android:name="com.bruno13palhano.jaspe.ui.HelpFragment"
+        android:label="@string/help_label"
+        tools:layout="@layout/fragment_help" />
+
+    <fragment
+        android:id="@+id/sentItemsFragment"
+        android:name="com.bruno13palhano.jaspe.ui.SentItemsFragment"
+        android:label="Sent Items"
+        tools:layout="@layout/fragment_sent_items" />
+</navigation>
