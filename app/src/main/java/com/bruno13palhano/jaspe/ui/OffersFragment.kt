@@ -7,12 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import com.bruno13palhano.jaspe.R
 
-class SentItemsFragment : Fragment() {
+class OffersFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_sent_items, container, false)
+        return inflater.inflate(R.layout.fragment_offers, container, false)
     }
 }

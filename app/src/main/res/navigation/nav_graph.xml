@@ -25,8 +25,8 @@
         tools:layout="@layout/fragment_help" />
 
     <fragment
-        android:id="@+id/sentItemsFragment"
-        android:name="com.bruno13palhano.jaspe.ui.SentItemsFragment"
-        android:label="Sent Items"
-        tools:layout="@layout/fragment_sent_items" />
+        android:id="@+id/offersFragment"
+        android:name="com.bruno13palhano.jaspe.ui.OffersFragment"
+        android:label="@string/offers_label"
+        tools:layout="@layout/fragment_offers" />
 </navigation>

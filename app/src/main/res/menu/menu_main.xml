@@ -9,7 +9,7 @@
             android:title="@string/home_label" />
 
         <item
-            android:id="@+id/dealsFragment"
+            android:id="@+id/offersFragment"
             android:icon="@drawable/ic_baseline_local_offer_24"
             android:title="@string/offers_label" />
 
@@ -18,20 +18,15 @@
             android:icon="@drawable/ic_baseline_favorite_24"
             android:title="@string/favorite_label" />
 
-        <item
-            android:id="@+id/sentItemsFragment"
-            android:icon="@android:drawable/ic_menu_send"
-            android:title="Sent Items" />
-
     </group>
 
-    <item android:title="Support">
+    <item android:title="@string/support_label">
         <menu>
             <group android:checkableBehavior="single">
                 <item
                     android:id="@+id/helpFragment"
                     android:icon="@android:drawable/ic_menu_help"
-                    android:title="Help" />
+                    android:title="@string/help_label" />
             </group>
         </menu>
     </item>
