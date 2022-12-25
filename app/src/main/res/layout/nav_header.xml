@@ -9,5 +9,5 @@
         android:layout_height="wrap_content"
         android:scaleType="centerCrop"
         android:src="@drawable/profile_picture"
-        android:contentDescription="Profile Picture" />
+        android:contentDescription="@string/profile_picture_description" />
 </FrameLayout>

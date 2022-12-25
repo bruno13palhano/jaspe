@@ -6,4 +6,6 @@
     <string name="search_label">Search</string>
     <string name="offers_label">Offers of the day</string>
     <string name="support_label">Support</string>
+
+    <string name="profile_picture_description">Profile picture</string>
 </resources>
