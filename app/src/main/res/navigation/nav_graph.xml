@@ -13,10 +13,28 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.bruno13palhano.jaspe.ui.SearchFragment"
+        android:label="@string/search_label"
+        tools:layout="@layout/fragment_search" />
+
+    <fragment
+        android:id="@+id/offersFragment"
+        android:name="com.bruno13palhano.jaspe.ui.OffersFragment"
+        android:label="@string/offers_label"
+        tools:layout="@layout/fragment_offers" />
+
+    <fragment
         android:id="@+id/favoritesFragment"
         android:name="com.bruno13palhano.jaspe.ui.FavoritesFragment"
         android:label="@string/favorite_label"
         tools:layout="@layout/fragment_favorites" />
+
+    <fragment
+        android:id="@+id/accountFragment"
+        android:name="com.bruno13palhano.jaspe.ui.AccountFragment"
+        android:label="@string/account_label"
+        tools:layout="@layout/fragment_account" />
 
     <fragment
         android:id="@+id/helpFragment"
@@ -24,9 +42,4 @@
         android:label="@string/help_label"
         tools:layout="@layout/fragment_help" />
 
-    <fragment
-        android:id="@+id/offersFragment"
-        android:name="com.bruno13palhano.jaspe.ui.OffersFragment"
-        android:label="@string/offers_label"
-        tools:layout="@layout/fragment_offers" />
 </navigation>
