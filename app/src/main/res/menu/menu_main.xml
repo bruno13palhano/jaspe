@@ -15,7 +15,7 @@
 
         <item
             android:id="@+id/offersFragment"
-            android:icon="@drawable/ic_baseline_local_offer_24"
+            android:icon="@drawable/ic_baseline_loyalty_24"
             android:title="@string/offers_label" />
 
         <item
