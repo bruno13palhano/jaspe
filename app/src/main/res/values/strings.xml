@@ -8,7 +8,12 @@
     <string name="support_label">Support</string>
     <string name="account_label">My account</string>
 
+<!-- product labels   -->
+    <string name="product_name_label">Product name</string>
+    <string name="product_price_label">Product price</string>
+    <string name="product_type_label">Product type</string>
+
+<!--  content descriptions  -->
     <string name="profile_picture_description">Profile picture</string>
-<!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="product_picture_description">Product picture</string>
 </resources>
