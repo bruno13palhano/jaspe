@@ -11,6 +11,7 @@ import androidx.navigation.findNavController
 import com.bruno13palhano.jaspe.MainActivity
 import com.bruno13palhano.jaspe.R
 import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 
 class ProductFragment : Fragment() {
 
@@ -27,6 +28,11 @@ class ProductFragment : Fragment() {
             inflater.inflate(R.layout.fragment_product_landscape, container, false)
         } else {
             inflater.inflate(R.layout.fragment_product, container, false)
+        }
+
+        val buyButton = view.findViewById<ExtendedFloatingActionButton>(R.id.buy_product_button)
+        buyButton.setOnClickListener {
+            println("buy button was clicked")
         }
 
         return view
