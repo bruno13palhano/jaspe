@@ -11,13 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bruno13palhano.jaspe.R
 import com.bruno13palhano.model.Product
 
-class HomeItemAdapter(private val onClick: (String) -> Unit) :
+class HomeItemAdapter(private val onClick: (Long) -> Unit) :
     ListAdapter<Product, HomeItemAdapter.HomeItemViewHolder>(HomeDiffCallback()) {
-//    var data = listOf<Product>()
-//        set(value) {
-//            field = value
-////            notifyDataSetChanged()
-//        }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeItemViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -34,19 +29,19 @@ class HomeItemAdapter(private val onClick: (String) -> Unit) :
         return currentList.size
     }
 
-    class HomeItemViewHolder(rootView: CardView, val onClick: (String) -> Unit)
+    class HomeItemViewHolder(rootView: CardView, val onClick: (Long) -> Unit)
                     : RecyclerView.ViewHolder(rootView) {
-        val productName = rootView.findViewById<TextView>(R.id.product_name)
-        val productPrice = rootView.findViewById<TextView>(R.id.product_price)
-        val productType = rootView.findViewById<TextView>(R.id.product_type)
-        val productImage = rootView.findViewById<ImageView>(R.id.product_image)
+        private val productName: TextView = rootView.findViewById(R.id.product_name)
+        private val productPrice: TextView = rootView.findViewById(R.id.product_price)
+        private val productType: TextView = rootView.findViewById(R.id.product_type)
+        private val productImage: ImageView = rootView.findViewById(R.id.product_image)
 
         var currentProduct: Product? = null
 
         init {
             rootView.setOnClickListener {
                 currentProduct?.let {
-                    onClick(it.productName)
+                    onClick(it.productId)
                 }
             }
         }
