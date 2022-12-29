@@ -31,8 +31,8 @@ class HomeFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
         val recyclerView = view.findViewById<RecyclerView>(R.id.home_list)
 
-        val action = HomeFragmentDirections.actionHomeToProduct(100L)
         val adapter = HomeItemAdapter {
+            val action = HomeFragmentDirections.actionHomeToProduct(it)
             view.findNavController().navigate(action)
         }
 
