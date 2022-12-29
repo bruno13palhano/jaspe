@@ -1,4 +1,4 @@
-package com.bruno13palhano.jaspe.model
+package com.bruno13palhano.model
 
 data class Product(
     val productId: Long,
