@@ -1,6 +1,4 @@
 package com.bruno13palhano.jaspe.ui
-
-import android.app.Activity
 import android.content.res.Configuration
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -35,6 +33,8 @@ class ProductFragment : Fragment() {
             println("buy button was clicked")
         }
 
+        val productIdTest = ProductFragmentArgs.fromBundle(requireArguments()).productId
+        println("productId: $productIdTest")
         return view
     }
 
