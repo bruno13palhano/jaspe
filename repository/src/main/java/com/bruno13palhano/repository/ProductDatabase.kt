@@ -5,8 +5,9 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.bruno13palhano.repository.dao.ProductDao
+import com.bruno13palhano.repository.model.ProductRep
 
-@Database(entities = [ProductRepositoryImpl::class], version = 1, exportSchema = false)
+@Database(entities = [ProductRep::class], version = 1, exportSchema = false)
 internal abstract class ProductDatabase : RoomDatabase() {
     abstract val productDao: ProductDao
 
