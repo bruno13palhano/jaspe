@@ -9,7 +9,7 @@ internal data class ProductRep(
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "product_id")
-    val productId: Long = 1L,
+    val productId: Long,
 
     @ColumnInfo(name = "product_name")
     val productName: String,
