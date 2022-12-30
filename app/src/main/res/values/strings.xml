@@ -7,13 +7,21 @@
     <string name="offers_label">Offers of the day</string>
     <string name="support_label">Support</string>
     <string name="account_label">My account</string>
+    <string name="share_label">Share product</string>
 
-<!-- product labels   -->
+    <!-- product labels   -->
     <string name="product_name_label">Product name</string>
-    <string name="product_price_label">Product price</string>
+    <string name="product_price_label">$123.56</string>
     <string name="product_type_label">Product type</string>
+    <string name="product_description_label">Product description</string>
+    <string name="offers_of_the_day_label">Offers of the Day</string>
+    <string name="top_sellers_label">Top Sellers</string>
 
-<!--  content descriptions  -->
+    <!--  content descriptions  -->
     <string name="profile_picture_description">Profile picture</string>
     <string name="product_picture_description">Product picture</string>
+    <string name="banners_picture_description">Banners</string>
+
+<!--  button labels  -->
+    <string name="buy_button_label">Buy</string>
 </resources>
