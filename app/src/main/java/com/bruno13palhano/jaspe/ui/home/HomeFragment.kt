@@ -12,6 +12,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bruno13palhano.jaspe.MainActivity
 import com.bruno13palhano.jaspe.R
+import com.bruno13palhano.jaspe.ui.ViewModelFactory
 import com.bruno13palhano.jaspe.ui.product.ProductViewModelFactory
 import com.bruno13palhano.model.Product
 import com.bruno13palhano.repository.ProductRepositoryFactory
@@ -36,17 +37,9 @@ class HomeFragment : Fragment() {
             view.findNavController().navigate(action)
         }
 
-        val repository = activity?.let {
-            ProductRepositoryFactory(it.applicationContext).createProductRepository()
+        val viewModel = activity?.applicationContext?.let {
+            ViewModelFactory(it, this@HomeFragment).createHomeViewModel()
         }
-
-        val viewModelFactory = repository?.let {
-            HomeViewModelFactory(it)
-        }
-
-        val viewModel = viewModelFactory?.let {
-            ViewModelProvider(this@HomeFragment, it)
-        }?.get(HomeViewModel::class.java)
 
         lifecycle.coroutineScope.launch {
             viewModel?.getAllProducts()?.collect {
