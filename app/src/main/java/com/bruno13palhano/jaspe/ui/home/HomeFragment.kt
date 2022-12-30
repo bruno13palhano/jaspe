@@ -161,7 +161,37 @@ class HomeFragment : Fragment() {
     }
 
     private fun setViews(view: View, productList: List<Product>) {
-        val images = arrayOf<ImageView>(
+        val images = getImagesView(view)
+        val names = getNamesView(view)
+        val prices = getPricesView(view)
+        val types = getTypesView(view)
+
+        setValues(
+            images = images,
+            names = names,
+            prices = prices,
+            types = types,
+            productList = productList
+        )
+    }
+
+    private fun setValues(
+        images: Array<ImageView>,
+        names: Array<TextView>,
+        prices: Array<TextView>,
+        types: Array<TextView>,
+        productList: List<Product>
+    ) {
+        for (i in 0..5) {
+            images[i].setImageResource(productList[i].productUrlImage.toInt())
+            names[i].text = productList[i].productName
+            prices[i].text = productList[i].productPrice.toString()
+            types[i].text = productList[i].productType
+        }
+    }
+
+    private fun getImagesView(view: View): Array<ImageView> {
+        return arrayOf(
             view.findViewById(R.id.offers_product_image_1),
             view.findViewById(R.id.offers_product_image_2),
             view.findViewById(R.id.offers_product_image_3),
@@ -183,8 +213,10 @@ class HomeFragment : Fragment() {
             view.findViewById(R.id.avon_product_image_5),
             view.findViewById(R.id.avon_product_image_6)
         )
+    }
 
-        val names = arrayOf<TextView>(
+    private fun getNamesView(view: View): Array<TextView> {
+        return arrayOf<TextView>(
             view.findViewById(R.id.offers_product_name_1),
             view.findViewById(R.id.offers_product_name_2),
             view.findViewById(R.id.offers_product_name_3),
@@ -206,8 +238,10 @@ class HomeFragment : Fragment() {
             view.findViewById(R.id.avon_product_name_5),
             view.findViewById(R.id.avon_product_name_6),
         )
+    }
 
-        val prices = arrayOf<TextView>(
+    private fun getPricesView(view: View): Array<TextView> {
+        return arrayOf<TextView>(
             view.findViewById(R.id.offers_product_price_1),
             view.findViewById(R.id.offers_product_price_2),
             view.findViewById(R.id.offers_product_price_3),
@@ -229,8 +263,10 @@ class HomeFragment : Fragment() {
             view.findViewById(R.id.avon_product_price_5),
             view.findViewById(R.id.avon_product_price_6)
         )
+    }
 
-        val types = arrayOf<TextView>(
+    private fun getTypesView(view: View): Array<TextView> {
+        return arrayOf<TextView>(
             view.findViewById(R.id.offers_product_type_1),
             view.findViewById(R.id.offers_product_type_2),
             view.findViewById(R.id.offers_product_type_3),
@@ -252,12 +288,5 @@ class HomeFragment : Fragment() {
             view.findViewById(R.id.avon_product_type_5),
             view.findViewById(R.id.avon_product_type_6)
         )
-
-        for (i in 0..5) {
-            images[i].setImageResource(productList[i].productUrlImage.toInt())
-            names[i].text = productList[i].productName
-            prices[i].text = productList[i].productPrice.toString()
-            types[i].text = productList[i].productType
-        }
     }
 }
