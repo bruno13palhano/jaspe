@@ -12,4 +12,8 @@ class ProductViewModel(
     fun getProduct(productId: Long): Flow<Product> {
         return productRepository.get(productId)
     }
+
+    suspend fun updateProduct(product: Product) {
+        productRepository.updateProduct(product)
+    }
 }
