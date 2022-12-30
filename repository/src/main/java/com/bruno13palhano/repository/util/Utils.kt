@@ -10,7 +10,8 @@ internal fun convertProductRepToProduct(productRep: ProductRep): Product {
         productUrlImage = productRep.productUrlImage,
         productPrice = productRep.productPrice,
         productType = productRep.productType,
-        productDescription = productRep.productDescription
+        productDescription = productRep.productDescription,
+        productCompany = productRep.productCompany
     )
 }
 
@@ -22,7 +23,7 @@ internal fun convertProductToProductRep(product: Product): ProductRep {
         productPrice = product.productPrice,
         productType = product.productType,
         productDescription = product.productDescription,
-        productCompany = ""
+        productCompany = product.productCompany
     )
 }
 
