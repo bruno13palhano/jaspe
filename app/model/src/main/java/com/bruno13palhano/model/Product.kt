@@ -8,4 +8,5 @@ data class Product(
     val productType: String,
     val productDescription: String = "",
     val productCompany: String,
+    val productIsFavorite: Boolean = false
 )
