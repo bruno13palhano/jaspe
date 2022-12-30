@@ -1,15 +1,21 @@
-package com.bruno13palhano.jaspe.ui
+package com.bruno13palhano.jaspe.ui.product
+
 import android.content.res.Configuration
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.lifecycle.coroutineScope
 import androidx.navigation.findNavController
 import com.bruno13palhano.jaspe.MainActivity
 import com.bruno13palhano.jaspe.R
+import com.bruno13palhano.jaspe.ui.ViewModelFactory
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+import kotlinx.coroutines.launch
 
 class ProductFragment : Fragment() {
 
@@ -28,13 +34,35 @@ class ProductFragment : Fragment() {
             inflater.inflate(R.layout.fragment_product, container, false)
         }
 
+        val productImage = view.findViewById<ImageView>(R.id.product_image)
+        val productName = view.findViewById<TextView>(R.id.product_name)
+        val productPrice = view.findViewById<TextView>(R.id.product_price)
+        val productType = view.findViewById<TextView>(R.id.product_type)
+        val productDescription = view.findViewById<TextView>(R.id.product_description)
+
         val buyButton = view.findViewById<ExtendedFloatingActionButton>(R.id.buy_product_button)
         buyButton.setOnClickListener {
             println("buy button was clicked")
         }
 
-        val productIdTest = ProductFragmentArgs.fromBundle(requireArguments()).productId
-        println("productId: $productIdTest")
+        val productId = ProductFragmentArgs.fromBundle(
+            requireArguments()
+        ).productId
+
+        val viewModel = activity?.applicationContext?.let { ViewModelFactory(it, this@ProductFragment).createProductViewModel() }
+
+        lifecycle.coroutineScope.launch {
+            viewModel?.getProduct(productId).let {
+                it?.collect { product ->
+                    productImage.setImageResource(product.productUrlImage.toInt())
+                    productName.text = product.productName
+                    productPrice.text = product.productPrice.toString()
+                    productType.text = product.productType
+                    productDescription.text = product.productDescription
+                }
+            }
+        }
+
         return view
     }
 
