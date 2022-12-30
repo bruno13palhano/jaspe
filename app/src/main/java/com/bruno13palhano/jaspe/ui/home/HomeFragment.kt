@@ -44,6 +44,21 @@ class HomeFragment : Fragment() {
 
         var idList: List<Long> = emptyList()
 
+//        lifecycle.coroutineScope.launch {
+//            viewModel?.insertProduct(
+//                Product(
+//                    productName = "Desodorante Antitranspirante",
+//                    productUrlImage = R.drawable.perfume_6.toString(),
+//                    productPrice = 24.90f,
+//                    productType = "Desodorante",
+//                    productDescription = "Roll-On Tododia Leite de Algodão",
+//                    productCompany = "Natura",
+//                    productUrlLink = "https://www.natura.com.br/p/desodorante-antitranspirante-roll-on-tododia-leite-de-algodao-70-ml/69669?consultoria=default&listTitle=search%20results%20list%20showcase%20-%20desodorante%20antitranspirante&position=1",
+//                    productIsFavorite = false
+//                )
+//            )
+//        }
+
         lifecycle.coroutineScope.launch {
             viewModel?.getAllProducts()?.collect {
                 setViews(view, it)
@@ -54,15 +69,17 @@ class HomeFragment : Fragment() {
 
         recyclerView.adapter = adapter
 
-        if (idList.isNotEmpty()) {
-            val grid1 = view.findViewById<GridLayout>(R.id.grid_1)
-            grid1.forEach {
-                it.setOnClickListener { view ->
+        val grid1 = view.findViewById<GridLayout>(R.id.grid_1)
+        grid1.forEach {
+            it.setOnClickListener { view ->
+                try {
                     val action: NavDirections
                     when (view.id) {
                         R.id.offers_card_1 -> {
-                            action = HomeFragmentDirections.actionHomeToProduct(idList[0])
-                            view.findNavController().navigate(action)
+                            idList[0].let {
+                                action = HomeFragmentDirections.actionHomeToProduct(idList[0])
+                                view.findNavController().navigate(action)
+                            }
                         }
                         R.id.offers_card_2 -> {
                             action = HomeFragmentDirections.actionHomeToProduct(idList[1])
@@ -85,12 +102,14 @@ class HomeFragment : Fragment() {
                             view.findNavController().navigate(action)
                         }
                     }
-                }
+                } catch (ignored: IndexOutOfBoundsException) { }
             }
+        }
 
-            val grid2 = view.findViewById<GridLayout>(R.id.grid_2)
-            grid2.forEach {
-                it.setOnClickListener { view ->
+        val grid2 = view.findViewById<GridLayout>(R.id.grid_2)
+        grid2.forEach {
+            it.setOnClickListener { view ->
+                try {
                     val action: NavDirections
                     when (view.id) {
                         R.id.natura_card_1 -> {
@@ -118,12 +137,14 @@ class HomeFragment : Fragment() {
                             view.findNavController().navigate(action)
                         }
                     }
-                }
+                } catch (ignored: IndexOutOfBoundsException) {}
             }
+        }
 
-            val grid3 = view.findViewById<GridLayout>(R.id.grid_3)
-            grid3.forEach {
-                it.setOnClickListener { view ->
+        val grid3 = view.findViewById<GridLayout>(R.id.grid_3)
+        grid3.forEach {
+            it.setOnClickListener { view ->
+                try {
                     val action: NavDirections
                     when (view.id) {
                         R.id.avon_card_1 -> {
@@ -151,7 +172,7 @@ class HomeFragment : Fragment() {
                             view.findNavController().navigate(action)
                         }
                     }
-                }
+                } catch (ignored: IndexOutOfBoundsException) {}
             }
         }
 
@@ -185,13 +206,11 @@ class HomeFragment : Fragment() {
         types: Array<TextView>,
         productList: List<Product>
     ) {
-        if (productList.isNotEmpty()) {
-            for (i in 0..5) {
-                images[i].setImageResource(productList[i].productUrlImage.toInt())
-                names[i].text = productList[i].productName
-                prices[i].text = productList[i].productPrice.toString()
-                types[i].text = productList[i].productType
-            }
+        for (i in productList.indices) {
+            images[i].setImageResource(productList[i].productUrlImage.toInt())
+            names[i].text = productList[i].productName
+            prices[i].text = productList[i].productPrice.toString()
+            types[i].text = productList[i].productType
         }
     }
 

@@ -12,6 +12,7 @@ internal fun convertProductRepToProduct(productRep: ProductRep): Product {
         productType = productRep.productType,
         productDescription = productRep.productDescription,
         productCompany = productRep.productCompany,
+        productUrlLink = productRep.productUrlLink,
         productIsFavorite = productRep.productIsFavorite
     )
 }
@@ -25,6 +26,7 @@ internal fun convertProductToProductRep(product: Product): ProductRep {
         productType = product.productType,
         productDescription = product.productDescription,
         productCompany = product.productCompany,
+        productUrlLink = product.productUrlLink,
         productIsFavorite = product.productIsFavorite
     )
 }

@@ -29,6 +29,9 @@ internal data class ProductRep(
     @ColumnInfo(name = "product_company")
     val productCompany: String,
 
+    @ColumnInfo(name = "product_url_link")
+    val productUrlLink: String,
+
     @ColumnInfo(name = "product_favorite")
     val productIsFavorite: Boolean
 )
