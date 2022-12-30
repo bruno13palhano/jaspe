@@ -20,7 +20,6 @@ import com.bruno13palhano.model.Product
 import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
-    private lateinit var idList: List<Long>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +42,8 @@ class HomeFragment : Fragment() {
             ViewModelFactory(it, this@HomeFragment).createHomeViewModel()
         }
 
+        var idList: List<Long> = emptyList()
+
         lifecycle.coroutineScope.launch {
             viewModel?.getAllProducts()?.collect {
                 setViews(view, it)
@@ -53,100 +54,102 @@ class HomeFragment : Fragment() {
 
         recyclerView.adapter = adapter
 
-        val grid1 = view.findViewById<GridLayout>(R.id.grid_1)
-        grid1.forEach {
-            it.setOnClickListener { view ->
-                val action: NavDirections
-                when (view.id) {
-                    R.id.offers_card_1 -> {
-                        action = HomeFragmentDirections.actionHomeToProduct(idList[0])
-                        view.findNavController().navigate(action)
-                    }
-                    R.id.offers_card_2 -> {
-                        action = HomeFragmentDirections.actionHomeToProduct(idList[1])
-                        view.findNavController().navigate(action)
-                    }
-                    R.id.offers_card_3 -> {
-                        action = HomeFragmentDirections.actionHomeToProduct(idList[2])
-                        view.findNavController().navigate(action)
-                    }
-                    R.id.offers_card_4 -> {
-                        action = HomeFragmentDirections.actionHomeToProduct(idList[3])
-                        view.findNavController().navigate(action)
-                    }
-                    R.id.offers_card_5 -> {
-                        action = HomeFragmentDirections.actionHomeToProduct(idList[4])
-                        view.findNavController().navigate(action)
-                    }
-                    R.id.offers_card_6 -> {
-                        action = HomeFragmentDirections.actionHomeToProduct(idList[5])
-                        view.findNavController().navigate(action)
-                    }
-                }
-            }
-        }
-
-        val grid2 = view.findViewById<GridLayout>(R.id.grid_2)
-        grid2.forEach {
-            it.setOnClickListener { view ->
-                val action: NavDirections
-                when (view.id) {
-                    R.id.natura_card_1 -> {
-                        action = HomeFragmentDirections.actionHomeToProduct(idList[0])
-                        view.findNavController().navigate(action)
-                    }
-                    R.id.natura_card_2 -> {
-                        action = HomeFragmentDirections.actionHomeToProduct(idList[1])
-                        view.findNavController().navigate(action)
-                    }
-                    R.id.natura_card_3 -> {
-                        action = HomeFragmentDirections.actionHomeToProduct(idList[2])
-                        view.findNavController().navigate(action)
-                    }
-                    R.id.natura_card_4 -> {
-                        action = HomeFragmentDirections.actionHomeToProduct(idList[3])
-                        view.findNavController().navigate(action)
-                    }
-                    R.id.natura_card_5 -> {
-                        action = HomeFragmentDirections.actionHomeToProduct(idList[4])
-                        view.findNavController().navigate(action)
-                    }
-                    R.id.natura_card_6 -> {
-                        action = HomeFragmentDirections.actionHomeToProduct(idList[5])
-                        view.findNavController().navigate(action)
+        if (idList.isNotEmpty()) {
+            val grid1 = view.findViewById<GridLayout>(R.id.grid_1)
+            grid1.forEach {
+                it.setOnClickListener { view ->
+                    val action: NavDirections
+                    when (view.id) {
+                        R.id.offers_card_1 -> {
+                            action = HomeFragmentDirections.actionHomeToProduct(idList[0])
+                            view.findNavController().navigate(action)
+                        }
+                        R.id.offers_card_2 -> {
+                            action = HomeFragmentDirections.actionHomeToProduct(idList[1])
+                            view.findNavController().navigate(action)
+                        }
+                        R.id.offers_card_3 -> {
+                            action = HomeFragmentDirections.actionHomeToProduct(idList[2])
+                            view.findNavController().navigate(action)
+                        }
+                        R.id.offers_card_4 -> {
+                            action = HomeFragmentDirections.actionHomeToProduct(idList[3])
+                            view.findNavController().navigate(action)
+                        }
+                        R.id.offers_card_5 -> {
+                            action = HomeFragmentDirections.actionHomeToProduct(idList[4])
+                            view.findNavController().navigate(action)
+                        }
+                        R.id.offers_card_6 -> {
+                            action = HomeFragmentDirections.actionHomeToProduct(idList[5])
+                            view.findNavController().navigate(action)
+                        }
                     }
                 }
             }
-        }
 
-        val grid3 = view.findViewById<GridLayout>(R.id.grid_3)
-        grid3.forEach {
-            it.setOnClickListener { view ->
-                val action: NavDirections
-                when (view.id) {
-                    R.id.avon_card_1 -> {
-                        action = HomeFragmentDirections.actionHomeToProduct(idList[0])
-                        view.findNavController().navigate(action)
+            val grid2 = view.findViewById<GridLayout>(R.id.grid_2)
+            grid2.forEach {
+                it.setOnClickListener { view ->
+                    val action: NavDirections
+                    when (view.id) {
+                        R.id.natura_card_1 -> {
+                            action = HomeFragmentDirections.actionHomeToProduct(idList[0])
+                            view.findNavController().navigate(action)
+                        }
+                        R.id.natura_card_2 -> {
+                            action = HomeFragmentDirections.actionHomeToProduct(idList[1])
+                            view.findNavController().navigate(action)
+                        }
+                        R.id.natura_card_3 -> {
+                            action = HomeFragmentDirections.actionHomeToProduct(idList[2])
+                            view.findNavController().navigate(action)
+                        }
+                        R.id.natura_card_4 -> {
+                            action = HomeFragmentDirections.actionHomeToProduct(idList[3])
+                            view.findNavController().navigate(action)
+                        }
+                        R.id.natura_card_5 -> {
+                            action = HomeFragmentDirections.actionHomeToProduct(idList[4])
+                            view.findNavController().navigate(action)
+                        }
+                        R.id.natura_card_6 -> {
+                            action = HomeFragmentDirections.actionHomeToProduct(idList[5])
+                            view.findNavController().navigate(action)
+                        }
                     }
-                    R.id.avon_card_2 -> {
-                        action = HomeFragmentDirections.actionHomeToProduct(idList[1])
-                        view.findNavController().navigate(action)
-                    }
-                    R.id.avon_card_3 -> {
-                        action = HomeFragmentDirections.actionHomeToProduct(idList[2])
-                        view.findNavController().navigate(action)
-                    }
-                    R.id.avon_card_4 -> {
-                        action = HomeFragmentDirections.actionHomeToProduct(idList[3])
-                        view.findNavController().navigate(action)
-                    }
-                    R.id.avon_card_5 -> {
-                        action = HomeFragmentDirections.actionHomeToProduct(idList[4])
-                        view.findNavController().navigate(action)
-                    }
-                    R.id.avon_card_6 -> {
-                        action = HomeFragmentDirections.actionHomeToProduct(idList[5])
-                        view.findNavController().navigate(action)
+                }
+            }
+
+            val grid3 = view.findViewById<GridLayout>(R.id.grid_3)
+            grid3.forEach {
+                it.setOnClickListener { view ->
+                    val action: NavDirections
+                    when (view.id) {
+                        R.id.avon_card_1 -> {
+                            action = HomeFragmentDirections.actionHomeToProduct(idList[0])
+                            view.findNavController().navigate(action)
+                        }
+                        R.id.avon_card_2 -> {
+                            action = HomeFragmentDirections.actionHomeToProduct(idList[1])
+                            view.findNavController().navigate(action)
+                        }
+                        R.id.avon_card_3 -> {
+                            action = HomeFragmentDirections.actionHomeToProduct(idList[2])
+                            view.findNavController().navigate(action)
+                        }
+                        R.id.avon_card_4 -> {
+                            action = HomeFragmentDirections.actionHomeToProduct(idList[3])
+                            view.findNavController().navigate(action)
+                        }
+                        R.id.avon_card_5 -> {
+                            action = HomeFragmentDirections.actionHomeToProduct(idList[4])
+                            view.findNavController().navigate(action)
+                        }
+                        R.id.avon_card_6 -> {
+                            action = HomeFragmentDirections.actionHomeToProduct(idList[5])
+                            view.findNavController().navigate(action)
+                        }
                     }
                 }
             }
@@ -182,11 +185,13 @@ class HomeFragment : Fragment() {
         types: Array<TextView>,
         productList: List<Product>
     ) {
-        for (i in 0..5) {
-            images[i].setImageResource(productList[i].productUrlImage.toInt())
-            names[i].text = productList[i].productName
-            prices[i].text = productList[i].productPrice.toString()
-            types[i].text = productList[i].productType
+        if (productList.isNotEmpty()) {
+            for (i in 0..5) {
+                images[i].setImageResource(productList[i].productUrlImage.toInt())
+                names[i].text = productList[i].productName
+                prices[i].text = productList[i].productPrice.toString()
+                types[i].text = productList[i].productType
+            }
         }
     }
 
@@ -216,7 +221,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun getNamesView(view: View): Array<TextView> {
-        return arrayOf<TextView>(
+        return arrayOf(
             view.findViewById(R.id.offers_product_name_1),
             view.findViewById(R.id.offers_product_name_2),
             view.findViewById(R.id.offers_product_name_3),
@@ -241,7 +246,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun getPricesView(view: View): Array<TextView> {
-        return arrayOf<TextView>(
+        return arrayOf(
             view.findViewById(R.id.offers_product_price_1),
             view.findViewById(R.id.offers_product_price_2),
             view.findViewById(R.id.offers_product_price_3),
