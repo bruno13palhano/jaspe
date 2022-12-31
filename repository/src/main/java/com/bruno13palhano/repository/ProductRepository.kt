@@ -9,5 +9,6 @@ interface ProductRepository {
     suspend fun deleteProduct(product: Product)
     fun get(productId: Long): Flow<Product>
     fun getAll(): Flow<List<Product>>
+    fun getAllFavorites(): Flow<List<Product>>
     fun getByCompany(productCompany: String, offset: Int, limit: Int): Flow<List<Product>>
 }
