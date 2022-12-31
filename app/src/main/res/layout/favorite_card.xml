@@ -4,6 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginHorizontal="8dp"
+    android:layout_marginVertical="4dp"
     android:clickable="true"
     android:focusable="true"
     android:foreground="?android:attr/selectableItemBackground"
@@ -34,7 +36,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="64dp"
-                android:text="@string/product_name_label"
                 android:gravity="bottom"
                 android:textSize="16sp"
                 android:textStyle="bold"/>
@@ -43,7 +44,6 @@
                 android:id="@+id/product_type"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/product_type_label"
                 android:minHeight="56dp"
                 android:textStyle="italic" />
 
@@ -52,7 +52,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:text="$56"
                 android:textStyle="bold"
                 android:textSize="24sp"
                 android:gravity="top" />
