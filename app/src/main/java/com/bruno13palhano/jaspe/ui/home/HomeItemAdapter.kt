@@ -13,8 +13,7 @@ import com.bruno13palhano.model.Product
 
 class HomeItemAdapter(
     private val onClick: (Long) -> Unit
-) :
-    ListAdapter<Product, HomeItemAdapter.HomeItemViewHolder>(HomeDiffCallback()) {
+) : ListAdapter<Product, HomeItemAdapter.HomeItemViewHolder>(HomeDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeItemViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -31,8 +30,10 @@ class HomeItemAdapter(
         return currentList.size
     }
 
-    class HomeItemViewHolder(rootView: CardView, val onClick: (Long) -> Unit)
-                    : RecyclerView.ViewHolder(rootView) {
+    class HomeItemViewHolder(
+        rootView: CardView,
+        val onClick: (Long) -> Unit
+    ) : RecyclerView.ViewHolder(rootView) {
         private val productName: TextView = rootView.findViewById(R.id.product_name)
         private val productPrice: TextView = rootView.findViewById(R.id.product_price)
         private val productType: TextView = rootView.findViewById(R.id.product_type)
