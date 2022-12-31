@@ -10,7 +10,12 @@
         android:id="@+id/homeFragment"
         android:name="com.bruno13palhano.jaspe.ui.home.HomeFragment"
         android:label="@string/app_name"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home">
+
+        <action
+            android:id="@+id/action_home_to_product"
+            app:destination="@id/productFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/searchFragment"
@@ -26,7 +31,7 @@
 
     <fragment
         android:id="@+id/favoritesFragment"
-        android:name="com.bruno13palhano.jaspe.ui.FavoritesFragment"
+        android:name="com.bruno13palhano.jaspe.ui.favorite.FavoritesFragment"
         android:label="@string/favorite_label"
         tools:layout="@layout/fragment_favorites" />
 
@@ -41,5 +46,16 @@
         android:name="com.bruno13palhano.jaspe.ui.HelpFragment"
         android:label="@string/help_label"
         tools:layout="@layout/fragment_help" />
+
+    <fragment
+        android:id="@+id/productFragment"
+        android:name="com.bruno13palhano.jaspe.ui.product.ProductFragment"
+        android:label=""
+        tools:layout="@layout/fragment_product">
+        <argument
+            android:name="productId"
+            app:argType="long" />
+
+    </fragment>
 
 </navigation>

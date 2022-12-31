@@ -1,4 +1,4 @@
-package com.bruno13palhano.jaspe.ui
+package com.bruno13palhano.jaspe.ui.favorite
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
