@@ -33,7 +33,12 @@
         android:id="@+id/favoritesFragment"
         android:name="com.bruno13palhano.jaspe.ui.favorite.FavoritesFragment"
         android:label="@string/favorite_label"
-        tools:layout="@layout/fragment_favorites" />
+        tools:layout="@layout/fragment_favorites" >
+
+        <action
+            android:id="@+id/action_favorite_to_product"
+            app:destination="@id/productFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/accountFragment"
