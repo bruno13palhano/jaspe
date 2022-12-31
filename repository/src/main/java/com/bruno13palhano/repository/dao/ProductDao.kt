@@ -20,7 +20,7 @@ internal interface ProductDao {
     @Delete
     suspend fun delete(product: ProductRep)
 
-    @Query("SELECT * FROM product_table WHERE product_id = :productId")
+    @Query("DELETE FROM product_table WHERE product_id = :productId")
     suspend fun deleteById(productId: Long)
 
     @Query("SELECT * FROM product_table WHERE product_id = :productId")
