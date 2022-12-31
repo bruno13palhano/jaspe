@@ -24,4 +24,8 @@ class HomeViewModel(
     fun getAllProducts(): Flow<List<Product>> {
         return productRepository.getAll()
     }
+
+    suspend fun deleteProductById(productId: Long) {
+        productRepository.deleteProductById(productId)
+    }
 }
