@@ -22,6 +22,9 @@ internal class ProductRepositoryImpl(
         dao.delete(convertProductToProductRep(product))
     }
 
+    override suspend fun deleteProductById(productId: Long) {
+        dao.deleteById(productId)
+    }
     override fun get(productId: Long): Flow<Product> {
         return dao.get(productId).map {
             convertProductRepToProduct(it)
