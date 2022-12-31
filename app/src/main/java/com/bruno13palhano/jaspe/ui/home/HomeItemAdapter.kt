@@ -11,7 +11,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bruno13palhano.jaspe.R
 import com.bruno13palhano.model.Product
 
-class HomeItemAdapter(private val onClick: (Long) -> Unit) :
+class HomeItemAdapter(
+    private val onClick: (Long) -> Unit
+) :
     ListAdapter<Product, HomeItemAdapter.HomeItemViewHolder>(HomeDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeItemViewHolder {
