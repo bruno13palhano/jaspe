@@ -8,6 +8,13 @@
     android:orientation="vertical"
     tools:context=".ui.favorite.FavoritesFragment">
 
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar_favorites"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        style="@style/Widget.MaterialComponents.Toolbar.Primary"
+        android:elevation="8dp"
+        android:background="?colorPrimary"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/favorite_list"
