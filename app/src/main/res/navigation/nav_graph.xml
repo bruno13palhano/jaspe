@@ -14,7 +14,11 @@
 
         <action
             android:id="@+id/action_home_to_product"
-            app:destination="@id/productFragment" />
+            app:destination="@id/productFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
     </fragment>
 
     <fragment
@@ -37,7 +41,11 @@
 
         <action
             android:id="@+id/action_favorite_to_product"
-            app:destination="@id/productFragment" />
+            app:destination="@id/productFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
     </fragment>
 
     <fragment
@@ -55,7 +63,7 @@
     <fragment
         android:id="@+id/productFragment"
         android:name="com.bruno13palhano.jaspe.ui.product.ProductFragment"
-        android:label=""
+        android:label="Product"
         tools:layout="@layout/fragment_product">
         <argument
             android:name="productId"
