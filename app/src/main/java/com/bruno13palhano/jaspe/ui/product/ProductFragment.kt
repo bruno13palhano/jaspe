@@ -134,7 +134,7 @@ class ProductFragment : Fragment() {
         }
 
         toolbar.setNavigationOnClickListener {
-            it.findNavController().navigate(R.id.homeFragment)
+            it.findNavController().navigateUp()
         }
     }
 

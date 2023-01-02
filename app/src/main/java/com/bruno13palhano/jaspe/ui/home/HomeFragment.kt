@@ -47,13 +47,13 @@ class HomeFragment : Fragment() {
 //        lifecycle.coroutineScope.launch {
 //            viewModel?.insertProduct(
 //                Product(
-//                    productName = "Desodorante Antitranspirante",
+//                    productName = "Desodorante",
 //                    productUrlImage = R.drawable.perfume_6.toString(),
 //                    productPrice = 24.90f,
-//                    productType = "Desodorante",
+//                    productType = "Desodorante Antitranspirante",
 //                    productDescription = "Roll-On Tododia Leite de Algodão",
 //                    productCompany = "Natura",
-//                    productUrlLink = "https://www.natura.com.br/p/desodorante-antitranspirante-roll-on-tododia-leite-de-algodao-70-ml/69669?consultoria=default&listTitle=search%20results%20list%20showcase%20-%20desodorante%20antitranspirante&position=1",
+//                    productUrlLink = "https://www.natura.com.br/p/desodorante-antitranspirante-roll-on-tododia-leite-de-algodao-70-ml/69669?consultoria=default&listTitle=search%20results%20list%20showcase%20-%20desodorante%20antitranspirante&position=3",
 //                    productIsFavorite = false
 //                )
 //            )
@@ -76,10 +76,8 @@ class HomeFragment : Fragment() {
                     val action: NavDirections
                     when (view.id) {
                         R.id.offers_card_1 -> {
-                            idList[0].let {
-                                action = HomeFragmentDirections.actionHomeToProduct(idList[0])
-                                view.findNavController().navigate(action)
-                            }
+                            action = HomeFragmentDirections.actionHomeToProduct(idList[0])
+                            view.findNavController().navigate(action)
                         }
                         R.id.offers_card_2 -> {
                             action = HomeFragmentDirections.actionHomeToProduct(idList[1])

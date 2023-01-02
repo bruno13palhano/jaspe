@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
@@ -35,6 +36,79 @@ class MainActivity : AppCompatActivity() {
         toolbar.setupWithNavController(navController, appBarConfiguration)
         val navView = findViewById<NavigationView>(R.id.nav_view)
         NavigationUI.setupWithNavController(navView, navController)
+
+        navView.setNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.homeFragment -> {
+                    if (item.isChecked) {
+                        drawer.closeDrawer(GravityCompat.START)
+                    } else {
+                        navController.apply {
+                            popBackStack(R.id.nav_graph, inclusive = false, saveState = true)
+                            navigate(R.id.homeFragment)
+                        }
+                    }
+                }
+
+                R.id.searchFragment -> {
+                    if (item.isChecked) {
+                        drawer.closeDrawer(GravityCompat.START)
+                    } else {
+                        navController.apply {
+                            popBackStack(R.id.homeFragment, inclusive = false, saveState = true)
+                            navigate(R.id.searchFragment)
+                        }
+                    }
+                }
+
+                R.id.offersFragment -> {
+                    if (item.isChecked) {
+                        drawer.closeDrawer(GravityCompat.START)
+                    } else {
+                        navController.apply {
+                            popBackStack(R.id.homeFragment, inclusive = false, saveState = true)
+                            navigate(R.id.offersFragment)
+                        }
+                    }
+                }
+
+                R.id.favoritesFragment -> {
+                    if (item.isChecked) {
+                        drawer.closeDrawer(GravityCompat.START)
+                    } else {
+                        navController.apply {
+                            popBackStack(R.id.homeFragment, inclusive = false, saveState = true)
+                            navigate(R.id.favoritesFragment)
+                        }
+                    }
+                }
+
+                R.id.accountFragment -> {
+                    if (item.isChecked) {
+                        drawer.closeDrawer(GravityCompat.START)
+                    } else {
+                        navController.apply {
+                            popBackStack(R.id.homeFragment, inclusive = false, saveState = true)
+                            navigate(R.id.accountFragment)
+                        }
+                    }
+                }
+
+                R.id.helpFragment -> {
+                    if (item.isChecked) {
+                        drawer.closeDrawer(GravityCompat.START)
+                    } else {
+                        navController.apply {
+                            popBackStack(R.id.homeFragment, inclusive = false, saveState = true)
+                            navigate(R.id.helpFragment)
+                        }
+                    }
+                }
+            }
+
+            drawer.closeDrawer(GravityCompat.START)
+            true
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
