@@ -5,7 +5,7 @@
 
     <item
         android:id="@+id/helpFragment"
-        android:icon="@android:drawable/ic_menu_help"
+        android:icon="@drawable/ic_baseline_more_vert_24"
         android:title="@string/help_label"
         app:showAsAction="always" />
 </menu>
