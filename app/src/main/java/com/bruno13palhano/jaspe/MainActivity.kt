@@ -6,6 +6,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -14,6 +15,8 @@ import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.navigation.NavigationView
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,75 +41,82 @@ class MainActivity : AppCompatActivity() {
         NavigationUI.setupWithNavController(navView, navController)
 
         navView.setNavigationItemSelectedListener { item ->
+            drawer.closeDrawer(GravityCompat.START)
+
             when (item.itemId) {
                 R.id.homeFragment -> {
-                    if (item.isChecked) {
-                        drawer.closeDrawer(GravityCompat.START)
-                    } else {
-                        navController.apply {
-                            popBackStack(R.id.nav_graph, inclusive = false, saveState = true)
-                            navigate(R.id.homeFragment)
+                    if (!item.isChecked) {
+                        lifecycleScope.launch {
+                            delay(270L)
+                            navController.apply {
+                                popBackStack(R.id.nav_graph, inclusive = false, saveState = false)
+                                navigate(R.id.homeFragment)
+                            }
                         }
                     }
                 }
 
                 R.id.searchFragment -> {
-                    if (item.isChecked) {
-                        drawer.closeDrawer(GravityCompat.START)
-                    } else {
-                        navController.apply {
-                            popBackStack(R.id.homeFragment, inclusive = false, saveState = true)
-                            navigate(R.id.searchFragment)
+                    if (!item.isChecked) {
+                        lifecycleScope.launch {
+                            delay(270L)
+                            navController.apply {
+                                popBackStack(R.id.homeFragment, inclusive = false, saveState = true)
+                                navigate(R.id.searchFragment)
+                            }
                         }
                     }
                 }
 
                 R.id.offersFragment -> {
-                    if (item.isChecked) {
-                        drawer.closeDrawer(GravityCompat.START)
-                    } else {
-                        navController.apply {
-                            popBackStack(R.id.homeFragment, inclusive = false, saveState = true)
-                            navigate(R.id.offersFragment)
+                    if (!item.isChecked) {
+                        lifecycleScope.launch {
+                            delay(270L)
+                            navController.apply {
+                                popBackStack(R.id.homeFragment, inclusive = false, saveState = true)
+                                navigate(R.id.offersFragment)
+                            }
                         }
                     }
                 }
 
                 R.id.favoritesFragment -> {
-                    if (item.isChecked) {
-                        drawer.closeDrawer(GravityCompat.START)
-                    } else {
-                        navController.apply {
-                            popBackStack(R.id.homeFragment, inclusive = false, saveState = true)
-                            navigate(R.id.favoritesFragment)
+                    if (!item.isChecked) {
+                        lifecycleScope.launch {
+                            delay(270L)
+                            navController.apply {
+                                popBackStack(R.id.homeFragment, inclusive = false, saveState = true)
+                                navigate(R.id.favoritesFragment)
+                            }
                         }
                     }
                 }
 
                 R.id.accountFragment -> {
-                    if (item.isChecked) {
-                        drawer.closeDrawer(GravityCompat.START)
-                    } else {
-                        navController.apply {
-                            popBackStack(R.id.homeFragment, inclusive = false, saveState = true)
-                            navigate(R.id.accountFragment)
+                    if (!item.isChecked) {
+                        lifecycleScope.launch {
+                            delay(270L)
+                            navController.apply {
+                                popBackStack(R.id.homeFragment, inclusive = false, saveState = true)
+                                navigate(R.id.accountFragment)
+                            }
                         }
                     }
                 }
 
                 R.id.helpFragment -> {
-                    if (item.isChecked) {
-                        drawer.closeDrawer(GravityCompat.START)
-                    } else {
-                        navController.apply {
-                            popBackStack(R.id.homeFragment, inclusive = false, saveState = true)
-                            navigate(R.id.helpFragment)
+                    if (!item.isChecked) {
+                        lifecycleScope.launch {
+                            delay(270L)
+                            navController.apply {
+                                popBackStack(R.id.homeFragment, inclusive = false, saveState = true)
+                                navigate(R.id.helpFragment)
+                            }
                         }
                     }
                 }
             }
 
-            drawer.closeDrawer(GravityCompat.START)
             true
         }
     }
