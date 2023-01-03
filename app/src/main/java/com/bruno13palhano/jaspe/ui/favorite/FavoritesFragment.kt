@@ -51,7 +51,8 @@ class FavoritesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val toolbar = view.findViewById<MaterialToolbar>(R.id.toolbar_favorites)
         toolbar.inflateMenu(R.menu.menu_toolbar_favorites)
-        toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_ios_24)
+        toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24)
+        toolbar.title = getString(R.string.favorite_label)
 
         toolbar.setNavigationOnClickListener {
             findNavController().navigateUp()

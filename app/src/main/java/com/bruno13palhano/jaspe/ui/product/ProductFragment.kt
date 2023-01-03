@@ -77,7 +77,7 @@ class ProductFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val toolbar = view.findViewById<MaterialToolbar>(R.id.toolbar_product)
         toolbar.inflateMenu(R.menu.menu_toolbar_product)
-        toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_ios_24)
+        toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24)
 
         val viewModel = activity?.applicationContext?.let {
             ViewModelFactory(it, this@ProductFragment).createProductViewModel()
