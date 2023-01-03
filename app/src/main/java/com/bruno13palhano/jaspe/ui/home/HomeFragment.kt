@@ -5,26 +5,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.GridLayout
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.core.view.forEach
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.coroutineScope
-import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bruno13palhano.jaspe.MainActivity
 import com.bruno13palhano.jaspe.R
 import com.bruno13palhano.jaspe.ui.ViewModelFactory
-import com.bruno13palhano.model.Product
+import com.google.android.material.appbar.MaterialToolbar
 import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        (activity as MainActivity).supportActionBar?.show()
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -92,8 +83,15 @@ class HomeFragment : Fragment() {
         return view
     }
 
-    override fun onResume() {
-        super.onResume()
-        (activity as MainActivity).supportActionBar?.show()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val toolbar = view.findViewById<MaterialToolbar>(R.id.toolbar)
+        toolbar.inflateMenu(R.menu.menu_toolbar)
+        toolbar.setNavigationIcon(R.drawable.ic_baseline_menu_24)
+
+        toolbar.setNavigationOnClickListener {
+            val drawer = ((activity as MainActivity)).findViewById<DrawerLayout>(R.id.drawer_layout)
+            drawer.open()
+        }
     }
 }
