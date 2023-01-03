@@ -23,9 +23,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val toolbar = findViewById<MaterialToolbar>(R.id.toolbar)
-        setSupportActionBar(toolbar)
-
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
@@ -34,9 +31,7 @@ class MainActivity : AppCompatActivity() {
 
         val builder = AppBarConfiguration.Builder(navController.graph)
         builder.setOpenableLayout(drawer)
-        val appBarConfiguration = builder.build()
 
-        toolbar.setupWithNavController(navController, appBarConfiguration)
         val navView = findViewById<NavigationView>(R.id.nav_view)
         NavigationUI.setupWithNavController(navView, navController)
 
