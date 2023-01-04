@@ -23,11 +23,6 @@ import kotlinx.coroutines.launch
 class ProductFragment : Fragment() {
     private var productId: Long = 0L
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        (activity as MainActivity).supportActionBar?.hide()
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -63,7 +58,7 @@ class ProductFragment : Fragment() {
                 it?.collect { product ->
                     productImage.setImageResource(product.productUrlImage.toInt())
                     productName.text = product.productName
-                    productPrice.text = product.productPrice.toString()
+                    productPrice.text = getString(R.string.product_price_label, product.productPrice)
                     productType.text = product.productType
                     productDescription.text = product.productDescription
                     url = product.productUrlLink
@@ -137,10 +132,5 @@ class ProductFragment : Fragment() {
         toolbar.setNavigationOnClickListener {
             it.findNavController().navigateUp()
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        (activity as MainActivity).supportActionBar?.hide()
     }
 }

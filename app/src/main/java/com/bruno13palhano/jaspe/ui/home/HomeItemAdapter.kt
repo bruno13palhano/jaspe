@@ -26,10 +26,6 @@ class HomeItemAdapter(
         holder.bind(item)
     }
 
-    override fun getItemCount(): Int {
-        return currentList.size
-    }
-
     class HomeItemViewHolder(
         rootView: CardView,
         val onClick: (Long) -> Unit
@@ -52,7 +48,7 @@ class HomeItemAdapter(
         fun bind(item: Product) {
             currentProduct = item
             productName.text = item.productName
-            productPrice.text = item.productPrice.toString()
+            productPrice.text = itemView.resources.getString(R.string.product_price_label, item.productPrice)
             productType.text = item.productType
             productImage.setImageResource(item.productUrlImage.toInt())
         }

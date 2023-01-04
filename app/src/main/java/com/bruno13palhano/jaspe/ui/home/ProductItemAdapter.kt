@@ -48,7 +48,7 @@ class ProductItemAdapter(
             currentProduct = item
             productImage.setImageResource(item.productUrlImage.toInt())
             productName.text = item.productName
-            productPrice.text = item.productPrice.toString()
+            productPrice.text = itemView.resources.getString(R.string.product_price_label, item.productPrice)
         }
     }
 
