@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bruno13palhano.jaspe.MainActivity
 import com.bruno13palhano.jaspe.R
 import com.bruno13palhano.jaspe.ui.ViewModelFactory
+import com.bruno13palhano.model.Product
 import com.google.android.material.appbar.MaterialToolbar
 import kotlinx.coroutines.launch
 
@@ -52,15 +53,16 @@ class HomeFragment : Fragment() {
         }
 
 //        lifecycle.coroutineScope.launch {
-//            viewModel?.insertProduct(
+//            viewModel?.updateProduct(
 //                Product(
-//                    productName = "Desodorante",
-//                    productUrlImage = R.drawable.perfume_6.toString(),
-//                    productPrice = 24.90f,
-//                    productType = "Desodorante Antitranspirante",
-//                    productDescription = "Roll-On Tododia Leite de Algodão",
+//                    productId = 5,
+//                    productName = "Luna Intenso",
+//                    productUrlImage = R.drawable.perfume_5.toString(),
+//                    productPrice = 174.90f,
+//                    productType = "Perfume Feminino",
+//                    productDescription = "Deo Parfum",
 //                    productCompany = "Natura",
-//                    productUrlLink = "https://www.natura.com.br/p/desodorante-antitranspirante-roll-on-tododia-leite-de-algodao-70-ml/69669?consultoria=default&listTitle=search%20results%20list%20showcase%20-%20desodorante%20antitranspirante&position=3",
+//                    productUrlLink = "https://www.natura.com.br/p/luna-intenso-deo-parfum-50-ml/86935?consultoria=default&listTitle=search%20results%20list%20showcase%20-%20luna&position=3",
 //                    productIsFavorite = false
 //                )
 //            )
@@ -88,6 +90,7 @@ class HomeFragment : Fragment() {
         val toolbar = view.findViewById<MaterialToolbar>(R.id.toolbar)
         toolbar.inflateMenu(R.menu.menu_toolbar)
         toolbar.setNavigationIcon(R.drawable.ic_baseline_menu_24)
+        toolbar.title = getString(R.string.app_name)
 
         toolbar.setNavigationOnClickListener {
             val drawer = ((activity as MainActivity)).findViewById<DrawerLayout>(R.id.drawer_layout)
