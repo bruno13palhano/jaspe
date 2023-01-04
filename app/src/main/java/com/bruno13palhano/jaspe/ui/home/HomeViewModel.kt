@@ -25,6 +25,18 @@ class HomeViewModel(
         return productRepository.getAll()
     }
 
+    fun getAmazonProducts(): Flow<List<Product>> {
+        return productRepository.getByCompany("Amazon", 0, 6)
+    }
+
+    fun getNaturaProducts(): Flow<List<Product>> {
+        return productRepository.getByCompany("Natura", 0, 6)
+    }
+
+    fun getAvonProducts(): Flow<List<Product>> {
+        return productRepository.getByCompany("Avon", 0, 6)
+    }
+
     suspend fun deleteProductById(productId: Long) {
         productRepository.deleteProductById(productId)
     }
