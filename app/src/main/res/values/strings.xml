@@ -11,7 +11,7 @@
 
     <!-- product labels   -->
     <string name="product_name_label">Product name</string>
-    <string name="product_price_label">$123.56</string>
+    <string name="product_price_label">\$%1$.2f</string>
     <string name="product_type_label">Product type</string>
     <string name="product_description_label">Product description</string>
     <string name="offers_of_the_day_label">Offers of the Day</string>
