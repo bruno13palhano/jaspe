@@ -14,6 +14,9 @@ internal interface ProductDao {
     @Insert
     suspend fun insert(product: ProductRep)
 
+    @Insert
+    suspend fun insertAll(productList: List<ProductRep>)
+
     @Update
     suspend fun update(product: ProductRep)
 
