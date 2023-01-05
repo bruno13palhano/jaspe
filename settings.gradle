@@ -16,3 +16,4 @@ rootProject.name = "Jaspe"
 include ':app'
 include ':repository'
 include ':app:model'
+include ':network'

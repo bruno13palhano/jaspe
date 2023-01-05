@@ -1,12 +1,13 @@
 package com.bruno13palhano.jaspe.ui.home
 
-import android.os.Bundle
+import  android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.coroutineScope
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bruno13palhano.jaspe.MainActivity
@@ -14,6 +15,7 @@ import com.bruno13palhano.jaspe.R
 import com.bruno13palhano.jaspe.ui.ViewModelFactory
 import com.bruno13palhano.model.Product
 import com.google.android.material.appbar.MaterialToolbar
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
@@ -53,26 +55,52 @@ class HomeFragment : Fragment() {
         }
 
 //        lifecycle.coroutineScope.launch {
-//            viewModel?.updateProduct(
+//            viewModel?.insertProduct(
 //                Product(
-//                    productId = 5,
-//                    productName = "Luna Intenso",
-//                    productUrlImage = R.drawable.perfume_5.toString(),
-//                    productPrice = 174.90f,
-//                    productType = "Perfume Feminino",
-//                    productDescription = "Deo Parfum",
-//                    productCompany = "Natura",
-//                    productUrlLink = "https://www.natura.com.br/p/luna-intenso-deo-parfum-50-ml/86935?consultoria=default&listTitle=search%20results%20list%20showcase%20-%20luna&position=3",
+//                    productName = "Musk",
+//                    productUrlImage = R.drawable.avon_6.toString(),
+//                    productPrice = 59.90f,
+//                    productType = "Perfume Masculino",
+//                    productDescription = "Musk+ Marine Deo Colônia - 75ml",
+//                    productCompany = "Avon",
+//                    productUrlLink = "https://www.avon.com.br/1394447-deo-colonia-musk--marine---75ml/p?sci=138493979&scn=product%2520products_mais_opcoes&scpi=138493979&rec_id=63b54cd473686f0010017f04#2625610158693000340",
 //                    productIsFavorite = false
 //                )
 //            )
 //        }
+        // TODO: implementar as queries por companhia e colocar os mocks dados delas
+
+        lifecycle.coroutineScope.launch {
+            viewModel?.getAmazonProducts(listOf<Int>(1,2))?.collect {
+                it.forEach { product ->
+                    println("nome do prodcuto: ${product.productName}")
+                }
+            }
+        }
 
         lifecycle.coroutineScope.launch {
             viewModel?.getAllProducts()?.collect {
                 adapter.submitList(it)
+//                amazonAdapter.submitList(it)
+//                naturaAdapter.submitList(it)
+//                avonAdapter.submitList(it)
+            }
+        }
+
+        lifecycleScope.launch {
+            viewModel?.getAmazonProducts()?.collect {
                 amazonAdapter.submitList(it)
+            }
+        }
+
+        lifecycleScope.launch {
+            viewModel?.getNaturaProducts()?.collect {
                 naturaAdapter.submitList(it)
+            }
+        }
+
+        lifecycleScope.launch {
+            viewModel?.getAvonProducts()?.collect {
                 avonAdapter.submitList(it)
             }
         }
@@ -90,7 +118,6 @@ class HomeFragment : Fragment() {
         val toolbar = view.findViewById<MaterialToolbar>(R.id.toolbar)
         toolbar.inflateMenu(R.menu.menu_toolbar)
         toolbar.setNavigationIcon(R.drawable.ic_baseline_menu_24)
-        toolbar.title = getString(R.string.app_name)
 
         toolbar.setNavigationOnClickListener {
             val drawer = ((activity as MainActivity)).findViewById<DrawerLayout>(R.id.drawer_layout)

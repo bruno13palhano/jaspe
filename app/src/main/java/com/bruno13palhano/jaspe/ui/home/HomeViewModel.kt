@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.bruno13palhano.model.Product
 import com.bruno13palhano.repository.ProductRepository
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
 
 class HomeViewModel(
     private val productRepository: ProductRepository
@@ -39,5 +40,13 @@ class HomeViewModel(
 
     suspend fun deleteProductById(productId: Long) {
         productRepository.deleteProductById(productId)
+    }
+
+    suspend fun getProductById(productId: Long): Flow<Product> {
+        return productRepository.getProductById(productId)
+    }
+
+    suspend fun getAmazonProducts(params: List<Int>): Flow<List<Product>> {
+        return productRepository.getNaturaProducts(params)
     }
 }

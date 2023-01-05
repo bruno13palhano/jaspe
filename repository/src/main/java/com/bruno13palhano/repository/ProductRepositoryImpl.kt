@@ -4,11 +4,13 @@ import com.bruno13palhano.model.Product
 import com.bruno13palhano.repository.dao.ProductDao
 import com.bruno13palhano.repository.util.convertProductRepToProduct
 import com.bruno13palhano.repository.util.convertProductToProductRep
+import com.example.network.service.ProductNetwork
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 internal class ProductRepositoryImpl(
-    private val dao: ProductDao
+    private val dao: ProductDao,
+    private val network: ProductNetwork
 ) : ProductRepository {
     override suspend fun insertProduct(product: Product) {
         dao.insert(convertProductToProductRep(product))
@@ -58,5 +60,13 @@ internal class ProductRepositoryImpl(
                     convertProductRepToProduct(productRep)
                 }
             }
+    }
+
+    override suspend fun getProductById(productId: Long): Flow<Product> {
+        return network.getProductById(productId)
+    }
+
+    override suspend fun getNaturaProducts(params: List<Int>): Flow<List<Product>> {
+        return network.getProducts(params)
     }
 }
