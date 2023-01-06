@@ -5,7 +5,7 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
-internal class ProductApiService {
+internal class ApiService {
 
     object ProductApi {
         private val BASE_URL = "http://10.0.0.109:8080"
@@ -19,6 +19,6 @@ internal class ProductApiService {
             .baseUrl(BASE_URL)
             .build()
 
-        val productApiService: ProductService by lazy { retrofit.create(ProductService::class.java) }
+        val productApiService: Service by lazy { retrofit.create(Service::class.java) }
     }
 }

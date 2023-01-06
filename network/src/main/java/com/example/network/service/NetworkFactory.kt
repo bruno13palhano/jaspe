@@ -1,6 +1,6 @@
 package com.example.network.service
 
-class ProductNetworkFactory {
+class NetworkFactory {
 
     fun createProductNetWork(): ProductNetwork {
         return ProductNetworkImpl()

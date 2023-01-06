@@ -4,7 +4,7 @@ import com.example.network.ProductNet
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-internal interface ProductService {
+internal interface Service {
 
     @GET("products")
     suspend fun getProducts(

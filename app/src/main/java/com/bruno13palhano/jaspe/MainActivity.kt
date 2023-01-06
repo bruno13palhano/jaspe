@@ -13,7 +13,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.onNavDestinationSelected
 import com.bruno13palhano.repository.ProductRepositoryFactory
-import com.example.network.service.ProductNetworkFactory
+import com.example.network.service.NetworkFactory
 import com.google.android.material.navigation.NavigationView
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -25,32 +25,14 @@ class MainActivity : AppCompatActivity() {
 
         //substituir por um work
         val repository = ProductRepositoryFactory(this).createProductRepository()
-        val network = ProductNetworkFactory().createProductNetWork()
+        val network = NetworkFactory().createProductNetWork()
         lifecycleScope.launch {
-            network.getProducts(listOf(0,10)).collect {
+            network.getProducts(listOf(0,18)).collect {
                 try {
                     repository.insertProducts(it)
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
-            }
-        }
-
-        lifecycleScope.launch {
-            network.getAmazonProducts().collect {
-                it.forEach { product ->  println("Amazon: ${product.productName}") }
-            }
-        }
-
-        lifecycleScope.launch {
-            network.getNaturaProducts().collect {
-                it.forEach { product ->  println("Natura: ${product.productName}") }
-            }
-        }
-
-        lifecycleScope.launch {
-            network.getAvonProducts().collect {
-                it.forEach { product ->  println("Avon: ${product.productName}") }
             }
         }
 

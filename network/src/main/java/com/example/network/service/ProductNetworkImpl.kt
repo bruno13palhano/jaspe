@@ -9,7 +9,7 @@ internal class ProductNetworkImpl : ProductNetwork {
 
     override suspend fun getProducts(params: List<Int>): Flow<List<Product>> = flow {
         try {
-            emit(ProductApiService.ProductApi.productApiService.getProducts(params).map {
+            emit(ApiService.ProductApi.productApiService.getProducts(params).map {
                 convertProductNetToProduct(it)
             })
         } catch (e: Exception) {
@@ -22,7 +22,7 @@ internal class ProductNetworkImpl : ProductNetwork {
         try {
             emit(
                 convertProductNetToProduct(
-                    ProductApiService.ProductApi.productApiService.getProductById(
+                    ApiService.ProductApi.productApiService.getProductById(
                         productId
                     )
                 )
@@ -35,7 +35,7 @@ internal class ProductNetworkImpl : ProductNetwork {
     override suspend fun getAmazonProducts(): Flow<List<Product>> = flow {
         try {
             emit(
-                ProductApiService.ProductApi.productApiService.getAmazonProducts().map {
+                ApiService.ProductApi.productApiService.getAmazonProducts().map {
                     convertProductNetToProduct(it)
                 }
             )
@@ -47,7 +47,7 @@ internal class ProductNetworkImpl : ProductNetwork {
     override suspend fun getNaturaProducts(): Flow<List<Product>> = flow {
         try {
             emit(
-                ProductApiService.ProductApi.productApiService.getNaturaProducts().map {
+                ApiService.ProductApi.productApiService.getNaturaProducts().map {
                     convertProductNetToProduct(it)
                 }
             )
@@ -59,7 +59,7 @@ internal class ProductNetworkImpl : ProductNetwork {
     override suspend fun getAvonProducts(): Flow<List<Product>> = flow {
         try {
             emit(
-                ProductApiService.ProductApi.productApiService.getAvonProducts().map {
+                ApiService.ProductApi.productApiService.getAvonProducts().map {
                     convertProductNetToProduct(it)
                 }
             )
