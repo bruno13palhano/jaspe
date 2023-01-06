@@ -12,6 +12,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.lifecycle.coroutineScope
 import androidx.navigation.findNavController
+import coil.load
 import com.bruno13palhano.jaspe.MainActivity
 import com.bruno13palhano.jaspe.R
 import com.bruno13palhano.jaspe.ui.ViewModelFactory
@@ -56,7 +57,7 @@ class ProductFragment : Fragment() {
         lifecycle.coroutineScope.launch {
             viewModel?.getProduct(productId).let {
                 it?.collect { product ->
-                    productImage.setImageResource(product.productUrlImage.toInt())
+                    productImage.load(product.productUrlImage)
                     productName.text = product.productName
                     productPrice.text = getString(R.string.product_price_label, product.productPrice)
                     productType.text = product.productType

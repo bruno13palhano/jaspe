@@ -8,6 +8,7 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.bruno13palhano.jaspe.R
 import com.bruno13palhano.model.Product
 
@@ -50,7 +51,7 @@ class HomeItemAdapter(
             productName.text = item.productName
             productPrice.text = itemView.resources.getString(R.string.product_price_label, item.productPrice)
             productType.text = item.productType
-            productImage.setImageResource(item.productUrlImage.toInt())
+            productImage.load(item.productUrlImage)
         }
     }
 
