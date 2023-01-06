@@ -12,10 +12,8 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.onNavDestinationSelected
-import androidx.navigation.ui.setupWithNavController
 import com.bruno13palhano.repository.ProductRepositoryFactory
 import com.example.network.service.ProductNetworkFactory
-import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.navigation.NavigationView
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -35,6 +33,24 @@ class MainActivity : AppCompatActivity() {
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
+            }
+        }
+
+        lifecycleScope.launch {
+            network.getAmazonProducts().collect {
+                it.forEach { product ->  println("Amazon: ${product.productName}") }
+            }
+        }
+
+        lifecycleScope.launch {
+            network.getNaturaProducts().collect {
+                it.forEach { product ->  println("Natura: ${product.productName}") }
+            }
+        }
+
+        lifecycleScope.launch {
+            network.getAvonProducts().collect {
+                it.forEach { product ->  println("Avon: ${product.productName}") }
             }
         }
 

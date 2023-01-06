@@ -13,9 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bruno13palhano.jaspe.MainActivity
 import com.bruno13palhano.jaspe.R
 import com.bruno13palhano.jaspe.ui.ViewModelFactory
-import com.bruno13palhano.model.Product
 import com.google.android.material.appbar.MaterialToolbar
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
@@ -68,14 +66,10 @@ class HomeFragment : Fragment() {
 //                )
 //            )
 //        }
-        // TODO: implementar as queries por companhia e colocar os mocks dados delas
 
         lifecycle.coroutineScope.launch {
             viewModel?.getAllProducts()?.collect {
                 adapter.submitList(it)
-//                amazonAdapter.submitList(it)
-//                naturaAdapter.submitList(it)
-//                avonAdapter.submitList(it)
             }
         }
 
