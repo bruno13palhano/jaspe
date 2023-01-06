@@ -71,14 +71,6 @@ class HomeFragment : Fragment() {
         // TODO: implementar as queries por companhia e colocar os mocks dados delas
 
         lifecycle.coroutineScope.launch {
-            viewModel?.getAmazonProducts(listOf<Int>(1,2))?.collect {
-                it.forEach { product ->
-                    println("nome do prodcuto: ${product.productName}")
-                }
-            }
-        }
-
-        lifecycle.coroutineScope.launch {
             viewModel?.getAllProducts()?.collect {
                 adapter.submitList(it)
 //                amazonAdapter.submitList(it)
