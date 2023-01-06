@@ -8,7 +8,6 @@ class ProductRepositoryFactory(
 ) {
     fun createProductRepository(): ProductRepository {
         val productDao = ProductDatabase.getInstance(context).productDao
-        val productNetwork = ProductNetworkFactory().createProductNetWork()
-        return ProductRepositoryImpl(productDao, productNetwork)
+        return ProductRepositoryImpl(productDao)
     }
 }

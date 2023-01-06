@@ -9,11 +9,16 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 internal class ProductRepositoryImpl(
-    private val dao: ProductDao,
-    private val network: ProductNetwork
+    private val dao: ProductDao
 ) : ProductRepository {
     override suspend fun insertProduct(product: Product) {
         dao.insert(convertProductToProductRep(product))
+    }
+
+    override suspend fun insertProducts(productList: List<Product>) {
+        dao.insertAll(productList.map {
+             convertProductToProductRep(it)
+        })
     }
 
     override suspend fun updateProduct(product: Product) {
@@ -60,13 +65,5 @@ internal class ProductRepositoryImpl(
                     convertProductRepToProduct(productRep)
                 }
             }
-    }
-
-    override suspend fun getProductById(productId: Long): Flow<Product> {
-        return network.getProductById(productId)
-    }
-
-    override suspend fun getNaturaProducts(params: List<Int>): Flow<List<Product>> {
-        return network.getProducts(params)
     }
 }
