@@ -41,12 +41,4 @@ class HomeViewModel(
     suspend fun deleteProductById(productId: Long) {
         productRepository.deleteProductById(productId)
     }
-
-    suspend fun getProductById(productId: Long): Flow<Product> {
-        return productRepository.getProductById(productId)
-    }
-
-    suspend fun getAmazonProducts(params: List<Int>): Flow<List<Product>> {
-        return productRepository.getNaturaProducts(params)
-    }
 }
