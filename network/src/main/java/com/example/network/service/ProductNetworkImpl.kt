@@ -4,7 +4,6 @@ import com.bruno13palhano.model.Product
 import com.example.network.util.convertProductNetToProduct
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.map
 
 internal class ProductNetworkImpl : ProductNetwork {
 
@@ -27,6 +26,42 @@ internal class ProductNetworkImpl : ProductNetwork {
                         productId
                     )
                 )
+            )
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    override suspend fun getAmazonProducts(): Flow<List<Product>> = flow {
+        try {
+            emit(
+                ProductApiService.ProductApi.productApiService.getAmazonProducts().map {
+                    convertProductNetToProduct(it)
+                }
+            )
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    override suspend fun getNaturaProducts(): Flow<List<Product>> = flow {
+        try {
+            emit(
+                ProductApiService.ProductApi.productApiService.getNaturaProducts().map {
+                    convertProductNetToProduct(it)
+                }
+            )
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    override suspend fun getAvonProducts(): Flow<List<Product>> = flow {
+        try {
+            emit(
+                ProductApiService.ProductApi.productApiService.getAvonProducts().map {
+                    convertProductNetToProduct(it)
+                }
             )
         } catch (e: Exception) {
             e.printStackTrace()

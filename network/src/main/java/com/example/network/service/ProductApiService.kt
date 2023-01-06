@@ -8,7 +8,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 internal class ProductApiService {
 
     object ProductApi {
-        private val BASE_URL = "http://10.0.0.118:8080"
+        private val BASE_URL = "http://10.0.0.109:8080"
 
         private val moshi = Moshi.Builder()
             .add(KotlinJsonAdapterFactory())
