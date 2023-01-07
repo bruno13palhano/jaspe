@@ -54,11 +54,10 @@
             app:cardCornerRadius="4dp">
 
             <ImageView
-                android:id="@+id/banner_image"
+                android:id="@+id/amazon_banner_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/amazon_banner"
-                android:scaleType="centerCrop"
+                android:scaleType="centerInside"
                 android:contentDescription="@string/banners_picture_description"/>
         </androidx.cardview.widget.CardView>
 
@@ -70,7 +69,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/amazon_recycler_view"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="816dp"
                 android:orientation="vertical"
                 android:layout_margin="8dp"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
@@ -89,12 +88,11 @@
             app:cardCornerRadius="4dp">
 
             <ImageView
-                android:id="@+id/banner_image2"
+                android:id="@+id/natura_banner_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:contentDescription="@string/banners_picture_description"
-                android:scaleType="centerCrop"
-                android:src="@drawable/natura_banner_2" />
+                android:scaleType="centerInside" />
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
@@ -105,7 +103,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/natura_recycler_view"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="816dp"
                 android:orientation="vertical"
                 android:layout_margin="8dp"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
@@ -123,10 +121,9 @@
             app:cardCornerRadius="4dp">
 
             <ImageView
-                android:id="@+id/banner_image3"
+                android:id="@+id/avon_banner_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/avon_banner"
                 android:scaleType="centerInside"
                 android:contentDescription="@string/banners_picture_description"/>
         </androidx.cardview.widget.CardView>
@@ -139,7 +136,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/avon_recycler_view"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="816dp"
                 android:orientation="vertical"
                 android:layout_margin="8dp"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
