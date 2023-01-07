@@ -1,4 +1,4 @@
-package com.example.network.service
+package com.example.network.service.product
 
 import com.bruno13palhano.model.Product
 import kotlinx.coroutines.flow.Flow
