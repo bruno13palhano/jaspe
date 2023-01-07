@@ -1,6 +1,8 @@
-package com.example.network.service
+package com.example.network.service.product
 
 import com.bruno13palhano.model.Product
+import com.example.network.service.ApiService
+import com.example.network.service.product.ProductNetwork
 import com.example.network.util.convertProductNetToProduct
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
