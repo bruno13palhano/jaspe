@@ -1,6 +1,8 @@
 package com.bruno13palhano.repository.util
 
+import com.bruno13palhano.model.Banner
 import com.bruno13palhano.model.Product
+import com.bruno13palhano.repository.model.BannerRep
 import com.bruno13palhano.repository.model.ProductRep
 
 internal fun convertProductRepToProduct(productRep: ProductRep): Product {
@@ -14,6 +16,15 @@ internal fun convertProductRepToProduct(productRep: ProductRep): Product {
         productCompany = productRep.productCompany,
         productUrlLink = productRep.productUrlLink,
         productIsFavorite = productRep.productIsFavorite
+    )
+}
+
+internal fun convertBannerRepToBanner(bannerRep: BannerRep): Banner {
+    return Banner(
+        bannerId = bannerRep.bannerId,
+        bannerName = bannerRep.bannerName,
+        bannerUrlImage = bannerRep.bannerUrlImage,
+        bannerCompany = bannerRep.bannerCompany
     )
 }
 
@@ -31,4 +42,12 @@ internal fun convertProductToProductRep(product: Product): ProductRep {
     )
 }
 
+internal fun convertBannerToBannerRep(banner: Banner): BannerRep {
+    return BannerRep(
+        bannerId = banner.bannerId,
+        bannerName = banner.bannerName,
+        bannerUrlImage = banner.bannerUrlImage,
+        bannerCompany = banner.bannerCompany
+    )
+}
 
