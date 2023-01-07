@@ -6,24 +6,25 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.bruno13palhano.repository.dao.BannerDao
 import com.bruno13palhano.repository.dao.ProductDao
+import com.bruno13palhano.repository.model.BannerRep
 import com.bruno13palhano.repository.model.ProductRep
 
-@Database(entities = [ProductRep::class, BannerDao::class], version = 1, exportSchema = false)
-internal abstract class ProductDatabase : RoomDatabase() {
+@Database(entities = [ProductRep::class, BannerRep::class], version = 1, exportSchema = false)
+internal abstract class JaspeDatabase : RoomDatabase() {
     abstract val productDao: ProductDao
     abstract val bannerDao: BannerDao
 
     companion object {
         @Volatile
-        private var INSTANCE: ProductDatabase? = null
+        private var INSTANCE: JaspeDatabase? = null
 
-        fun getInstance(context: Context): ProductDatabase {
+        fun getInstance(context: Context): JaspeDatabase {
             synchronized(this) {
                 var instance = INSTANCE
                 if (instance == null) {
                     instance = Room.databaseBuilder(
                         context,
-                        ProductDatabase::class.java,
+                        JaspeDatabase::class.java,
                         "products_db"
                     )
                         .fallbackToDestructiveMigration()
