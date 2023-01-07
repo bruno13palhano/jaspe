@@ -26,14 +26,14 @@ internal interface BannerDao {
     suspend fun deleteById(bannerId: Long)
 
     @Query("SELECT * FROM banner_table WHERE banner_id = :bannerId")
-    suspend fun getBannerById(bannerId: Long): Flow<BannerRep>
+    fun getBannerById(bannerId: Long): Flow<BannerRep>
 
     @Query("SELECT * FROM banner_table")
-    suspend fun getAll(): Flow<List<BannerRep>>
+    fun getAll(): Flow<List<BannerRep>>
 
     @Query("SELECT * FROM banner_table WHERE banner_company = :bannerCompany "+
         "ORDER BY banner_id DESC LIMIT :offset,:limit")
-    suspend fun getByCompany(
+    fun getByCompany(
         bannerCompany: String,
         offset: Int,
         limit: Int
