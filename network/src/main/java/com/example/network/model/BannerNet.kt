@@ -1,3 +1,18 @@
 package com.example.network.model
 
-data class BannerNet()
+import com.squareup.moshi.Json
+
+data class BannerNet(
+
+    @Json(name = "bannerId")
+    val bannerId: Long,
+
+    @Json(name = "bannerName")
+    val bannerName: String,
+
+    @Json(name = "bannerUrlImage")
+    val bannerUrlImage: String,
+
+    @Json(name = "bannerCompany")
+    val bannerCompany: String
+)
