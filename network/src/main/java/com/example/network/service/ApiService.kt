@@ -19,6 +19,6 @@ internal class ApiService {
             .baseUrl(BASE_URL)
             .build()
 
-        val productApiService: Service by lazy { retrofit.create(Service::class.java) }
+        val apiService: Service by lazy { retrofit.create(Service::class.java) }
     }
 }
