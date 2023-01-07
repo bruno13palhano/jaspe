@@ -17,6 +17,6 @@ internal data class BannerRep(
     @ColumnInfo(name = "banner_url_image")
     val bannerUrlImage: String,
 
-    @ColumnInfo(name = "banner_copany")
+    @ColumnInfo(name = "banner_company")
     val bannerCompany: String
 )
