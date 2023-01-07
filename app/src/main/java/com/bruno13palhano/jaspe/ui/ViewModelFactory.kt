@@ -9,13 +9,13 @@ import com.bruno13palhano.jaspe.ui.home.HomeViewModel
 import com.bruno13palhano.jaspe.ui.home.HomeViewModelFactory
 import com.bruno13palhano.jaspe.ui.product.ProductViewModel
 import com.bruno13palhano.jaspe.ui.product.ProductViewModelFactory
-import com.bruno13palhano.repository.ProductRepositoryFactory
+import com.bruno13palhano.repository.RepositoryFactory
 
 class ViewModelFactory(
     context: Context,
     private val owner: ViewModelStoreOwner
 ) {
-    private val repositoryFactory = ProductRepositoryFactory(context)
+    private val repositoryFactory = RepositoryFactory(context)
 
     fun createProductViewModel(): ProductViewModel {
         val productViewModelFactory =

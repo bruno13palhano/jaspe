@@ -2,7 +2,7 @@ package com.bruno13palhano.repository
 
 import android.content.Context
 
-class ProductRepositoryFactory(
+class RepositoryFactory(
     private val context: Context
 ) {
     fun createProductRepository(): ProductRepository {
