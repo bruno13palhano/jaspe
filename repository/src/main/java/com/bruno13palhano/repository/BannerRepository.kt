@@ -11,6 +11,5 @@ interface BannerRepository {
     suspend fun deleteBannerById(bannerId: Long)
     fun get(bannerId: Long): Flow<Banner>
     fun getAll(): Flow<List<Banner>>
-    fun getAllBanners(): Flow<List<Banner>>
     fun getByCompany(bannerCompany: String, offset: Int, limit: Int): Flow<List<Banner>>
 }
