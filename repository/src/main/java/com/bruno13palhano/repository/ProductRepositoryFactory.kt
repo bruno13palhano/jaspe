@@ -6,7 +6,12 @@ class ProductRepositoryFactory(
     private val context: Context
 ) {
     fun createProductRepository(): ProductRepository {
-        val productDao = ProductDatabase.getInstance(context).productDao
+        val productDao = JaspeDatabase.getInstance(context).productDao
         return ProductRepositoryImpl(productDao)
+    }
+    
+    fun createBannerRepository(): BannerRepository {
+        val bannerDao = JaspeDatabase.getInstance(context).bannerDao
+        return BannerRepositoryImpl(bannerDao)
     }
 }
