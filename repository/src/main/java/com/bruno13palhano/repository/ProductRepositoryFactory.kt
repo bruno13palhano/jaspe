@@ -1,7 +1,6 @@
 package com.bruno13palhano.repository
 
 import android.content.Context
-import com.example.network.service.ProductNetworkFactory
 
 class ProductRepositoryFactory(
     private val context: Context

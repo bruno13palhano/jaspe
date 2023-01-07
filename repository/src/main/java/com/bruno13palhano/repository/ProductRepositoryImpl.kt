@@ -4,7 +4,6 @@ import com.bruno13palhano.model.Product
 import com.bruno13palhano.repository.dao.ProductDao
 import com.bruno13palhano.repository.util.convertProductRepToProduct
 import com.bruno13palhano.repository.util.convertProductToProductRep
-import com.example.network.service.ProductNetwork
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
