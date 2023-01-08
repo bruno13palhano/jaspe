@@ -57,4 +57,5 @@ dependencies {
     implementation(project(':app:model'))
 
     implementation("io.coil-kt:coil:2.2.2")
+    implementation "androidx.work:work-runtime-ktx:$versions_work"
 }
