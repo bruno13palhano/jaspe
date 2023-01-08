@@ -23,6 +23,9 @@ class HomeViewModel(
     private val _avonBanner = MutableSharedFlow<Banner>()
     val avonBanner: SharedFlow<Banner> = _avonBanner
 
+    private val _allProducts = MutableStateFlow<List<Product>>(emptyList())
+    val allProducts: StateFlow<List<Product>> = _allProducts
+
     private val _amazonProducts = MutableStateFlow<List<Product>>(emptyList())
     val amazonProducts: StateFlow<List<Product>> = _amazonProducts
 
@@ -33,6 +36,12 @@ class HomeViewModel(
     val avonProducts: StateFlow<List<Product>> = _avonProducts
 
     init {
+        viewModelScope.launch {
+            productRepository.getAll().collect {
+                _allProducts.value = it
+            }
+        }
+
         viewModelScope.launch {
             productRepository.getByCompany("Amazon", 0, 6).collect {
                 _amazonProducts.value = it

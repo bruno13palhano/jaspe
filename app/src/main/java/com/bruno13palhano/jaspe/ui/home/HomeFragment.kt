@@ -5,11 +5,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.coroutineScope
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.bruno13palhano.jaspe.MainActivity
 import com.bruno13palhano.jaspe.R
 import com.bruno13palhano.jaspe.ui.ViewModelFactory
@@ -27,6 +31,10 @@ class HomeFragment : Fragment() {
         val amazonRecycler = view.findViewById<RecyclerView>(R.id.amazon_recycler_view)
         val naturaRecycler = view.findViewById<RecyclerView>(R.id.natura_recycler_view)
         val avonRecycler = view.findViewById<RecyclerView>(R.id.avon_recycler_view)
+
+        val imageAmazonBanner = view.findViewById<ImageView>(R.id.amazon_banner_image)
+        val imageNaturaBanner = view.findViewById<ImageView>(R.id.natura_banner_image)
+        val imageAvonBanner = view.findViewById<ImageView>(R.id.avon_banner_image)
 
         val adapter = HomeItemAdapter {
             val action = HomeFragmentDirections.actionHomeToProduct(it)
@@ -52,42 +60,59 @@ class HomeFragment : Fragment() {
             ViewModelFactory(it, this@HomeFragment).createHomeViewModel()
         }
 
-//        lifecycle.coroutineScope.launch {
-//            viewModel?.insertProduct(
-//                Product(
-//                    productName = "Musk",
-//                    productUrlImage = R.drawable.avon_6.toString(),
-//                    productPrice = 59.90f,
-//                    productType = "Perfume Masculino",
-//                    productDescription = "Musk+ Marine Deo Colônia - 75ml",
-//                    productCompany = "Avon",
-//                    productUrlLink = "https://www.avon.com.br/1394447-deo-colonia-musk--marine---75ml/p?sci=138493979&scn=product%2520products_mais_opcoes&scpi=138493979&rec_id=63b54cd473686f0010017f04#2625610158693000340",
-//                    productIsFavorite = false
-//                )
-//            )
-//        }
-
         lifecycle.coroutineScope.launch {
-            viewModel?.getAllProducts()?.collect {
-                adapter.submitList(it)
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel?.allProducts?.collect {
+                    adapter.submitList(it)
+                }
             }
         }
 
         lifecycleScope.launch {
-            viewModel?.getAmazonProducts()?.collect {
-                amazonAdapter.submitList(it)
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel?.amazonProducts?.collect {
+                    amazonAdapter.submitList(it)
+                }
             }
         }
 
         lifecycleScope.launch {
-            viewModel?.getNaturaProducts()?.collect {
-                naturaAdapter.submitList(it)
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel?.naturaProducts?.collect {
+                    naturaAdapter.submitList(it)
+                }
             }
         }
 
         lifecycleScope.launch {
-            viewModel?.getAvonProducts()?.collect {
-                avonAdapter.submitList(it)
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel?.avonProducts?.collect {
+                    avonAdapter.submitList(it)
+                }
+            }
+        }
+
+        lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel?.amazonBanner?.collect {
+                    imageAmazonBanner.load(it.bannerUrlImage)
+                }
+            }
+        }
+
+        lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel?.naturaBanner?.collect {
+                    imageNaturaBanner.load(it.bannerUrlImage)
+                }
+            }
+        }
+
+        lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel?.avonBanner?.collect {
+                    imageAvonBanner.load(it.bannerUrlImage)
+                }
             }
         }
 
