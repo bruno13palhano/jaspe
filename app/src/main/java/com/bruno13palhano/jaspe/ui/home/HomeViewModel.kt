@@ -14,14 +14,14 @@ class HomeViewModel(
     private val bannerRepository: BannerRepository
 ) : ViewModel() {
 
-    private val _amazonBanner = MutableSharedFlow<Banner>()
-    val amazonBanner: SharedFlow<Banner> = _amazonBanner
+    private val _amazonBanner = MutableStateFlow(Banner(0,"","",""))
+    val amazonBanner: StateFlow<Banner> = _amazonBanner
 
-    private val _naturaBanner = MutableSharedFlow<Banner>()
-    val naturaBanner: SharedFlow<Banner> = _naturaBanner
+    private val _naturaBanner = MutableStateFlow(Banner(0,"","",""))
+    val naturaBanner: StateFlow<Banner> = _naturaBanner
 
-    private val _avonBanner = MutableSharedFlow<Banner>()
-    val avonBanner: SharedFlow<Banner> = _avonBanner
+    private val _avonBanner = MutableStateFlow(Banner(0,"","",""))
+    val avonBanner: StateFlow<Banner> = _avonBanner
 
     private val _allProducts = MutableStateFlow<List<Product>>(emptyList())
     val allProducts: StateFlow<List<Product>> = _allProducts
@@ -63,7 +63,7 @@ class HomeViewModel(
         viewModelScope.launch {
             bannerRepository.getByCompany("Amazon", 0, 1).collect { banner ->
                 try {
-                    _amazonBanner.emit(banner[0])
+                    _amazonBanner.value = banner[0]
                 } catch (ignored: IndexOutOfBoundsException) {}
             }
         }
@@ -71,7 +71,7 @@ class HomeViewModel(
         viewModelScope.launch {
             bannerRepository.getByCompany("Natura", 0, 1).collect() { banner ->
                 try {
-                    _naturaBanner.emit(banner[0])
+                    _naturaBanner.value = banner[0]
                 } catch (ignored: IndexOutOfBoundsException) {}
             }
         }
@@ -79,7 +79,7 @@ class HomeViewModel(
         viewModelScope.launch {
             bannerRepository.getByCompany("Avon", 0, 1).collect { banner ->
                 try {
-                    _avonBanner.emit(banner[0])
+                    _avonBanner.value = banner[0]
                 } catch (ignored: IndexOutOfBoundsException) {}
             }
         }
