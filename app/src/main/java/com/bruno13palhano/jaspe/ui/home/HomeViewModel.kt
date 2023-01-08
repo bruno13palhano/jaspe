@@ -6,26 +6,72 @@ import com.bruno13palhano.model.Banner
 import com.bruno13palhano.model.Product
 import com.bruno13palhano.repository.BannerRepository
 import com.bruno13palhano.repository.ProductRepository
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 class HomeViewModel(
     private val productRepository: ProductRepository,
     private val bannerRepository: BannerRepository
 ) : ViewModel() {
-    private val _amazonBanner = MutableStateFlow(emptyList<Banner>())
-    val amazonBanner: StateFlow<List<Banner>> = _amazonBanner
+
+    private val _amazonBanner = MutableSharedFlow<Banner>()
+    val amazonBanner: SharedFlow<Banner> = _amazonBanner
+
+    private val _naturaBanner = MutableSharedFlow<Banner>()
+    val naturaBanner: SharedFlow<Banner> = _naturaBanner
+
+    private val _avonBanner = MutableSharedFlow<Banner>()
+    val avonBanner: SharedFlow<Banner> = _avonBanner
+
+    private val _amazonProducts = MutableStateFlow<List<Product>>(emptyList())
+    val amazonProducts: StateFlow<List<Product>> = _amazonProducts
+
+    private val _naturaProducts = MutableStateFlow<List<Product>>(emptyList())
+    val naturaProducts: StateFlow<List<Product>> = _naturaProducts
+
+    private val _avonProducts = MutableStateFlow<List<Product>>(emptyList())
+    val avonProducts: StateFlow<List<Product>> = _avonProducts
 
     init {
         viewModelScope.launch {
-            bannerRepository.getByCompany(
-                "Amazon",
-                0,
-                1
-            ).collect { banners ->
-                _amazonBanner.value = banners
+            productRepository.getByCompany("Amazon", 0, 6).collect {
+                _amazonProducts.value = it
+            }
+        }
+
+        viewModelScope.launch {
+            productRepository.getByCompany("Natura", 0, 6).collect {
+                _naturaProducts.value = it
+            }
+        }
+
+        viewModelScope.launch {
+            productRepository.getByCompany("Avon", 0, 6).collect {
+                _avonProducts.value = it
+            }
+        }
+
+        viewModelScope.launch {
+            bannerRepository.getByCompany("Amazon", 0, 1).collect { banner ->
+                try {
+                    _amazonBanner.emit(banner[0])
+                } catch (ignored: IndexOutOfBoundsException) {}
+            }
+        }
+
+        viewModelScope.launch {
+            bannerRepository.getByCompany("Natura", 0, 1).collect() { banner ->
+                try {
+                    _naturaBanner.emit(banner[0])
+                } catch (ignored: IndexOutOfBoundsException) {}
+            }
+        }
+
+        viewModelScope.launch {
+            bannerRepository.getByCompany("Avon", 0, 1).collect { banner ->
+                try {
+                    _avonBanner.emit(banner[0])
+                } catch (ignored: IndexOutOfBoundsException) {}
             }
         }
     }
