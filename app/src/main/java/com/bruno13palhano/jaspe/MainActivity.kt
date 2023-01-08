@@ -12,7 +12,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.onNavDestinationSelected
-import com.bruno13palhano.repository.ProductRepositoryFactory
+import com.bruno13palhano.repository.RepositoryFactory
 import com.example.network.service.NetworkFactory
 import com.google.android.material.navigation.NavigationView
 import kotlinx.coroutines.delay
@@ -23,18 +23,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        //substituir por um work
-        val repository = ProductRepositoryFactory(this).createProductRepository()
-        val network = NetworkFactory().createProductNetWork()
-        lifecycleScope.launch {
-            network.getProducts(listOf(0,18)).collect {
-                try {
-                    repository.insertProducts(it)
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
-            }
-        }
+        val viewModel = MainViewModelFactory(application).create(MainViewModel::class.java)
+
+        viewModel.fetchDataFromServe()
 
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
