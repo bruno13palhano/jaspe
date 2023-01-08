@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
+import com.bruno13palhano.jaspe.work.BannerWork
 import com.bruno13palhano.jaspe.work.ProductWork
 import java.util.concurrent.TimeUnit
 
@@ -13,12 +14,16 @@ class MainViewModel(
 ) : ViewModel() {
 
     private val workManager = WorkManager.getInstance(application)
-    private val fetchData =
-            PeriodicWorkRequestBuilder<ProductWork>(1, TimeUnit.HOURS)
+    private val fetchProductData =
+            PeriodicWorkRequestBuilder<ProductWork>(15, TimeUnit.MINUTES)
                 .build()
+    private val fetchBannerData =
+        PeriodicWorkRequestBuilder<BannerWork>(15, TimeUnit.MINUTES)
+            .build()
 
     fun fetchDataFromServe() {
-        workManager.enqueue(fetchData)
+        workManager.enqueue(fetchProductData)
+        workManager.enqueue(fetchBannerData)
     }
 }
 
