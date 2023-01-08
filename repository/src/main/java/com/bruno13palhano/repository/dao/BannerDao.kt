@@ -3,6 +3,7 @@ package com.bruno13palhano.repository.dao
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
 import androidx.room.Update
 import com.bruno13palhano.repository.model.BannerRep
@@ -14,7 +15,7 @@ internal interface BannerDao {
     @Insert
     suspend fun insert(banner: BannerRep)
 
-    @Insert
+    @Insert(onConflict = REPLACE)
     suspend fun insertAll(bannerList: List<BannerRep>)
 
     @Update fun update(banner: BannerRep)

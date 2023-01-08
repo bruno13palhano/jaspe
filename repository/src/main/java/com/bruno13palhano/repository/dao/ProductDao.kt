@@ -3,6 +3,7 @@ package com.bruno13palhano.repository.dao
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
 import androidx.room.Update
 import com.bruno13palhano.repository.model.ProductRep
@@ -14,7 +15,7 @@ internal interface ProductDao {
     @Insert
     suspend fun insert(product: ProductRep)
 
-    @Insert
+    @Insert(onConflict = REPLACE)
     suspend fun insertAll(productList: List<ProductRep>)
 
     @Update
