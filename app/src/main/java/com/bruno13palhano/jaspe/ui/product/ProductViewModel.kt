@@ -20,6 +20,10 @@ class ProductViewModel(
         productRepository.updateProduct(product)
     }
 
+    suspend fun addFavoriteProduct(favoriteProduct: FavoriteProduct) {
+        favoriteProductRepository.insertFavoriteProduct(favoriteProduct)
+    }
+
     fun getFavoriteProduct(favoriteProductId: Long): Flow<FavoriteProduct> {
         return favoriteProductRepository.getFavoriteProduct(favoriteProductId)
     }
