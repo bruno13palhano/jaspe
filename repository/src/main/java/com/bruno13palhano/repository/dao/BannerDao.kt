@@ -18,7 +18,8 @@ internal interface BannerDao {
     @Insert(onConflict = REPLACE)
     suspend fun insertAll(bannerList: List<BannerRep>)
 
-    @Update fun update(banner: BannerRep)
+    @Update
+    suspend fun update(banner: BannerRep)
 
     @Delete
     suspend fun delete(banner: BannerRep)
