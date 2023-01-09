@@ -14,4 +14,9 @@ class RepositoryFactory(
         val bannerDao = JaspeDatabase.getInstance(context).bannerDao
         return BannerRepositoryImpl(bannerDao)
     }
+
+    fun createFavoriteProductRepository(): FavoriteProductRepository {
+        val favoriteRepositoryDao = JaspeDatabase.getInstance(context).favoriteProductDao
+        return FavoriteProductRepositoryImpl(favoriteRepositoryDao)
+    }
 }
