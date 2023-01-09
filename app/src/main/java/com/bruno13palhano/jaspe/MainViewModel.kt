@@ -26,16 +26,3 @@ class MainViewModel(
         workManager.enqueue(fetchBannerData)
     }
 }
-
-class MainViewModelFactory(
-    private val application: Application
-) : ViewModelProvider.Factory {
-
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
-            return MainViewModel(application) as T
-        }
-
-        throw IllegalArgumentException("Unknown ViewModel")
-    }
-}
