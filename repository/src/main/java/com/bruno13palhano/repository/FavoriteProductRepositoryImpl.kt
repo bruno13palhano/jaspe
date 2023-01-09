@@ -22,6 +22,10 @@ internal class FavoriteProductRepositoryImpl(
         dao.delete(convertFavoriteToFavoriteRep(favoriteProduct))
     }
 
+    override suspend fun deleteFavoriteProductById(favoriteProductId: Long) {
+        dao.deleteFavoriteProductById(favoriteProductId)
+    }
+
     override fun getFavoriteProduct(favoriteProductId: Long): Flow<FavoriteProduct> {
         return dao.getFavorite(favoriteProductId).map {
             convertFavoriteRepToFavorite(it)
