@@ -1,3 +1,10 @@
 package com.bruno13palhano.model
 
-data class FavoriteProduct()
+data class FavoriteProduct(
+    val favoriteProductId: Long = 0L,
+    val favoriteProductName: String,
+    val favoriteProductUrlImage: String,
+    val favoriteProductPrice: Float,
+    val favoriteProductType: String,
+    val favoriteProductUrlLink: String
+)
