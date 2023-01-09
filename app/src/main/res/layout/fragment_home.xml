@@ -18,12 +18,11 @@
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:contentScrim="?colorPrimary">
             <ImageView
+                android:id="@+id/main_banner"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginHorizontal="4dp"
-                android:padding="32dp"
-                android:src="@drawable/jaspe_banner"
-                android:scaleType="centerInside"
+                android:scaleType="centerCrop"
                 app:layout_collapseMode="parallax"
                 android:contentDescription="@string/banners_picture_description"/>
             <com.google.android.material.appbar.MaterialToolbar
@@ -43,24 +42,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="160dp"
-            android:layout_marginHorizontal="4dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:foreground="?android:attr/selectableItemBackground"
-            app:cardElevation="4dp"
-            app:cardCornerRadius="4dp">
-
-            <ImageView
-                android:id="@+id/amazon_banner_image"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerInside"
-                android:contentDescription="@string/banners_picture_description"/>
-        </androidx.cardview.widget.CardView>
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/category_recycler_view"
             android:layout_width="match_parent"
@@ -68,21 +49,6 @@
             android:layout_margin="16dp"
             android:orientation="horizontal"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            app:cardElevation="2dp">
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/amazon_recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="816dp"
-                android:orientation="vertical"
-                android:layout_margin="8dp"
-                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:spanCount="2"/>
-        </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -117,6 +83,41 @@
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:spanCount="2"/>
             </androidx.cardview.widget.CardView>
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:layout_marginHorizontal="4dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:cardElevation="4dp"
+            app:cardCornerRadius="4dp">
+
+            <ImageView
+                android:id="@+id/amazon_banner_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                android:scaleType="centerInside"
+                android:contentDescription="@string/banners_picture_description"/>
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            app:cardElevation="2dp">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/amazon_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="816dp"
+                android:orientation="vertical"
+                android:layout_margin="8dp"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="2"/>
+        </androidx.cardview.widget.CardView>
+
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="160dp"
