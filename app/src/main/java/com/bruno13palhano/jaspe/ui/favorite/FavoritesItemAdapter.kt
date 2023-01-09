@@ -10,11 +10,11 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.bruno13palhano.jaspe.R
-import com.bruno13palhano.model.Product
+import com.bruno13palhano.model.FavoriteProduct
 
 class FavoritesItemAdapter(
     private val onClick: (Long) -> Unit
-) : ListAdapter<Product, FavoritesItemAdapter.FavoritesItemViewHolder>(FavoritesDiffCallback()) {
+) : ListAdapter<FavoriteProduct, FavoritesItemAdapter.FavoritesItemViewHolder>(FavoritesDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoritesItemViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -36,31 +36,31 @@ class FavoritesItemAdapter(
         private val productType: TextView = rootView.findViewById(R.id.product_type)
         private val productPrice: TextView = rootView.findViewById(R.id.product_price)
 
-        var currentProduct: Product? = null
+        var currentProduct: FavoriteProduct? = null
 
         init {
             rootView.setOnClickListener {
                 currentProduct?.let {
-                    onClick(it.productId)
+                    onClick(it.favoriteProductId)
                 }
             }
         }
 
-        fun bind(item: Product) {
+        fun bind(item: FavoriteProduct) {
             currentProduct = item
-            productImage.load(item.productUrlImage)
-            productName.text = item.productName
-            productPrice.text = itemView.resources.getString(R.string.product_price_label, item.productPrice)
-            productType.text = item.productType
+            productImage.load(item.favoriteProductUrlImage)
+            productName.text = item.favoriteProductName
+            productPrice.text =itemView.resources.getString(R.string.product_price_label, item.favoriteProductPrice)
+            productType.text = item.favoriteProductType
         }
     }
 
-    private class FavoritesDiffCallback : DiffUtil.ItemCallback<Product>() {
-        override fun areItemsTheSame(oldItem: Product, newItem: Product): Boolean {
-            return oldItem.productId == newItem.productId
+    private class FavoritesDiffCallback : DiffUtil.ItemCallback<FavoriteProduct>() {
+        override fun areItemsTheSame(oldItem: FavoriteProduct, newItem: FavoriteProduct): Boolean {
+            return oldItem.favoriteProductId == newItem.favoriteProductId
         }
 
-        override fun areContentsTheSame(oldItem: Product, newItem: Product): Boolean {
+        override fun areContentsTheSame(oldItem: FavoriteProduct, newItem: FavoriteProduct): Boolean {
             return oldItem == newItem
         }
     }
