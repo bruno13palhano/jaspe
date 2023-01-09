@@ -32,6 +32,7 @@ class HomeFragment : Fragment() {
         val naturaRecycler = view.findViewById<RecyclerView>(R.id.natura_recycler_view)
         val avonRecycler = view.findViewById<RecyclerView>(R.id.avon_recycler_view)
 
+        val imageMainBanner = view.findViewById<ImageView>(R.id.main_banner)
         val imageAmazonBanner = view.findViewById<ImageView>(R.id.amazon_banner_image)
         val imageNaturaBanner = view.findViewById<ImageView>(R.id.natura_banner_image)
         val imageAvonBanner = view.findViewById<ImageView>(R.id.avon_banner_image)
@@ -56,8 +57,69 @@ class HomeFragment : Fragment() {
             view.findNavController().navigate(action)
         }
 
+        val categoryItems = listOf<CategoryItem>(
+            CategoryItem(
+                "ITEM_1",
+                "category_item_1",
+                "ofertas",
+                R.drawable.ic_baseline_account_circle_24
+            ),
+
+            CategoryItem(
+                "ITEM_2",
+                "category_item_2",
+                "Amazon",
+                R.drawable.ic_baseline_account_circle_24
+            ),
+
+            CategoryItem(
+                "ITEM_3",
+                "category_item_3",
+                "Natura",
+                R.drawable.ic_baseline_account_circle_24
+            ),
+
+            CategoryItem(
+                "ITEM_4",
+                "category_item_4",
+                "Avon",
+                R.drawable.ic_baseline_account_circle_24
+            ),
+
+            CategoryItem(
+                "ITEM_5",
+                "category_item_5",
+                "Destaques",
+                R.drawable.ic_baseline_account_circle_24
+            ),
+
+            CategoryItem(
+                "ITEM_6",
+                "category_item_6",
+                "Outros",
+                R.drawable.ic_baseline_account_circle_24
+            ),
+        )
+        val categoryRecyclerView = view.findViewById<RecyclerView>(R.id.category_recycler_view)
+        val categoryAdapter = CategoryItemAdapter {
+            println("valor da rota: $it")
+        }
+        categoryAdapter.submitList(categoryItems)
+
+        categoryRecyclerView.adapter = categoryAdapter
+
         val viewModel = activity?.applicationContext?.let {
             ViewModelFactory(it, this@HomeFragment).createHomeViewModel()
+        }
+
+        // TODO: criar uma tabela para os favoritos
+
+        lifecycle.coroutineScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel?.mainBanner?.collect {
+                    imageMainBanner.load(it.bannerUrlImage)
+                }
+            }
         }
 
         lifecycle.coroutineScope.launch {

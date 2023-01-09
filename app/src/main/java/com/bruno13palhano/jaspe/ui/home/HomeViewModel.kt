@@ -14,6 +14,9 @@ class HomeViewModel(
     private val bannerRepository: BannerRepository
 ) : ViewModel() {
 
+    private val _mainBanner = MutableStateFlow(Banner(0, "", "", ""))
+    val mainBanner: StateFlow<Banner> = _mainBanner
+
     private val _amazonBanner = MutableStateFlow(Banner(0,"","",""))
     val amazonBanner: StateFlow<Banner> = _amazonBanner
 
@@ -36,6 +39,14 @@ class HomeViewModel(
     val avonProducts: StateFlow<List<Product>> = _avonProducts
 
     init {
+        viewModelScope.launch {
+            bannerRepository.getByCompany("Main", 0, 1).collect { banner ->
+                try {
+                    _mainBanner.value = banner[0]
+                } catch (ignored: IndexOutOfBoundsException) {}
+            }
+        }
+
         viewModelScope.launch {
             productRepository.getAll().collect {
                 _allProducts.value = it
