@@ -2,10 +2,10 @@ package com.bruno13palhano.jaspe.ui.favorite
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.bruno13palhano.repository.ProductRepository
+import com.bruno13palhano.repository.FavoriteProductRepository
 
 class FavoritesViewModelFactory(
-    private val repository: ProductRepository
+    private val repository: FavoriteProductRepository
 ) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
