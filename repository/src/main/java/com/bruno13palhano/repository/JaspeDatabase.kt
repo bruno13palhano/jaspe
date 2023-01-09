@@ -5,6 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.bruno13palhano.repository.dao.BannerDao
+import com.bruno13palhano.repository.dao.FavoriteProductDao
 import com.bruno13palhano.repository.dao.ProductDao
 import com.bruno13palhano.repository.model.BannerRep
 import com.bruno13palhano.repository.model.ProductRep
@@ -13,6 +14,7 @@ import com.bruno13palhano.repository.model.ProductRep
 internal abstract class JaspeDatabase : RoomDatabase() {
     abstract val productDao: ProductDao
     abstract val bannerDao: BannerDao
+    abstract val favoriteProductDao: FavoriteProductDao
 
     companion object {
         @Volatile
