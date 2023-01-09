@@ -5,12 +5,18 @@ import com.bruno13palhano.model.FavoriteProduct
 import com.bruno13palhano.model.Product
 import com.bruno13palhano.repository.FavoriteProductRepository
 import com.bruno13palhano.repository.ProductRepository
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.*
 
 class ProductViewModel(
     private val productRepository: ProductRepository,
     private val favoriteProductRepository: FavoriteProductRepository
 ) : ViewModel() {
+    private val _isFavorite = MutableStateFlow<Boolean>(false)
+    val isFavorite = _isFavorite.asStateFlow()
+
+    fun toggleFavorite() {
+        _isFavorite.value = !_isFavorite.value
+    }
 
     fun getProduct(productId: Long): Flow<Product> {
         return productRepository.get(productId)

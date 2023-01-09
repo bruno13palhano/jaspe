@@ -13,10 +13,9 @@ import android.widget.TextView
 import androidx.lifecycle.coroutineScope
 import androidx.navigation.findNavController
 import coil.load
-import com.bruno13palhano.jaspe.MainActivity
 import com.bruno13palhano.jaspe.R
 import com.bruno13palhano.jaspe.ui.ViewModelFactory
-import com.bruno13palhano.model.Product
+import com.bruno13palhano.model.FavoriteProduct
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import kotlinx.coroutines.launch
@@ -80,21 +79,40 @@ class ProductFragment : Fragment() {
             ViewModelFactory(it, this@ProductFragment).createProductViewModel()
         }
 
-        var favoriteProduct = Product(
-            productName = "",
-            productPrice = 0f,
-            productType = "",
-            productDescription = "",
-            productUrlImage = "",
-            productCompany = "",
-            productUrlLink = "",
-            productIsFavorite = false
+        var favoriteProduct = FavoriteProduct(
+            0L,
+            "",
+            "",
+            0f,
+            "",
+            ""
         )
-
         lifecycle.coroutineScope.launch {
             viewModel?.getProduct(productId)?.collect {
-                favoriteProduct = it
-                if (it.productIsFavorite) {
+                favoriteProduct = FavoriteProduct(
+                    favoriteProductId = it.productId,
+                    favoriteProductName = it.productName,
+                    favoriteProductUrlImage = it.productUrlImage,
+                    favoriteProductPrice = it.productPrice,
+                    favoriteProductType = it.productType,
+                    favoriteProductUrlLink = it.productUrlLink
+                )
+            }
+        }
+
+        lifecycle.coroutineScope.launch {
+            try {
+                viewModel?.getFavoriteProduct(productId)?.collect {
+                    if (it.favoriteProductId != 0L) {
+                        viewModel.toggleFavorite()
+                    }
+                }
+            } catch (ignored: Exception) {}
+        }
+
+        lifecycle.coroutineScope.launch {
+            viewModel?.isFavorite?.collect {
+                if (it) {
                     toolbar.menu.getItem(0).icon?.setTint(resources.getColor(R.color.pink_light))
                 } else {
                     toolbar.menu.getItem(0).icon?.setTint(resources.getColor(R.color.black))
@@ -106,19 +124,24 @@ class ProductFragment : Fragment() {
             when (it.itemId) {
                 R.id.favoriteProduct -> {
                     lifecycle.coroutineScope.launch {
-                        val updatedProduct = Product(
-                            productId = favoriteProduct.productId,
-                            productName = favoriteProduct.productName,
-                            productUrlImage = favoriteProduct.productUrlImage,
-                            productType = favoriteProduct.productType,
-                            productPrice = favoriteProduct.productPrice,
-                            productDescription = favoriteProduct.productDescription,
-                            productCompany = favoriteProduct.productCompany,
-                            productUrlLink = favoriteProduct.productUrlLink,
-                            productIsFavorite = !favoriteProduct.productIsFavorite
-                        )
+                        viewModel?.isFavorite?.value?.let { isFavorite ->
+                            if (!isFavorite) {
+                                val favorite = FavoriteProduct(
+                                    favoriteProductId = productId,
+                                    favoriteProductName = favoriteProduct.favoriteProductName,
+                                    favoriteProductUrlImage = favoriteProduct.favoriteProductUrlImage,
+                                    favoriteProductType = favoriteProduct.favoriteProductType,
+                                    favoriteProductPrice = favoriteProduct.favoriteProductPrice,
+                                    favoriteProductUrlLink = favoriteProduct.favoriteProductUrlLink,
+                                )
 
-                        viewModel?.updateProduct(updatedProduct)
+                                viewModel.toggleFavorite()
+                                viewModel.addFavoriteProduct(favorite)
+                            } else {
+                                viewModel.toggleFavorite()
+                                viewModel.removeFavoriteProduct(productId)
+                            }
+                        }
                     }
                     true
                 }
