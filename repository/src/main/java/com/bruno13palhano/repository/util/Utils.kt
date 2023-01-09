@@ -1,8 +1,10 @@
 package com.bruno13palhano.repository.util
 
 import com.bruno13palhano.model.Banner
+import com.bruno13palhano.model.FavoriteProduct
 import com.bruno13palhano.model.Product
 import com.bruno13palhano.repository.model.BannerRep
+import com.bruno13palhano.repository.model.FavoriteProductRep
 import com.bruno13palhano.repository.model.ProductRep
 
 internal fun convertProductRepToProduct(productRep: ProductRep): Product {
@@ -28,6 +30,17 @@ internal fun convertBannerRepToBanner(bannerRep: BannerRep): Banner {
     )
 }
 
+internal fun convertFavoriteRepToFavorite(favoriteProduct: FavoriteProductRep): FavoriteProduct {
+    return FavoriteProduct(
+        favoriteProductId = favoriteProduct.favoriteProductId,
+        favoriteProductName = favoriteProduct.favoriteProductName,
+        favoriteProductUrlImage = favoriteProduct.favoriteProductUrlImage,
+        favoriteProductPrice = favoriteProduct.favoriteProductPrice,
+        favoriteProductType = favoriteProduct.favoriteProductType,
+        favoriteProductUrlLink = favoriteProduct.favoriteProductUrlLink
+    )
+}
+
 internal fun convertProductToProductRep(product: Product): ProductRep {
     return ProductRep(
         productId = product.productId,
@@ -48,6 +61,17 @@ internal fun convertBannerToBannerRep(banner: Banner): BannerRep {
         bannerName = banner.bannerName,
         bannerUrlImage = banner.bannerUrlImage,
         bannerCompany = banner.bannerCompany
+    )
+}
+
+internal fun convertFavoriteToFavoriteRep(favoriteProduct: FavoriteProduct): FavoriteProductRep {
+    return FavoriteProductRep(
+        favoriteProductId = favoriteProduct.favoriteProductId,
+        favoriteProductName = favoriteProduct.favoriteProductName,
+        favoriteProductUrlImage = favoriteProduct.favoriteProductUrlImage,
+        favoriteProductPrice = favoriteProduct.favoriteProductPrice,
+        favoriteProductType = favoriteProduct.favoriteProductType,
+        favoriteProductUrlLink = favoriteProduct.favoriteProductUrlLink
     )
 }
 
