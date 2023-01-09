@@ -8,9 +8,14 @@ import com.bruno13palhano.repository.dao.BannerDao
 import com.bruno13palhano.repository.dao.FavoriteProductDao
 import com.bruno13palhano.repository.dao.ProductDao
 import com.bruno13palhano.repository.model.BannerRep
+import com.bruno13palhano.repository.model.FavoriteProductRep
 import com.bruno13palhano.repository.model.ProductRep
 
-@Database(entities = [ProductRep::class, BannerRep::class], version = 1, exportSchema = false)
+@Database(entities = [
+    ProductRep::class,
+    BannerRep::class,
+    FavoriteProductRep::class],
+    version = 1, exportSchema = false)
 internal abstract class JaspeDatabase : RoomDatabase() {
     abstract val productDao: ProductDao
     abstract val bannerDao: BannerDao
