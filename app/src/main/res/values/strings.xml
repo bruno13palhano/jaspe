@@ -22,6 +22,6 @@
     <string name="product_picture_description">Product picture</string>
     <string name="banners_picture_description">Banners</string>
 
-<!--  button labels  -->
+    <!--  button labels  -->
     <string name="buy_button_label">Buy</string>
 </resources>

@@ -24,4 +24,12 @@
         <item name="cornerSizeBottomLeft">32dp</item>
         <item name="cornerSizeBottomRight">32dp</item>
     </style>
+
+    <style name="SplashTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:windowBackground">@drawable/background</item>
+        <item name="colorPrimary">?colorPrimary</item>
+        <item name="colorPrimaryDark">?colorPrimaryDark</item>
+        <item name="colorAccent">?colorAccent</item>
+        <item name="android:statusBarColor">?colorAccent</item>
+    </style>
 </resources>
