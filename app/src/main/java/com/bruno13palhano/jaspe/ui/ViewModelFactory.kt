@@ -19,7 +19,9 @@ class ViewModelFactory(
 
     fun createProductViewModel(): ProductViewModel {
         val productViewModelFactory =
-            ProductViewModelFactory(repositoryFactory.createProductRepository())
+            ProductViewModelFactory(
+                repositoryFactory.createProductRepository(),
+                repositoryFactory.createFavoriteProductRepository())
 
         return ViewModelProvider(owner, productViewModelFactory)[ProductViewModel::class.java]
     }
@@ -33,7 +35,7 @@ class ViewModelFactory(
 
     fun createFavoritesViewModel(): FavoritesViewModel {
         val favoritesViewModelFactory =
-            FavoritesViewModelFactory(repositoryFactory.createProductRepository())
+            FavoritesViewModelFactory(repositoryFactory.createFavoriteProductRepository())
 
         return ViewModelProvider(owner, favoritesViewModelFactory)[FavoritesViewModel::class.java]
     }
