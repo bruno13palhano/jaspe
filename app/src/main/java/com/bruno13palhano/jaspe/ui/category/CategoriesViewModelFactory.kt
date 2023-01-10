@@ -1,4 +1,29 @@
 package com.bruno13palhano.jaspe.ui.category
 
-class CategoriesViewModelFactory {
+import android.content.Context
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelStoreOwner
+import com.bruno13palhano.jaspe.ui.category.amazon.AmazonCategoryViewModel
+import com.bruno13palhano.jaspe.ui.category.amazon.AmazonCategoryViewModelFactory
+import com.bruno13palhano.jaspe.ui.category.avon.AvonCategoryViewModel
+import com.bruno13palhano.jaspe.ui.category.avon.AvonCategoryViewModelFactory
+import com.bruno13palhano.repository.RepositoryFactory
+
+class CategoriesViewModelFactory(
+    context: Context,
+    private val owner: ViewModelStoreOwner
+) {
+    private val repositoryFactory = RepositoryFactory(context)
+
+    fun createAmazonCategoryViewModel(): AmazonCategoryViewModel {
+        val amazonViewModelFactory =
+            AmazonCategoryViewModelFactory(repositoryFactory.createProductRepository())
+        return ViewModelProvider(owner, amazonViewModelFactory)[AmazonCategoryViewModel::class.java]
+    }
+
+    fun createAvonCategoryViewModel(): AvonCategoryViewModel {
+        val avonViewModelFactory =
+            AvonCategoryViewModelFactory(repositoryFactory.createProductRepository())
+        return ViewModelProvider(owner, avonViewModelFactory)[AvonCategoryViewModel::class.java]
+    }
 }
