@@ -68,7 +68,41 @@
         <argument
             android:name="productId"
             app:argType="long" />
-
     </fragment>
 
+    <fragment
+        android:id="@+id/amazonCategoryFragment"
+        android:name="com.bruno13palhano.jaspe.ui.category.AmazonCategoryFragment"
+        android:label="AmazonCategory"
+        tools:layout="@layout/fragment_amazon_category" />
+
+    <fragment
+        android:id="@+id/avonCategoryFragment"
+        android:name="com.bruno13palhano.jaspe.ui.category.AvonCategoryFragment"
+        android:label="AvonCategory"
+        tools:layout="@layout/fragment_avon_category" />
+
+    <fragment
+        android:id="@+id/bestSellersCategoryFragment"
+        android:name="com.bruno13palhano.jaspe.ui.category.BestSellersCategoryFragment"
+        android:label="BestSellersCategory"
+        tools:layout="@layout/fragment_best_sellers" />
+
+    <fragment
+        android:id="@+id/highlightsCategoryFragment"
+        android:name="com.bruno13palhano.jaspe.ui.category.HighlightsCategoryFragment"
+        android:label="HighlightsCategory"
+        tools:layout="@layout/fragment_highlights_category" />
+
+    <fragment
+        android:id="@+id/naturaCategoryFragment"
+        android:name="com.bruno13palhano.jaspe.ui.category.NaturaCategoryFragment"
+        android:label="NaturaCategory"
+        tools:layout="@layout/fragment_natura_category" />
+
+    <fragment
+        android:id="@+id/offersCategoryFragment"
+        android:name="com.bruno13palhano.jaspe.ui.category.OffersCategoryFragment"
+        android:label="OffersCategory"
+        tools:layout="@layout/fragment_offers_category" />
 </navigation>
