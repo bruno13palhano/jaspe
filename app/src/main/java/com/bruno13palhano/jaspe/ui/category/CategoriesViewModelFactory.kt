@@ -7,6 +7,8 @@ import com.bruno13palhano.jaspe.ui.category.amazon.AmazonCategoryViewModel
 import com.bruno13palhano.jaspe.ui.category.amazon.AmazonCategoryViewModelFactory
 import com.bruno13palhano.jaspe.ui.category.avon.AvonCategoryViewModel
 import com.bruno13palhano.jaspe.ui.category.avon.AvonCategoryViewModelFactory
+import com.bruno13palhano.jaspe.ui.category.natura.NaturaCategoryViewModel
+import com.bruno13palhano.jaspe.ui.category.natura.NaturaCategoryViewModelFactory
 import com.bruno13palhano.repository.RepositoryFactory
 
 class CategoriesViewModelFactory(
@@ -25,5 +27,11 @@ class CategoriesViewModelFactory(
         val avonViewModelFactory =
             AvonCategoryViewModelFactory(repositoryFactory.createProductRepository())
         return ViewModelProvider(owner, avonViewModelFactory)[AvonCategoryViewModel::class.java]
+    }
+
+    fun createNaturaCategoryViewModel(): NaturaCategoryViewModel {
+        val naturaViewModelFactory =
+            NaturaCategoryViewModelFactory(repositoryFactory.createProductRepository())
+        return ViewModelProvider(owner, naturaViewModelFactory)[NaturaCategoryViewModel::class.java]
     }
 }
