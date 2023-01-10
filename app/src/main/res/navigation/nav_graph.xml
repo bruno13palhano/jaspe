@@ -110,7 +110,7 @@
         android:id="@+id/bestSellersCategoryFragment"
         android:name="com.bruno13palhano.jaspe.ui.category.BestSellersCategoryFragment"
         android:label="BestSellersCategory"
-        tools:layout="@layout/fragment_best_sellers" />
+        tools:layout="@layout/fragment_best_sellers_category" />
 
     <fragment
         android:id="@+id/highlightsCategoryFragment"
