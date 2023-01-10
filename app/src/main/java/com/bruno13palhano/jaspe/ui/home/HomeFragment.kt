@@ -58,47 +58,46 @@ class HomeFragment : Fragment() {
             view.findNavController().navigate(action)
         }
 
-        // TODO: change this and add toolbar to category fragments
         val categoryItems = listOf<CategoryItem>(
             CategoryItem(
                 "ITEM_1",
                 "category_item_1",
-                "ofertas",
+                "Amazon",
                 R.drawable.ic_baseline_account_circle_24
             ),
 
             CategoryItem(
                 "ITEM_2",
                 "category_item_2",
-                "Amazon",
+                "Avon",
                 R.drawable.ic_baseline_account_circle_24
             ),
 
             CategoryItem(
                 "ITEM_3",
                 "category_item_3",
-                "Natura",
+                "Top Sellers",
                 R.drawable.ic_baseline_account_circle_24
             ),
 
             CategoryItem(
                 "ITEM_4",
                 "category_item_4",
-                "Avon",
+                "Highlights",
                 R.drawable.ic_baseline_account_circle_24
             ),
 
             CategoryItem(
                 "ITEM_5",
                 "category_item_5",
-                "Destaques",
+                "Natura",
                 R.drawable.ic_baseline_account_circle_24
             ),
 
             CategoryItem(
                 "ITEM_6",
                 "category_item_6",
-                "Outros",
+                "Ofertas",
                 R.drawable.ic_baseline_account_circle_24
             ),
         )
