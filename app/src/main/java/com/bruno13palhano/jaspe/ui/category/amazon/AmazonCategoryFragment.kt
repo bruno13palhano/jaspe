@@ -15,8 +15,11 @@ class AmazonCategoryFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val view = inflater.inflate(R.layout.fragment_amazon_category, container, false)
 
-        return inflater.inflate(R.layout.fragment_amazon_category, container, false)
+
+
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
