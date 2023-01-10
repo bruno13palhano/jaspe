@@ -1,4 +1,4 @@
-package com.bruno13palhano.jaspe.ui.category
+package com.bruno13palhano.jaspe.ui.category.bestsellers
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
