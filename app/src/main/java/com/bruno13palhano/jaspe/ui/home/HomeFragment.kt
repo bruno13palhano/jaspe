@@ -11,6 +11,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.coroutineScope
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
@@ -57,6 +58,7 @@ class HomeFragment : Fragment() {
             view.findNavController().navigate(action)
         }
 
+        // TODO: change this and add toolbar to category fragments
         val categoryItems = listOf<CategoryItem>(
             CategoryItem(
                 "ITEM_1",
@@ -102,7 +104,10 @@ class HomeFragment : Fragment() {
         )
         val categoryRecyclerView = view.findViewById<RecyclerView>(R.id.category_recycler_view)
         val categoryAdapter = CategoryItemAdapter {
-            println("valor da rota: $it")
+            val action = categoryNavigateTo(it)
+            if (action != null) {
+                view.findNavController().navigate(action)
+            }
         }
         categoryAdapter.submitList(categoryItems)
 
@@ -111,8 +116,6 @@ class HomeFragment : Fragment() {
         val viewModel = activity?.applicationContext?.let {
             ViewModelFactory(it, this@HomeFragment).createHomeViewModel()
         }
-
-        // TODO: criar uma tabela para os favoritos
 
         lifecycle.coroutineScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -196,5 +199,30 @@ class HomeFragment : Fragment() {
             val drawer = ((activity as MainActivity)).findViewById<DrawerLayout>(R.id.drawer_layout)
             drawer.open()
         }
+    }
+
+    private fun categoryNavigateTo(categoryRoute: String): NavDirections? {
+        when (categoryRoute) {
+            "category_item_1" -> {
+                return HomeFragmentDirections.actionHomeToAmazonCategory()
+            }
+            "category_item_2" -> {
+                return HomeFragmentDirections.actionHomeToAvonCategory()
+            }
+            "category_item_3" -> {
+                return HomeFragmentDirections.actionHomeToBestSellersCategory()
+            }
+            "category_item_4" -> {
+                return HomeFragmentDirections.actionHomeToHighlightsCategory()
+            }
+            "category_item_5" -> {
+                return HomeFragmentDirections.actionHomeToNaturaCategory()
+            }
+            "category_item_6" -> {
+                return HomeFragmentDirections.actionHomeToOffersCategory()
+            }
+        }
+
+        return null
     }
 }
