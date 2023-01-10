@@ -19,6 +19,30 @@
             app:exitAnim="@android:anim/slide_out_right"
             app:popEnterAnim="@android:anim/slide_in_left"
             app:popExitAnim="@android:anim/slide_out_right" />
+
+        <action
+            android:id="@+id/action_home_to_amazon_category"
+            app:destination="@id/amazonCategoryFragment" />
+
+        <action
+            android:id="@+id/action_home_to_avon_category"
+            app:destination="@id/avonCategoryFragment" />
+
+        <action
+            android:id="@+id/action_home_to_bestSellers_category"
+            app:destination="@id/bestSellersCategoryFragment" />
+
+        <action
+            android:id="@+id/action_home_to_highlights_category"
+            app:destination="@id/highlightsCategoryFragment" />
+
+        <action
+            android:id="@+id/action_home_to_natura_category"
+            app:destination="@id/naturaCategoryFragment" />
+
+        <action
+            android:id="@+id/action_home_to_offers_category"
+            app:destination="@id/offersCategoryFragment" />
     </fragment>
 
     <fragment
