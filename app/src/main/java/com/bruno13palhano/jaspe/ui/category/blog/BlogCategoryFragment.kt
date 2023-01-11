@@ -1,4 +1,4 @@
-package com.bruno13palhano.jaspe.ui.category.bestsellers
+package com.bruno13palhano.jaspe.ui.category.blog
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,24 +9,24 @@ import androidx.navigation.findNavController
 import com.bruno13palhano.jaspe.R
 import com.google.android.material.appbar.MaterialToolbar
 
-class BestSellersCategoryFragment : Fragment() {
+class BlogCategoryFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_best_sellers_category, container, false)
+        val view = inflater.inflate(R.layout.fragment_blog_category, container, false)
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val toolbar = view.findViewById<MaterialToolbar>(R.id.toolbar_best_sellers_category)
+        val toolbar = view.findViewById<MaterialToolbar>(R.id.toolbar_blog_category)
         toolbar.inflateMenu(R.menu.menu_toolbar)
         toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24)
 
         toolbar.setOnMenuItemClickListener {
-            println("Menu in best sellers")
+            println("Menu in blog")
             false
         }
 

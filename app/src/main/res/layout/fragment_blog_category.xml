@@ -6,16 +6,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.category.bestsellers.BestSellersCategoryFragment">
+    tools:context=".ui.category.blog.BlogCategoryFragment">
 
     <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/toolbar_best_sellers_category"
+        android:id="@+id/toolbar_blog_category"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         style="@style/Widget.MaterialComponents.Toolbar.Primary"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/best_sellers_category_list"
+        android:id="@+id/blog_category_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
