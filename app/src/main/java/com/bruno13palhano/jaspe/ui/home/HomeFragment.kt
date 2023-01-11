@@ -61,44 +61,51 @@ class HomeFragment : Fragment() {
         val categoryItems = listOf<CategoryItem>(
             CategoryItem(
                 "ITEM_1",
-                "category_item_1",
-                "Amazon",
-                R.drawable.ic_baseline_account_circle_24
+                "category_baby",
+                "Baby",
+                R.drawable.baby_icon
             ),
 
             CategoryItem(
                 "ITEM_2",
-                "category_item_2",
-                "Avon",
-                R.drawable.ic_baseline_account_circle_24
+                "category_market",
+                "Market",
+                R.drawable.market_icon
             ),
 
             CategoryItem(
                 "ITEM_3",
-                "category_item_3",
-                "Top Sellers",
-                R.drawable.ic_baseline_account_circle_24
+                "category_avon",
+                "Avon",
+                R.drawable.avon_icon
             ),
 
             CategoryItem(
                 "ITEM_4",
-                "category_item_4",
-                "Highlights",
-                R.drawable.ic_baseline_account_circle_24
+                "category_natura",
+                "Natura",
+                R.drawable.natura_icon
             ),
 
             CategoryItem(
                 "ITEM_5",
-                "category_item_5",
-                "Natura",
-                R.drawable.ic_baseline_account_circle_24
+                "category_highlights",
+                "Highlights",
+                R.drawable.highlisghts
             ),
 
             CategoryItem(
                 "ITEM_6",
-                "category_item_6",
-                "Ofertas",
-                R.drawable.ic_baseline_account_circle_24
+                "category_offers",
+                "Offers",
+                R.drawable.offers_icon
+            ),
+
+            CategoryItem(
+                "ITEM_5",
+                "category_blog",
+                "Blog",
+                R.drawable.blog_icon
             ),
         )
         val categoryRecyclerView = view.findViewById<RecyclerView>(R.id.category_recycler_view)
@@ -202,22 +209,25 @@ class HomeFragment : Fragment() {
 
     private fun categoryNavigateTo(categoryRoute: String): NavDirections? {
         when (categoryRoute) {
-            "category_item_1" -> {
+            "category_baby" -> {
+                return HomeFragmentDirections.actionHomeToBabyCategory()
+            }
+            "category_market" -> {
                 return HomeFragmentDirections.actionHomeToAmazonCategory()
             }
-            "category_item_2" -> {
+            "category_avon" -> {
                 return HomeFragmentDirections.actionHomeToAvonCategory()
             }
-            "category_item_3" -> {
-                return HomeFragmentDirections.actionHomeToBestSellersCategory()
+            "category_blog" -> {
+                return HomeFragmentDirections.actionHomeToBlogCategory()
             }
-            "category_item_4" -> {
+            "category_highlights" -> {
                 return HomeFragmentDirections.actionHomeToHighlightsCategory()
             }
-            "category_item_5" -> {
+            "category_natura" -> {
                 return HomeFragmentDirections.actionHomeToNaturaCategory()
             }
-            "category_item_6" -> {
+            "category_offers" -> {
                 return HomeFragmentDirections.actionHomeToOffersCategory()
             }
         }
