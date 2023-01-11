@@ -2,8 +2,8 @@ package com.bruno13palhano.repository
 
 import com.bruno13palhano.model.Product
 import com.bruno13palhano.repository.dao.ProductDao
-import com.bruno13palhano.repository.util.convertProductRepToProduct
-import com.bruno13palhano.repository.util.convertProductToProductRep
+import com.bruno13palhano.repository.model.asProduct
+import com.bruno13palhano.repository.model.asProductRep
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
@@ -11,21 +11,21 @@ internal class ProductRepositoryImpl(
     private val dao: ProductDao
 ) : ProductRepository {
     override suspend fun insertProduct(product: Product) {
-        dao.insert(convertProductToProductRep(product))
+        dao.insert(product.asProductRep())
     }
 
     override suspend fun insertProducts(productList: List<Product>) {
         dao.insertAll(productList.map {
-             convertProductToProductRep(it)
+             it.asProductRep()
         })
     }
 
     override suspend fun updateProduct(product: Product) {
-        dao.update(convertProductToProductRep(product))
+        dao.update(product.asProductRep())
     }
 
     override suspend fun deleteProduct(product: Product) {
-        dao.delete(convertProductToProductRep(product))
+        dao.delete(product.asProductRep())
     }
 
     override suspend fun deleteProductById(productId: Long) {
@@ -33,14 +33,14 @@ internal class ProductRepositoryImpl(
     }
     override fun get(productId: Long): Flow<Product> {
         return dao.get(productId).map {
-            convertProductRepToProduct(it)
+            it.asProduct()
         }
     }
 
     override fun getAll(): Flow<List<Product>> {
         return dao.getAll().map {
             it.map { productRep ->
-                convertProductRepToProduct(productRep)
+                productRep.asProduct()
             }
         }
     }
@@ -53,7 +53,7 @@ internal class ProductRepositoryImpl(
         return dao.getByCompany(productCompany, offset, limit)
             .map {
                 it.map { productRep ->
-                    convertProductRepToProduct(productRep)
+                    productRep.asProduct()
                 }
             }
     }

@@ -3,6 +3,7 @@ package com.bruno13palhano.repository.model
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.bruno13palhano.model.FavoriteProduct
 
 @Entity(tableName = "favorite_product_table")
 internal data class FavoriteProductRep(
@@ -25,4 +26,22 @@ internal data class FavoriteProductRep(
 
     @ColumnInfo(name = "favorite_product_url_link")
     val favoriteProductUrlLink: String
+)
+
+internal fun FavoriteProductRep.asFavoriteProduct() = FavoriteProduct(
+    favoriteProductId = favoriteProductId,
+    favoriteProductName = favoriteProductName,
+    favoriteProductUrlImage = favoriteProductUrlImage,
+    favoriteProductPrice = favoriteProductPrice,
+    favoriteProductType = favoriteProductType,
+    favoriteProductUrlLink = favoriteProductUrlLink
+)
+
+internal fun FavoriteProduct.asFavoriteProductRep() = FavoriteProductRep(
+    favoriteProductId = favoriteProductId,
+    favoriteProductName = favoriteProductName,
+    favoriteProductUrlImage = favoriteProductUrlImage,
+    favoriteProductPrice = favoriteProductPrice,
+    favoriteProductType = favoriteProductType,
+    favoriteProductUrlLink = favoriteProductUrlLink
 )

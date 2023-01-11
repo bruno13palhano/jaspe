@@ -3,6 +3,7 @@ package com.bruno13palhano.repository.model
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.bruno13palhano.model.Product
 
 @Entity(tableName = "product_table")
 internal data class ProductRep(
@@ -31,4 +32,26 @@ internal data class ProductRep(
 
     @ColumnInfo(name = "product_url_link")
     val productUrlLink: String
+)
+
+internal fun ProductRep.asProduct() = Product(
+    productId = productId,
+    productName = productName,
+    productUrlImage = productUrlImage,
+    productPrice = productPrice,
+    productType = productType,
+    productDescription = productDescription,
+    productCompany = productCompany,
+    productUrlLink = productUrlLink
+)
+
+internal fun Product.asProductRep() = ProductRep(
+    productId = productId,
+    productName = productName,
+    productUrlImage = productUrlImage,
+    productPrice = productPrice,
+    productType = productType,
+    productDescription = productDescription,
+    productCompany = productCompany,
+    productUrlLink = productUrlLink
 )

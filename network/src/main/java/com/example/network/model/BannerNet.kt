@@ -1,5 +1,6 @@
 package com.example.network.model
 
+import com.bruno13palhano.model.Banner
 import com.squareup.moshi.Json
 
 data class BannerNet(
@@ -15,4 +16,18 @@ data class BannerNet(
 
     @Json(name = "bannerCompany")
     val bannerCompany: String
+)
+
+internal fun BannerNet.asBanner() = Banner(
+    bannerId = bannerId,
+    bannerName = bannerName,
+    bannerUrlImage = bannerUrlImage,
+    bannerCompany = bannerCompany
+)
+
+internal fun Banner.asBannerNet() = BannerNet(
+    bannerId = bannerId,
+    bannerName = bannerName,
+    bannerUrlImage = bannerUrlImage,
+    bannerCompany = bannerCompany
 )

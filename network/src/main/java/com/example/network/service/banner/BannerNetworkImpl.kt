@@ -1,8 +1,8 @@
 package com.example.network.service.banner
 
 import com.bruno13palhano.model.Banner
+import com.example.network.model.asBanner
 import com.example.network.service.ApiService
-import com.example.network.util.convertBannerNetToBanner
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
@@ -10,7 +10,7 @@ internal class BannerNetworkImpl : BannerNetwork {
     override suspend fun getBanners(): Flow<List<Banner>> = flow {
         try {
             emit(ApiService.ProductApi.apiService.getBanners().map {
-                convertBannerNetToBanner(it)
+                it.asBanner()
             })
         } catch (e: Exception) {
             e.printStackTrace()
@@ -19,11 +19,7 @@ internal class BannerNetworkImpl : BannerNetwork {
 
     override suspend fun getBannerById(bannerId: Long): Flow<Banner> = flow {
         try {
-            emit(
-                convertBannerNetToBanner(
-                    ApiService.ProductApi.apiService.getBannerById(bannerId)
-                )
-            )
+            emit(ApiService.ProductApi.apiService.getBannerById(bannerId).asBanner())
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -33,7 +29,7 @@ internal class BannerNetworkImpl : BannerNetwork {
         try {
             emit(
                 ApiService.ProductApi.apiService.getAmazonBanners().map {
-                    convertBannerNetToBanner(it)
+                    it.asBanner()
                 }
             )
         } catch (e: Exception) {
@@ -45,7 +41,7 @@ internal class BannerNetworkImpl : BannerNetwork {
         try {
             emit(
                 ApiService.ProductApi.apiService.getNaturaBanners().map {
-                    convertBannerNetToBanner(it)
+                    it.asBanner()
                 }
             )
         } catch (e: Exception) {
@@ -57,7 +53,7 @@ internal class BannerNetworkImpl : BannerNetwork {
         try {
             emit(
                 ApiService.ProductApi.apiService.getAvonBanners().map {
-                    convertBannerNetToBanner(it)
+                    it.asBanner()
                 }
             )
         } catch (e: Exception) {
