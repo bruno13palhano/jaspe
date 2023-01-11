@@ -9,4 +9,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="pink_light">#AFF59BBB</color>
     <color name="gray_light">#EEEDE7</color>
+    <color name="pink_baby">#EBBDCA</color>
+    <color name="purple_light">#AE7FA1</color>
+    <color name="purple_dark">#805686</color>
 </resources>
