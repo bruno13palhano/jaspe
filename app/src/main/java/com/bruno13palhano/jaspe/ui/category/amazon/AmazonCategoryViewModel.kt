@@ -10,6 +10,6 @@ class AmazonCategoryViewModel(
 ) : ViewModel() {
 
     fun getAllProducts(): Flow<List<Product>> {
-        return productRepository.getByCompany("Amazon", 0, 10)
+        return productRepository.getByType("Mercado")
     }
 }
