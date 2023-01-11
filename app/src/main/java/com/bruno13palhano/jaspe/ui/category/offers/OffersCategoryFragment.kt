@@ -48,6 +48,7 @@ class OffersCategoryFragment : Fragment() {
         val toolbar = view.findViewById<MaterialToolbar>(R.id.toolbar_offers_category)
         toolbar.inflateMenu(R.menu.menu_toolbar)
         toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24)
+        toolbar.setTitle(R.string.offers_category_label)
 
         toolbar.setOnMenuItemClickListener {
             println("Menu in offers")
