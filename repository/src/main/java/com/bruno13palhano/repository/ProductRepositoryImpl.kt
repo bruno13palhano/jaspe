@@ -57,4 +57,12 @@ internal class ProductRepositoryImpl(
                 }
             }
     }
+
+    override fun getByType(productType: String): Flow<List<Product>> {
+        return dao.getByType(productType).map {
+            it.map { productRep ->
+                productRep.asProduct()
+            }
+        }
+    }
 }
