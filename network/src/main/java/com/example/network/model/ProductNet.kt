@@ -1,5 +1,6 @@
 package com.example.network.model
 
+import com.bruno13palhano.model.Product
 import com.squareup.moshi.Json
 
 data class ProductNet(
@@ -26,8 +27,16 @@ data class ProductNet(
     val productCompany: String,
 
     @Json(name = "productUrlLink")
-    val productUrlLink: String,
+    val productUrlLink: String
+)
 
-    @Json(name = "productIsFavorite")
-    val productIsFavorite: Boolean
+internal fun ProductNet.asProduct() = Product(
+    productId = productId,
+    productName = productName,
+    productUrlImage = productUrlImage,
+    productPrice = productPrice,
+    productType = productType,
+    productDescription = productDescription,
+    productCompany = productCompany,
+    productUrlLink = productUrlLink
 )

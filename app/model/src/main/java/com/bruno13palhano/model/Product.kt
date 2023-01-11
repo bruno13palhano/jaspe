@@ -8,6 +8,5 @@ data class Product(
     val productType: String,
     val productDescription: String,
     val productCompany: String,
-    val productUrlLink: String,
-    val productIsFavorite: Boolean
+    val productUrlLink: String
 )

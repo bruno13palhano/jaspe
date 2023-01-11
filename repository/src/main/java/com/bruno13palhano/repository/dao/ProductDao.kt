@@ -33,9 +33,6 @@ internal interface ProductDao {
     @Query("SELECT * FROM product_table")
     fun getAll(): Flow<List<ProductRep>>
 
-    @Query("SELECT * FROM product_table WHERE product_favorite = 1")
-    fun getAllFavorites(): Flow<List<ProductRep>>
-
     @Query("SELECT * FROM product_table WHERE product_company = :productCompany " +
             "ORDER BY product_id DESC LIMIT :offset,:limit")
     fun getByCompany(productCompany: String, offset: Int, limit: Int): Flow<List<ProductRep>>

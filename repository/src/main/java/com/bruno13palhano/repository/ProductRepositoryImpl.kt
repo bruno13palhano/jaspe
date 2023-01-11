@@ -45,14 +45,6 @@ internal class ProductRepositoryImpl(
         }
     }
 
-    override fun getAllFavorites(): Flow<List<Product>> {
-        return dao.getAllFavorites().map {
-            it.map { productRep ->
-                convertProductRepToProduct(productRep)
-            }
-        }
-    }
-
     override fun getByCompany(
         productCompany: String,
         offset: Int,
