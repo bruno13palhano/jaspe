@@ -89,20 +89,20 @@ class HomeFragment : Fragment() {
 
             CategoryItem(
                 "ITEM_5",
-                "category_highlights",
-                "Highlights",
-                R.drawable.highlisghts
-            ),
-
-            CategoryItem(
-                "ITEM_6",
                 "category_offers",
                 "Offers",
                 R.drawable.offers_icon
             ),
 
             CategoryItem(
-                "ITEM_5",
+                "ITEM_6",
+                "category_highlights",
+                "Highlights",
+                R.drawable.highlisghts
+            ),
+
+            CategoryItem(
+                "ITEM_7",
                 "category_blog",
                 "Blog",
                 R.drawable.blog_icon
