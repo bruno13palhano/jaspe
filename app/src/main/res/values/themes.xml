@@ -6,11 +6,11 @@
         <item name="colorPrimaryVariant">@color/purple_700</item>
         <item name="colorOnPrimary">@color/black</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/pink_light</item>
+        <item name="colorSecondary">@color/pink_baby</item>
         <item name="colorSecondaryVariant">@color/teal_700</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:statusBarColor">@color/pink_baby</item>
         <!-- Customize your theme here. -->
         <item name="android:windowBackground">@color/gray_light</item>
     </style>
