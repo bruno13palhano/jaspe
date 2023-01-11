@@ -11,6 +11,8 @@ import com.bruno13palhano.jaspe.ui.category.baby.BabyCategoryViewModel
 import com.bruno13palhano.jaspe.ui.category.baby.BabyCategoryViewModelFactory
 import com.bruno13palhano.jaspe.ui.category.natura.NaturaCategoryViewModel
 import com.bruno13palhano.jaspe.ui.category.natura.NaturaCategoryViewModelFactory
+import com.bruno13palhano.jaspe.ui.category.offers.OffersCategoryViewModel
+import com.bruno13palhano.jaspe.ui.category.offers.OffersCategoryViewModelFactory
 import com.bruno13palhano.repository.RepositoryFactory
 
 class CategoriesViewModelFactory(
@@ -41,5 +43,11 @@ class CategoriesViewModelFactory(
         val babyViewModelFactory =
             BabyCategoryViewModelFactory(repositoryFactory.createProductRepository())
         return ViewModelProvider(owner, babyViewModelFactory)[BabyCategoryViewModel::class.java]
+    }
+
+    fun createOffersCategoryViewModel(): OffersCategoryViewModel {
+        val offersViewModelFactory =
+            OffersCategoryViewModelFactory(repositoryFactory.createProductRepository())
+        return ViewModelProvider(owner, offersViewModelFactory)[OffersCategoryViewModel::class.java]
     }
 }
