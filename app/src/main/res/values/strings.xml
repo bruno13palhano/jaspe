@@ -24,4 +24,13 @@
 
     <!--  button labels  -->
     <string name="buy_button_label">Buy</string>
+
+    <!--  Categories  -->
+    <string name="amazon_category_label">Market</string>
+    <string name="avon_category_label">Avon</string>
+    <string name="baby_category_label">Baby</string>
+    <string name="blog_category_label">Blog</string>
+    <string name="highlights_category_label">Highlights</string>
+    <string name="natura_category_label">Natura</string>
+    <string name="offers_category_label">Offers</string>
 </resources>
