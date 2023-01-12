@@ -2,7 +2,6 @@ package com.bruno13palhano.jaspe.ui.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
@@ -10,6 +9,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bruno13palhano.jaspe.R
 import com.bruno13palhano.model.CategoryItem
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class CategoryItemAdapter(
     private val onClick: (String) -> Unit
@@ -32,7 +32,7 @@ class CategoryItemAdapter(
         val onClick: (String) -> Unit
     ) : RecyclerView.ViewHolder(rootView) {
 
-        private val categoryItemImage = rootView.findViewById<ImageView>(R.id.category_item_image)
+        private val categoryItemImage = rootView.findViewById<FloatingActionButton>(R.id.category_item_button)
         private val categoryItemTitle = rootView.findViewById<TextView>(R.id.category_item_title)
 
         var currentCategoryItem: CategoryItem? = null
