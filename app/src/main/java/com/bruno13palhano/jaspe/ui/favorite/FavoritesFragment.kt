@@ -22,7 +22,7 @@ class FavoritesFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_favorites, container, false)
         val recyclerView = view.findViewById<RecyclerView>(R.id.favorite_list)
 
-        val adapter = FavoritesItemAdapter{
+        val adapter = FavoritesItemAdapter {
             val action = FavoritesFragmentDirections.actionFavoriteToProduct(it)
             view.findNavController().navigate(action)
         }
