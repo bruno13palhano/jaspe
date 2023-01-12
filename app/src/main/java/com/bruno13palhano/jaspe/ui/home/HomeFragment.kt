@@ -18,6 +18,7 @@ import coil.load
 import com.bruno13palhano.jaspe.MainActivity
 import com.bruno13palhano.jaspe.R
 import com.bruno13palhano.jaspe.ui.ViewModelFactory
+import com.bruno13palhano.model.CategoryItem
 import com.google.android.material.appbar.MaterialToolbar
 import kotlinx.coroutines.launch
 
@@ -138,6 +139,7 @@ class HomeFragment : Fragment() {
                 }
             }
         }
+        recyclerView.adapter = adapter
 
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -146,6 +148,7 @@ class HomeFragment : Fragment() {
                 }
             }
         }
+        amazonRecycler.adapter = amazonAdapter
 
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -154,6 +157,7 @@ class HomeFragment : Fragment() {
                 }
             }
         }
+        naturaRecycler.adapter = naturaAdapter
 
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -162,6 +166,7 @@ class HomeFragment : Fragment() {
                 }
             }
         }
+        avonRecycler.adapter = avonAdapter
 
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -186,11 +191,6 @@ class HomeFragment : Fragment() {
                 }
             }
         }
-
-        recyclerView.adapter = adapter
-        amazonRecycler.adapter = amazonAdapter
-        naturaRecycler.adapter = naturaAdapter
-        avonRecycler.adapter = avonAdapter
 
         return view
     }

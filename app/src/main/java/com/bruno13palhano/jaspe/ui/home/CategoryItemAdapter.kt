@@ -5,11 +5,11 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bruno13palhano.jaspe.R
+import com.bruno13palhano.model.CategoryItem
 
 class CategoryItemAdapter(
     private val onClick: (String) -> Unit
@@ -40,7 +40,7 @@ class CategoryItemAdapter(
         init {
             rootView.setOnClickListener {
                 currentCategoryItem?.let {
-                    onClick(it.categoryRouteName)
+                    onClick(it.categoryItemRoute)
                 }
             }
         }
@@ -54,7 +54,7 @@ class CategoryItemAdapter(
 
     private class CategoryItemDiffCallback : DiffUtil.ItemCallback<CategoryItem>() {
         override fun areItemsTheSame(oldItem: CategoryItem, newItem: CategoryItem): Boolean {
-            return oldItem.categoryTagName == newItem.categoryTagName
+            return oldItem.categoryItemTag == newItem.categoryItemTag
         }
 
         override fun areContentsTheSame(oldItem: CategoryItem, newItem: CategoryItem): Boolean {
