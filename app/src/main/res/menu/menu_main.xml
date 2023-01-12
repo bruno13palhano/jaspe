@@ -27,6 +27,11 @@
             android:title="@string/favorite_label" />
 
         <item
+            android:id="@+id/categoryFragment"
+            android:icon="@drawable/ic_baseline_list_24"
+            android:title="@string/categories_label" />
+
+        <item
             android:id="@+id/accountFragment"
             android:icon="@drawable/ic_baseline_account_circle_24"
             android:title="@string/account_label" />

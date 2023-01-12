@@ -105,6 +105,12 @@
     </fragment>
 
     <fragment
+        android:id="@+id/categoryFragment"
+        android:name="com.bruno13palhano.jaspe.ui.category.CategoryFragment"
+        android:label="@string/categories_label"
+        tools:layout="@layout/fragment_category" />
+
+    <fragment
         android:id="@+id/accountFragment"
         android:name="com.bruno13palhano.jaspe.ui.AccountFragment"
         android:label="@string/account_label"

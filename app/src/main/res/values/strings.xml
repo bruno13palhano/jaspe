@@ -8,6 +8,7 @@
     <string name="support_label">Support</string>
     <string name="account_label">My account</string>
     <string name="share_label">Share product</string>
+    <string name="categories_label">Categories</string>
     <string name="category_item_label">Category item</string>
     <!-- product labels   -->
     <string name="product_name_label">Product name</string>

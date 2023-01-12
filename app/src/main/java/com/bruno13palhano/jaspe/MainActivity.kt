@@ -89,6 +89,18 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
 
+                R.id.categoryFragment -> {
+                    if (!item.isChecked) {
+                        lifecycleScope.launch {
+                            delay(270L)
+                            navController.apply {
+                                popBackStack(R.id.homeFragment, inclusive = false, saveState = true)
+                                navigate(R.id.categoryFragment)
+                            }
+                        }
+                    }
+                }
+
                 R.id.accountFragment -> {
                     if (!item.isChecked) {
                         lifecycleScope.launch {
