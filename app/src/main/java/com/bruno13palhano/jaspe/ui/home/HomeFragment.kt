@@ -59,56 +59,7 @@ class HomeFragment : Fragment() {
             view.findNavController().navigate(action)
         }
 
-        val categoryItems = listOf<CategoryItem>(
-            CategoryItem(
-                "ITEM_1",
-                "category_baby",
-                "Baby",
-                R.drawable.baby_icon
-            ),
-
-            CategoryItem(
-                "ITEM_2",
-                "category_market",
-                "Market",
-                R.drawable.market_icon
-            ),
-
-            CategoryItem(
-                "ITEM_3",
-                "category_avon",
-                "Avon",
-                R.drawable.avon_icon
-            ),
-
-            CategoryItem(
-                "ITEM_4",
-                "category_natura",
-                "Natura",
-                R.drawable.natura_icon
-            ),
-
-            CategoryItem(
-                "ITEM_5",
-                "category_offers",
-                "Offers",
-                R.drawable.offers_icon
-            ),
-
-            CategoryItem(
-                "ITEM_6",
-                "category_highlights",
-                "Highlights",
-                R.drawable.highlisghts
-            ),
-
-            CategoryItem(
-                "ITEM_7",
-                "category_blog",
-                "Blog",
-                R.drawable.blog_icon
-            ),
-        )
+        val categoryItems = createCategoryItemList()
         val categoryRecyclerView = view.findViewById<RecyclerView>(R.id.category_recycler_view)
         val categoryAdapter = CategoryItemAdapter {
             val action = categoryNavigateTo(it)
@@ -116,9 +67,8 @@ class HomeFragment : Fragment() {
                 view.findNavController().navigate(action)
             }
         }
-        categoryAdapter.submitList(categoryItems)
-
         categoryRecyclerView.adapter = categoryAdapter
+        categoryAdapter.submitList(categoryItems)
 
         val viewModel = activity?.applicationContext?.let {
             ViewModelFactory(it, this@HomeFragment).createHomeViewModel()
@@ -233,5 +183,58 @@ class HomeFragment : Fragment() {
         }
 
         return null
+    }
+
+    private fun createCategoryItemList(): List<CategoryItem> {
+        return listOf<CategoryItem>(
+            CategoryItem(
+                "Baby",
+                "category_baby",
+                "ITEM_1",
+                R.drawable.baby_icon
+            ),
+
+            CategoryItem(
+                "Market",
+                "category_market",
+                "ITEM_2",
+                R.drawable.market_icon
+            ),
+
+            CategoryItem(
+                "Avon",
+                "category_avon",
+                "ITEM_3",
+                R.drawable.avon_icon
+            ),
+
+            CategoryItem(
+                "Natura",
+                "category_natura",
+                "ITEM_4",
+                R.drawable.natura_icon
+            ),
+
+            CategoryItem(
+                "Offers",
+                "category_offers",
+                "ITEM_5",
+                R.drawable.offers_icon
+            ),
+
+            CategoryItem(
+                "Highlights",
+                "category_highlights",
+                "ITEM_6",
+                R.drawable.highlisghts
+            ),
+
+            CategoryItem(
+                "Blog",
+                "category_blog",
+                "ITEM_7",
+                R.drawable.blog_icon
+            ),
+        )
     }
 }
