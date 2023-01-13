@@ -79,7 +79,7 @@
 
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.bruno13palhano.jaspe.ui.SearchFragment"
+        android:name="com.bruno13palhano.jaspe.ui.search.SearchFragment"
         android:label="@string/search_label"
         tools:layout="@layout/fragment_search" />
 
