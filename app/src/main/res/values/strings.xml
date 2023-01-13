@@ -10,6 +10,7 @@
     <string name="share_label">Share product</string>
     <string name="categories_label">Categories</string>
     <string name="category_item_label">Category item</string>
+    <string name="search_product_label">Search Product</string>
     <!-- product labels   -->
     <string name="product_name_label">Product name</string>
     <string name="product_price_label">\$%1$.2f</string>
