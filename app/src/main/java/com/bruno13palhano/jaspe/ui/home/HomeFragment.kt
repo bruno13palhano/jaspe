@@ -163,7 +163,7 @@ class HomeFragment : Fragment() {
                 return HomeFragmentDirections.actionHomeToBabyCategory()
             }
             "category_market" -> {
-                return HomeFragmentDirections.actionHomeToAmazonCategory()
+                return HomeFragmentDirections.actionHomeToMarketCategory()
             }
             "category_avon" -> {
                 return HomeFragmentDirections.actionHomeToAvonCategory()
