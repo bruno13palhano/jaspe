@@ -113,6 +113,18 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
 
+                R.id.blogCategoryFragment -> {
+                    if (!item.isChecked) {
+                        lifecycleScope.launch {
+                            delay(270L)
+                            navController.apply {
+                                popBackStack(R.id.homeFragment, inclusive = false, saveState = true)
+                                navigate(R.id.blogCategoryFragment)
+                            }
+                        }
+                    }
+                }
+
                 R.id.helpFragment -> {
                     if (!item.isChecked) {
                         lifecycleScope.launch {
