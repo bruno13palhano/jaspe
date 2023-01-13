@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.coroutineScope
+import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bruno13palhano.jaspe.R
@@ -23,7 +24,10 @@ class CategoryFragment : Fragment() {
         val recyclerView = view.findViewById<RecyclerView>(R.id.category_list)
 
         val adapter = CategoryListAdapter {
-            println(it)
+            val action = categoryNavigationTo(it)
+            if (action != null) {
+                findNavController().navigate(action)
+            }
         }
         recyclerView.adapter = adapter
 
@@ -48,5 +52,30 @@ class CategoryFragment : Fragment() {
         toolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
+    }
+
+    private fun categoryNavigationTo(categoryRoute: String): NavDirections? {
+        when (categoryRoute) {
+            "category_baby" -> {
+                return CategoryFragmentDirections.actionCategoryToBabyCategory()
+            }
+            "category_market" -> {
+                return CategoryFragmentDirections.actionCategoryToMarketCategory()
+            }
+            "category_avon" -> {
+                return CategoryFragmentDirections.actionCategoryToAvonCategory()
+            }
+            "category_natura" -> {
+                return CategoryFragmentDirections.actionCategoryToNaturaCategory()
+            }
+            "category_highlights" -> {
+                return CategoryFragmentDirections.actionCategoryToHighlightsCategory()
+            }
+            "category_offers" -> {
+                return CategoryFragmentDirections.actionCategoryToOffersCategory()
+            }
+        }
+
+        return null
     }
 }

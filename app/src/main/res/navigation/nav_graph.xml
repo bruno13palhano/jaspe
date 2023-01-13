@@ -21,8 +21,8 @@
             app:popExitAnim="@android:anim/slide_out_right" />
 
         <action
-            android:id="@+id/action_home_to_amazon_category"
-            app:destination="@id/amazonCategoryFragment"
+            android:id="@+id/action_home_to_market_category"
+            app:destination="@id/marketCategoryFragment"
             app:enterAnim="@android:anim/slide_in_left"
             app:exitAnim="@android:anim/slide_out_right"
             app:popEnterAnim="@android:anim/slide_in_left"
@@ -108,7 +108,56 @@
         android:id="@+id/categoryFragment"
         android:name="com.bruno13palhano.jaspe.ui.category.CategoryFragment"
         android:label="@string/categories_label"
-        tools:layout="@layout/fragment_category" />
+        tools:layout="@layout/fragment_category">
+
+        <action
+            android:id="@+id/action_category_to_market_category"
+            app:destination="@id/marketCategoryFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
+
+        <action
+            android:id="@+id/action_category_to_baby_category"
+            app:destination="@id/babyCategoryFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
+
+        <action
+            android:id="@+id/action_category_to_avon_category"
+            app:destination="@id/avonCategoryFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
+
+        <action
+            android:id="@+id/action_category_to_natura_category"
+            app:destination="@id/naturaCategoryFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
+
+        <action
+            android:id="@+id/action_category_to_offers_category"
+            app:destination="@id/offersCategoryFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
+
+        <action
+            android:id="@+id/action_category_to_highlights_category"
+            app:destination="@id/highlightsCategoryFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
+    </fragment>
 
     <fragment
         android:id="@+id/accountFragment"
@@ -133,13 +182,13 @@
     </fragment>
 
     <fragment
-        android:id="@+id/amazonCategoryFragment"
+        android:id="@+id/marketCategoryFragment"
         android:name="com.bruno13palhano.jaspe.ui.category.amazon.AmazonCategoryFragment"
         android:label="AmazonCategory"
         tools:layout="@layout/fragment_amazon_category">
 
         <action
-            android:id="@+id/action_amazon_category_to_product"
+            android:id="@+id/action_market_category_to_product"
             app:destination="@id/productFragment"
             app:enterAnim="@android:anim/slide_in_left"
             app:exitAnim="@android:anim/slide_out_right"
@@ -166,16 +215,7 @@
         android:id="@+id/blogCategoryFragment"
         android:name="com.bruno13palhano.jaspe.ui.category.blog.BlogCategoryFragment"
         android:label="BlogCategory"
-        tools:layout="@layout/fragment_blog_category">
-
-        <action
-            android:id="@+id/action_blog_category_to_product"
-            app:destination="@id/productFragment"
-            app:enterAnim="@android:anim/slide_in_left"
-            app:exitAnim="@android:anim/slide_out_right"
-            app:popEnterAnim="@android:anim/slide_in_left"
-            app:popExitAnim="@android:anim/slide_out_right" />
-    </fragment>
+        tools:layout="@layout/fragment_blog_category"/>
 
     <fragment
         android:id="@+id/highlightsCategoryFragment"
@@ -230,7 +270,7 @@
 
         <action
             android:id="@+id/action_baby_category_to_product"
-            app:destination="@+id/productFragment"
+            app:destination="@id/productFragment"
             app:enterAnim="@android:anim/slide_in_left"
             app:exitAnim="@android:anim/slide_out_right"
             app:popEnterAnim="@android:anim/slide_in_left"

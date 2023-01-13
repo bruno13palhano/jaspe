@@ -34,4 +34,5 @@
     <string name="highlights_category_label">Highlights</string>
     <string name="natura_category_label">Natura</string>
     <string name="offers_category_label">Offers</string>
+    <string name="icon_label">Icon</string>
 </resources>
