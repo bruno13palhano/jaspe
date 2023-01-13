@@ -21,7 +21,7 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val toolbar = view.findViewById<MaterialToolbar>(R.id.toolbar_search)
-        toolbar.inflateMenu(R.menu.menu_toolbar)
+        toolbar.inflateMenu(R.menu.menu_toolbar_search)
         toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24)
         toolbar.title = getString(R.string.search_label)
 
