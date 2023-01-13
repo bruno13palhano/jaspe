@@ -38,7 +38,7 @@ class CategoryItemAdapter(
         var currentCategoryItem: CategoryItem? = null
 
         init {
-            rootView.setOnClickListener {
+            categoryItemImage.setOnClickListener {
                 currentCategoryItem?.let {
                     onClick(it.categoryItemRoute)
                 }
