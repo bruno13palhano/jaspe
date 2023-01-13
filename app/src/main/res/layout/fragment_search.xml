@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.SearchFragment">
+    tools:context=".ui.search.SearchFragment">
 
 
     <com.google.android.material.appbar.MaterialToolbar
@@ -15,6 +15,7 @@
         style="@style/Widget.MaterialComponents.Toolbar.Primary">
 
         <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/search_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="@string/search_product_label"

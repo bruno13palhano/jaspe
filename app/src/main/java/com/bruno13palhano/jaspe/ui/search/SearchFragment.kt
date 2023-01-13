@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.AppCompatEditText
 import androidx.navigation.fragment.findNavController
 import com.bruno13palhano.jaspe.R
 import com.google.android.material.appbar.MaterialToolbar
@@ -27,6 +28,18 @@ class SearchFragment : Fragment() {
 
         toolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
+        }
+
+
+        val searchText: AppCompatEditText = view.findViewById(R.id.search_text)
+        toolbar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.search_button -> {
+                    println("Text: ${searchText.text}")
+                    true
+                }
+                else -> false
+            }
         }
     }
 }
