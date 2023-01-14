@@ -18,7 +18,7 @@ class SearchViewModel(
     fun searchProductByTitle(productName: String) {
         if (productName != "") {
             viewModelScope.launch {
-                productRepository.searchProductByTitle(productName).collect {
+                productRepository.searchProductByTitle(productName.trim()).collect {
                     _searchProducts.value = it
                 }
             }
