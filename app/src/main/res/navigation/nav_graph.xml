@@ -81,7 +81,16 @@
         android:id="@+id/searchFragment"
         android:name="com.bruno13palhano.jaspe.ui.search.SearchFragment"
         android:label="@string/search_label"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search">
+
+        <action
+            android:id="@+id/action_search_to_product"
+            app:destination="@id/productFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
+    </fragment>
 
     <fragment
         android:id="@+id/offersFragment"
