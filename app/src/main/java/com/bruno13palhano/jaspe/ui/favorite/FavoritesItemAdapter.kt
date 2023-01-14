@@ -2,6 +2,7 @@ package com.bruno13palhano.jaspe.ui.favorite
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
@@ -13,13 +14,14 @@ import com.bruno13palhano.jaspe.R
 import com.bruno13palhano.model.FavoriteProduct
 
 class FavoritesItemAdapter(
-    private val onClick: (Long) -> Unit
+    private val onItemClick: (productId: Long) -> Unit,
+    private val onItemClose: (productId: Long) -> Unit
 ) : ListAdapter<FavoriteProduct, FavoritesItemAdapter.FavoritesItemViewHolder>(FavoritesDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoritesItemViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.favorite_card, parent, false) as CardView
-        return FavoritesItemViewHolder(view, onClick)
+        return FavoritesItemViewHolder(view, onItemClose, onItemClick)
     }
 
     override fun onBindViewHolder(holder: FavoritesItemViewHolder, position: Int) {
@@ -29,19 +31,27 @@ class FavoritesItemAdapter(
 
     class FavoritesItemViewHolder(
         rootView: CardView,
-        val onClick: (Long) -> Unit
+        val onItemClose: (Long) -> Unit,
+        val onItemClick: (Long) -> Unit
     ) : RecyclerView.ViewHolder(rootView) {
         private val productImage: ImageView = rootView.findViewById(R.id.product_image)
         private val productName: TextView = rootView.findViewById(R.id.product_name)
         private val productType: TextView = rootView.findViewById(R.id.product_type)
         private val productPrice: TextView = rootView.findViewById(R.id.product_price)
+        private val removeProduct: ImageButton = rootView.findViewById(R.id.remove_product)
 
         var currentProduct: FavoriteProduct? = null
 
         init {
+            removeProduct.setOnClickListener {
+                currentProduct?.let {
+                    onItemClose(it.favoriteProductId)
+                }
+            }
+
             rootView.setOnClickListener {
                 currentProduct?.let {
-                    onClick(it.favoriteProductId)
+                    onItemClick(it.favoriteProductId)
                 }
             }
         }

@@ -30,6 +30,15 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+            <ImageButton
+                android:id="@+id/remove_product"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="end"
+                android:backgroundTint="@null"
+                android:background="@null"
+                android:src="@drawable/ic_baseline_close_24"
+                android:contentDescription="@string/remove_product_label" />
             <TextView
                 android:id="@+id/product_name"
                 android:layout_width="match_parent"

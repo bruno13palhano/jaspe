@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bruno13palhano.jaspe.R
 import com.bruno13palhano.jaspe.ui.ViewModelFactory
 import com.google.android.material.appbar.MaterialToolbar
+import kotlinx.coroutines.launch
 
 class FavoritesFragment : Fragment() {
 
@@ -22,14 +23,21 @@ class FavoritesFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_favorites, container, false)
         val recyclerView = view.findViewById<RecyclerView>(R.id.favorite_list)
 
-        val adapter = FavoritesItemAdapter {
-            val action = FavoritesFragmentDirections.actionFavoriteToProduct(it)
-            view.findNavController().navigate(action)
-        }
-
         val viewModel = activity?.applicationContext?.let {
             ViewModelFactory(it, this@FavoritesFragment).createFavoritesViewModel()
         }
+
+        val adapter = FavoritesItemAdapter(
+            onItemClose = {
+                lifecycle.coroutineScope.launch {
+                    viewModel?.deleteProduct(it)
+                }
+            },
+            onItemClick = {
+                val action = FavoritesFragmentDirections.actionFavoriteToProduct(it)
+                view.findNavController().navigate(action)
+            }
+        )
 
         lifecycle.coroutineScope.launchWhenCreated {
             viewModel?.getAllFavorites()?.collect {
