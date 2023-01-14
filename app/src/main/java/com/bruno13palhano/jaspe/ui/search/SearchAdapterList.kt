@@ -16,7 +16,7 @@ class SearchAdapterList(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchItemViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.category_card_list, parent, false) as CardView
+            .inflate(R.layout.search_card_list, parent, false) as CardView
         return SearchItemViewHolder(view, onClick)
     }
 
@@ -28,7 +28,7 @@ class SearchAdapterList(
         rootView: CardView,
         val onClick: (Long) -> Unit
     ) : RecyclerView.ViewHolder(rootView) {
-        private val productName: TextView = rootView.findViewById(R.id.category_title)
+        private val productName: TextView = rootView.findViewById(R.id.search_title)
 
         var currentProduct: Product? = null
 
