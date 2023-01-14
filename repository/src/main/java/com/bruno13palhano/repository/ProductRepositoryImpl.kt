@@ -65,4 +65,12 @@ internal class ProductRepositoryImpl(
             }
         }
     }
+
+    override fun searchProductByTitle(productName: String): Flow<List<Product>> {
+        return dao.searchProductByTitle(productName).map {
+            it.map { productRep ->
+                productRep.asProduct()
+            }
+        }
+    }
 }

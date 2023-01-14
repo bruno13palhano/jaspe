@@ -39,4 +39,7 @@ internal interface ProductDao {
 
     @Query("SELECT * FROM product_table WHERE product_type = :productType")
     fun getByType(productType: String): Flow<List<ProductRep>>
+
+    @Query("SELECT * FROM product_table WHERE product_name LIKE '%'||:productName||'%'")
+    fun searchProductByTitle(productName: String): Flow<List<ProductRep>>
 }

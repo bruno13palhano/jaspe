@@ -10,6 +10,8 @@ import com.bruno13palhano.jaspe.ui.home.HomeViewModel
 import com.bruno13palhano.jaspe.ui.home.HomeViewModelFactory
 import com.bruno13palhano.jaspe.ui.product.ProductViewModel
 import com.bruno13palhano.jaspe.ui.product.ProductViewModelFactory
+import com.bruno13palhano.jaspe.ui.search.SearchViewModel
+import com.bruno13palhano.jaspe.ui.search.SearchViewModelFactory
 import com.bruno13palhano.repository.RepositoryFactory
 
 class ViewModelFactory(
@@ -43,5 +45,12 @@ class ViewModelFactory(
 
     fun createCategoryViewModel(): CategoryViewModel {
         return ViewModelProvider(owner)[CategoryViewModel::class.java]
+    }
+
+    fun createSearchViewModel(): SearchViewModel {
+        val searchViewModelFactory =
+            SearchViewModelFactory(repositoryFactory.createProductRepository())
+
+        return ViewModelProvider(owner, searchViewModelFactory)[SearchViewModel::class.java]
     }
 }

@@ -15,10 +15,10 @@ class MainViewModel(
 
     private val workManager = WorkManager.getInstance(application)
     private val fetchProductData =
-            PeriodicWorkRequestBuilder<ProductWork>(15, TimeUnit.MINUTES)
+            PeriodicWorkRequestBuilder<ProductWork>(1, TimeUnit.HOURS)
                 .build()
     private val fetchBannerData =
-        PeriodicWorkRequestBuilder<BannerWork>(15, TimeUnit.MINUTES)
+        PeriodicWorkRequestBuilder<BannerWork>(1, TimeUnit.HOURS)
             .build()
 
     fun fetchDataFromServe() {
