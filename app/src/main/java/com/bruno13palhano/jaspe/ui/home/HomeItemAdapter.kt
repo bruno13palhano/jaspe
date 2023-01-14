@@ -33,7 +33,6 @@ class HomeItemAdapter(
     ) : RecyclerView.ViewHolder(rootView) {
         private val productName: TextView = rootView.findViewById(R.id.product_name)
         private val productPrice: TextView = rootView.findViewById(R.id.product_price)
-        private val productType: TextView = rootView.findViewById(R.id.product_type)
         private val productImage: ImageView = rootView.findViewById(R.id.product_image)
 
         var currentProduct: Product? = null
@@ -50,7 +49,6 @@ class HomeItemAdapter(
             currentProduct = item
             productName.text = item.productName
             productPrice.text = itemView.resources.getString(R.string.product_price_label, item.productPrice)
-            productType.text = item.productType
             productImage.load(item.productUrlImage)
         }
     }
