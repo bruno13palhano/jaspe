@@ -4,5 +4,5 @@
         android:drawable="@color/white"/>
     <item
         android:gravity="center"
-        android:drawable="@drawable/shop_dani_logo"/>
+        android:drawable="@drawable/profile"/>
 </layer-list>

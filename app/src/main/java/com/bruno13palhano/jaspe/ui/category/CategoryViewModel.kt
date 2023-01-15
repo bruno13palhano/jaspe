@@ -45,7 +45,7 @@ class CategoryViewModel : ViewModel() {
             "Highlights",
             "category_highlights",
             "ITEM_6",
-            R.drawable.highlisghts
+            R.drawable.highlights_icon
         ),
     )
 }

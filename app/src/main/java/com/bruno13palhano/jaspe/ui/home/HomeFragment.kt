@@ -226,7 +226,7 @@ class HomeFragment : Fragment() {
                 "Highlights",
                 "category_highlights",
                 "ITEM_6",
-                R.drawable.highlisghts
+                R.drawable.highlights_icon
             ),
 
             CategoryItem(
