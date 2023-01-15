@@ -33,6 +33,9 @@ class FavoritesFragment : Fragment() {
                     viewModel?.deleteProduct(it)
                 }
             },
+            onItemShare = {
+                // TODO: share implementation
+            },
             onItemClick = {
                 val action = FavoritesFragmentDirections.actionFavoriteToProduct(it)
                 view.findNavController().navigate(action)

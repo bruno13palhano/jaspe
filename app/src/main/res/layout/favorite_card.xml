@@ -30,15 +30,28 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <ImageButton
-                android:id="@+id/remove_product"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_gravity="end"
-                android:backgroundTint="@null"
-                android:background="@null"
-                android:src="@drawable/ic_baseline_favorite_pink_24"
-                android:contentDescription="@string/remove_product_label" />
+            <FrameLayout
+                android:layout_width="96dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end">
+
+                <ImageButton
+                    android:id="@+id/share_product"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="@null"
+                    android:src="@drawable/ic_baseline_share_24"
+                    android:contentDescription="@string/share_label" />
+
+                <ImageButton
+                    android:id="@+id/remove_product"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="end"
+                    android:background="@null"
+                    android:src="@drawable/ic_baseline_favorite_pink_24"
+                    android:contentDescription="@string/remove_product_label" />
+            </FrameLayout>
             <TextView
                 android:id="@+id/product_name"
                 android:layout_width="match_parent"

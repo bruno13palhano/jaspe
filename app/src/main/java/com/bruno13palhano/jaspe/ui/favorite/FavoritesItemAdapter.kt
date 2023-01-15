@@ -15,13 +15,14 @@ import com.bruno13palhano.model.FavoriteProduct
 
 class FavoritesItemAdapter(
     private val onItemClick: (productId: Long) -> Unit,
-    private val onItemClose: (productId: Long) -> Unit
+    private val onItemClose: (productId: Long) -> Unit,
+    private val onItemShare: (productId: Long) -> Unit
 ) : ListAdapter<FavoriteProduct, FavoritesItemAdapter.FavoritesItemViewHolder>(FavoritesDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoritesItemViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.favorite_card, parent, false) as CardView
-        return FavoritesItemViewHolder(view, onItemClose, onItemClick)
+        return FavoritesItemViewHolder(view, onItemClose, onItemClick, onItemShare)
     }
 
     override fun onBindViewHolder(holder: FavoritesItemViewHolder, position: Int) {
@@ -32,13 +33,15 @@ class FavoritesItemAdapter(
     class FavoritesItemViewHolder(
         rootView: CardView,
         val onItemClose: (Long) -> Unit,
-        val onItemClick: (Long) -> Unit
+        val onItemClick: (Long) -> Unit,
+        val onItemShare: (productId: Long) -> Unit
     ) : RecyclerView.ViewHolder(rootView) {
         private val productImage: ImageView = rootView.findViewById(R.id.product_image)
         private val productName: TextView = rootView.findViewById(R.id.product_name)
         private val productType: TextView = rootView.findViewById(R.id.product_type)
         private val productPrice: TextView = rootView.findViewById(R.id.product_price)
         private val removeProduct: ImageButton = rootView.findViewById(R.id.remove_product)
+        private val shareProduct: ImageButton = rootView.findViewById(R.id.share_product)
 
         var currentProduct: FavoriteProduct? = null
 
@@ -46,6 +49,12 @@ class FavoritesItemAdapter(
             removeProduct.setOnClickListener {
                 currentProduct?.let {
                     onItemClose(it.favoriteProductId)
+                }
+            }
+
+            shareProduct.setOnClickListener {
+                currentProduct?.let {
+                    onItemShare(it.favoriteProductId)
                 }
             }
 
