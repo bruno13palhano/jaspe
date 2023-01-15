@@ -2,7 +2,6 @@ package com.bruno13palhano.jaspe.ui.favorite
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
@@ -40,8 +39,8 @@ class FavoritesItemAdapter(
         private val productName: TextView = rootView.findViewById(R.id.product_name)
         private val productType: TextView = rootView.findViewById(R.id.product_type)
         private val productPrice: TextView = rootView.findViewById(R.id.product_price)
-        private val removeProduct: ImageButton = rootView.findViewById(R.id.remove_product)
-        private val shareProduct: ImageButton = rootView.findViewById(R.id.share_product)
+        private val removeProduct: CardView = rootView.findViewById(R.id.remove_product)
+        private val shareProduct: CardView = rootView.findViewById(R.id.share_product)
 
         var currentProduct: FavoriteProduct? = null
 

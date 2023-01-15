@@ -28,6 +28,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_margin="2dp"
             android:orientation="vertical">
 
             <FrameLayout
@@ -35,22 +36,47 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end">
 
-                <ImageButton
+                <androidx.cardview.widget.CardView
                     android:id="@+id/share_product"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:background="@null"
-                    android:src="@drawable/ic_baseline_share_24"
-                    android:contentDescription="@string/share_label" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:padding="2dp"
+                    app:cardCornerRadius="48dp"
+                    app:cardElevation="0dp">
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:scaleType="centerInside"
+                        android:layout_gravity="center"
+                        app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
+                        app:srcCompat="@drawable/ic_baseline_share_24"
+                        android:contentDescription="@string/share_label" />
+                </androidx.cardview.widget.CardView>
 
-                <ImageButton
+
+                <androidx.cardview.widget.CardView
                     android:id="@+id/remove_product"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_gravity="end"
-                    android:background="@null"
-                    android:src="@drawable/ic_baseline_favorite_pink_24"
-                    android:contentDescription="@string/remove_product_label" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="2dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    app:cardCornerRadius="24dp"
+                    app:cardElevation="0dp"
+                    android:layout_gravity="end">
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:scaleType="centerInside"
+                        android:layout_gravity="center"
+                        app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
+                        app:srcCompat="@drawable/ic_baseline_favorite_pink_24"
+                        android:contentDescription="@string/remove_product_label" />
+                </androidx.cardview.widget.CardView>
             </FrameLayout>
             <TextView
                 android:id="@+id/product_name"
