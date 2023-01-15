@@ -22,6 +22,8 @@
             android:hint="@string/search_product_label"
             android:textStyle="italic"
             android:background="@null"
+            android:inputType="text"
+            android:imeOptions="actionSearch"
             tools:ignore="SpeakableTextPresentCheck" />
     </com.google.android.material.appbar.MaterialToolbar>
 

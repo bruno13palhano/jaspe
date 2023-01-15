@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.widget.EditText
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.coroutineScope
@@ -29,7 +31,6 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val toolbar = view.findViewById<MaterialToolbar>(R.id.toolbar_search)
-        toolbar.inflateMenu(R.menu.menu_toolbar_search)
         toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24)
         toolbar.title = getString(R.string.search_label)
 
@@ -55,18 +56,30 @@ class SearchFragment : Fragment() {
         }
 
         val searchText: AppCompatEditText = view.findViewById(R.id.search_text)
-        toolbar.setOnMenuItemClickListener {
-            when (it.itemId) {
-                R.id.search_button -> {
-                    lifecycle.coroutineScope.launch {
-                        viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                            viewModel?.searchProductByTitle(searchText.text.toString())
-                        }
+//        toolbar.setOnMenuItemClickListener {
+//            when (it.itemId) {
+//                R.id.search_button -> {
+//                    lifecycle.coroutineScope.launch {
+//                        viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+//                            viewModel?.searchProductByTitle(searchText.text.toString())
+//                        }
+//                    }
+//                    true
+//                }
+//                else -> false
+//            }
+//        }
+
+        searchText.setOnEditorActionListener { textView, i, keyEvent ->
+            if (i == EditorInfo.IME_ACTION_SEARCH) {
+                lifecycle.coroutineScope.launch {
+                    viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                        viewModel?.searchProductByTitle(searchText.text.toString())
                     }
-                    true
                 }
-                else -> false
             }
+
+            false
         }
     }
 }
