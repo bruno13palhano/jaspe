@@ -37,7 +37,7 @@
                 android:layout_gravity="end"
                 android:backgroundTint="@null"
                 android:background="@null"
-                android:src="@drawable/ic_baseline_close_24"
+                android:src="@drawable/ic_baseline_favorite_pink_24"
                 android:contentDescription="@string/remove_product_label" />
             <TextView
                 android:id="@+id/product_name"
