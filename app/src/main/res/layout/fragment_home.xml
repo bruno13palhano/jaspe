@@ -14,7 +14,7 @@
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="wrap_content"
-            android:layout_height="200dp"
+            android:layout_height="244dp"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:contentScrim="?colorPrimary">
             <ImageView
@@ -22,6 +22,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginHorizontal="4dp"
+                android:layout_marginTop="52dp"
                 android:scaleType="centerCrop"
                 app:layout_collapseMode="parallax"
                 android:contentDescription="@string/banners_picture_description"/>
@@ -29,7 +30,34 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin" />
+                app:layout_collapseMode="pin">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/search_product"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/gray_light"
+                    android:layout_margin="8dp"
+                    app:cardCornerRadius="100dp">
+                    <ImageView
+                        android:layout_marginStart="8dp"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/ic_baseline_search_24"
+                        android:contentDescription="@string/search_product_label" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="36dp"
+                        android:hint="@string/search_product_label"
+                        android:textSize="16sp"
+                        android:gravity="center_vertical"
+                        android:enabled="false"
+                        android:background="@null"
+                        android:textStyle="italic" />
+                </androidx.cardview.widget.CardView>
+            </com.google.android.material.appbar.MaterialToolbar>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 <androidx.core.widget.NestedScrollView
