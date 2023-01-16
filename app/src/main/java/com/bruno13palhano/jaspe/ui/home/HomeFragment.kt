@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.cardview.widget.CardView
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.coroutineScope
@@ -30,6 +31,7 @@ class HomeFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
         val recyclerView = view.findViewById<RecyclerView>(R.id.home_list)
+        val searchProduct = view.findViewById<CardView>(R.id.search_product)
         val amazonRecycler = view.findViewById<RecyclerView>(R.id.amazon_recycler_view)
         val naturaRecycler = view.findViewById<RecyclerView>(R.id.natura_recycler_view)
         val avonRecycler = view.findViewById<RecyclerView>(R.id.avon_recycler_view)
@@ -38,6 +40,11 @@ class HomeFragment : Fragment() {
         val imageAmazonBanner = view.findViewById<ImageView>(R.id.amazon_banner_image)
         val imageNaturaBanner = view.findViewById<ImageView>(R.id.natura_banner_image)
         val imageAvonBanner = view.findViewById<ImageView>(R.id.avon_banner_image)
+
+        searchProduct.setOnClickListener {
+            val action = HomeFragmentDirections.actionHomeToSearch()
+            view.findNavController().navigate(action)
+        }
 
         val adapter = HomeItemAdapter {
             val action = HomeFragmentDirections.actionHomeToProduct(it)
