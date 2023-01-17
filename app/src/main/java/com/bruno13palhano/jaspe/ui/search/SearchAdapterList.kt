@@ -2,11 +2,13 @@ package com.bruno13palhano.jaspe.ui.search
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.bruno13palhano.jaspe.R
 import com.bruno13palhano.model.Product
 
@@ -28,7 +30,9 @@ class SearchAdapterList(
         rootView: CardView,
         val onClick: (Long) -> Unit
     ) : RecyclerView.ViewHolder(rootView) {
-        private val productName: TextView = rootView.findViewById(R.id.search_title)
+        private val productImage: ImageView = rootView.findViewById(R.id.product_image)
+        private val productName: TextView = rootView.findViewById(R.id.product_name)
+        private val productPrice: TextView = rootView.findViewById(R.id.product_price)
 
         var currentProduct: Product? = null
 
@@ -42,7 +46,9 @@ class SearchAdapterList(
 
         fun bind(item: Product) {
             currentProduct = item
+            productImage.load(item.productUrlImage)
             productName.text = item.productName
+            productPrice.text = itemView.resources.getString(R.string.product_price_label, item.productPrice)
         }
     }
 
