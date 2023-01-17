@@ -1,12 +1,13 @@
 package com.bruno13palhano.jaspe.ui.search
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import android.widget.EditText
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.coroutineScope
@@ -56,19 +57,10 @@ class SearchFragment : Fragment() {
         }
 
         val searchText: AppCompatEditText = view.findViewById(R.id.search_text)
-//        toolbar.setOnMenuItemClickListener {
-//            when (it.itemId) {
-//                R.id.search_button -> {
-//                    lifecycle.coroutineScope.launch {
-//                        viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-//                            viewModel?.searchProductByTitle(searchText.text.toString())
-//                        }
-//                    }
-//                    true
-//                }
-//                else -> false
-//            }
-//        }
+        searchText.requestFocus()
+        val inputMethodManager: InputMethodManager = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.showSoftInput(searchText, InputMethodManager.SHOW_IMPLICIT)
+
 
         searchText.setOnEditorActionListener { textView, i, keyEvent ->
             if (i == EditorInfo.IME_ACTION_SEARCH) {
