@@ -15,7 +15,7 @@ class ProductWork(
     private val productNetwork = NetworkFactory().createProductNetWork()
 
     override suspend  fun doWork(): Result {
-        productNetwork.getProducts(listOf(0, 18)).collect {
+        productNetwork.getProducts(listOf(0, 100)).collect {
             productRepository.insertProducts(it)
         }
 
