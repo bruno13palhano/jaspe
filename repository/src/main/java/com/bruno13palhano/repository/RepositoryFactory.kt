@@ -19,4 +19,9 @@ class RepositoryFactory(
         val favoriteRepositoryDao = JaspeDatabase.getInstance(context).favoriteProductDao
         return FavoriteProductRepositoryImpl(favoriteRepositoryDao)
     }
+
+    fun createSearchCacheRepository(): SearchCacheRepository {
+        val searchCacheDao = JaspeDatabase.getInstance(context).searchCacheDao
+        return SearchCacheRepositoryImpl(searchCacheDao)
+    }
 }
