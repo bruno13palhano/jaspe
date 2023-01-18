@@ -15,6 +15,6 @@ internal interface SearchCacheRepDao {
     @Query("DELETE FROM search_cache_table WHERE search_cache_id = :searchCacheId")
     suspend fun deleteById(searchCacheId: Long)
 
-    @Query("SELECT * FROM search_cache_table")
+    @Query("SELECT * FROM search_cache_table ORDER BY search_cache_id DESC")
     fun getAll(): Flow<List<SearchCacheRep>>
 }
