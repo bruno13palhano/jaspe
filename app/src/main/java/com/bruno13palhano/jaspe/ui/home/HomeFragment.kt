@@ -42,7 +42,7 @@ class HomeFragment : Fragment() {
         val imageAvonBanner = view.findViewById<ImageView>(R.id.avon_banner_image)
 
         searchProduct.setOnClickListener {
-            val action = HomeFragmentDirections.actionHomeToSearch()
+            val action = HomeFragmentDirections.actionHomeToSearchDialog()
             view.findNavController().navigate(action)
         }
 
