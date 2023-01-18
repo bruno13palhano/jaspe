@@ -37,4 +37,8 @@
     <string name="natura_category_label">Natura</string>
     <string name="offers_category_label">Offers</string>
     <string name="icon_label">Icon</string>
+
+    <!-- SearchCache   -->
+    <string name="remove_from_history_label">Remove from history</string>
+    <string name="search_item_label">Search item</string>
 </resources>
