@@ -39,9 +39,10 @@
             android:textStyle="italic"/>
 
         <ImageView
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:src="@drawable/ic_baseline_arrow_right_24"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_margin="16dp"
+            android:src="@drawable/ic_baseline_arrow_forward_24"
             android:layout_gravity="end|center_vertical"
             android:contentDescription="@string/icon_label" />
     </FrameLayout>
