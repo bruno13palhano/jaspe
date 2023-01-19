@@ -30,6 +30,9 @@ internal interface ProductDao {
     @Query("SELECT * FROM product_table WHERE product_id = :productId")
     fun get(productId: Long): Flow<ProductRep>
 
+    @Query("SELECT * FROM product_table WHERE product_url_link = :productLink")
+    fun getByLink(productLink: String): Flow<ProductRep>
+
     @Query("SELECT * FROM product_table")
     fun getAll(): Flow<List<ProductRep>>
 

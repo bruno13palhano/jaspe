@@ -31,6 +31,10 @@ internal interface FavoriteProductDao {
             "favorite_product_id = :favoriteProductId")
     fun getFavorite(favoriteProductId: Long): Flow<FavoriteProductRep>
 
+    @Query("SELECT * FROM favorite_product_table WHERE " +
+            "favorite_product_url_link = :favoriteLink")
+    fun getFavoriteByLink(favoriteLink: String): Flow<FavoriteProductRep>
+
     @Query("SELECT * FROM favorite_product_table")
     fun getAllFavorites(): Flow<List<FavoriteProductRep>>
 }

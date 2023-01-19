@@ -38,6 +38,12 @@ internal class FavoriteProductRepositoryImpl(
         }
     }
 
+    override fun getFavoriteByLink(favoriteProductLink: String): Flow<FavoriteProduct> {
+        return dao.getFavoriteByLink(favoriteProductLink).map {
+            it.asFavoriteProduct()
+        }
+    }
+
     override fun getAllFavoriteProducts(): Flow<List<FavoriteProduct>> {
         return dao.getAllFavorites().map {
             it.map { favorite ->

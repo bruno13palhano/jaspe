@@ -37,6 +37,12 @@ internal class ProductRepositoryImpl(
         }
     }
 
+    override fun getByLink(productLink: String): Flow<Product> {
+        return dao.getByLink(productLink).map {
+            it.asProduct()
+        }
+    }
+
     override fun getAll(): Flow<List<Product>> {
         return dao.getAll().map {
             it.map { productRep ->
