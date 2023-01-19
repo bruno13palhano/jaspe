@@ -146,7 +146,15 @@ class ProductFragment : Fragment() {
                     true
                 }
                 R.id.shareProduct -> {
-                    println("share was clicked")
+                    val shareProductLink = Intent.createChooser(Intent().apply {
+                        action = Intent.ACTION_SEND
+                        type = "text/*"
+                        putExtra(Intent.EXTRA_TEXT, favoriteProduct.favoriteProductUrlLink)
+                        putExtra(Intent.EXTRA_TITLE, favoriteProduct.favoriteProductName)
+
+                    }, null)
+                    startActivity(shareProductLink)
+
                     true
                 }
                 else -> false
