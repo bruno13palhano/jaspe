@@ -15,16 +15,33 @@
         android:layout_height="?attr/actionBarSize"
         style="@style/Widget.MaterialComponents.Toolbar.Primary">
 
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/search_text"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/search_product"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="@string/search_product_label"
-            android:textStyle="italic"
-            android:background="@null"
-            android:inputType="text"
-            android:imeOptions="actionSearch"
-            tools:ignore="SpeakableTextPresentCheck" />
+            android:background="@color/gray_light"
+            android:layout_marginVertical="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="48dp"
+            app:cardCornerRadius="100dp">
+            <ImageView
+                android:layout_marginStart="8dp"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_baseline_search_24"
+                android:contentDescription="@string/search_product_label" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="36dp"
+                android:hint="@string/search_product_label"
+                android:textSize="16sp"
+                android:gravity="center_vertical"
+                android:enabled="false"
+                android:background="@null"
+                android:textStyle="italic" />
+        </androidx.cardview.widget.CardView>
     </com.google.android.material.appbar.MaterialToolbar>
 
     <androidx.recyclerview.widget.RecyclerView

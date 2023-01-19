@@ -5,8 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
-import androidx.appcompat.widget.AppCompatEditText
+import androidx.cardview.widget.CardView
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.coroutineScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -67,19 +66,10 @@ class SearchFragment : Fragment() {
             }
         }
 
-        val searchText: AppCompatEditText = view.findViewById(R.id.search_text)
-        searchText.requestFocus()
-
-        searchText.setOnEditorActionListener { textView, i, keyEvent ->
-            if (i == EditorInfo.IME_ACTION_SEARCH) {
-                lifecycle.coroutineScope.launch {
-                    viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                        viewModel.searchProductByTitle(searchText.text.toString())
-                    }
-                }
-            }
-
-            false
+        val searchProduct: CardView = view.findViewById(R.id.search_product)
+        searchProduct.setOnClickListener {
+           val action = SearchFragmentDirections.actionSearchCategoryToSearchDialog()
+            view.findNavController().navigate(action)
         }
     }
 }

@@ -110,6 +110,18 @@
             app:exitAnim="@android:anim/slide_out_right"
             app:popEnterAnim="@android:anim/slide_in_left"
             app:popExitAnim="@android:anim/slide_out_right" />
+
+
+        <action
+            android:id="@+id/action_search_category_to_search_dialog"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="false"
+            app:popUpToSaveState="true"
+            app:destination="@id/searchDialogFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
     </fragment>
 
     <fragment
