@@ -16,6 +16,7 @@ import com.google.android.material.appbar.MaterialToolbar
 import kotlinx.coroutines.launch
 
 class FavoritesFragment : Fragment() {
+    private lateinit var viewModel: FavoritesViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,14 +25,14 @@ class FavoritesFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_favorites, container, false)
         val recyclerView = view.findViewById<RecyclerView>(R.id.favorite_list)
 
-        val viewModel = activity?.applicationContext?.let {
+        viewModel = activity?.applicationContext?.let {
             ViewModelFactory(it, this@FavoritesFragment).createFavoritesViewModel()
-        }
+        }!!
 
         val adapter = FavoritesItemAdapter(
             onItemClose = {
                 lifecycle.coroutineScope.launch {
-                    viewModel?.deleteProduct(it)
+                    viewModel.deleteProduct(it)
                 }
             },
             onItemShare = { productName, productLink ->
@@ -51,7 +52,7 @@ class FavoritesFragment : Fragment() {
         )
 
         lifecycle.coroutineScope.launchWhenCreated {
-            viewModel?.getAllFavorites()?.collect {
+            viewModel.getAllFavorites().collect {
                 adapter.submitList(it)
             }
         }
@@ -70,6 +71,21 @@ class FavoritesFragment : Fragment() {
 
         toolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
+        }
+
+        toolbar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.deleteAll -> {
+                    lifecycle.coroutineScope.launch {
+                        viewModel.getAllFavorites().collect { favoriteProductList ->
+                            viewModel.deleteAllProduct(favoriteProductList)
+                        }
+                    }
+                    true
+                }
+
+                else -> false
+            }
         }
     }
 }

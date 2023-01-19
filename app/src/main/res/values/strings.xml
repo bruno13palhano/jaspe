@@ -41,4 +41,7 @@
     <!-- SearchCache   -->
     <string name="remove_from_history_label">Remove from history</string>
     <string name="search_item_label">Search item</string>
+
+    <string name="remove_all_label">Remove All</string>
+    <string name="options_label">Options</string>
 </resources>

@@ -6,6 +6,15 @@
     <item
         android:id="@+id/moreOptions"
         android:icon="@drawable/ic_baseline_more_vert_24"
-        android:title="Options"
-        app:showAsAction="always" />
+        android:title="@string/options_label"
+        app:showAsAction="always">
+
+        <menu>
+            <group>
+                <item
+                    android:id="@+id/deleteAll"
+                    android:title="@string/remove_all_label" />
+            </group>
+        </menu>
+    </item>
 </menu>
