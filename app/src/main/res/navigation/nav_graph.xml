@@ -113,12 +113,6 @@
     </fragment>
 
     <fragment
-        android:id="@+id/offersFragment"
-        android:name="com.bruno13palhano.jaspe.ui.OffersFragment"
-        android:label="@string/offers_label"
-        tools:layout="@layout/fragment_offers" />
-
-    <fragment
         android:id="@+id/favoritesFragment"
         android:name="com.bruno13palhano.jaspe.ui.favorite.FavoritesFragment"
         android:label="@string/favorite_label"

@@ -65,13 +65,13 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
 
-                R.id.offersFragment -> {
+                R.id.offersCategoryFragment -> {
                     if (!item.isChecked) {
                         lifecycleScope.launch {
                             delay(270L)
                             navController.apply {
                                 popBackStack(R.id.homeFragment, inclusive = false, saveState = true)
-                                navigate(R.id.offersFragment)
+                                navigate(R.id.offersCategoryFragment)
                             }
                         }
                     }
