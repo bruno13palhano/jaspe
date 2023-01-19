@@ -15,7 +15,7 @@ import com.bruno13palhano.model.FavoriteProduct
 class FavoritesItemAdapter(
     private val onItemClick: (productId: Long) -> Unit,
     private val onItemClose: (productId: Long) -> Unit,
-    private val onItemShare: (productId: Long) -> Unit
+    private val onItemShare: (productName: String, productLink: String) -> Unit
 ) : ListAdapter<FavoriteProduct, FavoritesItemAdapter.FavoritesItemViewHolder>(FavoritesDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoritesItemViewHolder {
@@ -33,7 +33,7 @@ class FavoritesItemAdapter(
         rootView: CardView,
         val onItemClose: (Long) -> Unit,
         val onItemClick: (Long) -> Unit,
-        val onItemShare: (productId: Long) -> Unit
+        val onItemShare: (productName: String, productLink: String) -> Unit
     ) : RecyclerView.ViewHolder(rootView) {
         private val productImage: ImageView = rootView.findViewById(R.id.product_image)
         private val productName: TextView = rootView.findViewById(R.id.product_name)
@@ -53,7 +53,7 @@ class FavoritesItemAdapter(
 
             shareProduct.setOnClickListener {
                 currentProduct?.let {
-                    onItemShare(it.favoriteProductId)
+                    onItemShare(it.favoriteProductName, it.favoriteProductUrlLink)
                 }
             }
 
