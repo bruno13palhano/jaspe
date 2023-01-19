@@ -21,6 +21,9 @@ internal interface FavoriteProductDao {
     @Delete
     suspend fun delete(favoriteProduct: FavoriteProductRep)
 
+    @Delete
+    suspend fun deleteAll(favoriteProductList: List<FavoriteProductRep>)
+
     @Query("DELETE FROM favorite_product_table WHERE favorite_product_id = :favoriteProductId")
     suspend fun deleteFavoriteProductById(favoriteProductId: Long)
 

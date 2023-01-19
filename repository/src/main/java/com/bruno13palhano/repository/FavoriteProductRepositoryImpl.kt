@@ -22,6 +22,12 @@ internal class FavoriteProductRepositoryImpl(
         dao.delete(favoriteProduct.asFavoriteProductRep())
     }
 
+    override suspend fun deleteAllFavoriteProduct(favoriteProductList: List<FavoriteProduct>) {
+        dao.deleteAll(favoriteProductList.map {
+            it.asFavoriteProductRep()
+        })
+    }
+
     override suspend fun deleteFavoriteProductById(favoriteProductId: Long) {
         dao.deleteFavoriteProductById(favoriteProductId)
     }

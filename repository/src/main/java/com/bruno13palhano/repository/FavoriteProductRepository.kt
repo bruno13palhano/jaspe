@@ -7,6 +7,7 @@ interface FavoriteProductRepository {
     suspend fun insertFavoriteProduct(favoriteProduct: FavoriteProduct)
     suspend fun updateFavoriteProduct(favoriteProduct: FavoriteProduct)
     suspend fun deleteFavoriteProduct(favoriteProduct: FavoriteProduct)
+    suspend fun deleteAllFavoriteProduct(favoriteProductList: List<FavoriteProduct>)
     suspend fun deleteFavoriteProductById(favoriteProductId: Long)
     fun getFavoriteProduct(favoriteProductId: Long): Flow<FavoriteProduct>
     fun getAllFavoriteProducts(): Flow<List<FavoriteProduct>>

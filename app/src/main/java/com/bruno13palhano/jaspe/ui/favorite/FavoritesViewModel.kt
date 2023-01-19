@@ -15,4 +15,8 @@ class FavoritesViewModel(
     suspend fun deleteProduct(productId: Long) {
         favoriteRepository.deleteFavoriteProductById(productId)
     }
+
+    suspend fun deleteAllProduct(favoriteProductList: List<FavoriteProduct>) {
+        favoriteRepository.deleteAllFavoriteProduct(favoriteProductList)
+    }
 }
