@@ -46,7 +46,6 @@ class BabyCategoryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val toolbar = view.findViewById<MaterialToolbar>(R.id.toolbar_baby_category)
-        toolbar.inflateMenu(R.menu.menu_toolbar)
         toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24)
         toolbar.setTitle(R.string.baby_category_label)
 
