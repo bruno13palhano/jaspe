@@ -28,7 +28,10 @@ internal data class FavoriteProductRep(
     val favoriteProductDescription: String,
 
     @ColumnInfo(name = "favorite_product_url_link")
-    val favoriteProductUrlLink: String
+    val favoriteProductUrlLink: String,
+
+    @ColumnInfo(name = "favorite_product_is_visible")
+    val favoriteProductIsVisible: Boolean
 )
 
 internal fun FavoriteProductRep.asFavoriteProduct() = FavoriteProduct(
@@ -38,7 +41,8 @@ internal fun FavoriteProductRep.asFavoriteProduct() = FavoriteProduct(
     favoriteProductPrice = favoriteProductPrice,
     favoriteProductType = favoriteProductType,
     favoriteProductDescription = favoriteProductDescription,
-    favoriteProductUrlLink = favoriteProductUrlLink
+    favoriteProductUrlLink = favoriteProductUrlLink,
+    favoriteProductIsVisible = favoriteProductIsVisible
 )
 
 internal fun FavoriteProduct.asFavoriteProductRep() = FavoriteProductRep(
@@ -48,5 +52,6 @@ internal fun FavoriteProduct.asFavoriteProductRep() = FavoriteProductRep(
     favoriteProductPrice = favoriteProductPrice,
     favoriteProductType = favoriteProductType,
     favoriteProductDescription = favoriteProductDescription,
-    favoriteProductUrlLink = favoriteProductUrlLink
+    favoriteProductUrlLink = favoriteProductUrlLink,
+    favoriteProductIsVisible = favoriteProductIsVisible
 )
