@@ -8,7 +8,7 @@ import com.bruno13palhano.model.FavoriteProduct
 @Entity(tableName = "favorite_product_table")
 internal data class FavoriteProductRep(
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "favorite_product_id")
     val favoriteProductId: Long,
 
