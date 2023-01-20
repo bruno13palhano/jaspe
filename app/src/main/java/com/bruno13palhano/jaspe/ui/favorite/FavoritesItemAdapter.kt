@@ -13,7 +13,7 @@ import com.bruno13palhano.jaspe.R
 import com.bruno13palhano.model.FavoriteProduct
 
 class FavoritesItemAdapter(
-    private val onItemClick: (productId: Long) -> Unit,
+    private val onItemClick: (productId: Long, productUrlLink: String) -> Unit,
     private val onItemClose: (productId: Long) -> Unit,
     private val onItemShare: (productName: String, productLink: String) -> Unit
 ) : ListAdapter<FavoriteProduct, FavoritesItemAdapter.FavoritesItemViewHolder>(FavoritesDiffCallback()) {
@@ -32,7 +32,7 @@ class FavoritesItemAdapter(
     class FavoritesItemViewHolder(
         rootView: CardView,
         val onItemClose: (Long) -> Unit,
-        val onItemClick: (Long) -> Unit,
+        val onItemClick: (productUd: Long, productUrlLink: String) -> Unit,
         val onItemShare: (productName: String, productLink: String) -> Unit
     ) : RecyclerView.ViewHolder(rootView) {
         private val productImage: ImageView = rootView.findViewById(R.id.product_image)
@@ -59,7 +59,7 @@ class FavoritesItemAdapter(
 
             rootView.setOnClickListener {
                 currentProduct?.let {
-                    onItemClick(it.favoriteProductId)
+                    onItemClick(it.favoriteProductId, it.favoriteProductUrlLink)
                 }
             }
         }
