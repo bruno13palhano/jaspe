@@ -6,5 +6,6 @@ data class FavoriteProduct(
     val favoriteProductUrlImage: String,
     val favoriteProductPrice: Float,
     val favoriteProductType: String,
+    val favoriteProductDescription: String,
     val favoriteProductUrlLink: String
 )
