@@ -51,18 +51,18 @@ class HomeFragment : Fragment() {
             view.findNavController().navigate(action)
         }
 
-        val amazonAdapter = ProductItemAdapter {
-            val action = HomeFragmentDirections.actionHomeToProduct(it, "")
+        val amazonAdapter = ProductItemAdapter { productId, productUrlLink ->
+            val action = HomeFragmentDirections.actionHomeToProduct(productId, productUrlLink)
             view.findNavController().navigate(action)
         }
 
-        val naturaAdapter = ProductItemAdapter {
-            val action = HomeFragmentDirections.actionHomeToProduct(it, "")
+        val naturaAdapter = ProductItemAdapter { productId, productUrlLink ->
+            val action = HomeFragmentDirections.actionHomeToProduct(productId, productUrlLink)
             view.findNavController().navigate(action)
         }
 
-        val avonAdapter = ProductItemAdapter {
-            val action = HomeFragmentDirections.actionHomeToProduct(it, "")
+        val avonAdapter = ProductItemAdapter { productId, productUrlLink ->
+            val action = HomeFragmentDirections.actionHomeToProduct(productId, productUrlLink)
             view.findNavController().navigate(action)
         }
 

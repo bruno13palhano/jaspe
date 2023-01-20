@@ -23,9 +23,9 @@ class AvonCategoryFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_avon_category, container, false)
         val recyclerView = view.findViewById<RecyclerView>(R.id.avon_category_list)
 
-        val adapter = CategoriesItemAdapter {
+        val adapter = CategoriesItemAdapter { productId, productUrlLink ->
             val action = AvonCategoryFragmentDirections
-                .actionAvonCategoryToProduct(it, "")
+                .actionAvonCategoryToProduct(productId, productUrlLink)
             view.findNavController().navigate(action)
         }
         recyclerView.adapter = adapter

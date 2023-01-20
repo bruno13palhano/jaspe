@@ -23,9 +23,9 @@ class OffersCategoryFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_offers_category, container, false)
         val recyclerView = view.findViewById<RecyclerView>(R.id.offers_category_list)
 
-        val adapter = CategoriesItemAdapter {
+        val adapter = CategoriesItemAdapter { productId, productUrlLink ->
             val action = OffersCategoryFragmentDirections
-                .actionOffersCategoryToProduct(it, "")
+                .actionOffersCategoryToProduct(productId, productUrlLink)
             view.findNavController().navigate(action)
         }
         recyclerView.adapter = adapter

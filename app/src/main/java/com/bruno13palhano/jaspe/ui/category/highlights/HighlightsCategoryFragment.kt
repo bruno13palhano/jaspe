@@ -20,7 +20,7 @@ class HighlightsCategoryFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_highlights_category, container, false)
         val recyclerView = view.findViewById<RecyclerView>(R.id.highlights_category_list)
 
-        val adapter = CategoriesItemAdapter {
+        val adapter = CategoriesItemAdapter { productId, productUrlLink ->
 
         }
         recyclerView.adapter = adapter
