@@ -25,7 +25,7 @@ class NaturaCategoryFragment : Fragment() {
 
         val adapter = CategoriesItemAdapter {
             val action = NaturaCategoryFragmentDirections
-                .actionNaturaCategoryToProduct(it)
+                .actionNaturaCategoryToProduct(it, "")
             view.findNavController().navigate(action)
         }
         recyclerView.adapter = adapter

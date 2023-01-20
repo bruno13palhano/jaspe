@@ -25,7 +25,7 @@ class OffersCategoryFragment : Fragment() {
 
         val adapter = CategoriesItemAdapter {
             val action = OffersCategoryFragmentDirections
-                .actionOffersCategoryToProduct(it)
+                .actionOffersCategoryToProduct(it, "")
             view.findNavController().navigate(action)
         }
         recyclerView.adapter = adapter

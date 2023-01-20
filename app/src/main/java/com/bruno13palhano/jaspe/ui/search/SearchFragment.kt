@@ -45,7 +45,7 @@ class SearchFragment : Fragment() {
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.search_list)
         val adapter = SearchAdapterList {
-            val action = SearchFragmentDirections.actionSearchToProduct(it)
+            val action = SearchFragmentDirections.actionSearchToProduct(it, "")
             view.findNavController().navigate(action)
         }
         recyclerView.adapter = adapter
