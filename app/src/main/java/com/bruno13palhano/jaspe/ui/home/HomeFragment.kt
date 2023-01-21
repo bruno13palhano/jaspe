@@ -46,8 +46,8 @@ class HomeFragment : Fragment() {
             view.findNavController().navigate(action)
         }
 
-        val adapter = HomeItemAdapter {
-            val action = HomeFragmentDirections.actionHomeToProduct(it, "")
+        val adapter = HomeItemAdapter { productId, productUrlLink ->
+            val action = HomeFragmentDirections.actionHomeToProduct(productId, productUrlLink)
             view.findNavController().navigate(action)
         }
 
