@@ -53,7 +53,7 @@ class FavoritesFragment : Fragment() {
         )
 
         lifecycle.coroutineScope.launchWhenCreated {
-            viewModel.getAllFavorites().collect {
+            viewModel.getAllFavoritesVisible().collect {
                 adapter.submitList(it)
             }
         }
