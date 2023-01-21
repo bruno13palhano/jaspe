@@ -34,7 +34,15 @@ class ProductViewModel(
         return favoriteProductRepository.getFavoriteProduct(favoriteProductId)
     }
 
+    fun getFavoriteProductByUrlLink(favoriteProductUrlLink: String): Flow<FavoriteProduct> {
+        return favoriteProductRepository.getFavoriteByLink(favoriteProductUrlLink)
+    }
+
     suspend fun removeFavoriteProduct(favoriteProductId: Long) {
         favoriteProductRepository.deleteFavoriteProductById(favoriteProductId)
+    }
+
+    suspend fun setFavoriteVisibility(favoriteProductId: Long, favoriteProductIsVisible: Boolean) {
+        favoriteProductRepository.setFavoriteProductVisibility(favoriteProductId, favoriteProductIsVisible)
     }
 }

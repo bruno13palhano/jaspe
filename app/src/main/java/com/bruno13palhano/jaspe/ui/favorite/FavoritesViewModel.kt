@@ -19,4 +19,8 @@ class FavoritesViewModel(
     suspend fun deleteAllProduct(favoriteProductList: List<FavoriteProduct>) {
         favoriteRepository.deleteAllFavoriteProduct(favoriteProductList)
     }
+
+    fun getAllFavoritesVisible(): Flow<List<FavoriteProduct>> {
+        return favoriteRepository.getAllFavoriteProductsVisible()
+    }
 }

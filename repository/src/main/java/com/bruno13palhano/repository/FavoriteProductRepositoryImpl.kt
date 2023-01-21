@@ -51,4 +51,19 @@ internal class FavoriteProductRepositoryImpl(
             }
         }
     }
+
+    override fun getAllFavoriteProductsVisible(): Flow<List<FavoriteProduct>> {
+        return dao.getAllFavoritesVisible().map {
+            it.map { favorite ->
+                favorite.asFavoriteProduct()
+            }
+        }
+    }
+
+    override suspend fun setFavoriteProductVisibility(
+        favoriteProductId: Long,
+        favoriteProductIsVisible: Boolean
+    ) {
+        dao.setFavoriteProductVisibility(favoriteProductId, favoriteProductIsVisible)
+    }
 }

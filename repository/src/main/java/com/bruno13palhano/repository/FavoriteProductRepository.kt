@@ -12,4 +12,6 @@ interface FavoriteProductRepository {
     fun getFavoriteProduct(favoriteProductId: Long): Flow<FavoriteProduct>
     fun getFavoriteByLink(favoriteProductLink: String): Flow<FavoriteProduct>
     fun getAllFavoriteProducts(): Flow<List<FavoriteProduct>>
+    fun getAllFavoriteProductsVisible(): Flow<List<FavoriteProduct>>
+    suspend fun setFavoriteProductVisibility(favoriteProductId: Long, favoriteProductIsVisible: Boolean)
 }
