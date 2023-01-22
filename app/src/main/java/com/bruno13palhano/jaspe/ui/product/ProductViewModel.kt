@@ -14,35 +14,34 @@ class ProductViewModel(
     private val _isFavorite = MutableStateFlow<Boolean>(false)
     val isFavorite = _isFavorite.asStateFlow()
 
-    fun toggleFavorite() {
-        _isFavorite.value = !_isFavorite.value
-    }
-
-    fun getProduct(productId: Long): Flow<Product> {
-        return productRepository.get(productId)
-    }
-
-    suspend fun updateProduct(product: Product) {
-        productRepository.updateProduct(product)
+    fun setFavoriteValue(isFavorite: Boolean) {
+        _isFavorite.value = isFavorite
     }
 
     suspend fun addFavoriteProduct(favoriteProduct: FavoriteProduct) {
+        _isFavorite.value = true
         favoriteProductRepository.insertFavoriteProduct(favoriteProduct)
-    }
-
-    fun getFavoriteProduct(favoriteProductId: Long): Flow<FavoriteProduct> {
-        return favoriteProductRepository.getFavoriteProduct(favoriteProductId)
     }
 
     fun getFavoriteProductByUrlLink(favoriteProductUrlLink: String): Flow<FavoriteProduct> {
         return favoriteProductRepository.getFavoriteByLink(favoriteProductUrlLink)
     }
 
-    suspend fun removeFavoriteProduct(favoriteProductId: Long) {
-        favoriteProductRepository.deleteFavoriteProductById(favoriteProductId)
+    fun getProductByUrlLink(productUrlLink: String): Flow<Product> {
+        return productRepository.getProductByLink(productUrlLink)
     }
 
-    suspend fun setFavoriteVisibility(favoriteProductId: Long, favoriteProductIsVisible: Boolean) {
-        favoriteProductRepository.setFavoriteProductVisibility(favoriteProductId, favoriteProductIsVisible)
+    suspend fun deleteFavoriteProductByUrlLink(favoriteProductUrlLink: String) {
+        _isFavorite.value = false
+        favoriteProductRepository.deleteFavoriteProductByUrlLink(favoriteProductUrlLink)
+    }
+
+    suspend fun setFavoriteVisibilityByUrlLink(
+        favoriteProductUrlLink: String,
+        favoriteProductIsVisible: Boolean
+    ) {
+        _isFavorite.value = !_isFavorite.value
+        favoriteProductRepository.setFavoriteProductVisibilityByUrl(
+            favoriteProductUrlLink, favoriteProductIsVisible)
     }
 }

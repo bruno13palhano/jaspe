@@ -42,6 +42,7 @@ class ProductFragment : Fragment() {
         val productPrice = view.findViewById<TextView>(R.id.product_price)
         val productType = view.findViewById<TextView>(R.id.product_type)
         val productDescription = view.findViewById<TextView>(R.id.product_description)
+        var url = ""
 
         productId = ProductFragmentArgs.fromBundle(
             requireArguments()
@@ -61,41 +62,49 @@ class ProductFragment : Fragment() {
 
         lifecycle.coroutineScope.launch {
             try {
-                viewModel.getFavoriteProductByUrlLink(productUrlLink).collect { favorite ->
-                    if (favorite.favoriteProductIsVisible) {
-                        viewModel.toggleFavorite()
-                    }
-                    isFavorite = true
-                    favoriteProduct = favorite
-                    productImage.load(favorite.favoriteProductUrlImage)
-                    productName.text = favorite.favoriteProductName
-                    productPrice.text = getString(R.string.product_price_label, favorite.favoriteProductPrice)
-                    productType.text = favorite.favoriteProductType
-                    productDescription.text = favorite.favoriteProductDescription
+                viewModel.getProductByUrlLink(productUrlLink).collect {
+                    favoriteProduct = FavoriteProduct(
+                        favoriteProductId = 0L,
+                        favoriteProductUrlImage = it.productUrlImage,
+                        favoriteProductName = it.productName,
+                        favoriteProductPrice = it.productPrice,
+                        favoriteProductUrlLink = it.productUrlLink,
+                        favoriteProductType = it.productType,
+                        favoriteProductDescription = it.productDescription,
+                        favoriteProductIsVisible = true
+                    )
+                    productImage.load(it.productUrlImage)
+                    productName.text = it.productName
+                    productPrice.text = getString(R.string.product_price_label, it.productPrice)
+                    productType.text = it.productType
+                    productDescription.text = it.productDescription
+                    url = it.productUrlLink
                 }
-            } catch (ignored : Exception) {}
+            } catch (ignored: Exception) {
+                try {
+                    viewModel.getFavoriteProductByUrlLink(productUrlLink).collect {
+                        isFavorite = true
+                        favoriteProduct = it
+                        viewModel.setFavoriteValue(it.favoriteProductIsVisible)
+                        productImage.load(it.favoriteProductUrlImage)
+                        productName.text = it.favoriteProductName
+                        productPrice.text = getString(R.string.product_price_label, it.favoriteProductPrice)
+                        productType.text = it.favoriteProductType
+                        productDescription.text = it.favoriteProductDescription
+                        url = it.favoriteProductUrlLink
+                    }
+                } catch (ignored: Exception) {}
+            }
         }
 
         lifecycle.coroutineScope.launch {
-            viewModel.getProduct(productId).collect { product ->
-                if (product.productUrlLink == productUrlLink) {
-                    favoriteProduct = FavoriteProduct(
-                        favoriteProductId = 0L,
-                        favoriteProductName = product.productName,
-                        favoriteProductUrlImage = product.productUrlImage,
-                        favoriteProductPrice = product.productPrice,
-                        favoriteProductType = product.productType,
-                        favoriteProductDescription = product.productDescription,
-                        favoriteProductUrlLink = product.productUrlLink,
-                        favoriteProductIsVisible = true
-                    )
-                    productImage.load(product.productUrlImage)
-                    productName.text = product.productName
-                    productPrice.text = getString(R.string.product_price_label, product.productPrice)
-                    productType.text = product.productType
-                    productDescription.text = product.productDescription
+            try {
+                viewModel.getFavoriteProductByUrlLink(productUrlLink).collect {
+                    isFavorite = true
+                    favoriteProduct = it
+                    viewModel.setFavoriteValue(it.favoriteProductIsVisible)
                 }
-            }
+            } catch (ignored: Exception) {}
         }
 
         return view
@@ -120,17 +129,24 @@ class ProductFragment : Fragment() {
         toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.favoriteProduct -> {
-                    lifecycle.coroutineScope.launch {
-                        launch {
-                            if (isFavorite) {
-                                viewModel.setFavoriteVisibility(
-                                    favoriteProduct.favoriteProductId, !favoriteProduct.favoriteProductIsVisible)
+                    if (isFavorite) {
+                        lifecycle.coroutineScope.launch {
+                            if (favoriteProduct.favoriteProductIsVisible) {
+                                viewModel.setFavoriteVisibilityByUrlLink(
+                                    favoriteProduct.favoriteProductUrlLink, false)
+                            } else {
+                                viewModel.setFavoriteVisibilityByUrlLink(
+                                    favoriteProduct.favoriteProductUrlLink, true)
+                            }
+                        }
+                    } else {
+                        lifecycle.coroutineScope.launch {
+                            if (viewModel.isFavorite.value) {
+                                viewModel.deleteFavoriteProductByUrlLink(favoriteProduct.favoriteProductUrlLink)
                             } else {
                                 viewModel.addFavoriteProduct(favoriteProduct)
                             }
                         }
-
-                        viewModel.toggleFavorite()
                     }
 
                     true
