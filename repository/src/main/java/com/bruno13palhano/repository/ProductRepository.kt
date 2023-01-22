@@ -15,4 +15,5 @@ interface ProductRepository {
     fun getByCompany(productCompany: String, offset: Int, limit: Int): Flow<List<Product>>
     fun getByType(productType: String): Flow<List<Product>>
     fun searchProductByTitle(productName: String): Flow<List<Product>>
+    fun getProductByLink(productUrlLink: String): Flow<Product>
 }

@@ -28,6 +28,10 @@ internal class FavoriteProductRepositoryImpl(
         })
     }
 
+    override suspend fun deleteFavoriteProductByUrlLink(favoriteProductUrlLink: String) {
+        dao.deleteFavoriteProductByUrlLink(favoriteProductUrlLink)
+    }
+
     override suspend fun deleteFavoriteProductById(favoriteProductId: Long) {
         dao.deleteFavoriteProductById(favoriteProductId)
     }
@@ -65,5 +69,12 @@ internal class FavoriteProductRepositoryImpl(
         favoriteProductIsVisible: Boolean
     ) {
         dao.setFavoriteProductVisibility(favoriteProductId, favoriteProductIsVisible)
+    }
+
+    override suspend fun setFavoriteProductVisibilityByUrl(
+        favoriteProductUrlLink: String,
+        favoriteProductIsVisible: Boolean
+    ) {
+        dao.setFavoriteProductVisibilityByUrl(favoriteProductUrlLink, favoriteProductIsVisible)
     }
 }

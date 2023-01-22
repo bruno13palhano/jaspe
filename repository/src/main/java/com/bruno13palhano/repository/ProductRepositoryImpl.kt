@@ -31,6 +31,7 @@ internal class ProductRepositoryImpl(
     override suspend fun deleteProductById(productId: Long) {
         dao.deleteById(productId)
     }
+
     override fun get(productId: Long): Flow<Product> {
         return dao.get(productId).map {
             it.asProduct()
@@ -77,6 +78,12 @@ internal class ProductRepositoryImpl(
             it.map { productRep ->
                 productRep.asProduct()
             }
+        }
+    }
+
+    override fun getProductByLink(productUrlLink: String): Flow<Product> {
+        return dao.getProductByLink(productUrlLink).map {
+            it.asProduct()
         }
     }
 }

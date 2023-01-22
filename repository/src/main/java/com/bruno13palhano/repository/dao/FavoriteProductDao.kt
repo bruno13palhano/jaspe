@@ -27,6 +27,9 @@ internal interface FavoriteProductDao {
     @Query("DELETE FROM favorite_product_table WHERE favorite_product_id = :favoriteProductId")
     suspend fun deleteFavoriteProductById(favoriteProductId: Long)
 
+    @Query("DELETE FROM favorite_product_table WHERE favorite_product_url_link = :favoriteProductUrlLink")
+    suspend fun deleteFavoriteProductByUrlLink(favoriteProductUrlLink: String)
+
     @Query("SELECT * FROM favorite_product_table WHERE " +
             "favorite_product_id = :favoriteProductId")
     fun getFavorite(favoriteProductId: Long): Flow<FavoriteProductRep>
@@ -44,4 +47,8 @@ internal interface FavoriteProductDao {
     @Query("UPDATE favorite_product_table SET favorite_product_is_visible = :favoriteProductIsFavorite " +
             "WHERE favorite_product_id = :favoriteProductId")
     suspend fun setFavoriteProductVisibility(favoriteProductId: Long, favoriteProductIsFavorite: Boolean)
+
+    @Query("UPDATE favorite_product_table SET favorite_product_is_visible = :favoriteProductId " +
+            "WHERE favorite_product_url_link = :favoriteProductUrlLink")
+    suspend fun setFavoriteProductVisibilityByUrl(favoriteProductUrlLink: String, favoriteProductId: Boolean)
 }
