@@ -14,7 +14,7 @@ import com.bruno13palhano.model.FavoriteProduct
 
 class FavoritesItemAdapter(
     private val onItemClick: (productId: Long, productUrlLink: String) -> Unit,
-    private val onItemClose: (productId: Long) -> Unit,
+    private val onItemClose: (productUrlLink: String) -> Unit,
     private val onItemShare: (productName: String, productLink: String) -> Unit
 ) : ListAdapter<FavoriteProduct, FavoritesItemAdapter.FavoritesItemViewHolder>(FavoritesDiffCallback()) {
 
@@ -31,7 +31,7 @@ class FavoritesItemAdapter(
 
     class FavoritesItemViewHolder(
         rootView: CardView,
-        val onItemClose: (Long) -> Unit,
+        val onItemClose: (productUrlLink: String) -> Unit,
         val onItemClick: (productUd: Long, productUrlLink: String) -> Unit,
         val onItemShare: (productName: String, productLink: String) -> Unit
     ) : RecyclerView.ViewHolder(rootView) {
@@ -47,7 +47,7 @@ class FavoritesItemAdapter(
         init {
             removeProduct.setOnClickListener {
                 currentProduct?.let {
-                    onItemClose(it.favoriteProductId)
+                    onItemClose(it.favoriteProductUrlLink)
                 }
             }
 
@@ -75,7 +75,7 @@ class FavoritesItemAdapter(
 
     private class FavoritesDiffCallback : DiffUtil.ItemCallback<FavoriteProduct>() {
         override fun areItemsTheSame(oldItem: FavoriteProduct, newItem: FavoriteProduct): Boolean {
-            return oldItem.favoriteProductId == newItem.favoriteProductId
+            return oldItem.favoriteProductUrlLink == newItem.favoriteProductUrlLink
         }
 
         override fun areContentsTheSame(oldItem: FavoriteProduct, newItem: FavoriteProduct): Boolean {

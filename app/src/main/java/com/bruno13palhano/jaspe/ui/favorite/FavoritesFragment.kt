@@ -32,7 +32,7 @@ class FavoritesFragment : Fragment() {
         val adapter = FavoritesItemAdapter(
             onItemClose = {
                 lifecycle.coroutineScope.launch {
-                    viewModel.deleteProduct(it)
+                    viewModel.deleteProductByUrlLink(it)
                 }
             },
             onItemShare = { productName, productLink ->
