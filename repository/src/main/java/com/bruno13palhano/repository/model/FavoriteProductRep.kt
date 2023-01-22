@@ -8,7 +8,6 @@ import com.bruno13palhano.model.FavoriteProduct
 @Entity(tableName = "favorite_product_table")
 internal data class FavoriteProductRep(
 
-    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "favorite_product_id")
     val favoriteProductId: Long,
 
@@ -27,6 +26,7 @@ internal data class FavoriteProductRep(
     @ColumnInfo(name = "favorite_product_description")
     val favoriteProductDescription: String,
 
+    @PrimaryKey
     @ColumnInfo(name = "favorite_product_url_link")
     val favoriteProductUrlLink: String,
 
