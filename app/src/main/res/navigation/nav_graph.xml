@@ -212,9 +212,6 @@
         android:label="Product"
         tools:layout="@layout/fragment_product">
         <argument
-            android:name="productId"
-            app:argType="long" />
-        <argument
             android:name="productUrlLink"
             app:argType="string" />
     </fragment>
