@@ -3,6 +3,7 @@ package com.bruno13palhano.jaspe
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import com.bruno13palhano.jaspe.work.BannerWork
@@ -22,7 +23,7 @@ class MainViewModel(
             .build()
 
     fun fetchDataFromServe() {
-        workManager.enqueue(fetchProductData)
-        workManager.enqueue(fetchBannerData)
+        workManager.enqueueUniquePeriodicWork("PRODUCT_WORK", ExistingPeriodicWorkPolicy.KEEP, fetchProductData)
+        workManager.enqueueUniquePeriodicWork("BANNER_WORK", ExistingPeriodicWorkPolicy.KEEP, fetchBannerData)
     }
 }
