@@ -21,7 +21,6 @@ import com.google.android.material.floatingactionbutton.ExtendedFloatingActionBu
 import kotlinx.coroutines.launch
 
 class ProductFragment : Fragment() {
-    private var productId: Long = 0L
     private var productUrlLink: String = ""
     private lateinit var viewModel: ProductViewModel
     private lateinit var favoriteProduct: FavoriteProduct
@@ -42,11 +41,7 @@ class ProductFragment : Fragment() {
         val productPrice = view.findViewById<TextView>(R.id.product_price)
         val productType = view.findViewById<TextView>(R.id.product_type)
         val productDescription = view.findViewById<TextView>(R.id.product_description)
-        var url = ""
 
-        productId = ProductFragmentArgs.fromBundle(
-            requireArguments()
-        ).productId
         productUrlLink = ProductFragmentArgs.fromBundle(
             requireArguments()
         ).productUrlLink
@@ -78,7 +73,6 @@ class ProductFragment : Fragment() {
                     productPrice.text = getString(R.string.product_price_label, it.productPrice)
                     productType.text = it.productType
                     productDescription.text = it.productDescription
-                    url = it.productUrlLink
                 }
             } catch (ignored: Exception) {
                 try {
@@ -91,7 +85,6 @@ class ProductFragment : Fragment() {
                         productPrice.text = getString(R.string.product_price_label, it.favoriteProductPrice)
                         productType.text = it.favoriteProductType
                         productDescription.text = it.favoriteProductDescription
-                        url = it.favoriteProductUrlLink
                     }
                 } catch (ignored: Exception) {}
             }
