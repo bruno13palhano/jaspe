@@ -62,7 +62,7 @@ class SearchFragment : Fragment() {
 
         lifecycle.coroutineScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.searchProductByTitle(searchCacheName)
+                viewModel.searchProduct(searchCacheName)
             }
         }
 

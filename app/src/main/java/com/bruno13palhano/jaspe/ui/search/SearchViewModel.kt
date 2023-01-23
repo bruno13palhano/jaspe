@@ -15,10 +15,10 @@ class SearchViewModel(
     private val _searchProducts = MutableStateFlow<List<Product>>(emptyList())
     val searchProducts: StateFlow<List<Product>> = _searchProducts
 
-    fun searchProductByTitle(productName: String) {
+    fun searchProduct(productName: String) {
         if (productName != "") {
             viewModelScope.launch {
-                productRepository.searchProductByTitle(productName.trim()).collect {
+                productRepository.searchProduct(productName.trim()).collect {
                     _searchProducts.value = it
                 }
             }
