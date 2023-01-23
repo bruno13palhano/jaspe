@@ -13,7 +13,7 @@ import com.bruno13palhano.jaspe.R
 import com.bruno13palhano.model.Product
 
 class SearchAdapterList(
-    private val onClick: (productId: Long, productUrlLink: String) -> Unit
+    private val onClick: (productUrlLink: String) -> Unit
 ) : ListAdapter<Product, SearchAdapterList.SearchItemViewHolder>(SearchDiffCallback()){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchItemViewHolder {
@@ -28,7 +28,7 @@ class SearchAdapterList(
 
     class SearchItemViewHolder(
         rootView: CardView,
-        val onClick: (productId: Long, productUrlLink: String) -> Unit
+        val onClick: (productUrlLink: String) -> Unit
     ) : RecyclerView.ViewHolder(rootView) {
         private val productImage: ImageView = rootView.findViewById(R.id.product_image)
         private val productName: TextView = rootView.findViewById(R.id.product_name)
@@ -39,7 +39,7 @@ class SearchAdapterList(
         init {
             rootView.setOnClickListener {
                 currentProduct?.let {
-                    onClick(it.productId, it.productUrlLink)
+                    onClick(it.productUrlLink)
                 }
             }
         }

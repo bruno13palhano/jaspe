@@ -23,9 +23,9 @@ class AmazonCategoryFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_amazon_category, container, false)
         val recyclerView = view.findViewById<RecyclerView>(R.id.amazon_category_list)
 
-        val adapter = CategoriesItemAdapter { productId, productUrlLink ->
+        val adapter = CategoriesItemAdapter { productUrlLink ->
             val action = AmazonCategoryFragmentDirections
-                .actionMarketCategoryToProduct(productId, productUrlLink)
+                .actionMarketCategoryToProduct(productUrlLink)
             view.findNavController().navigate(action)
         }
         recyclerView.adapter = adapter

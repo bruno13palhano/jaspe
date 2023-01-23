@@ -23,9 +23,9 @@ class BabyCategoryFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_baby_category, container, false)
         val recyclerView = view.findViewById<RecyclerView>(R.id.baby_category_list)
 
-        val adapter = CategoriesItemAdapter { productId, productUrlLink ->
+        val adapter = CategoriesItemAdapter { productUrlLink ->
             val action = BabyCategoryFragmentDirections
-                .actionBabyCategoryToProduct(productId, productUrlLink)
+                .actionBabyCategoryToProduct(productUrlLink)
             view.findNavController().navigate(action)
         }
         recyclerView.adapter = adapter
