@@ -7,6 +7,7 @@ import android.view.MenuItem
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -42,103 +43,65 @@ class MainActivity : AppCompatActivity() {
 
             when (item.itemId) {
                 R.id.homeFragment -> {
-                    if (!item.isChecked) {
-                        lifecycleScope.launch {
-                            delay(270L)
-                            navController.apply {
-                                popBackStack(R.id.nav_graph, inclusive = false, saveState = false)
-                                navigate(R.id.homeFragment)
-                            }
-                        }
-                    }
+                    navigateTo(navController, item, R.id.homeFragment)
                 }
 
                 R.id.searchDialogFragment -> {
-                    if (!item.isChecked) {
-                        lifecycleScope.launch {
-                            delay(270L)
-                            navController.apply {
-                                popBackStack(R.id.homeFragment, inclusive = false, saveState = true)
-                                navigate(R.id.searchDialogFragment)
-                            }
-                        }
-                    }
+                    navigateTo(navController, item, R.id.searchDialogFragment)
                 }
 
                 R.id.offersCategoryFragment -> {
-                    if (!item.isChecked) {
-                        lifecycleScope.launch {
-                            delay(270L)
-                            navController.apply {
-                                popBackStack(R.id.homeFragment, inclusive = false, saveState = true)
-                                navigate(R.id.offersCategoryFragment)
-                            }
-                        }
-                    }
+                    navigateTo(navController, item, R.id.offersCategoryFragment)
                 }
 
                 R.id.favoritesFragment -> {
-                    if (!item.isChecked) {
-                        lifecycleScope.launch {
-                            delay(270L)
-                            navController.apply {
-                                popBackStack(R.id.homeFragment, inclusive = false, saveState = true)
-                                navigate(R.id.favoritesFragment)
-                            }
-                        }
-                    }
+                    navigateTo(navController, item, R.id.favoritesFragment)
                 }
 
                 R.id.categoryFragment -> {
-                    if (!item.isChecked) {
-                        lifecycleScope.launch {
-                            delay(270L)
-                            navController.apply {
-                                popBackStack(R.id.homeFragment, inclusive = false, saveState = true)
-                                navigate(R.id.categoryFragment)
-                            }
-                        }
-                    }
+                    navigateTo(navController, item, R.id.categoryFragment)
                 }
 
                 R.id.accountFragment -> {
-                    if (!item.isChecked) {
-                        lifecycleScope.launch {
-                            delay(270L)
-                            navController.apply {
-                                popBackStack(R.id.homeFragment, inclusive = false, saveState = true)
-                                navigate(R.id.accountFragment)
-                            }
-                        }
-                    }
+                    navigateTo(navController, item, R.id.accountFragment)
                 }
 
                 R.id.blogCategoryFragment -> {
-                    if (!item.isChecked) {
-                        lifecycleScope.launch {
-                            delay(270L)
-                            navController.apply {
-                                popBackStack(R.id.homeFragment, inclusive = false, saveState = true)
-                                navigate(R.id.blogCategoryFragment)
-                            }
-                        }
-                    }
+                    navigateTo(navController, item, R.id.blogCategoryFragment)
                 }
 
                 R.id.helpFragment -> {
-                    if (!item.isChecked) {
-                        lifecycleScope.launch {
-                            delay(270L)
-                            navController.apply {
-                                popBackStack(R.id.homeFragment, inclusive = false, saveState = true)
-                                navigate(R.id.helpFragment)
-                            }
-                        }
-                    }
+                    navigateTo(navController, item, R.id.helpFragment)
                 }
             }
 
             true
+        }
+    }
+
+    private fun navigateTo(
+        navController: NavController,
+        item: MenuItem,
+        routeId: Int
+    ) {
+        if (!item.isChecked) {
+            if (routeId == R.id.homeFragment) {
+                lifecycleScope.launch {
+                    delay(270L)
+                    navController.apply {
+                        popBackStack(R.id.nav_graph, inclusive = false, saveState = false)
+                        navigate(routeId)
+                    }
+                }
+            } else {
+                lifecycleScope.launch {
+                    delay(270L)
+                    navController.apply {
+                        popBackStack(R.id.homeFragment, inclusive = false, saveState = true)
+                        navigate(routeId)
+                    }
+                }
+            }
         }
     }
 
