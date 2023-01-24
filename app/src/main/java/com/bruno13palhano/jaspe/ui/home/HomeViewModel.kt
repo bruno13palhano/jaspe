@@ -3,6 +3,7 @@ package com.bruno13palhano.jaspe.ui.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bruno13palhano.model.Banner
+import com.bruno13palhano.model.Company
 import com.bruno13palhano.model.Product
 import com.bruno13palhano.repository.BannerRepository
 import com.bruno13palhano.repository.ProductRepository
@@ -40,7 +41,7 @@ class HomeViewModel(
 
     init {
         viewModelScope.launch {
-            bannerRepository.getByCompany("Main", 0, 1).collect { banner ->
+            bannerRepository.getByCompany(Company.MAIN.company, 0, 1).collect { banner ->
                 try {
                     _mainBanner.value = banner[0]
                 } catch (ignored: IndexOutOfBoundsException) {}
@@ -54,25 +55,25 @@ class HomeViewModel(
         }
 
         viewModelScope.launch {
-            productRepository.getByCompany("Amazon", 0, 6).collect {
+            productRepository.getByCompany(Company.AMAZON.company, 0, 6).collect {
                 _amazonProducts.value = it
             }
         }
 
         viewModelScope.launch {
-            productRepository.getByCompany("Natura", 0, 6).collect {
+            productRepository.getByCompany(Company.NATURA.company, 0, 6).collect {
                 _naturaProducts.value = it
             }
         }
 
         viewModelScope.launch {
-            productRepository.getByCompany("Avon", 0, 6).collect {
+            productRepository.getByCompany(Company.AVON.company, 0, 6).collect {
                 _avonProducts.value = it
             }
         }
 
         viewModelScope.launch {
-            bannerRepository.getByCompany("Amazon", 0, 1).collect { banner ->
+            bannerRepository.getByCompany(Company.AMAZON.company, 0, 1).collect { banner ->
                 try {
                     _amazonBanner.value = banner[0]
                 } catch (ignored: IndexOutOfBoundsException) {}
@@ -80,7 +81,7 @@ class HomeViewModel(
         }
 
         viewModelScope.launch {
-            bannerRepository.getByCompany("Natura", 0, 1).collect() { banner ->
+            bannerRepository.getByCompany(Company.NATURA.company, 0, 1).collect() { banner ->
                 try {
                     _naturaBanner.value = banner[0]
                 } catch (ignored: IndexOutOfBoundsException) {}
@@ -88,7 +89,7 @@ class HomeViewModel(
         }
 
         viewModelScope.launch {
-            bannerRepository.getByCompany("Avon", 0, 1).collect { banner ->
+            bannerRepository.getByCompany(Company.NATURA.company, 0, 1).collect { banner ->
                 try {
                     _avonBanner.value = banner[0]
                 } catch (ignored: IndexOutOfBoundsException) {}
