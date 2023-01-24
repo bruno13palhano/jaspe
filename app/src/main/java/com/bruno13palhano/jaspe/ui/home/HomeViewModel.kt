@@ -14,16 +14,16 @@ class HomeViewModel(
     private val bannerRepository: BannerRepository
 ) : ViewModel() {
 
-    private val _mainBanner = MutableStateFlow(Banner(0, "", "", ""))
+    private val _mainBanner = MutableStateFlow(Banner())
     val mainBanner: StateFlow<Banner> = _mainBanner
 
-    private val _amazonBanner = MutableStateFlow(Banner(0,"","",""))
+    private val _amazonBanner = MutableStateFlow(Banner())
     val amazonBanner: StateFlow<Banner> = _amazonBanner
 
-    private val _naturaBanner = MutableStateFlow(Banner(0,"","",""))
+    private val _naturaBanner = MutableStateFlow(Banner())
     val naturaBanner: StateFlow<Banner> = _naturaBanner
 
-    private val _avonBanner = MutableStateFlow(Banner(0,"","",""))
+    private val _avonBanner = MutableStateFlow(Banner())
     val avonBanner: StateFlow<Banner> = _avonBanner
 
     private val _allProducts = MutableStateFlow<List<Product>>(emptyList())
