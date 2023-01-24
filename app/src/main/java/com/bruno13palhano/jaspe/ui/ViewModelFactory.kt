@@ -3,7 +3,6 @@ package com.bruno13palhano.jaspe.ui
 import android.content.Context
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
-import com.bruno13palhano.jaspe.ui.category.CategoryViewModel
 import com.bruno13palhano.jaspe.ui.favorite.FavoritesViewModel
 import com.bruno13palhano.jaspe.ui.favorite.FavoritesViewModelFactory
 import com.bruno13palhano.jaspe.ui.home.HomeViewModel
@@ -43,10 +42,6 @@ class ViewModelFactory(
             FavoritesViewModelFactory(repositoryFactory.createFavoriteProductRepository())
 
         return ViewModelProvider(owner, favoritesViewModelFactory)[FavoritesViewModel::class.java]
-    }
-
-    fun createCategoryViewModel(): CategoryViewModel {
-        return ViewModelProvider(owner)[CategoryViewModel::class.java]
     }
 
     fun createSearchViewModel(): SearchViewModel {

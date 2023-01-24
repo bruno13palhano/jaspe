@@ -19,7 +19,7 @@ import coil.load
 import com.bruno13palhano.jaspe.MainActivity
 import com.bruno13palhano.jaspe.R
 import com.bruno13palhano.jaspe.ui.ViewModelFactory
-import com.bruno13palhano.model.CategoryItem
+import com.bruno13palhano.jaspe.ui.common.getCategoryList
 import com.bruno13palhano.model.CategoryRoute
 import com.google.android.material.appbar.MaterialToolbar
 import kotlinx.coroutines.launch
@@ -67,7 +67,7 @@ class HomeFragment : Fragment() {
             view.findNavController().navigate(action)
         }
 
-        val categoryItems = createCategoryItemList()
+        val categoryItems = getCategoryList()
         val categoryRecyclerView = view.findViewById<RecyclerView>(R.id.category_recycler_view)
         val categoryAdapter = CategoryItemAdapter {
             val action = categoryNavigateTo(it)
@@ -191,58 +191,5 @@ class HomeFragment : Fragment() {
         }
 
         return null
-    }
-
-    private fun createCategoryItemList(): List<CategoryItem> {
-        return listOf<CategoryItem>(
-            CategoryItem(
-                "Baby",
-                CategoryRoute.BABY.route,
-                "ITEM_1",
-                R.drawable.baby_icon
-            ),
-
-            CategoryItem(
-                "Market",
-                CategoryRoute.MARKET.route,
-                "ITEM_2",
-                R.drawable.market_icon
-            ),
-
-            CategoryItem(
-                "Avon",
-                CategoryRoute.AVON.route,
-                "ITEM_3",
-                R.drawable.avon_icon
-            ),
-
-            CategoryItem(
-                "Natura",
-                CategoryRoute.NATURA.route,
-                "ITEM_4",
-                R.drawable.natura_icon
-            ),
-
-            CategoryItem(
-                "Offers",
-                CategoryRoute.OFFERS.route,
-                "ITEM_5",
-                R.drawable.offers_icon
-            ),
-
-            CategoryItem(
-                "Highlights",
-                CategoryRoute.HIGHLIGHTS.route,
-                "ITEM_6",
-                R.drawable.highlights_icon
-            ),
-
-            CategoryItem(
-                "Blog",
-                CategoryRoute.BLOG.route,
-                "ITEM_7",
-                R.drawable.blog_icon
-            ),
-        )
     }
 }

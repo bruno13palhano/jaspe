@@ -1,12 +1,11 @@
-package com.bruno13palhano.jaspe.ui.category
+package com.bruno13palhano.jaspe.ui.common
 
-import androidx.lifecycle.ViewModel
 import com.bruno13palhano.jaspe.R
 import com.bruno13palhano.model.CategoryItem
 import com.bruno13palhano.model.CategoryRoute
 
-class CategoryViewModel : ViewModel() {
-    val categoryList = listOf(
+fun getCategoryList(): List<CategoryItem> {
+    return listOf(
         CategoryItem(
             "Baby",
             CategoryRoute.BABY.route,
@@ -47,6 +46,6 @@ class CategoryViewModel : ViewModel() {
             CategoryRoute.HIGHLIGHTS.route,
             "ITEM_6",
             R.drawable.highlights_icon
-        ),
+        )
     )
 }
