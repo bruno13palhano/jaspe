@@ -20,6 +20,7 @@ import com.bruno13palhano.jaspe.MainActivity
 import com.bruno13palhano.jaspe.R
 import com.bruno13palhano.jaspe.ui.ViewModelFactory
 import com.bruno13palhano.model.CategoryItem
+import com.bruno13palhano.model.CategoryRoute
 import com.google.android.material.appbar.MaterialToolbar
 import kotlinx.coroutines.launch
 
@@ -166,25 +167,25 @@ class HomeFragment : Fragment() {
 
     private fun categoryNavigateTo(categoryRoute: String): NavDirections? {
         when (categoryRoute) {
-            "category_baby" -> {
+            CategoryRoute.BABY.route -> {
                 return HomeFragmentDirections.actionHomeToBabyCategory()
             }
-            "category_market" -> {
+            CategoryRoute.MARKET.route -> {
                 return HomeFragmentDirections.actionHomeToMarketCategory()
             }
-            "category_avon" -> {
+            CategoryRoute.AVON.route -> {
                 return HomeFragmentDirections.actionHomeToAvonCategory()
             }
-            "category_blog" -> {
+            CategoryRoute.BLOG.route -> {
                 return HomeFragmentDirections.actionHomeToBlogCategory()
             }
-            "category_highlights" -> {
+            CategoryRoute.HIGHLIGHTS.route -> {
                 return HomeFragmentDirections.actionHomeToHighlightsCategory()
             }
-            "category_natura" -> {
+            CategoryRoute.NATURA.route -> {
                 return HomeFragmentDirections.actionHomeToNaturaCategory()
             }
-            "category_offers" -> {
+            CategoryRoute.OFFERS.route -> {
                 return HomeFragmentDirections.actionHomeToOffersCategory()
             }
         }
@@ -196,49 +197,49 @@ class HomeFragment : Fragment() {
         return listOf<CategoryItem>(
             CategoryItem(
                 "Baby",
-                "category_baby",
+                CategoryRoute.BABY.route,
                 "ITEM_1",
                 R.drawable.baby_icon
             ),
 
             CategoryItem(
                 "Market",
-                "category_market",
+                CategoryRoute.MARKET.route,
                 "ITEM_2",
                 R.drawable.market_icon
             ),
 
             CategoryItem(
                 "Avon",
-                "category_avon",
+                CategoryRoute.AVON.route,
                 "ITEM_3",
                 R.drawable.avon_icon
             ),
 
             CategoryItem(
                 "Natura",
-                "category_natura",
+                CategoryRoute.NATURA.route,
                 "ITEM_4",
                 R.drawable.natura_icon
             ),
 
             CategoryItem(
                 "Offers",
-                "category_offers",
+                CategoryRoute.OFFERS.route,
                 "ITEM_5",
                 R.drawable.offers_icon
             ),
 
             CategoryItem(
                 "Highlights",
-                "category_highlights",
+                CategoryRoute.HIGHLIGHTS.route,
                 "ITEM_6",
                 R.drawable.highlights_icon
             ),
 
             CategoryItem(
                 "Blog",
-                "category_blog",
+                CategoryRoute.BLOG.route,
                 "ITEM_7",
                 R.drawable.blog_icon
             ),

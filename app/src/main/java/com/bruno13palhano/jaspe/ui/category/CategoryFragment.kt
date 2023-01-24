@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bruno13palhano.jaspe.R
 import com.bruno13palhano.jaspe.ui.ViewModelFactory
+import com.bruno13palhano.model.CategoryRoute
 import com.google.android.material.appbar.MaterialToolbar
 import kotlinx.coroutines.launch
 
@@ -55,22 +56,22 @@ class CategoryFragment : Fragment() {
 
     private fun categoryNavigationTo(categoryRoute: String): NavDirections? {
         when (categoryRoute) {
-            "category_baby" -> {
+            CategoryRoute.BABY.route -> {
                 return CategoryFragmentDirections.actionCategoryToBabyCategory()
             }
-            "category_market" -> {
+            CategoryRoute.MARKET.route -> {
                 return CategoryFragmentDirections.actionCategoryToMarketCategory()
             }
-            "category_avon" -> {
+            CategoryRoute.AVON.route -> {
                 return CategoryFragmentDirections.actionCategoryToAvonCategory()
             }
-            "category_natura" -> {
+            CategoryRoute.NATURA.route -> {
                 return CategoryFragmentDirections.actionCategoryToNaturaCategory()
             }
-            "category_highlights" -> {
+            CategoryRoute.HIGHLIGHTS.route -> {
                 return CategoryFragmentDirections.actionCategoryToHighlightsCategory()
             }
-            "category_offers" -> {
+            CategoryRoute.OFFERS.route -> {
                 return CategoryFragmentDirections.actionCategoryToOffersCategory()
             }
         }
