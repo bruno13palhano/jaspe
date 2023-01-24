@@ -14,14 +14,6 @@ internal class FavoriteProductRepositoryImpl(
         dao.insert(favoriteProduct.asFavoriteProductRep())
     }
 
-    override suspend fun updateFavoriteProduct(favoriteProduct: FavoriteProduct) {
-        dao.update(favoriteProduct.asFavoriteProductRep())
-    }
-
-    override suspend fun deleteFavoriteProduct(favoriteProduct: FavoriteProduct) {
-        dao.delete(favoriteProduct.asFavoriteProductRep())
-    }
-
     override suspend fun deleteAllFavoriteProduct(favoriteProductList: List<FavoriteProduct>) {
         dao.deleteAll(favoriteProductList.map {
             it.asFavoriteProductRep()
@@ -30,16 +22,6 @@ internal class FavoriteProductRepositoryImpl(
 
     override suspend fun deleteFavoriteProductByUrlLink(favoriteProductUrlLink: String) {
         dao.deleteFavoriteProductByUrlLink(favoriteProductUrlLink)
-    }
-
-    override suspend fun deleteFavoriteProductById(favoriteProductId: Long) {
-        dao.deleteFavoriteProductById(favoriteProductId)
-    }
-
-    override fun getFavoriteProduct(favoriteProductId: Long): Flow<FavoriteProduct> {
-        return dao.getFavorite(favoriteProductId).map {
-            it.asFavoriteProduct()
-        }
     }
 
     override fun getFavoriteByLink(favoriteProductLink: String): Flow<FavoriteProduct> {
@@ -62,13 +44,6 @@ internal class FavoriteProductRepositoryImpl(
                 favorite.asFavoriteProduct()
             }
         }
-    }
-
-    override suspend fun setFavoriteProductVisibility(
-        favoriteProductId: Long,
-        favoriteProductIsVisible: Boolean
-    ) {
-        dao.setFavoriteProductVisibility(favoriteProductId, favoriteProductIsVisible)
     }
 
     override suspend fun setFavoriteProductVisibilityByUrl(
