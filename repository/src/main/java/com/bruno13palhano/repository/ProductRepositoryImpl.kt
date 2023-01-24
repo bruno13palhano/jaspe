@@ -10,38 +10,10 @@ import kotlinx.coroutines.flow.map
 internal class ProductRepositoryImpl(
     private val dao: ProductDao
 ) : ProductRepository {
-    override suspend fun insertProduct(product: Product) {
-        dao.insert(product.asProductRep())
-    }
-
     override suspend fun insertProducts(productList: List<Product>) {
         dao.insertAll(productList.map {
              it.asProductRep()
         })
-    }
-
-    override suspend fun updateProduct(product: Product) {
-        dao.update(product.asProductRep())
-    }
-
-    override suspend fun deleteProduct(product: Product) {
-        dao.delete(product.asProductRep())
-    }
-
-    override suspend fun deleteProductById(productId: Long) {
-        dao.deleteById(productId)
-    }
-
-    override fun get(productId: Long): Flow<Product> {
-        return dao.get(productId).map {
-            it.asProduct()
-        }
-    }
-
-    override fun getByLink(productLink: String): Flow<Product> {
-        return dao.getByLink(productLink).map {
-            it.asProduct()
-        }
     }
 
     override fun getAll(): Flow<List<Product>> {
