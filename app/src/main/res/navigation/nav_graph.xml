@@ -247,6 +247,12 @@
     </fragment>
 
     <fragment
+        android:id="@+id/contactFragment"
+        android:name="com.bruno13palhano.jaspe.ui.ContactFragment"
+        android:label="Contact"
+        tools:layout="@layout/fragment_contact" />
+
+    <fragment
         android:id="@+id/blogCategoryFragment"
         android:name="com.bruno13palhano.jaspe.ui.category.blog.BlogCategoryFragment"
         android:label="BlogCategory"
