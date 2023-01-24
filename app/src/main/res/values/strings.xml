@@ -45,4 +45,9 @@
 
     <string name="remove_all_label">Remove All</string>
     <string name="options_label">Options</string>
+
+    <!--  Contact  -->
+    <string name="contact_whatsapp_label">WhatsApp</string>
+    <string name="contact_instagram_label">Instagram</string>
+    <string name="contact_gmail_label">Gmail</string>
 </resources>
