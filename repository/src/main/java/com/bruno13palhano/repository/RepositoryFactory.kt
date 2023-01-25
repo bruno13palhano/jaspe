@@ -24,4 +24,9 @@ class RepositoryFactory(
         val searchCacheDao = JaspeDatabase.getInstance(context).searchCacheDao
         return SearchCacheRepositoryImpl(searchCacheDao)
     }
+
+    fun createContactInfoRepository(): ContactInfoRepository {
+        val contactRepositoryDao = JaspeDatabase.getInstance(context).contactInfoDao
+        return ContactInfoRepositoryImpl(contactRepositoryDao)
+    }
 }
