@@ -248,7 +248,7 @@
 
     <fragment
         android:id="@+id/contactFragment"
-        android:name="com.bruno13palhano.jaspe.ui.ContactFragment"
+        android:name="com.bruno13palhano.jaspe.ui.contact.ContactFragment"
         android:label="Contact"
         tools:layout="@layout/fragment_contact" />
 
