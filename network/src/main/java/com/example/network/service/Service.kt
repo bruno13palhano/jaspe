@@ -1,6 +1,7 @@
 package com.example.network.service
 
 import com.example.network.model.BannerNet
+import com.example.network.model.ContactInfoNet
 import com.example.network.model.ProductNet
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -42,4 +43,7 @@ internal interface Service {
 
     @GET("banners/avon")
     suspend fun getAvonBanners(): List<BannerNet>
+
+    @GET("contact")
+    suspend fun getContact(): ContactInfoNet
 }
