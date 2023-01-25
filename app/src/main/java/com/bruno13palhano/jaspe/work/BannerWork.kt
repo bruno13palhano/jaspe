@@ -12,7 +12,7 @@ class BannerWork(
 ) : CoroutineWorker(context, params) {
 
     private val bannerRepository = RepositoryFactory(context).createBannerRepository()
-    private val bannerNetwork = NetworkFactory().createBannerNetWork()
+    private val bannerNetwork = NetworkFactory().createBannerNetwork()
 
     override suspend fun doWork(): Result {
         bannerNetwork.getBanners().collect {

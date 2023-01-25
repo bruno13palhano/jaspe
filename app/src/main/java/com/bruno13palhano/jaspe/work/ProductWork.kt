@@ -12,7 +12,7 @@ class ProductWork(
 ) : CoroutineWorker(context, params) {
 
     private val productRepository = RepositoryFactory(context).createProductRepository()
-    private val productNetwork = NetworkFactory().createProductNetWork()
+    private val productNetwork = NetworkFactory().createProductNetwork()
 
     override suspend fun doWork(): Result {
         productNetwork.getProducts(listOf(0, 100)).collect {
