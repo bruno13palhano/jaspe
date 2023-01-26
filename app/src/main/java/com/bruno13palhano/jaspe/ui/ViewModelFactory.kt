@@ -34,7 +34,10 @@ class ViewModelFactory(
 
     fun createHomeViewModel(): HomeViewModel {
         val homeViewModelFactory =
-            HomeViewModelFactory(repositoryFactory.createProductRepository(), repositoryFactory.createBannerRepository())
+            HomeViewModelFactory(
+                repositoryFactory.createProductRepository(),
+                repositoryFactory.createBannerRepository(),
+                repositoryFactory.createContactInfoRepository())
 
         return ViewModelProvider(owner, homeViewModelFactory)[HomeViewModel::class.java]
     }
