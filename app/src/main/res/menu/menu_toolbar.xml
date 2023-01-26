@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/helpFragment"
+        android:id="@+id/whatsappChat"
         android:icon="@drawable/whatsapp"
         android:title="@string/contact_whatsapp_label"
         app:showAsAction="always" />
