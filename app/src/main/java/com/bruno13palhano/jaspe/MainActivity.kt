@@ -6,6 +6,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.coroutineScope
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -13,6 +14,11 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.onNavDestinationSelected
+import com.bruno13palhano.jaspe.ui.common.openEmail
+import com.bruno13palhano.jaspe.ui.common.openInstagram
+import com.bruno13palhano.jaspe.ui.common.openWhatsApp
+import com.bruno13palhano.model.ContactInfo
+import com.bruno13palhano.repository.RepositoryFactory
 import com.google.android.material.navigation.NavigationView
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -22,9 +28,16 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val viewModel = MainViewModelFactory(application).create(MainViewModel::class.java)
+        val viewModel = MainViewModelFactory(application, RepositoryFactory(this)
+            .createContactInfoRepository()).create(MainViewModel::class.java)
 
-        viewModel.fetchDataFromServe()
+        var contactInfo = ContactInfo()
+
+        lifecycle.coroutineScope.launch {
+            viewModel.contactInfo.collect {
+                contactInfo = it
+            }
+        }
 
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
@@ -76,6 +89,18 @@ class MainActivity : AppCompatActivity() {
 
                 R.id.helpFragment -> {
                     navigateTo(navController, item, R.id.helpFragment)
+                }
+
+                R.id.whatsapp -> {
+                    openWhatsApp(this, contactInfo.contactWhatsApp)
+                }
+
+                R.id.instagram -> {
+                    openInstagram(this, contactInfo.contactInstagram)
+                }
+
+                R.id.email -> {
+                    openEmail(this, contactInfo.contactEmail)
                 }
             }
 
