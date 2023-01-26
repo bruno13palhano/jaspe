@@ -3,7 +3,7 @@ package com.example.network.model
 import com.bruno13palhano.model.Product
 import com.squareup.moshi.Json
 
-data class ProductNet(
+internal data class ProductNet(
 
     @Json(name = "productId")
     val productId: Long,

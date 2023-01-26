@@ -3,7 +3,7 @@ package com.example.network.model
 import com.bruno13palhano.model.Banner
 import com.squareup.moshi.Json
 
-data class BannerNet(
+internal data class BannerNet(
 
     @Json(name = "bannerId")
     val bannerId: Long,
