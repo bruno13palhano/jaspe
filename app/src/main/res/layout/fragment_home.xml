@@ -99,7 +99,7 @@
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="832dp"
                 android:layout_margin="16dp"
                 app:cardElevation="2dp">
                 <androidx.recyclerview.widget.RecyclerView
@@ -110,7 +110,25 @@
                     android:layout_margin="8dp"
                     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                     app:spanCount="2"/>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/more_natura_products"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|center_horizontal"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    app:cardElevation="4dp">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:text="@string/view_more_products_label"
+                        android:paddingHorizontal="8dp"
+                        app:drawableEndCompat="@drawable/ic_baseline_arrow_forward_24" />
                 </androidx.cardview.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
 
             <androidx.cardview.widget.CardView
@@ -133,7 +151,7 @@
             </androidx.cardview.widget.CardView>
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="832dp"
                 android:layout_margin="16dp"
                 app:cardElevation="2dp">
                 <androidx.recyclerview.widget.RecyclerView
@@ -144,6 +162,23 @@
                     android:layout_margin="8dp"
                     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                     app:spanCount="2"/>
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/more_amazon_products"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|center_horizontal"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    app:cardElevation="4dp">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:text="@string/view_more_products_label"
+                        android:paddingHorizontal="8dp"
+                        app:drawableEndCompat="@drawable/ic_baseline_arrow_forward_24" />
+                </androidx.cardview.widget.CardView>
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
@@ -167,7 +202,7 @@
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="832dp"
                 android:layout_margin="16dp"
                 app:cardElevation="2dp">
                 <androidx.recyclerview.widget.RecyclerView
@@ -178,6 +213,23 @@
                     android:layout_margin="8dp"
                     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                     app:spanCount="2"/>
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/more_avon_products"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|center_horizontal"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    app:cardElevation="4dp">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:text="@string/view_more_products_label"
+                        android:paddingHorizontal="8dp"
+                        app:drawableEndCompat="@drawable/ic_baseline_arrow_forward_24" />
+                </androidx.cardview.widget.CardView>
             </androidx.cardview.widget.CardView>
 
             <TextView
