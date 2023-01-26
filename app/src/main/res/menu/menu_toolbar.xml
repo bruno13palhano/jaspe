@@ -5,7 +5,7 @@
 
     <item
         android:id="@+id/helpFragment"
-        android:icon="@drawable/ic_baseline_more_vert_24"
-        android:title="@string/help_label"
+        android:icon="@drawable/whatsapp"
+        android:title="@string/contact_whatsapp_label"
         app:showAsAction="always" />
 </menu>
