@@ -1,7 +1,8 @@
-package com.bruno13palhano.repository
+package com.bruno13palhano.repository.external
 
 import com.bruno13palhano.model.ContactInfo
 import com.bruno13palhano.repository.dao.ContactInfoDao
+import com.bruno13palhano.repository.external.ContactInfoRepository
 import com.bruno13palhano.repository.model.asContactInfo
 import com.bruno13palhano.repository.model.asContactInfoRep
 import kotlinx.coroutines.flow.Flow

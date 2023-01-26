@@ -1,4 +1,4 @@
-package com.bruno13palhano.repository
+package com.bruno13palhano.repository.external
 
 import com.bruno13palhano.model.Banner
 import kotlinx.coroutines.flow.Flow

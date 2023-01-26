@@ -1,4 +1,4 @@
-package com.bruno13palhano.repository
+package com.bruno13palhano.repository.external
 
 import com.bruno13palhano.model.SearchCache
 import com.bruno13palhano.repository.dao.SearchCacheRepDao
