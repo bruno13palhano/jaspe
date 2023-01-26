@@ -1,11 +1,14 @@
 package com.bruno13palhano.jaspe.ui.home
 
+import android.content.Intent
+import android.net.Uri
 import  android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Lifecycle
@@ -21,10 +24,12 @@ import com.bruno13palhano.jaspe.R
 import com.bruno13palhano.jaspe.ui.ViewModelFactory
 import com.bruno13palhano.jaspe.ui.common.getCategoryList
 import com.bruno13palhano.model.CategoryRoute
+import com.bruno13palhano.model.ContactInfo
 import com.google.android.material.appbar.MaterialToolbar
 import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
+    private var contactInfo = ContactInfo()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -78,13 +83,13 @@ class HomeFragment : Fragment() {
         categoryRecyclerView.adapter = categoryAdapter
         categoryAdapter.submitList(categoryItems)
 
-        val viewModel = activity?.applicationContext?.let {
+        val viewModel = requireActivity().applicationContext.let {
             ViewModelFactory(it, this@HomeFragment).createHomeViewModel()
         }
 
         lifecycle.coroutineScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel?.mainBanner?.collect {
+                viewModel.mainBanner.collect {
                     imageMainBanner.load(it.bannerUrlImage)
                 }
             }
@@ -92,7 +97,7 @@ class HomeFragment : Fragment() {
 
         lifecycle.coroutineScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel?.allProducts?.collect {
+                viewModel.allProducts.collect {
                     adapter.submitList(it)
                 }
             }
@@ -101,7 +106,7 @@ class HomeFragment : Fragment() {
 
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel?.amazonProducts?.collect {
+                viewModel.amazonProducts.collect {
                     amazonAdapter.submitList(it)
                 }
             }
@@ -110,7 +115,7 @@ class HomeFragment : Fragment() {
 
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel?.naturaProducts?.collect {
+                viewModel.naturaProducts.collect {
                     naturaAdapter.submitList(it)
                 }
             }
@@ -119,7 +124,7 @@ class HomeFragment : Fragment() {
 
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel?.avonProducts?.collect {
+                viewModel.avonProducts.collect {
                     avonAdapter.submitList(it)
                 }
             }
@@ -128,7 +133,7 @@ class HomeFragment : Fragment() {
 
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel?.amazonBanner?.collect {
+                viewModel.amazonBanner.collect {
                     imageAmazonBanner.load(it.bannerUrlImage)
                 }
             }
@@ -136,7 +141,7 @@ class HomeFragment : Fragment() {
 
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel?.naturaBanner?.collect {
+                viewModel.naturaBanner.collect {
                     imageNaturaBanner.load(it.bannerUrlImage)
                 }
             }
@@ -144,9 +149,15 @@ class HomeFragment : Fragment() {
 
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel?.avonBanner?.collect {
+                viewModel.avonBanner.collect {
                     imageAvonBanner.load(it.bannerUrlImage)
                 }
+            }
+        }
+
+        lifecycle.coroutineScope.launch {
+            viewModel.contactInfo.collect {
+                contactInfo = it
             }
         }
 
@@ -162,6 +173,29 @@ class HomeFragment : Fragment() {
         toolbar.setNavigationOnClickListener {
             val drawer = ((activity as MainActivity)).findViewById<DrawerLayout>(R.id.drawer_layout)
             drawer.open()
+        }
+
+        toolbar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.whatsappChat -> {
+                    openWhatsApp()
+                    true
+                }
+                else -> false
+            }
+        }
+    }
+
+    private fun openWhatsApp() {
+        try {
+            val whatsAppIntent = Intent(Intent.ACTION_VIEW)
+            whatsAppIntent.`package` = "com.whatsapp"
+            whatsAppIntent.data = Uri.parse(
+                "https://api.whatsapp.com/send?phone=+${contactInfo.contactWhatsApp}")
+            startActivity(whatsAppIntent)
+        } catch (e: Exception) {
+            Toast.makeText(requireContext(), R.string.contact_whatsapp_error_label, Toast.LENGTH_SHORT)
+                .show()
         }
     }
 
