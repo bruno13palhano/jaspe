@@ -1,14 +1,11 @@
 package com.bruno13palhano.jaspe.ui.home
 
-import android.content.Intent
-import android.net.Uri
 import  android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Lifecycle
@@ -23,6 +20,7 @@ import com.bruno13palhano.jaspe.MainActivity
 import com.bruno13palhano.jaspe.R
 import com.bruno13palhano.jaspe.ui.ViewModelFactory
 import com.bruno13palhano.jaspe.ui.common.getCategoryList
+import com.bruno13palhano.jaspe.ui.common.openWhatsApp
 import com.bruno13palhano.model.CategoryRoute
 import com.bruno13palhano.model.ContactInfo
 import com.google.android.material.appbar.MaterialToolbar
@@ -178,24 +176,11 @@ class HomeFragment : Fragment() {
         toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.whatsappChat -> {
-                    openWhatsApp()
+                    openWhatsApp(this.requireContext(), contactInfo.contactWhatsApp)
                     true
                 }
                 else -> false
             }
-        }
-    }
-
-    private fun openWhatsApp() {
-        try {
-            val whatsAppIntent = Intent(Intent.ACTION_VIEW)
-            whatsAppIntent.`package` = "com.whatsapp"
-            whatsAppIntent.data = Uri.parse(
-                "https://api.whatsapp.com/send?phone=+${contactInfo.contactWhatsApp}")
-            startActivity(whatsAppIntent)
-        } catch (e: Exception) {
-            Toast.makeText(requireContext(), R.string.contact_whatsapp_error_label, Toast.LENGTH_SHORT)
-                .show()
         }
     }
 
