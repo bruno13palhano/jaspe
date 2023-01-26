@@ -3,7 +3,7 @@ package com.bruno13palhano.jaspe.ui.search
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bruno13palhano.model.Product
-import com.bruno13palhano.repository.ProductRepository
+import com.bruno13palhano.repository.external.ProductRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch

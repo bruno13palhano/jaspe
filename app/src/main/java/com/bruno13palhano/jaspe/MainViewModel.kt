@@ -10,7 +10,7 @@ import com.bruno13palhano.jaspe.work.BannerWork
 import com.bruno13palhano.jaspe.work.ContactWork
 import com.bruno13palhano.jaspe.work.ProductWork
 import com.bruno13palhano.model.ContactInfo
-import com.bruno13palhano.repository.ContactInfoRepository
+import com.bruno13palhano.repository.external.ContactInfoRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch

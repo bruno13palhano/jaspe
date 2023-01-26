@@ -3,7 +3,7 @@ package com.bruno13palhano.jaspe
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.bruno13palhano.repository.ContactInfoRepository
+import com.bruno13palhano.repository.external.ContactInfoRepository
 
 class MainViewModelFactory(
     private val application: Application,

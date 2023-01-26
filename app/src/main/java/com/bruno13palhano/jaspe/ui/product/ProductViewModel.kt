@@ -3,8 +3,8 @@ package com.bruno13palhano.jaspe.ui.product
 import androidx.lifecycle.ViewModel
 import com.bruno13palhano.model.FavoriteProduct
 import com.bruno13palhano.model.Product
-import com.bruno13palhano.repository.FavoriteProductRepository
-import com.bruno13palhano.repository.ProductRepository
+import com.bruno13palhano.repository.external.FavoriteProductRepository
+import com.bruno13palhano.repository.external.ProductRepository
 import kotlinx.coroutines.flow.*
 
 class ProductViewModel(

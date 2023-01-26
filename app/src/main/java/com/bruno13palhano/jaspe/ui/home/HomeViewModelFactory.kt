@@ -2,9 +2,9 @@ package com.bruno13palhano.jaspe.ui.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.bruno13palhano.repository.BannerRepository
-import com.bruno13palhano.repository.ContactInfoRepository
-import com.bruno13palhano.repository.ProductRepository
+import com.bruno13palhano.repository.external.BannerRepository
+import com.bruno13palhano.repository.external.ContactInfoRepository
+import com.bruno13palhano.repository.external.ProductRepository
 
 class HomeViewModelFactory(
     private val productRepository: ProductRepository,

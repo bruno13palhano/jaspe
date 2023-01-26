@@ -3,7 +3,7 @@ package com.bruno13palhano.jaspe.ui.search
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bruno13palhano.model.SearchCache
-import com.bruno13palhano.repository.SearchCacheRepository
+import com.bruno13palhano.repository.external.SearchCacheRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch

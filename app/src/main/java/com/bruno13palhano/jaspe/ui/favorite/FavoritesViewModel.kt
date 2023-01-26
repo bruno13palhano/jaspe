@@ -2,7 +2,7 @@ package com.bruno13palhano.jaspe.ui.favorite
 
 import androidx.lifecycle.ViewModel
 import com.bruno13palhano.model.FavoriteProduct
-import com.bruno13palhano.repository.FavoriteProductRepository
+import com.bruno13palhano.repository.external.FavoriteProductRepository
 import kotlinx.coroutines.flow.Flow
 
 class FavoritesViewModel(

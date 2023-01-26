@@ -6,9 +6,9 @@ import com.bruno13palhano.model.Banner
 import com.bruno13palhano.model.Company
 import com.bruno13palhano.model.ContactInfo
 import com.bruno13palhano.model.Product
-import com.bruno13palhano.repository.BannerRepository
-import com.bruno13palhano.repository.ContactInfoRepository
-import com.bruno13palhano.repository.ProductRepository
+import com.bruno13palhano.repository.external.BannerRepository
+import com.bruno13palhano.repository.external.ContactInfoRepository
+import com.bruno13palhano.repository.external.ProductRepository
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 

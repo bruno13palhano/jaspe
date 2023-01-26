@@ -2,7 +2,7 @@ package com.bruno13palhano.jaspe.ui.search
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.bruno13palhano.repository.SearchCacheRepository
+import com.bruno13palhano.repository.external.SearchCacheRepository
 
 class SearchDialogViewModelFactory(
     private val searchCacheRepository: SearchCacheRepository

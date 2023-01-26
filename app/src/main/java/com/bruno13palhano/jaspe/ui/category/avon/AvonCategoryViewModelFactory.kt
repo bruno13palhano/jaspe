@@ -2,7 +2,7 @@ package com.bruno13palhano.jaspe.ui.category.avon
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.bruno13palhano.repository.ProductRepository
+import com.bruno13palhano.repository.external.ProductRepository
 
 class AvonCategoryViewModelFactory(
     private val productRepository: ProductRepository

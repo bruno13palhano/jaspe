@@ -2,7 +2,7 @@ package com.bruno13palhano.jaspe.ui.favorite
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.bruno13palhano.repository.FavoriteProductRepository
+import com.bruno13palhano.repository.external.FavoriteProductRepository
 
 class FavoritesViewModelFactory(
     private val repository: FavoriteProductRepository

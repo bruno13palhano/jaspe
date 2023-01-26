@@ -2,8 +2,8 @@ package com.bruno13palhano.jaspe.ui.product
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.bruno13palhano.repository.FavoriteProductRepository
-import com.bruno13palhano.repository.ProductRepository
+import com.bruno13palhano.repository.external.FavoriteProductRepository
+import com.bruno13palhano.repository.external.ProductRepository
 
 class ProductViewModelFactory(
     private val productRepository: ProductRepository,
