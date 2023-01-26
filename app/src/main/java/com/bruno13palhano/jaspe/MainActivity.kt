@@ -75,10 +75,6 @@ class MainActivity : AppCompatActivity() {
                     navigateTo(navController, item, R.id.categoryFragment)
                 }
 
-                R.id.contactFragment -> {
-                    navigateTo(navController, item, R.id.contactFragment)
-                }
-
                 R.id.accountFragment -> {
                     navigateTo(navController, item, R.id.accountFragment)
                 }

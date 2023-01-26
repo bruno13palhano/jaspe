@@ -3,8 +3,6 @@ package com.bruno13palhano.jaspe.ui
 import android.content.Context
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
-import com.bruno13palhano.jaspe.ui.contact.ContactViewModel
-import com.bruno13palhano.jaspe.ui.contact.ContactViewModelFactory
 import com.bruno13palhano.jaspe.ui.favorite.FavoritesViewModel
 import com.bruno13palhano.jaspe.ui.favorite.FavoritesViewModelFactory
 import com.bruno13palhano.jaspe.ui.home.HomeViewModel
@@ -61,12 +59,5 @@ class ViewModelFactory(
             SearchDialogViewModelFactory(repositoryFactory.createSearchCacheRepository())
 
         return ViewModelProvider(owner, searchDialogViewModelFactory)[SearchDialogViewModel::class.java]
-    }
-
-    fun createContactViewModel(): ContactViewModel {
-        val contactViewModelFactory =
-            ContactViewModelFactory(repositoryFactory.createContactInfoRepository())
-
-        return ViewModelProvider(owner, contactViewModelFactory)[ContactViewModel::class.java]
     }
 }
