@@ -39,15 +39,17 @@ class HomeFragment : Fragment() {
         val amazonRecycler = view.findViewById<RecyclerView>(R.id.amazon_recycler_view)
         val naturaRecycler = view.findViewById<RecyclerView>(R.id.natura_recycler_view)
         val avonRecycler = view.findViewById<RecyclerView>(R.id.avon_recycler_view)
+        val highlightsRecyclerView = view.findViewById<RecyclerView>(R.id.highlights_recycler_view)
 
         val imageMainBanner = view.findViewById<ImageView>(R.id.main_banner)
         val imageAmazonBanner = view.findViewById<ImageView>(R.id.amazon_banner_image)
         val imageNaturaBanner = view.findViewById<ImageView>(R.id.natura_banner_image)
         val imageAvonBanner = view.findViewById<ImageView>(R.id.avon_banner_image)
 
-        val viewMoreAmazon = view.findViewById<CardView>(R.id.more_amazon_products)
-        val viewMoreNatura = view.findViewById<CardView>(R.id.more_natura_products)
-        val viewMoreAvon = view.findViewById<CardView>(R.id.more_avon_products)
+        val viewMoreAmazon = view.findViewById<CardView>(R.id.amazon_more_products)
+        val viewMoreNatura = view.findViewById<CardView>(R.id.natura_more_products)
+        val viewMoreAvon = view.findViewById<CardView>(R.id.avon_more_products)
+        val viewMoreHighlights = view.findViewById<CardView>(R.id.highlights_more_products)
 
         viewMoreAmazon.setOnClickListener {
             val action = HomeFragmentDirections.actionHomeToMarketCategory()
@@ -61,6 +63,11 @@ class HomeFragment : Fragment() {
 
         viewMoreAvon.setOnClickListener {
             val action = HomeFragmentDirections.actionHomeToAvonCategory()
+            view.findNavController().navigate(action)
+        }
+
+        viewMoreHighlights.setOnClickListener {
+            val action = HomeFragmentDirections.actionHomeToHighlightsCategory()
             view.findNavController().navigate(action)
         }
 
@@ -88,6 +95,11 @@ class HomeFragment : Fragment() {
             val action = HomeFragmentDirections.actionHomeToProduct(productUrlLink)
             view.findNavController().navigate(action)
         }
+
+        val highlightsAdapter = ProductHorizontalItemAdapter {
+            // TODO: Implementar highlights functionality
+        }
+        highlightsRecyclerView.adapter = highlightsAdapter
 
         val categoryItems = getCategoryList()
         val categoryRecyclerView = view.findViewById<RecyclerView>(R.id.category_recycler_view)
