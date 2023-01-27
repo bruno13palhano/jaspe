@@ -8,5 +8,6 @@ data class Product(
     val productType: String,
     val productDescription: String,
     val productCompany: String,
-    val productUrlLink: String
+    val productUrlLink: String,
+    val productSeen: Long
 )
