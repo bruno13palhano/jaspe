@@ -53,4 +53,12 @@ internal interface ProductDao {
     @Query("SELECT * FROM product_table WHERE " +
             "product_url_link = :productUrLink")
     fun getProductByLink(productUrLink: String): Flow<ProductRep>
+
+    @Query("SELECT * FROM product_table WHERE " +
+            "product_visit >= 1 ORDER BY product_visit DESC LIMIT :offset,:limit")
+    fun getLastSeen(offset: Int, limit: Int): Flow<List<ProductRep>>
+
+    @Query("UPDATE product_table SET product_visit = :productSeenNewValue " +
+            "WHERE product_url_link = :productUrLink")
+    suspend fun updateSeenValue(productUrLink: String, productSeenNewValue: Long)
 }

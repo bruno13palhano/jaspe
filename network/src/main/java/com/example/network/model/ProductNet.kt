@@ -38,7 +38,8 @@ internal fun ProductNet.asProduct() = Product(
     productType = productType,
     productDescription = productDescription,
     productCompany = productCompany,
-    productUrlLink = productUrlLink
+    productUrlLink = productUrlLink,
+    productSeen = 0L
 )
 
 internal fun Product.asProductNet() = ProductNet(
