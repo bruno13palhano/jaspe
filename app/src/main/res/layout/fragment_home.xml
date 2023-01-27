@@ -112,7 +112,7 @@
                     app:spanCount="2"/>
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/more_natura_products"
+                    android:id="@+id/natura_more_products"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|center_horizontal"
@@ -163,7 +163,7 @@
                     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                     app:spanCount="2"/>
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/more_amazon_products"
+                    android:id="@+id/amazon_more_products"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|center_horizontal"
@@ -214,7 +214,7 @@
                     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                     app:spanCount="2"/>
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/more_avon_products"
+                    android:id="@+id/avon_more_products"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
