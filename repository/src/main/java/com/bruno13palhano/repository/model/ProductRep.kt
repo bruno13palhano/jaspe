@@ -31,7 +31,10 @@ internal data class ProductRep(
     val productCompany: String,
 
     @ColumnInfo(name = "product_url_link")
-    val productUrlLink: String
+    val productUrlLink: String,
+
+    @ColumnInfo(name = "product_visit")
+    val productSeen: Long
 )
 
 internal fun ProductRep.asProduct() = Product(
@@ -42,7 +45,8 @@ internal fun ProductRep.asProduct() = Product(
     productType = productType,
     productDescription = productDescription,
     productCompany = productCompany,
-    productUrlLink = productUrlLink
+    productUrlLink = productUrlLink,
+    productSeen = productSeen
 )
 
 internal fun Product.asProductRep() = ProductRep(
@@ -53,5 +57,6 @@ internal fun Product.asProductRep() = ProductRep(
     productType = productType,
     productDescription = productDescription,
     productCompany = productCompany,
-    productUrlLink = productUrlLink
+    productUrlLink = productUrlLink,
+    productSeen = productSeen
 )
