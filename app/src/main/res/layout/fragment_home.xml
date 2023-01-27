@@ -100,8 +100,8 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="832dp"
-                android:layout_margin="16dp"
-                app:cardElevation="2dp">
+                android:layout_margin="8dp"
+                app:cardElevation="4dp">
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/natura_recycler_view"
                     android:layout_width="match_parent"
@@ -152,8 +152,8 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="832dp"
-                android:layout_margin="16dp"
-                app:cardElevation="2dp">
+                android:layout_margin="8dp"
+                app:cardElevation="4dp">
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/amazon_recycler_view"
                     android:layout_width="match_parent"
@@ -203,8 +203,8 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="832dp"
-                android:layout_margin="16dp"
-                app:cardElevation="2dp">
+                android:layout_margin="8dp"
+                app:cardElevation="4dp">
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/avon_recycler_view"
                     android:layout_width="match_parent"
@@ -217,7 +217,7 @@
                     android:id="@+id/more_avon_products"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="bottom|center_horizontal"
+                    android:layout_gravity="bottom"
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="?android:attr/selectableItemBackground"
@@ -248,6 +248,56 @@
                 android:layout_marginStart="6dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:spanCount="1" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="958dp"
+                android:layout_margin="8dp"
+                app:cardElevation="4dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="32sp"
+                        android:textAlignment="center"
+                        android:layout_margin="16dp"
+                        android:layout_gravity="top|center_horizontal"
+                        android:text="@string/highlights_category_label"/>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="8dp"
+                        android:layout_marginHorizontal="8dp"
+                        app:cardElevation="4dp">
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/highlights_recycler_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="826dp"
+                            android:orientation="vertical"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                    </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/highlights_more_products"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|center_horizontal"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        app:cardElevation="4dp">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="8dp"
+                            android:text="@string/view_more_products_label"
+                            android:paddingHorizontal="8dp"
+                            app:drawableEndCompat="@drawable/ic_baseline_arrow_forward_24" />
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
