@@ -43,11 +43,11 @@
             <group>
                 <item
                     android:id="@+id/whatsapp"
-                    android:icon="@drawable/ic_baseline_contact_phone_24"
+                    android:icon="@drawable/whatsapp_icon"
                     android:title="@string/contact_whatsapp_label"/>
                 <item
                     android:id="@+id/instagram"
-                    android:icon="@drawable/ic_baseline_volunteer_activism_24"
+                    android:icon="@drawable/instagram_icon"
                     android:title="@string/contact_instagram_label"/>
                 <item
                     android:id="@+id/email"

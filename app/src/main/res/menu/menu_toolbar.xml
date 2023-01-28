@@ -5,7 +5,7 @@
 
     <item
         android:id="@+id/whatsappChat"
-        android:icon="@drawable/whatsapp"
+        android:icon="@drawable/whatsapp_menu_icon"
         android:title="@string/contact_whatsapp_label"
         app:showAsAction="always" />
 </menu>
