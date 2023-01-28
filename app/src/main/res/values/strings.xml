@@ -33,7 +33,7 @@
     <string name="avon_category_label">Avon</string>
     <string name="baby_category_label">Baby</string>
     <string name="blog_category_label">Blog</string>
-    <string name="highlights_category_label">Highlights</string>
+    <string name="last_seen_category_label">Recently Seen</string>
     <string name="natura_category_label">Natura</string>
     <string name="offers_category_label">Offers</string>
     <string name="contact_category_label">Contact</string>

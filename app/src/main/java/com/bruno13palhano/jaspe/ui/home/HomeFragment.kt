@@ -40,7 +40,7 @@ class HomeFragment : Fragment() {
         val amazonRecycler = view.findViewById<RecyclerView>(R.id.amazon_recycler_view)
         val naturaRecycler = view.findViewById<RecyclerView>(R.id.natura_recycler_view)
         val avonRecycler = view.findViewById<RecyclerView>(R.id.avon_recycler_view)
-        val highlightsRecyclerView = view.findViewById<RecyclerView>(R.id.highlights_recycler_view)
+        val highlightsRecyclerView = view.findViewById<RecyclerView>(R.id.last_seen_recycler_view)
 
         val imageMainBanner = view.findViewById<ImageView>(R.id.main_banner)
         val imageAmazonBanner = view.findViewById<ImageView>(R.id.amazon_banner_image)
@@ -50,9 +50,9 @@ class HomeFragment : Fragment() {
         val viewMoreAmazon = view.findViewById<CardView>(R.id.amazon_more_products)
         val viewMoreNatura = view.findViewById<CardView>(R.id.natura_more_products)
         val viewMoreAvon = view.findViewById<CardView>(R.id.avon_more_products)
-        val viewMoreHighlights = view.findViewById<CardView>(R.id.highlights_more_products)
+        val viewMoreHighlights = view.findViewById<CardView>(R.id.last_seen_more_products)
 
-        val highlightsCard = view.findViewById<CardView>(R.id.highlights_card)
+        val highlightsCard = view.findViewById<CardView>(R.id.last_seen_card)
 
         val viewModel = requireActivity().applicationContext.let {
             ViewModelFactory(it, this@HomeFragment).createHomeViewModel()

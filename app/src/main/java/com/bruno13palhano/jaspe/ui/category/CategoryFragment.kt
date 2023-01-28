@@ -60,7 +60,7 @@ class CategoryFragment : Fragment() {
                 return CategoryFragmentDirections.actionCategoryToNaturaCategory()
             }
             CategoryRoute.HIGHLIGHTS.route -> {
-                return CategoryFragmentDirections.actionCategoryToHighlightsCategory()
+                return CategoryFragmentDirections.actionCategoryToLastSeenCategory()
             }
             CategoryRoute.OFFERS.route -> {
                 return CategoryFragmentDirections.actionCategoryToOffersCategory()

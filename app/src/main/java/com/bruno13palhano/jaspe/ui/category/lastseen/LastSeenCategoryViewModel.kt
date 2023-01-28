@@ -1,4 +1,4 @@
-package com.bruno13palhano.jaspe.ui.category.highlights
+package com.bruno13palhano.jaspe.ui.category.lastseen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-class HighlightsCategoryViewModel(
+class LastSeenCategoryViewModel(
     private val productRepository: ProductRepository
 ) : ViewModel() {
 

@@ -1,16 +1,16 @@
-package com.bruno13palhano.jaspe.ui.category.highlights
+package com.bruno13palhano.jaspe.ui.category.lastseen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.bruno13palhano.repository.external.ProductRepository
 
-class HighlightsCategoryViewModelFactory(
+class LastSeenCategoryViewModelFactory(
     private val productRepository: ProductRepository
 ) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(HighlightsCategoryViewModel::class.java)) {
-            return HighlightsCategoryViewModel(productRepository) as T
+        if (modelClass.isAssignableFrom(LastSeenCategoryViewModel::class.java)) {
+            return LastSeenCategoryViewModel(productRepository) as T
         }
 
         throw IllegalArgumentException("Unknown ViewModel")

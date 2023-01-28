@@ -250,7 +250,7 @@
                 app:spanCount="1" />
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/highlights_card"
+                android:id="@+id/last_seen_card"
                 android:layout_width="match_parent"
                 android:layout_height="958dp"
                 android:layout_margin="8dp"
@@ -267,7 +267,7 @@
                         android:textAlignment="center"
                         android:layout_margin="16dp"
                         android:layout_gravity="top|center_horizontal"
-                        android:text="@string/highlights_category_label"/>
+                        android:text="@string/last_seen_category_label"/>
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -275,14 +275,14 @@
                         android:layout_marginHorizontal="8dp"
                         app:cardElevation="4dp">
                         <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/highlights_recycler_view"
+                            android:id="@+id/last_seen_recycler_view"
                             android:layout_width="match_parent"
                             android:layout_height="826dp"
                             android:orientation="vertical"
                             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
                     </androidx.cardview.widget.CardView>
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/highlights_more_products"
+                        android:id="@+id/last_seen_more_products"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="bottom|center_horizontal"

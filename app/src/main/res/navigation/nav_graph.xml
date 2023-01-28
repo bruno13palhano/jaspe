@@ -46,7 +46,7 @@
 
         <action
             android:id="@+id/action_home_to_highlights_category"
-            app:destination="@id/highlightsCategoryFragment"
+            app:destination="@id/lastSeenCategoryFragment"
             app:enterAnim="@android:anim/slide_in_left"
             app:exitAnim="@android:anim/slide_out_right"
             app:popEnterAnim="@android:anim/slide_in_left"
@@ -186,8 +186,8 @@
             app:popExitAnim="@android:anim/slide_out_right" />
 
         <action
-            android:id="@+id/action_category_to_highlights_category"
-            app:destination="@id/highlightsCategoryFragment"
+            android:id="@+id/action_category_to_last_seen_category"
+            app:destination="@id/lastSeenCategoryFragment"
             app:enterAnim="@android:anim/slide_in_left"
             app:exitAnim="@android:anim/slide_out_right"
             app:popEnterAnim="@android:anim/slide_in_left"
@@ -253,13 +253,13 @@
         tools:layout="@layout/fragment_blog_category"/>
 
     <fragment
-        android:id="@+id/highlightsCategoryFragment"
-        android:name="com.bruno13palhano.jaspe.ui.category.highlights.HighlightsCategoryFragment"
+        android:id="@+id/lastSeenCategoryFragment"
+        android:name="com.bruno13palhano.jaspe.ui.category.lastseen.LastSeenCategoryFragment"
         android:label="HighlightsCategory"
         tools:layout="@layout/fragment_highlights_category">
 
         <action
-            android:id="@+id/action_highlights_category_to_product"
+            android:id="@+id/action_last_seen_category_to_product"
             app:destination="@id/productFragment"
             app:enterAnim="@android:anim/slide_in_left"
             app:exitAnim="@android:anim/slide_out_right"
