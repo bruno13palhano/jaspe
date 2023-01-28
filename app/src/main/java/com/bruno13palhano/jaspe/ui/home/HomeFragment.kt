@@ -85,7 +85,7 @@ class HomeFragment : Fragment() {
 
         val adapter = HomeItemAdapter { productUrlLink, productSeen ->
             lifecycle.coroutineScope.launch {
-                viewModel.updateProductLastSeen(productUrlLink, productSeen+1)
+                viewModel.updateProductLastSeen(productUrlLink, productSeen)
             }
             val action = HomeFragmentDirections.actionHomeToProduct(productUrlLink)
             view.findNavController().navigate(action)
@@ -93,7 +93,7 @@ class HomeFragment : Fragment() {
 
         val amazonAdapter = ProductItemAdapter { productUrlLink, productSeen ->
             lifecycle.coroutineScope.launch {
-                viewModel.updateProductLastSeen(productUrlLink, productSeen+1)
+                viewModel.updateProductLastSeen(productUrlLink, productSeen)
             }
             val action = HomeFragmentDirections.actionHomeToProduct(productUrlLink)
             view.findNavController().navigate(action)
@@ -101,7 +101,7 @@ class HomeFragment : Fragment() {
 
         val naturaAdapter = ProductItemAdapter { productUrlLink, productSeen ->
             lifecycle.coroutineScope.launch {
-                viewModel.updateProductLastSeen(productUrlLink, productSeen+1)
+                viewModel.updateProductLastSeen(productUrlLink, productSeen)
             }
             val action = HomeFragmentDirections.actionHomeToProduct(productUrlLink)
             view.findNavController().navigate(action)
@@ -109,7 +109,7 @@ class HomeFragment : Fragment() {
 
         val avonAdapter = ProductItemAdapter { productUrlLink, productSeen ->
             lifecycle.coroutineScope.launch {
-                viewModel.updateProductLastSeen(productUrlLink, productSeen+1)
+                viewModel.updateProductLastSeen(productUrlLink, productSeen)
             }
             val action = HomeFragmentDirections.actionHomeToProduct(productUrlLink)
             view.findNavController().navigate(action)
