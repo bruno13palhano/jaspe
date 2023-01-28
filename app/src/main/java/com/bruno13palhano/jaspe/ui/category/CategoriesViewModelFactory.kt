@@ -9,6 +9,8 @@ import com.bruno13palhano.jaspe.ui.category.avon.AvonCategoryViewModel
 import com.bruno13palhano.jaspe.ui.category.avon.AvonCategoryViewModelFactory
 import com.bruno13palhano.jaspe.ui.category.baby.BabyCategoryViewModel
 import com.bruno13palhano.jaspe.ui.category.baby.BabyCategoryViewModelFactory
+import com.bruno13palhano.jaspe.ui.category.highlights.HighlightsCategoryViewModel
+import com.bruno13palhano.jaspe.ui.category.highlights.HighlightsCategoryViewModelFactory
 import com.bruno13palhano.jaspe.ui.category.natura.NaturaCategoryViewModel
 import com.bruno13palhano.jaspe.ui.category.natura.NaturaCategoryViewModelFactory
 import com.bruno13palhano.jaspe.ui.category.offers.OffersCategoryViewModel
@@ -49,5 +51,11 @@ class CategoriesViewModelFactory(
         val offersViewModelFactory =
             OffersCategoryViewModelFactory(repositoryFactory.createProductRepository())
         return ViewModelProvider(owner, offersViewModelFactory)[OffersCategoryViewModel::class.java]
+    }
+
+    fun createHighlightsCategoryViewModel(): HighlightsCategoryViewModel {
+        val highlightsViewModel =
+            HighlightsCategoryViewModelFactory(repositoryFactory.createProductRepository())
+        return ViewModelProvider(owner, highlightsViewModel)[HighlightsCategoryViewModel::class.java]
     }
 }
