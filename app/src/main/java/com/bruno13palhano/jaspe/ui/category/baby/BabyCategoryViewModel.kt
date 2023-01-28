@@ -11,9 +11,9 @@ class BabyCategoryViewModel(
     private val productRepository: ProductRepository
 ) : ViewModel() {
 
-    suspend fun updateProductLastSeen(productUrlLink: String, productSeenNewValue: Long) {
+    suspend fun updateProductLastSeen(productUrlLink: String, productSeen: Long) {
         viewModelScope.launch {
-            productRepository.updateSeenValue(productUrlLink, productSeenNewValue)
+            productRepository.updateSeenValue(productUrlLink, productSeen+1)
         }
     }
 

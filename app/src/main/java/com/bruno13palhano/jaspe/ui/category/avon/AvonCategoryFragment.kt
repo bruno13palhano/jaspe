@@ -29,7 +29,7 @@ class AvonCategoryFragment : Fragment() {
 
         val adapter = CategoriesItemAdapter { productUrlLink, productSeen ->
             lifecycle.coroutineScope.launch {
-                viewModel.updateProductLastSeen(productUrlLink, productSeen+1)
+                viewModel.updateProductLastSeen(productUrlLink, productSeen)
             }
             val action = AvonCategoryFragmentDirections
                 .actionAvonCategoryToProduct(productUrlLink)
