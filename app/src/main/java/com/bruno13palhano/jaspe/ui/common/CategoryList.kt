@@ -45,7 +45,7 @@ fun getCategoryList(): List<CategoryItem> {
             "Recently Seen",
             CategoryRoute.LAST_SEEN.route,
             "ITEM_6",
-            R.drawable.highlights_icon
+            R.drawable.last_seen_icon
         )
     )
 }
