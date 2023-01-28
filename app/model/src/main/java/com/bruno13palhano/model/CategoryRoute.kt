@@ -6,6 +6,6 @@ enum class CategoryRoute(val route: String) {
     AVON("category_avon"),
     NATURA("category_natura"),
     OFFERS("category_offers"),
-    HIGHLIGHTS("category_highlights"),
+    LAST_SEEN("category_last_seen"),
     BLOG("category_blog")
 }

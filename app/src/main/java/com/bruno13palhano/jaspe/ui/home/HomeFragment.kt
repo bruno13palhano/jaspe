@@ -50,7 +50,7 @@ class HomeFragment : Fragment() {
         val viewMoreAmazon = view.findViewById<CardView>(R.id.amazon_more_products)
         val viewMoreNatura = view.findViewById<CardView>(R.id.natura_more_products)
         val viewMoreAvon = view.findViewById<CardView>(R.id.avon_more_products)
-        val viewMoreHighlights = view.findViewById<CardView>(R.id.last_seen_more_products)
+        val viewMoreLastSeen = view.findViewById<CardView>(R.id.last_seen_more_products)
 
         val highlightsCard = view.findViewById<CardView>(R.id.last_seen_card)
 
@@ -73,8 +73,8 @@ class HomeFragment : Fragment() {
             view.findNavController().navigate(action)
         }
 
-        viewMoreHighlights.setOnClickListener {
-            val action = HomeFragmentDirections.actionHomeToHighlightsCategory()
+        viewMoreLastSeen.setOnClickListener {
+            val action = HomeFragmentDirections.actionHomeToLastSeenCategory()
             view.findNavController().navigate(action)
         }
 
@@ -254,8 +254,8 @@ class HomeFragment : Fragment() {
             CategoryRoute.BLOG.route -> {
                 return HomeFragmentDirections.actionHomeToBlogCategory()
             }
-            CategoryRoute.HIGHLIGHTS.route -> {
-                return HomeFragmentDirections.actionHomeToHighlightsCategory()
+            CategoryRoute.LAST_SEEN.route -> {
+                return HomeFragmentDirections.actionHomeToLastSeenCategory()
             }
             CategoryRoute.NATURA.route -> {
                 return HomeFragmentDirections.actionHomeToNaturaCategory()

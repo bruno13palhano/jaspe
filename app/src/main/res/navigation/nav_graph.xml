@@ -45,7 +45,7 @@
             app:popExitAnim="@android:anim/slide_out_right" />
 
         <action
-            android:id="@+id/action_home_to_highlights_category"
+            android:id="@+id/action_home_to_last_seen_category"
             app:destination="@id/lastSeenCategoryFragment"
             app:enterAnim="@android:anim/slide_in_left"
             app:exitAnim="@android:anim/slide_out_right"

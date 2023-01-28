@@ -59,7 +59,7 @@ class CategoryFragment : Fragment() {
             CategoryRoute.NATURA.route -> {
                 return CategoryFragmentDirections.actionCategoryToNaturaCategory()
             }
-            CategoryRoute.HIGHLIGHTS.route -> {
+            CategoryRoute.LAST_SEEN.route -> {
                 return CategoryFragmentDirections.actionCategoryToLastSeenCategory()
             }
             CategoryRoute.OFFERS.route -> {
