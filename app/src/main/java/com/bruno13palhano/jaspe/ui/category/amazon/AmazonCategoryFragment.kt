@@ -23,19 +23,22 @@ class AmazonCategoryFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_amazon_category, container, false)
         val recyclerView = view.findViewById<RecyclerView>(R.id.amazon_category_list)
 
-        val adapter = CategoriesItemAdapter { productUrlLink ->
+        val viewModel = requireActivity().applicationContext.let {
+            CategoriesViewModelFactory(it, this@AmazonCategoryFragment).createAmazonCategoryViewModel()
+        }
+
+        val adapter = CategoriesItemAdapter { productUrlLink, productSeen ->
+            lifecycle.coroutineScope.launch {
+                viewModel.updateProductLastSeen(productUrlLink, productSeen+1)
+            }
             val action = AmazonCategoryFragmentDirections
                 .actionMarketCategoryToProduct(productUrlLink)
             view.findNavController().navigate(action)
         }
         recyclerView.adapter = adapter
 
-        val viewModel = activity?.applicationContext?.let {
-            CategoriesViewModelFactory(it, this@AmazonCategoryFragment).createAmazonCategoryViewModel()
-        }
-
         viewLifecycleOwner.lifecycle.coroutineScope.launch {
-            viewModel?.getAllProducts()?.collect {
+            viewModel.getAllProducts().collect {
                 adapter.submitList(it)
             }
         }

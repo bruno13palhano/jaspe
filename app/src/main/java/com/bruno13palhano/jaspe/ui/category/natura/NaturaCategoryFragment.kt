@@ -23,19 +23,22 @@ class NaturaCategoryFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_natura_category, container, false)
         val recyclerView = view.findViewById<RecyclerView>(R.id.natura_category_list)
 
-        val adapter = CategoriesItemAdapter { productUrlLink ->
+        val viewModel = requireActivity().applicationContext.let {
+            CategoriesViewModelFactory(it, this@NaturaCategoryFragment).createNaturaCategoryViewModel()
+        }
+
+        val adapter = CategoriesItemAdapter { productUrlLink, productSeen ->
+            lifecycle.coroutineScope.launch {
+                viewModel.updateProductLastSeen(productUrlLink, productSeen+1)
+            }
             val action = NaturaCategoryFragmentDirections
                 .actionNaturaCategoryToProduct(productUrlLink)
             view.findNavController().navigate(action)
         }
         recyclerView.adapter = adapter
 
-        val viewModel = activity?.applicationContext?.let {
-            CategoriesViewModelFactory(it, this@NaturaCategoryFragment).createNaturaCategoryViewModel()
-        }
-
         viewLifecycleOwner.lifecycle.coroutineScope.launch {
-            viewModel?.getAllProducts()?.collect {
+            viewModel.getAllProducts().collect {
                 adapter.submitList(it)
             }
         }

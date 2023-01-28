@@ -23,19 +23,22 @@ class AvonCategoryFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_avon_category, container, false)
         val recyclerView = view.findViewById<RecyclerView>(R.id.avon_category_list)
 
-        val adapter = CategoriesItemAdapter { productUrlLink ->
+        val viewModel = requireActivity().applicationContext.let {
+            CategoriesViewModelFactory(it, this@AvonCategoryFragment).createAvonCategoryViewModel()
+        }
+
+        val adapter = CategoriesItemAdapter { productUrlLink, productSeen ->
+            lifecycle.coroutineScope.launch {
+                viewModel.updateProductLastSeen(productUrlLink, productSeen+1)
+            }
             val action = AvonCategoryFragmentDirections
                 .actionAvonCategoryToProduct(productUrlLink)
             view.findNavController().navigate(action)
         }
         recyclerView.adapter = adapter
 
-        val viewModel = activity?.applicationContext?.let {
-            CategoriesViewModelFactory(it, this@AvonCategoryFragment).createAvonCategoryViewModel()
-        }
-
         viewLifecycleOwner.lifecycle.coroutineScope.launch {
-            viewModel?.getAllProducts()?.collect {
+            viewModel.getAllProducts().collect {
                 adapter.submitList(it)
             }
         }
