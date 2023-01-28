@@ -45,7 +45,7 @@ class FavoritesFragment : Fragment() {
 
                 startActivity(shareProductLink)
             },
-            onItemClick = { productId, productUrlLink ->
+            onItemClick = { productUrlLink ->
                 val action =
                     FavoritesFragmentDirections.actionFavoriteToProduct(productUrlLink)
                 view.findNavController().navigate(action)
