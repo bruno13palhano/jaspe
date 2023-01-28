@@ -13,7 +13,7 @@ import com.bruno13palhano.jaspe.R
 import com.bruno13palhano.model.Product
 
 class ProductItemAdapter(
-    private val onClick: (productUrlLink: String) -> Unit
+    private val onClick: (productUrlLink: String, productSeen: Long) -> Unit
 ) : ListAdapter<Product, ProductItemAdapter.AmazonItemViewHolder>(AmazonDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AmazonItemViewHolder {
@@ -29,7 +29,7 @@ class ProductItemAdapter(
 
     class AmazonItemViewHolder(
         rootView: CardView,
-        val onClick: (productUrlLink: String) -> Unit
+        val onClick: (productUrlLink: String, productSeen: Long) -> Unit
     ) : RecyclerView.ViewHolder(rootView) {
         private val productImage: ImageView = rootView.findViewById(R.id.image)
         private val productName: TextView = rootView.findViewById(R.id.name)
@@ -40,7 +40,7 @@ class ProductItemAdapter(
         init {
             rootView.setOnClickListener {
                 currentProduct?.let {
-                    onClick(it.productUrlLink)
+                    onClick(it.productUrlLink, it.productSeen)
                 }
             }
         }

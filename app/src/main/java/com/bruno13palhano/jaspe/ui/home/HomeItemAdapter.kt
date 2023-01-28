@@ -13,7 +13,7 @@ import com.bruno13palhano.jaspe.R
 import com.bruno13palhano.model.Product
 
 class HomeItemAdapter(
-    private val onClick: (productUrlLink: String) -> Unit
+    private val onClick: (productUrlLink: String, productSeen: Long) -> Unit
 ) : ListAdapter<Product, HomeItemAdapter.HomeItemViewHolder>(HomeDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeItemViewHolder {
@@ -29,7 +29,7 @@ class HomeItemAdapter(
 
     class HomeItemViewHolder(
         rootView: CardView,
-        val onClick: (productUrlLink: String) -> Unit
+        val onClick: (productUrlLink: String, productSeen: Long) -> Unit
     ) : RecyclerView.ViewHolder(rootView) {
         private val productName: TextView = rootView.findViewById(R.id.product_name)
         private val productPrice: TextView = rootView.findViewById(R.id.product_price)
@@ -40,7 +40,7 @@ class HomeItemAdapter(
         init {
             rootView.setOnClickListener {
                 currentProduct?.let {
-                    onClick(it.productUrlLink)
+                    onClick(it.productUrlLink, it.productSeen)
                 }
             }
         }
