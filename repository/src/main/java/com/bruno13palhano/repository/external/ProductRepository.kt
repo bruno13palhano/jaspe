@@ -10,4 +10,6 @@ interface ProductRepository {
     fun getByType(productType: String): Flow<List<Product>>
     fun searchProduct(productName: String): Flow<List<Product>>
     fun getProductByLink(productUrlLink: String): Flow<Product>
+    fun getProductLastSeen(offset: Int, limit: Int): Flow<List<Product>>
+    suspend fun updateSeenValue(productUrlLink: String, productSeenNewValue: Long)
 }

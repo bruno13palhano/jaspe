@@ -58,4 +58,16 @@ internal class ProductRepositoryImpl(
             it.asProduct()
         }
     }
+
+    override fun getProductLastSeen(offset: Int, limit: Int): Flow<List<Product>> {
+        return dao.getLastSeen(offset, limit).map {
+            it.map { productRep ->
+                productRep.asProduct()
+            }
+        }
+    }
+
+    override suspend fun updateSeenValue(productUrlLink: String, productSeenNewValue: Long) {
+        return dao.updateSeenValue(productUrlLink, productSeenNewValue)
+    }
 }
