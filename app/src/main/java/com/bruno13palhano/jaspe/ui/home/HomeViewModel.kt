@@ -45,11 +45,16 @@ class HomeViewModel(
     private val _contactInfo = MutableStateFlow<ContactInfo>(ContactInfo())
     val contactInfo = _contactInfo.asStateFlow()
 
+    private val _productLastSeen = MutableStateFlow<List<Product>>(emptyList())
+    val productLastSeen = _productLastSeen.asStateFlow()
+
     init {
         viewModelScope.launch {
-            contactInfoRepository.getContactInfo(1L).collect {
-                _contactInfo.value = it
-            }
+            try {
+                contactInfoRepository.getContactInfo(1L).collect {
+                    _contactInfo.value = it
+                }
+            } catch (ignored: Exception) {}
         }
 
         viewModelScope.launch {
@@ -106,6 +111,18 @@ class HomeViewModel(
                     _avonBanner.value = banner[0]
                 } catch (ignored: IndexOutOfBoundsException) {}
             }
+        }
+
+        viewModelScope.launch {
+            productRepository.getProductLastSeen(0, 6).collect {
+                _productLastSeen.value = it
+            }
+        }
+    }
+
+    suspend fun updateProductLastSeen(productUrlLink: String, productSeenNewValue: Long) {
+        viewModelScope.launch {
+            productRepository.updateSeenValue(productUrlLink, productSeenNewValue)
         }
     }
 

@@ -4,6 +4,7 @@ import  android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.cardview.widget.CardView
@@ -51,6 +52,12 @@ class HomeFragment : Fragment() {
         val viewMoreAvon = view.findViewById<CardView>(R.id.avon_more_products)
         val viewMoreHighlights = view.findViewById<CardView>(R.id.highlights_more_products)
 
+        val highlightsCard = view.findViewById<CardView>(R.id.highlights_card)
+
+        val viewModel = requireActivity().applicationContext.let {
+            ViewModelFactory(it, this@HomeFragment).createHomeViewModel()
+        }
+
         viewMoreAmazon.setOnClickListener {
             val action = HomeFragmentDirections.actionHomeToMarketCategory()
             view.findNavController().navigate(action)
@@ -76,28 +83,41 @@ class HomeFragment : Fragment() {
             view.findNavController().navigate(action)
         }
 
-        val adapter = HomeItemAdapter { productUrlLink ->
+        val adapter = HomeItemAdapter { productUrlLink, productSeen ->
+            lifecycle.coroutineScope.launch {
+                viewModel.updateProductLastSeen(productUrlLink, productSeen+1)
+            }
             val action = HomeFragmentDirections.actionHomeToProduct(productUrlLink)
             view.findNavController().navigate(action)
         }
 
-        val amazonAdapter = ProductItemAdapter { productUrlLink ->
+        val amazonAdapter = ProductItemAdapter { productUrlLink, productSeen ->
+            lifecycle.coroutineScope.launch {
+                viewModel.updateProductLastSeen(productUrlLink, productSeen+1)
+            }
             val action = HomeFragmentDirections.actionHomeToProduct(productUrlLink)
             view.findNavController().navigate(action)
         }
 
-        val naturaAdapter = ProductItemAdapter { productUrlLink ->
+        val naturaAdapter = ProductItemAdapter { productUrlLink, productSeen ->
+            lifecycle.coroutineScope.launch {
+                viewModel.updateProductLastSeen(productUrlLink, productSeen+1)
+            }
             val action = HomeFragmentDirections.actionHomeToProduct(productUrlLink)
             view.findNavController().navigate(action)
         }
 
-        val avonAdapter = ProductItemAdapter { productUrlLink ->
+        val avonAdapter = ProductItemAdapter { productUrlLink, productSeen ->
+            lifecycle.coroutineScope.launch {
+                viewModel.updateProductLastSeen(productUrlLink, productSeen+1)
+            }
             val action = HomeFragmentDirections.actionHomeToProduct(productUrlLink)
             view.findNavController().navigate(action)
         }
 
-        val highlightsAdapter = ProductHorizontalItemAdapter {
-            // TODO: Implementar highlights functionality
+        val highlightsAdapter = ProductHorizontalItemAdapter { productUrlLink ->
+            val action = HomeFragmentDirections.actionHomeToProduct(productUrlLink)
+            view.findNavController().navigate(action)
         }
         highlightsRecyclerView.adapter = highlightsAdapter
 
@@ -111,10 +131,6 @@ class HomeFragment : Fragment() {
         }
         categoryRecyclerView.adapter = categoryAdapter
         categoryAdapter.submitList(categoryItems)
-
-        val viewModel = requireActivity().applicationContext.let {
-            ViewModelFactory(it, this@HomeFragment).createHomeViewModel()
-        }
 
         lifecycle.coroutineScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -187,6 +203,15 @@ class HomeFragment : Fragment() {
         lifecycle.coroutineScope.launch {
             viewModel.contactInfo.collect {
                 contactInfo = it
+            }
+        }
+
+        lifecycle.coroutineScope.launch {
+            viewModel.productLastSeen.collect {
+                highlightsAdapter.submitList(it)
+                if (it.size >= 6) {
+                    highlightsCard.visibility = VISIBLE
+                }
             }
         }
 
