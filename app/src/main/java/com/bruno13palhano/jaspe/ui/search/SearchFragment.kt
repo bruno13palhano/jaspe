@@ -26,33 +26,23 @@ class SearchFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_search, container, false)
 
-        viewModel = activity?.applicationContext?.let {
+        viewModel = requireActivity().applicationContext.let {
             ViewModelFactory(it, this@SearchFragment).createSearchViewModel()
-        }!!
+        }
 
         try {
             searchCacheName = SearchFragmentArgs.fromBundle(requireArguments()).searchCacheName
         } catch (ignored: IllegalArgumentException) {}
 
-        return view
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val toolbar = view.findViewById<MaterialToolbar>(R.id.toolbar_search)
-        toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24)
-        toolbar.title = getString(R.string.search_label)
-
         val recyclerView = view.findViewById<RecyclerView>(R.id.search_list)
-        val adapter = SearchAdapterList { productUrlLink ->
+        val adapter = SearchAdapterList { productUrlLink, productSeen ->
+            lifecycle.coroutineScope.launch {
+                viewModel.updateProductLastSeen(productUrlLink, productSeen)
+            }
             val action = SearchFragmentDirections.actionSearchToProduct(productUrlLink)
             view.findNavController().navigate(action)
         }
         recyclerView.adapter = adapter
-
-        toolbar.setNavigationOnClickListener {
-            view.findNavController().navigateUp()
-        }
 
         lifecycle.coroutineScope.launchWhenCreated {
             viewModel.searchProducts.collect {
@@ -68,8 +58,21 @@ class SearchFragment : Fragment() {
 
         val searchProduct: CardView = view.findViewById(R.id.search_product)
         searchProduct.setOnClickListener {
-           val action = SearchFragmentDirections.actionSearchCategoryToSearchDialog()
+            val action = SearchFragmentDirections.actionSearchCategoryToSearchDialog()
             view.findNavController().navigate(action)
+        }
+
+        return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val toolbar = view.findViewById<MaterialToolbar>(R.id.toolbar_search)
+        toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24)
+        toolbar.title = getString(R.string.search_label)
+
+        toolbar.setNavigationOnClickListener {
+            view.findNavController().navigateUp()
         }
     }
 }

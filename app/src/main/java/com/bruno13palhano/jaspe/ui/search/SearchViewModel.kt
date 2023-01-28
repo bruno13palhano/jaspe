@@ -24,4 +24,10 @@ class SearchViewModel(
             }
         }
     }
+
+    suspend fun updateProductLastSeen(productUrlLink: String, productSeen: Long) {
+        viewModelScope.launch {
+            productRepository.updateSeenValue(productUrlLink, productSeen+1)
+        }
+    }
 }
