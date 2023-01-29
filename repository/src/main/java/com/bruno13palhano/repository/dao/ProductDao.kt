@@ -6,6 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
 import androidx.room.Update
+import com.bruno13palhano.repository.model.LastSeenRep
 import com.bruno13palhano.repository.model.ProductRep
 import kotlinx.coroutines.flow.Flow
 
@@ -61,4 +62,18 @@ internal interface ProductDao {
     @Query("UPDATE product_table SET product_visit = :productSeenNewValue " +
             "WHERE product_url_link = :productUrLink")
     suspend fun updateSeenValue(productUrLink: String, productSeenNewValue: Long)
+
+    @Insert(onConflict = REPLACE)
+    suspend fun insertLastSeen(product: LastSeenRep)
+
+    @Query("DELETE FROM last_seen_product_table WHERE last_seen_product_url_link = :productUrlLink")
+    suspend fun deleteLastSeenByUrlLink(productUrlLink: String)
+
+    @Query("SELECT * FROM last_seen_product_table")
+    fun getAllLastSeen(): Flow<List<LastSeenRep>>
+
+    @Query("SELECT * FROM last_seen_product_table "+
+            "ORDER BY last_seen_product_id DESC LIMIT " +
+            ":offset, :limit")
+    fun getLastSeenProducts(offset: Int, limit: Int): Flow<List<LastSeenRep>>
 }

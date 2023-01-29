@@ -20,7 +20,8 @@ import com.bruno13palhano.repository.model.SearchCacheRep
     BannerRep::class,
     FavoriteProductRep::class,
     SearchCacheRep::class,
-    ContactInfoRep::class],
+    ContactInfoRep::class,
+    LastSeenRep::class],
     version = 1, exportSchema = false)
 internal abstract class JaspeDatabase : RoomDatabase() {
     abstract val productDao: ProductDao
