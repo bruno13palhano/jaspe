@@ -86,7 +86,27 @@ class ProductFragment : Fragment() {
                         productType.text = it.favoriteProductType
                         productDescription.text = it.favoriteProductDescription
                     }
-                } catch (ignored: Exception) {}
+                } catch (ignored: Exception) {
+                    try {
+                        viewModel.getProductLastSeen(productUrlLink).collect {
+                            favoriteProduct = FavoriteProduct(
+                                favoriteProductId = 0L,
+                                favoriteProductUrlImage = it.productUrlImage,
+                                favoriteProductName = it.productName,
+                                favoriteProductPrice = it.productPrice,
+                                favoriteProductUrlLink = it.productUrlLink,
+                                favoriteProductType = it.productType,
+                                favoriteProductDescription = it.productDescription,
+                                favoriteProductIsVisible = true
+                            )
+                            productImage.load(it.productUrlImage)
+                            productName.text = it.productName
+                            productPrice.text = getString(R.string.product_price_label, it.productPrice)
+                            productType.text = it.productType
+                            productDescription.text = it.productDescription
+                        }
+                    } catch (ignored: Exception) {}
+                }
             }
         }
 
