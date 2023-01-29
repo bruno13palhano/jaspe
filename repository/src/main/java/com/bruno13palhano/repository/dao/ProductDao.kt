@@ -64,6 +64,9 @@ internal interface ProductDao {
     @Query("SELECT * FROM last_seen_product_table")
     fun getAllLastSeen(): Flow<List<LastSeenRep>>
 
+    @Query("SELECT * FROM last_seen_product_table WHERE last_seen_product_url_link = :productUrlLInk")
+    fun getLastSeenProduct(productUrlLInk: String): Flow<LastSeenRep>
+
     @Query("SELECT * FROM last_seen_product_table "+
             "ORDER BY last_seen_product_id DESC LIMIT " +
             ":offset, :limit")
