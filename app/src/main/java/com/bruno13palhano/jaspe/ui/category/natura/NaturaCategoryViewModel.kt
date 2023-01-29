@@ -11,9 +11,9 @@ class NaturaCategoryViewModel(
     private val productRepository: ProductRepository
 ) : ViewModel() {
 
-    suspend fun updateProductLastSeen(productUrlLink: String, productSeen: Long) {
+    suspend fun insertLastSeenProduct(product: Product) {
         viewModelScope.launch {
-            productRepository.updateSeenValue(productUrlLink, productSeen+1)
+            productRepository.insertLastSeenProduct(product)
         }
     }
 

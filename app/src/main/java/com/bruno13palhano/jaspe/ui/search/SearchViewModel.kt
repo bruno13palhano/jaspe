@@ -25,9 +25,9 @@ class SearchViewModel(
         }
     }
 
-    suspend fun updateProductLastSeen(productUrlLink: String, productSeen: Long) {
+    suspend fun insertLastSeenProduct(product: Product) {
         viewModelScope.launch {
-            productRepository.updateSeenValue(productUrlLink, productSeen+1)
+            productRepository.insertLastSeenProduct(product)
         }
     }
 }

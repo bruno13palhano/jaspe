@@ -27,12 +27,12 @@ class AvonCategoryFragment : Fragment() {
             CategoriesViewModelFactory(it, this@AvonCategoryFragment).createAvonCategoryViewModel()
         }
 
-        val adapter = CategoriesItemAdapter { productUrlLink, productSeen ->
+        val adapter = CategoriesItemAdapter { product ->
             lifecycle.coroutineScope.launch {
-                viewModel.updateProductLastSeen(productUrlLink, productSeen)
+                viewModel.insertLastSeenProduct(product)
             }
             val action = AvonCategoryFragmentDirections
-                .actionAvonCategoryToProduct(productUrlLink)
+                .actionAvonCategoryToProduct(product.productUrlLink)
             view.findNavController().navigate(action)
         }
         recyclerView.adapter = adapter

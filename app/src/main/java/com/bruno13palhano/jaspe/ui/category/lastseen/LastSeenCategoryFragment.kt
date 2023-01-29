@@ -28,8 +28,9 @@ class LastSeenCategoryFragment : Fragment() {
                 .createLastSeenCategoryViewModel()
         }
 
-        val adapter = CategoriesItemAdapter { productUrlLink, _ ->
-            val action = LastSeenCategoryFragmentDirections.actionLastSeenCategoryToProduct(productUrlLink)
+        val adapter = CategoriesItemAdapter { product ->
+            val action = LastSeenCategoryFragmentDirections
+                .actionLastSeenCategoryToProduct(product.productUrlLink)
             view.findNavController().navigate(action)
         }
         recyclerView.adapter = adapter

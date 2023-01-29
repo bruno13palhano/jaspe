@@ -27,12 +27,12 @@ class NaturaCategoryFragment : Fragment() {
             CategoriesViewModelFactory(it, this@NaturaCategoryFragment).createNaturaCategoryViewModel()
         }
 
-        val adapter = CategoriesItemAdapter { productUrlLink, productSeen ->
+        val adapter = CategoriesItemAdapter { product ->
             lifecycle.coroutineScope.launch {
-                viewModel.updateProductLastSeen(productUrlLink, productSeen)
+                viewModel.insertLastSeenProduct(product)
             }
             val action = NaturaCategoryFragmentDirections
-                .actionNaturaCategoryToProduct(productUrlLink)
+                .actionNaturaCategoryToProduct(product.productUrlLink)
             view.findNavController().navigate(action)
         }
         recyclerView.adapter = adapter

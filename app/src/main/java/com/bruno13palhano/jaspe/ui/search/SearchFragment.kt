@@ -35,11 +35,11 @@ class SearchFragment : Fragment() {
         } catch (ignored: IllegalArgumentException) {}
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.search_list)
-        val adapter = SearchAdapterList { productUrlLink, productSeen ->
+        val adapter = SearchAdapterList { product ->
             lifecycle.coroutineScope.launch {
-                viewModel.updateProductLastSeen(productUrlLink, productSeen)
+                viewModel.insertLastSeenProduct(product)
             }
-            val action = SearchFragmentDirections.actionSearchToProduct(productUrlLink)
+            val action = SearchFragmentDirections.actionSearchToProduct(product.productUrlLink)
             view.findNavController().navigate(action)
         }
         recyclerView.adapter = adapter

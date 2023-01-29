@@ -27,12 +27,12 @@ class BabyCategoryFragment : Fragment() {
             CategoriesViewModelFactory(it, this@BabyCategoryFragment).createBabyCategoryViewModel()
         }
 
-        val adapter = CategoriesItemAdapter { productUrlLink, productSeen ->
+        val adapter = CategoriesItemAdapter { product ->
             lifecycle.coroutineScope.launch {
-                viewModel.updateProductLastSeen(productUrlLink, productSeen)
+                viewModel.insertLastSeenProduct(product)
             }
             val action = BabyCategoryFragmentDirections
-                .actionBabyCategoryToProduct(productUrlLink)
+                .actionBabyCategoryToProduct(product.productUrlLink)
             view.findNavController().navigate(action)
         }
         recyclerView.adapter = adapter
