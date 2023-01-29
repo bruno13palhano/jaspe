@@ -45,8 +45,8 @@ class HomeViewModel(
     private val _contactInfo = MutableStateFlow<ContactInfo>(ContactInfo())
     val contactInfo = _contactInfo.asStateFlow()
 
-    private val _productLastSeen = MutableStateFlow<List<Product>>(emptyList())
-    val productLastSeen = _productLastSeen.asStateFlow()
+    private val _lastSeenProducts = MutableStateFlow<List<Product>>(emptyList())
+    val lastSeenProducts = _lastSeenProducts.asStateFlow()
 
     init {
         viewModelScope.launch {
@@ -114,8 +114,8 @@ class HomeViewModel(
         }
 
         viewModelScope.launch {
-            productRepository.getProductLastSeen(0, 6).collect {
-                _productLastSeen.value = it
+            productRepository.getLastSeenProducts(0, 6).collect {
+                _lastSeenProducts.value = it
             }
         }
     }
@@ -128,5 +128,11 @@ class HomeViewModel(
 
     fun getAllProducts(): Flow<List<Product>> {
         return productRepository.getAll()
+    }
+
+    suspend fun insertLastSeenProduct(product: Product) {
+        viewModelScope.launch {
+            productRepository.insertLastSeenProduct(product)
+        }
     }
 }

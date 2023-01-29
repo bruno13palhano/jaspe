@@ -83,40 +83,40 @@ class HomeFragment : Fragment() {
             view.findNavController().navigate(action)
         }
 
-        val adapter = HomeItemAdapter { productUrlLink, productSeen ->
+        val adapter = HomeItemAdapter { product ->
             lifecycle.coroutineScope.launch {
-                viewModel.updateProductLastSeen(productUrlLink, productSeen)
+                viewModel.insertLastSeenProduct(product)
             }
-            val action = HomeFragmentDirections.actionHomeToProduct(productUrlLink)
+            val action = HomeFragmentDirections.actionHomeToProduct(product.productUrlLink)
             view.findNavController().navigate(action)
         }
 
-        val amazonAdapter = ProductItemAdapter { productUrlLink, productSeen ->
+        val amazonAdapter = ProductItemAdapter { product ->
             lifecycle.coroutineScope.launch {
-                viewModel.updateProductLastSeen(productUrlLink, productSeen)
+                viewModel.insertLastSeenProduct(product)
             }
-            val action = HomeFragmentDirections.actionHomeToProduct(productUrlLink)
+            val action = HomeFragmentDirections.actionHomeToProduct(product.productUrlLink)
             view.findNavController().navigate(action)
         }
 
-        val naturaAdapter = ProductItemAdapter { productUrlLink, productSeen ->
+        val naturaAdapter = ProductItemAdapter { product ->
             lifecycle.coroutineScope.launch {
-                viewModel.updateProductLastSeen(productUrlLink, productSeen)
+                viewModel.insertLastSeenProduct(product)
             }
-            val action = HomeFragmentDirections.actionHomeToProduct(productUrlLink)
+            val action = HomeFragmentDirections.actionHomeToProduct(product.productUrlLink)
             view.findNavController().navigate(action)
         }
 
-        val avonAdapter = ProductItemAdapter { productUrlLink, productSeen ->
+        val avonAdapter = ProductItemAdapter { product ->
             lifecycle.coroutineScope.launch {
-                viewModel.updateProductLastSeen(productUrlLink, productSeen)
+                viewModel.insertLastSeenProduct(product)
             }
-            val action = HomeFragmentDirections.actionHomeToProduct(productUrlLink)
+            val action = HomeFragmentDirections.actionHomeToProduct(product.productUrlLink)
             view.findNavController().navigate(action)
         }
 
-        val highlightsAdapter = ProductHorizontalItemAdapter { productUrlLink ->
-            val action = HomeFragmentDirections.actionHomeToProduct(productUrlLink)
+        val highlightsAdapter = ProductHorizontalItemAdapter { product ->
+            val action = HomeFragmentDirections.actionHomeToProduct(product.productUrlLink)
             view.findNavController().navigate(action)
         }
         highlightsRecyclerView.adapter = highlightsAdapter
@@ -207,7 +207,7 @@ class HomeFragment : Fragment() {
         }
 
         lifecycle.coroutineScope.launch {
-            viewModel.productLastSeen.collect {
+            viewModel.lastSeenProducts.collect {
                 highlightsAdapter.submitList(it)
                 if (it.size >= 6) {
                     highlightsCard.visibility = VISIBLE
