@@ -13,5 +13,6 @@ interface ProductRepository {
     suspend fun insertLastSeenProduct(product: Product)
     suspend fun deleteLastSeenByUrlLink(productUrlLink: String)
     fun getAllLastSeenProducts(): Flow<List<Product>>
+    fun getLastSeenProduct(productUrlLink: String): Flow<Product>
     fun getLastSeenProducts(offset: Int, limit: Int): Flow<List<Product>>
 }

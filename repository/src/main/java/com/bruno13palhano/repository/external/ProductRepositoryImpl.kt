@@ -76,6 +76,12 @@ internal class ProductRepositoryImpl(
         }
     }
 
+    override fun getLastSeenProduct(productUrlLink: String): Flow<Product> {
+        return dao.getLastSeenProduct(productUrlLink).map {
+            it.asProduct()
+        }
+    }
+
     override fun getLastSeenProducts(offset: Int, limit: Int): Flow<List<Product>> {
         return dao.getLastSeenProducts(offset, limit).map {
             it.map { lastSeenRep ->

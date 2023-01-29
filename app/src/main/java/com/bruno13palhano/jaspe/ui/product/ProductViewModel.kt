@@ -31,6 +31,10 @@ class ProductViewModel(
         return productRepository.getProductByLink(productUrlLink)
     }
 
+    fun getProductLastSeen(productUrlLink: String): Flow<Product> {
+        return productRepository.getLastSeenProduct(productUrlLink)
+    }
+
     suspend fun deleteFavoriteProductByUrlLink(favoriteProductUrlLink: String) {
         _isFavorite.value = false
         favoriteProductRepository.deleteFavoriteProductByUrlLink(favoriteProductUrlLink)
