@@ -17,7 +17,7 @@ class LastSeenCategoryViewModel(
 
     init {
         viewModelScope.launch {
-            productRepository.getProductLastSeen(0, 20).collect {
+            productRepository.getLastSeenProducts(0, 20).collect {
                 _productLastSeen.value = it
             }
         }
