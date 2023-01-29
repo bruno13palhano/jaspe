@@ -50,11 +50,6 @@ class LastSeenCategoryFragment : Fragment() {
         toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24)
         toolbar.setTitle(R.string.last_seen_category_label)
 
-        toolbar.setOnMenuItemClickListener {
-            println("Menu in highlights")
-            false
-        }
-
         toolbar.setNavigationOnClickListener {
             it.findNavController().navigateUp()
         }

@@ -52,11 +52,6 @@ class NaturaCategoryFragment : Fragment() {
         toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24)
         toolbar.setTitle(R.string.natura_category_label)
 
-        toolbar.setOnMenuItemClickListener {
-            println("Menu in natura")
-            false
-        }
-
         toolbar.setNavigationOnClickListener {
             it.findNavController().navigateUp()
         }

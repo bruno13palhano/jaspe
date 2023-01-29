@@ -52,11 +52,6 @@ class BabyCategoryFragment : Fragment() {
         toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24)
         toolbar.setTitle(R.string.baby_category_label)
 
-        toolbar.setOnMenuItemClickListener {
-            println("Menu in baby")
-            false
-        }
-
         toolbar.setNavigationOnClickListener {
             it.findNavController().navigateUp()
         }
