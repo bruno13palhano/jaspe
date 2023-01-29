@@ -9,5 +9,4 @@ data class Product(
     val productDescription: String,
     val productCompany: String,
     val productUrlLink: String,
-    val productSeen: Long
 )

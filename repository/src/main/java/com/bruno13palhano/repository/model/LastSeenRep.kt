@@ -43,7 +43,6 @@ internal fun LastSeenRep.asProduct() = Product(
     productDescription = productDescription,
     productCompany = productCompany,
     productUrlLink = productUrlLink,
-    productSeen = 0L
 )
 
 internal fun Product.asLastSeenProduct() = LastSeenRep(
