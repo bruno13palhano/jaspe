@@ -13,7 +13,7 @@ import com.bruno13palhano.jaspe.R
 import com.bruno13palhano.model.Product
 
 class CategoriesItemAdapter(
-    private val onClick: (productUrlLink: String, productSeen: Long) -> Unit
+    private val onClick: (product: Product) -> Unit
 ) : ListAdapter<Product, CategoriesItemAdapter.CategoriesItemViewHolder>(CategoriesDiffCallback()){
 
     override fun onCreateViewHolder(
@@ -34,7 +34,7 @@ class CategoriesItemAdapter(
 
     class CategoriesItemViewHolder(
         rootView: CardView,
-        val onClick: (productUrlLink: String, productSeen: Long) -> Unit
+        val onClick: (product: Product) -> Unit
     ) : RecyclerView.ViewHolder(rootView) {
 
         private val productImage: ImageView = rootView.findViewById(R.id.product_image)
@@ -47,7 +47,7 @@ class CategoriesItemAdapter(
         init {
             rootView.setOnClickListener {
                 currentProduct?.let {
-                    onClick(it.productUrlLink, it.productSeen)
+                    onClick(it)
                 }
             }
         }
