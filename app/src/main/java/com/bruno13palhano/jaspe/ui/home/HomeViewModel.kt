@@ -120,12 +120,6 @@ class HomeViewModel(
         }
     }
 
-    suspend fun updateProductLastSeen(productUrlLink: String, productSeen: Long) {
-        viewModelScope.launch {
-            productRepository.updateSeenValue(productUrlLink, productSeen+1)
-        }
-    }
-
     fun getAllProducts(): Flow<List<Product>> {
         return productRepository.getAll()
     }
