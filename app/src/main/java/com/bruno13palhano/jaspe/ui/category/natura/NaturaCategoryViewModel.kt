@@ -2,6 +2,7 @@ package com.bruno13palhano.jaspe.ui.category.natura
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.bruno13palhano.model.Company
 import com.bruno13palhano.model.Product
 import com.bruno13palhano.repository.external.ProductRepository
 import kotlinx.coroutines.flow.Flow
@@ -18,6 +19,6 @@ class NaturaCategoryViewModel(
     }
 
     fun getAllProducts(): Flow<List<Product>> {
-        return productRepository.getByCompany("Natura", 0, 10)
+        return productRepository.getByCompany(Company.NATURA.company, 0, 10)
     }
 }
