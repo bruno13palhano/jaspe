@@ -13,7 +13,7 @@ import com.bruno13palhano.jaspe.R
 import com.bruno13palhano.model.Product
 
 class ProductHorizontalItemAdapter(
-    private val onClick: (productUrlLink: String) -> Unit
+    private val onClick: (product: Product) -> Unit
 ) : ListAdapter<Product, ProductHorizontalItemAdapter
 .ProductHorizontalItemViewHolder>(ProductHorizontalCallback()) {
 
@@ -32,7 +32,7 @@ class ProductHorizontalItemAdapter(
 
     class ProductHorizontalItemViewHolder(
         rootView: CardView,
-        val onClick: (productUrlLink: String) -> Unit
+        val onClick: (product: Product) -> Unit
     ) : RecyclerView.ViewHolder(rootView) {
         private val productImage: ImageView = rootView.findViewById(R.id.product_image)
         private val productDescription: TextView = rootView.findViewById(R.id.product_description)
@@ -43,7 +43,7 @@ class ProductHorizontalItemAdapter(
         init {
             rootView.setOnClickListener {
                 currentProduct?.let {
-                    onClick(it.productUrlLink)
+                    onClick(it)
                 }
             }
         }
