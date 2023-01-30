@@ -8,11 +8,13 @@ import com.bruno13palhano.jaspe.R
 
 fun openWhatsApp(context: Context, whatsapp: String, urlLink: String) {
     try {
-        val whatsAppIntent = Intent(Intent.ACTION_VIEW)
-        whatsAppIntent.`package` = "com.whatsapp"
-        whatsAppIntent.data = Uri.parse(
-            "https://api.whatsapp.com/send?phone=+$whatsapp&text=$urlLink")
-        context.startActivity(whatsAppIntent)
+        val whatsAppIntent = Intent.createChooser(Intent().apply {
+            action = Intent.ACTION_VIEW
+            `package` = "com.whatsapp"
+            data = Uri.parse(
+                "https://api.whatsapp.com/send?phone=+$whatsapp&text=$urlLink")
+        }, null)
+            context.startActivity(whatsAppIntent)
     } catch (e: Exception) {
         Toast.makeText(context.applicationContext, R.string.contact_whatsapp_error_label, Toast.LENGTH_SHORT)
             .show()
