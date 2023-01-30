@@ -7,6 +7,7 @@ data class FavoriteProduct(
     val favoriteProductPrice: Float,
     val favoriteProductType: String,
     val favoriteProductDescription: String,
+    val favoriteProductCompany: String,
     val favoriteProductUrlLink: String,
     val favoriteProductIsVisible: Boolean
 )
