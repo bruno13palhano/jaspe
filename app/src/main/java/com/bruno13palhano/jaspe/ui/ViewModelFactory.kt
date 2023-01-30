@@ -25,7 +25,8 @@ class ViewModelFactory(
         val productViewModelFactory =
             ProductViewModelFactory(
                 repositoryFactory.createProductRepository(),
-                repositoryFactory.createFavoriteProductRepository())
+                repositoryFactory.createFavoriteProductRepository(),
+                repositoryFactory.createContactInfoRepository())
 
         return ViewModelProvider(owner, productViewModelFactory)[ProductViewModel::class.java]
     }
