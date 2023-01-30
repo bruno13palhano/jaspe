@@ -174,38 +174,11 @@ class ProductFragment : Fragment() {
         toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.favoriteProduct -> {
-                    if (isFavorite) {
-                        lifecycle.coroutineScope.launch {
-                            if (favoriteProduct.favoriteProductIsVisible) {
-                                viewModel.setFavoriteVisibilityByUrlLink(
-                                    favoriteProduct.favoriteProductUrlLink, false)
-                            } else {
-                                viewModel.setFavoriteVisibilityByUrlLink(
-                                    favoriteProduct.favoriteProductUrlLink, true)
-                            }
-                        }
-                    } else {
-                        lifecycle.coroutineScope.launch {
-                            if (viewModel.isFavorite.value) {
-                                viewModel.deleteFavoriteProductByUrlLink(favoriteProduct.favoriteProductUrlLink)
-                            } else {
-                                viewModel.addFavoriteProduct(favoriteProduct)
-                            }
-                        }
-                    }
-
+                    viewModel.setFavorite(isFavorite, favoriteProduct)
                     true
                 }
                 R.id.shareProduct -> {
-                    val shareProductLink = Intent.createChooser(Intent().apply {
-                        action = Intent.ACTION_SEND
-                        type = "text/*"
-                        putExtra(Intent.EXTRA_TEXT, favoriteProduct.favoriteProductUrlLink)
-                        putExtra(Intent.EXTRA_TITLE, favoriteProduct.favoriteProductName)
-
-                    }, null)
-                    startActivity(shareProductLink)
-
+                    viewModel.shareProduct(this@ProductFragment.requireContext(), favoriteProduct)
                     true
                 }
                 else -> false

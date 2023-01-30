@@ -1,5 +1,7 @@
 package com.bruno13palhano.jaspe.ui.product
 
+import android.content.Context
+import android.content.Intent
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bruno13palhano.model.FavoriteProduct
@@ -28,11 +30,45 @@ class ProductViewModel(
         }
     }
 
+    fun setFavorite(
+        favorite: Boolean,
+        favoriteProduct: FavoriteProduct,
+    ) {
+        if (favorite) {
+            viewModelScope.launch {
+                if (favoriteProduct.favoriteProductIsVisible) {
+                    setFavoriteVisibilityByUrlLink(favoriteProduct.favoriteProductUrlLink, false)
+                } else {
+                    setFavoriteVisibilityByUrlLink(favoriteProduct.favoriteProductUrlLink, true)
+                }
+            }
+        } else {
+            viewModelScope.launch {
+                if (isFavorite.value) {
+                    deleteFavoriteProductByUrlLink(favoriteProduct.favoriteProductUrlLink)
+                } else {
+                    addFavoriteProduct(favoriteProduct)
+                }
+            }
+        }
+    }
+
+    fun shareProduct(context: Context, favoriteProduct: FavoriteProduct) {
+        val shareProductLink = Intent.createChooser(Intent().apply {
+            action = Intent.ACTION_SEND
+            type = "text/*"
+            putExtra(Intent.EXTRA_TEXT, favoriteProduct.favoriteProductUrlLink)
+            putExtra(Intent.EXTRA_TITLE, favoriteProduct.favoriteProductName)
+
+        }, null)
+        context.startActivity(shareProductLink)
+    }
+
     fun setFavoriteValue(isFavorite: Boolean) {
         _isFavorite.value = isFavorite
     }
 
-    suspend fun addFavoriteProduct(favoriteProduct: FavoriteProduct) {
+    private suspend fun addFavoriteProduct(favoriteProduct: FavoriteProduct) {
         _isFavorite.value = true
         favoriteProductRepository.insertFavoriteProduct(favoriteProduct)
     }
@@ -49,12 +85,12 @@ class ProductViewModel(
         return productRepository.getLastSeenProduct(productUrlLink)
     }
 
-    suspend fun deleteFavoriteProductByUrlLink(favoriteProductUrlLink: String) {
+    private suspend fun deleteFavoriteProductByUrlLink(favoriteProductUrlLink: String) {
         _isFavorite.value = false
         favoriteProductRepository.deleteFavoriteProductByUrlLink(favoriteProductUrlLink)
     }
 
-    suspend fun setFavoriteVisibilityByUrlLink(
+    private suspend fun setFavoriteVisibilityByUrlLink(
         favoriteProductUrlLink: String,
         favoriteProductIsVisible: Boolean
     ) {
