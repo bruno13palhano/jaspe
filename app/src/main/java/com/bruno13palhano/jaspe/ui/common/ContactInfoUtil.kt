@@ -6,12 +6,12 @@ import android.net.Uri
 import android.widget.Toast
 import com.bruno13palhano.jaspe.R
 
-fun openWhatsApp(context: Context, whatsapp: String) {
+fun openWhatsApp(context: Context, whatsapp: String, urlLink: String) {
     try {
         val whatsAppIntent = Intent(Intent.ACTION_VIEW)
         whatsAppIntent.`package` = "com.whatsapp"
         whatsAppIntent.data = Uri.parse(
-            "https://api.whatsapp.com/send?phone=+$whatsapp")
+            "https://api.whatsapp.com/send?phone=+$whatsapp&text=$urlLink")
         context.startActivity(whatsAppIntent)
     } catch (e: Exception) {
         Toast.makeText(context.applicationContext, R.string.contact_whatsapp_error_label, Toast.LENGTH_SHORT)

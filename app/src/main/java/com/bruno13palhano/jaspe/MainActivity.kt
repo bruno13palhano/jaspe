@@ -88,7 +88,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 R.id.whatsapp -> {
-                    openWhatsApp(this, contactInfo.contactWhatsApp)
+                    openWhatsApp(this, contactInfo.contactWhatsApp, "")
                 }
 
                 R.id.instagram -> {
