@@ -20,6 +20,7 @@ import com.bruno13palhano.jaspe.ui.ViewModelFactory
 import com.bruno13palhano.jaspe.ui.common.openWhatsApp
 import com.bruno13palhano.model.Company
 import com.bruno13palhano.model.FavoriteProduct
+import com.bruno13palhano.model.Product
 import com.bruno13palhano.model.Type
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
@@ -30,6 +31,12 @@ class ProductFragment : Fragment() {
     private lateinit var viewModel: ProductViewModel
     private lateinit var favoriteProduct: FavoriteProduct
     private var isFavorite = false
+    private lateinit var productImage: ImageView
+    private lateinit var productName: TextView
+    private lateinit var productPrice: TextView
+    private lateinit var productType: TextView
+    private lateinit var productDescription: TextView
+    private lateinit var buyByWhatsApp: CardView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,11 +48,11 @@ class ProductFragment : Fragment() {
             inflater.inflate(R.layout.fragment_product, container, false)
         }
 
-        val productImage = view.findViewById<ImageView>(R.id.product_image)
-        val productName = view.findViewById<TextView>(R.id.product_name)
-        val productPrice = view.findViewById<TextView>(R.id.product_price)
-        val productType = view.findViewById<TextView>(R.id.product_type)
-        val productDescription = view.findViewById<TextView>(R.id.product_description)
+        productImage = view.findViewById(R.id.product_image)
+        productName = view.findViewById(R.id.product_name)
+        productPrice = view.findViewById(R.id.product_price)
+        productType = view.findViewById(R.id.product_type)
+        productDescription = view.findViewById(R.id.product_description)
 
         productUrlLink = ProductFragmentArgs.fromBundle(
             requireArguments()
@@ -60,7 +67,7 @@ class ProductFragment : Fragment() {
             ViewModelFactory(it, this@ProductFragment).createProductViewModel()
         }!!
 
-        val buyByWhatsApp = view.findViewById<CardView>(R.id.buy_by_whatsapp)
+        buyByWhatsApp = view.findViewById(R.id.buy_by_whatsapp)
         buyByWhatsApp.setOnClickListener {
             lifecycle.coroutineScope.launch {
                 viewModel.contactWhatsApp.collect { whatsApp ->
@@ -75,26 +82,9 @@ class ProductFragment : Fragment() {
         lifecycle.coroutineScope.launch {
             try {
                 viewModel.getProductByUrlLink(productUrlLink).collect {
-                    favoriteProduct = FavoriteProduct(
-                        favoriteProductId = 0L,
-                        favoriteProductUrlImage = it.productUrlImage,
-                        favoriteProductName = it.productName,
-                        favoriteProductPrice = it.productPrice,
-                        favoriteProductUrlLink = it.productUrlLink,
-                        favoriteProductType = it.productType,
-                        favoriteProductDescription = it.productDescription,
-                        favoriteProductCompany = it.productCompany,
-                        favoriteProductIsVisible = true
-                    )
-                    productImage.load(it.productUrlImage)
-                    productName.text = it.productName
-                    productPrice.text = getString(R.string.product_price_label, it.productPrice)
-                    productType.text = it.productType
-                    productDescription.text = it.productDescription
-
-                    if (it.productCompany == Company.AMAZON.company) {
-                        buyByWhatsApp.visibility = GONE
-                    }
+                    favoriteProduct = convertProductToFavorite(it)
+                    setProductViews(it)
+                    setBuyByWhatsAppVisibility(it.productCompany)
                 }
             } catch (ignored: Exception) {
                 try {
@@ -102,40 +92,15 @@ class ProductFragment : Fragment() {
                         isFavorite = true
                         favoriteProduct = it
                         viewModel.setFavoriteValue(it.favoriteProductIsVisible)
-                        productImage.load(it.favoriteProductUrlImage)
-                        productName.text = it.favoriteProductName
-                        productPrice.text = getString(R.string.product_price_label, it.favoriteProductPrice)
-                        productType.text = it.favoriteProductType
-                        productDescription.text = it.favoriteProductDescription
-
-                        if (it.favoriteProductType == Type.MARKET.type ||
-                                it.favoriteProductType == Type.BABY.type) {
-                            buyByWhatsApp.visibility = GONE
-                        }
+                        setFavoriteProductViews(it)
+                        setBuyByWhatsAppVisibility(it.favoriteProductCompany)
                     }
                 } catch (ignored: Exception) {
                     try {
                         viewModel.getProductLastSeen(productUrlLink).collect {
-                            favoriteProduct = FavoriteProduct(
-                                favoriteProductId = 0L,
-                                favoriteProductUrlImage = it.productUrlImage,
-                                favoriteProductName = it.productName,
-                                favoriteProductPrice = it.productPrice,
-                                favoriteProductUrlLink = it.productUrlLink,
-                                favoriteProductType = it.productType,
-                                favoriteProductDescription = it.productDescription,
-                                favoriteProductCompany = it.productCompany,
-                                favoriteProductIsVisible = true
-                            )
-                            productImage.load(it.productUrlImage)
-                            productName.text = it.productName
-                            productPrice.text = getString(R.string.product_price_label, it.productPrice)
-                            productType.text = it.productType
-                            productDescription.text = it.productDescription
-
-                            if (it.productCompany == Company.AMAZON.company) {
-                                buyByWhatsApp.visibility = GONE
-                            }
+                            favoriteProduct = convertProductToFavorite(it)
+                            setProductViews(it)
+                            setBuyByWhatsAppVisibility(it.productCompany)
                         }
                     } catch (ignored: Exception) {}
                 }
@@ -187,6 +152,43 @@ class ProductFragment : Fragment() {
 
         toolbar.setNavigationOnClickListener {
             it.findNavController().navigateUp()
+        }
+    }
+
+    private fun convertProductToFavorite(product: Product): FavoriteProduct {
+        return FavoriteProduct(
+            favoriteProductId = 0L,
+            favoriteProductUrlImage = product.productUrlImage,
+            favoriteProductName = product.productName,
+            favoriteProductPrice = product.productPrice,
+            favoriteProductUrlLink = product.productUrlLink,
+            favoriteProductType = product.productType,
+            favoriteProductDescription = product.productDescription,
+            favoriteProductCompany = product.productCompany,
+            favoriteProductIsVisible = true
+        )
+    }
+
+    private fun setProductViews(product: Product) {
+        productImage.load(product.productUrlImage)
+        productName.text = product.productName
+        productPrice.text = getString(R.string.product_price_label, product.productPrice)
+        productType.text = product.productType
+        productDescription.text = product.productDescription
+    }
+
+    private fun setFavoriteProductViews(favoriteProduct: FavoriteProduct) {
+        productImage.load(favoriteProduct.favoriteProductUrlImage)
+        productName.text = favoriteProduct.favoriteProductName
+        productPrice.text = getString(R.string.product_price_label,
+            favoriteProduct.favoriteProductPrice)
+        productType.text = favoriteProduct.favoriteProductType
+        productDescription.text = favoriteProduct.favoriteProductDescription
+    }
+
+    private fun setBuyByWhatsAppVisibility(company: String) {
+        if (company == Company.AMAZON.company) {
+            buyByWhatsApp.visibility = GONE
         }
     }
 }
