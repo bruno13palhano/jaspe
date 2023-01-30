@@ -23,7 +23,6 @@ import com.bruno13palhano.model.FavoriteProduct
 import com.bruno13palhano.model.Type
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class ProductFragment : Fragment() {
