@@ -7,6 +7,7 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
@@ -17,7 +18,9 @@ import coil.load
 import com.bruno13palhano.jaspe.R
 import com.bruno13palhano.jaspe.ui.ViewModelFactory
 import com.bruno13palhano.jaspe.ui.common.openWhatsApp
+import com.bruno13palhano.model.Company
 import com.bruno13palhano.model.FavoriteProduct
+import com.bruno13palhano.model.Type
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import kotlinx.coroutines.flow.collect
@@ -58,6 +61,18 @@ class ProductFragment : Fragment() {
             ViewModelFactory(it, this@ProductFragment).createProductViewModel()
         }!!
 
+        val buyByWhatsApp = view.findViewById<CardView>(R.id.buy_by_whatsapp)
+        buyByWhatsApp.setOnClickListener {
+            lifecycle.coroutineScope.launch {
+                viewModel.contactWhatsApp.collect { whatsApp ->
+                    openWhatsApp(
+                        this@ProductFragment.requireContext(), whatsApp,
+                        favoriteProduct.favoriteProductUrlLink
+                    )
+                }
+            }
+        }
+
         lifecycle.coroutineScope.launch {
             try {
                 viewModel.getProductByUrlLink(productUrlLink).collect {
@@ -69,6 +84,7 @@ class ProductFragment : Fragment() {
                         favoriteProductUrlLink = it.productUrlLink,
                         favoriteProductType = it.productType,
                         favoriteProductDescription = it.productDescription,
+                        favoriteProductCompany = it.productCompany,
                         favoriteProductIsVisible = true
                     )
                     productImage.load(it.productUrlImage)
@@ -76,6 +92,10 @@ class ProductFragment : Fragment() {
                     productPrice.text = getString(R.string.product_price_label, it.productPrice)
                     productType.text = it.productType
                     productDescription.text = it.productDescription
+
+                    if (it.productCompany == Company.AMAZON.company) {
+                        buyByWhatsApp.visibility = GONE
+                    }
                 }
             } catch (ignored: Exception) {
                 try {
@@ -88,6 +108,11 @@ class ProductFragment : Fragment() {
                         productPrice.text = getString(R.string.product_price_label, it.favoriteProductPrice)
                         productType.text = it.favoriteProductType
                         productDescription.text = it.favoriteProductDescription
+
+                        if (it.favoriteProductType == Type.MARKET.type ||
+                                it.favoriteProductType == Type.BABY.type) {
+                            buyByWhatsApp.visibility = GONE
+                        }
                     }
                 } catch (ignored: Exception) {
                     try {
@@ -100,6 +125,7 @@ class ProductFragment : Fragment() {
                                 favoriteProductUrlLink = it.productUrlLink,
                                 favoriteProductType = it.productType,
                                 favoriteProductDescription = it.productDescription,
+                                favoriteProductCompany = it.productCompany,
                                 favoriteProductIsVisible = true
                             )
                             productImage.load(it.productUrlImage)
@@ -107,6 +133,10 @@ class ProductFragment : Fragment() {
                             productPrice.text = getString(R.string.product_price_label, it.productPrice)
                             productType.text = it.productType
                             productDescription.text = it.productDescription
+
+                            if (it.productCompany == Company.AMAZON.company) {
+                                buyByWhatsApp.visibility = GONE
+                            }
                         }
                     } catch (ignored: Exception) {}
                 }
@@ -131,18 +161,6 @@ class ProductFragment : Fragment() {
         val toolbar = view.findViewById<MaterialToolbar>(R.id.toolbar_product)
         toolbar.inflateMenu(R.menu.menu_toolbar_product)
         toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24)
-
-        val buyByWhatsApp = view.findViewById<CardView>(R.id.buy_by_whatsapp)
-        buyByWhatsApp.setOnClickListener {
-            lifecycle.coroutineScope.launch {
-                viewModel.contactWhatsApp.collect { whatsApp ->
-                    openWhatsApp(
-                        this@ProductFragment.requireContext(), whatsApp,
-                        favoriteProduct.favoriteProductUrlLink
-                    )
-                }
-            }
-        }
 
         lifecycle.coroutineScope.launch {
             viewModel.isFavorite.collect {
