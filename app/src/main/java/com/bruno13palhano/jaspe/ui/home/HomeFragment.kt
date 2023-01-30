@@ -232,7 +232,7 @@ class HomeFragment : Fragment() {
         toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.whatsappChat -> {
-                    openWhatsApp(this.requireContext(), contactInfo.contactWhatsApp)
+                    openWhatsApp(this.requireContext(), contactInfo.contactWhatsApp, "")
                     true
                 }
                 else -> false
