@@ -88,8 +88,32 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="48dp"
-        android:layout_marginVertical="24dp"
+        android:layout_marginVertical="16dp"
         android:gravity="center"
         android:layout_gravity="bottom"
         android:text="@string/buy_button_label"/>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/buy_by_whatsapp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_gravity="center"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:minHeight="48dp"
+        app:cardBackgroundColor="?android:windowBackground"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="0dp">
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_margin="16dp"
+            android:layout_gravity="center"
+            android:textStyle="italic|bold"
+            android:text="@string/buy_by_whatsapp_label"/>
+    </com.google.android.material.card.MaterialCardView>
+
 </androidx.appcompat.widget.LinearLayoutCompat>
