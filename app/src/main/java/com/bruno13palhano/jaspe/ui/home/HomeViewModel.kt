@@ -2,6 +2,7 @@ package com.bruno13palhano.jaspe.ui.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.bruno13palhano.jaspe.ui.common.prepareLastSeenProduct
 import com.bruno13palhano.model.Banner
 import com.bruno13palhano.model.Company
 import com.bruno13palhano.model.ContactInfo
@@ -125,8 +126,16 @@ class HomeViewModel(
     }
 
     suspend fun insertLastSeenProduct(product: Product) {
+        val lastSeenProduct = prepareLastSeenProduct(product)
         viewModelScope.launch {
-            productRepository.insertLastSeenProduct(product)
+            try {
+                productRepository.getLastSeenProduct(lastSeenProduct.productUrlLink).collect {
+                    productRepository.deleteLastSeenByUrlLink(lastSeenProduct.productUrlLink)
+                }
+            } catch (ignored: Exception) {
+            } finally {
+                productRepository.insertLastSeenProduct(lastSeenProduct)
+            }
         }
     }
 }

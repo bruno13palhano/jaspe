@@ -2,6 +2,7 @@ package com.bruno13palhano.jaspe.ui.category.avon
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.bruno13palhano.jaspe.ui.common.prepareLastSeenProduct
 import com.bruno13palhano.model.Company
 import com.bruno13palhano.model.Product
 import com.bruno13palhano.repository.external.ProductRepository
@@ -13,8 +14,16 @@ class AvonCategoryViewModel(
 ) : ViewModel(){
 
     suspend fun insertLastSeenProduct(product: Product) {
+        val lastSeenProduct = prepareLastSeenProduct(product)
         viewModelScope.launch {
-            productRepository.insertLastSeenProduct(product)
+            try {
+                productRepository.getLastSeenProduct(lastSeenProduct.productUrlLink).collect {
+                    productRepository.deleteLastSeenByUrlLink(lastSeenProduct.productUrlLink)
+                }
+            } catch (ignored: Exception) {
+            } finally {
+                productRepository.insertLastSeenProduct(lastSeenProduct)
+            }
         }
     }
 
