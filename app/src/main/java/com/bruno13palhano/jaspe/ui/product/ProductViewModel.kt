@@ -1,18 +1,32 @@
 package com.bruno13palhano.jaspe.ui.product
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.bruno13palhano.model.FavoriteProduct
 import com.bruno13palhano.model.Product
+import com.bruno13palhano.repository.external.ContactInfoRepository
 import com.bruno13palhano.repository.external.FavoriteProductRepository
 import com.bruno13palhano.repository.external.ProductRepository
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 
 class ProductViewModel(
     private val productRepository: ProductRepository,
-    private val favoriteProductRepository: FavoriteProductRepository
+    private val favoriteProductRepository: FavoriteProductRepository,
+    private val contactInfoRepository: ContactInfoRepository
 ) : ViewModel() {
     private val _isFavorite = MutableStateFlow<Boolean>(false)
     val isFavorite = _isFavorite.asStateFlow()
+    private val _contactWhatsApp = MutableStateFlow<String>("")
+    val contactWhatsApp = _contactWhatsApp.asStateFlow()
+
+    init {
+        viewModelScope.launch {
+            contactInfoRepository.getContactInfo(1L).collect {
+                _contactWhatsApp.value = it.contactWhatsApp
+            }
+        }
+    }
 
     fun setFavoriteValue(isFavorite: Boolean) {
         _isFavorite.value = isFavorite

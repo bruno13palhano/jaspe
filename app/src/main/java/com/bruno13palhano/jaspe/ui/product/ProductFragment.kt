@@ -10,14 +10,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.lifecycle.coroutineScope
 import androidx.navigation.findNavController
 import coil.load
 import com.bruno13palhano.jaspe.R
 import com.bruno13palhano.jaspe.ui.ViewModelFactory
+import com.bruno13palhano.jaspe.ui.common.openWhatsApp
 import com.bruno13palhano.model.FavoriteProduct
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class ProductFragment : Fragment() {
@@ -128,6 +131,18 @@ class ProductFragment : Fragment() {
         val toolbar = view.findViewById<MaterialToolbar>(R.id.toolbar_product)
         toolbar.inflateMenu(R.menu.menu_toolbar_product)
         toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24)
+
+        val buyByWhatsApp = view.findViewById<CardView>(R.id.buy_by_whatsapp)
+        buyByWhatsApp.setOnClickListener {
+            lifecycle.coroutineScope.launch {
+                viewModel.contactWhatsApp.collect { whatsApp ->
+                    openWhatsApp(
+                        this@ProductFragment.requireContext(), whatsApp,
+                        favoriteProduct.favoriteProductUrlLink
+                    )
+                }
+            }
+        }
 
         lifecycle.coroutineScope.launch {
             viewModel.isFavorite.collect {
