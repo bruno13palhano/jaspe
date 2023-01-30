@@ -21,7 +21,6 @@ import com.bruno13palhano.jaspe.ui.common.openWhatsApp
 import com.bruno13palhano.model.Company
 import com.bruno13palhano.model.FavoriteProduct
 import com.bruno13palhano.model.Product
-import com.bruno13palhano.model.Type
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import kotlinx.coroutines.launch
@@ -41,12 +40,8 @@ class ProductFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val view = if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            inflater.inflate(R.layout.fragment_product_landscape, container, false)
-        } else {
-            inflater.inflate(R.layout.fragment_product, container, false)
-        }
+    ): View {
+        val view = setLayout(inflater, container)
 
         productImage = view.findViewById(R.id.product_image)
         productName = view.findViewById(R.id.product_name)
@@ -126,15 +121,7 @@ class ProductFragment : Fragment() {
         toolbar.inflateMenu(R.menu.menu_toolbar_product)
         toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24)
 
-        lifecycle.coroutineScope.launch {
-            viewModel.isFavorite.collect {
-                if (it) {
-                    toolbar.menu.getItem(0).icon?.setTint(resources.getColor(R.color.pink_light))
-                } else {
-                    toolbar.menu.getItem(0).icon?.setTint(resources.getColor(R.color.black))
-                }
-            }
-        }
+        setFavoriteIconAppearance(toolbar)
 
         toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
@@ -152,6 +139,26 @@ class ProductFragment : Fragment() {
 
         toolbar.setNavigationOnClickListener {
             it.findNavController().navigateUp()
+        }
+    }
+
+    private fun setFavoriteIconAppearance(toolbar: MaterialToolbar) {
+        lifecycle.coroutineScope.launch {
+            viewModel.isFavorite.collect {
+                if (it) {
+                    toolbar.menu.getItem(0).icon?.setTint(resources.getColor(R.color.pink_light))
+                } else {
+                    toolbar.menu.getItem(0).icon?.setTint(resources.getColor(R.color.black))
+                }
+            }
+        }
+    }
+
+    private fun setLayout(inflater: LayoutInflater, container: ViewGroup?): View {
+        return if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            inflater.inflate(R.layout.fragment_product_landscape, container, false)
+        } else {
+            inflater.inflate(R.layout.fragment_product, container, false)
         }
     }
 
