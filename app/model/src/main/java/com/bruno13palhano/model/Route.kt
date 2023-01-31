@@ -7,5 +7,6 @@ enum class Route(val route: String) {
     NATURA("category_natura"),
     OFFERS("category_offers"),
     LAST_SEEN("category_last_seen"),
-    BLOG("category_blog")
+    BLOG("category_blog"),
+    SEARCH_DIALOG("")
 }
