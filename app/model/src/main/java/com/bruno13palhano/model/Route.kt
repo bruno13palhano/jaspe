@@ -1,6 +1,6 @@
 package com.bruno13palhano.model
 
-enum class CategoryRoute(val route: String) {
+enum class Route(val route: String) {
     BABY("category_baby"),
     MARKET("category_market"),
     AVON("category_avon"),
