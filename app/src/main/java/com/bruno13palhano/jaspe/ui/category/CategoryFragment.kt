@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bruno13palhano.jaspe.R
@@ -23,10 +22,7 @@ class CategoryFragment : Fragment() {
         val recyclerView = view.findViewById<RecyclerView>(R.id.category_list)
 
         val adapter = CategoryListAdapter {
-            val action = categoryNavigationTo(it)
-            if (action != null) {
-                findNavController().navigate(action)
-            }
+            categoryNavigationTo(it)
         }
         recyclerView.adapter = adapter
         adapter.submitList(getCategoryList())
@@ -45,28 +41,26 @@ class CategoryFragment : Fragment() {
         }
     }
 
-    private fun categoryNavigationTo(categoryRoute: String): NavDirections? {
+    private fun categoryNavigationTo(categoryRoute: String) {
         when (categoryRoute) {
             Route.BABY.route -> {
-                return CategoryFragmentDirections.actionCategoryToBabyCategory()
+                findNavController().navigate(CategoryFragmentDirections.actionCategoryToBabyCategory())
             }
             Route.MARKET.route -> {
-                return CategoryFragmentDirections.actionCategoryToMarketCategory()
+                findNavController().navigate(CategoryFragmentDirections.actionCategoryToMarketCategory())
             }
             Route.AVON.route -> {
-                return CategoryFragmentDirections.actionCategoryToAvonCategory()
+                findNavController().navigate(CategoryFragmentDirections.actionCategoryToAvonCategory())
             }
             Route.NATURA.route -> {
-                return CategoryFragmentDirections.actionCategoryToNaturaCategory()
+                findNavController().navigate(CategoryFragmentDirections.actionCategoryToNaturaCategory())
             }
             Route.LAST_SEEN.route -> {
-                return CategoryFragmentDirections.actionCategoryToLastSeenCategory()
+                findNavController().navigate(CategoryFragmentDirections.actionCategoryToLastSeenCategory())
             }
             Route.OFFERS.route -> {
-                return CategoryFragmentDirections.actionCategoryToOffersCategory()
+                findNavController().navigate(CategoryFragmentDirections.actionCategoryToOffersCategory())
             }
         }
-
-        return null
     }
 }
