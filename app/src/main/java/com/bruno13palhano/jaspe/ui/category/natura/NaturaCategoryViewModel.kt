@@ -6,12 +6,23 @@ import com.bruno13palhano.jaspe.ui.common.prepareLastSeenProduct
 import com.bruno13palhano.model.Company
 import com.bruno13palhano.model.Product
 import com.bruno13palhano.repository.external.ProductRepository
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class NaturaCategoryViewModel(
     private val productRepository: ProductRepository
 ) : ViewModel() {
+    private val _allProducts = MutableStateFlow<List<Product>>(emptyList())
+    val allProducts = _allProducts.asStateFlow()
+
+    init {
+        viewModelScope.launch {
+            productRepository.getByCompany(Company.NATURA.company, 0, 10).collect {
+                _allProducts.value = it
+            }
+        }
+    }
 
     suspend fun insertLastSeenProduct(product: Product) {
         val lastSeenProduct = prepareLastSeenProduct(product)
@@ -25,9 +36,5 @@ class NaturaCategoryViewModel(
                 productRepository.insertLastSeenProduct(lastSeenProduct)
             }
         }
-    }
-
-    fun getAllProducts(): Flow<List<Product>> {
-        return productRepository.getByCompany(Company.NATURA.company, 0, 10)
     }
 }
