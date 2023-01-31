@@ -14,7 +14,7 @@ fun openWhatsApp(context: Context, whatsapp: String, urlLink: String) {
             data = Uri.parse(
                 "https://api.whatsapp.com/send?phone=+$whatsapp&text=$urlLink")
         }, null)
-            context.startActivity(whatsAppIntent)
+        context.startActivity(whatsAppIntent)
     } catch (e: Exception) {
         Toast.makeText(context.applicationContext, R.string.contact_whatsapp_error_label, Toast.LENGTH_SHORT)
             .show()
