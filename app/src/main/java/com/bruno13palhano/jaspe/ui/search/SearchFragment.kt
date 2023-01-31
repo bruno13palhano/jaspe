@@ -10,9 +10,11 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.coroutineScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bruno13palhano.jaspe.R
 import com.bruno13palhano.jaspe.ui.ViewModelFactory
+import com.bruno13palhano.model.Product
 import com.google.android.material.appbar.MaterialToolbar
 import kotlinx.coroutines.launch
 
@@ -36,11 +38,7 @@ class SearchFragment : Fragment() {
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.search_list)
         val adapter = SearchAdapterList { product ->
-            lifecycle.coroutineScope.launch {
-                viewModel.insertLastSeenProduct(product)
-            }
-            val action = SearchFragmentDirections.actionSearchToProduct(product.productUrlLink)
-            view.findNavController().navigate(action)
+            prepareNavigation(product, product.productUrlLink)
         }
         recyclerView.adapter = adapter
 
@@ -58,8 +56,7 @@ class SearchFragment : Fragment() {
 
         val searchProduct: CardView = view.findViewById(R.id.search_product)
         searchProduct.setOnClickListener {
-            val action = SearchFragmentDirections.actionSearchCategoryToSearchDialog()
-            view.findNavController().navigate(action)
+            navigateTo("")
         }
 
         return view
@@ -73,6 +70,28 @@ class SearchFragment : Fragment() {
 
         toolbar.setNavigationOnClickListener {
             view.findNavController().navigateUp()
+        }
+    }
+
+    private fun prepareNavigation(lastSeen: Product, productUrl: String) {
+        insertLastSeen(lastSeen)
+        navigateTo(productUrl)
+    }
+
+    private fun insertLastSeen(lastSeen: Product) {
+        lifecycle.coroutineScope.launch {
+            viewModel.insertLastSeenProduct(lastSeen)
+        }
+    }
+
+    private fun navigateTo(productUrl: String) {
+        when (productUrl) {
+            "" -> {
+                findNavController().navigate(SearchFragmentDirections.actionSearchCategoryToSearchDialog())
+            }
+            else -> {
+                findNavController().navigate(SearchFragmentDirections.actionSearchToProduct(productUrl))
+            }
         }
     }
 }
