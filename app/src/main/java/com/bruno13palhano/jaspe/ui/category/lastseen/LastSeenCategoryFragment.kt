@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.coroutineScope
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bruno13palhano.jaspe.R
 import com.bruno13palhano.jaspe.ui.category.CategoriesItemAdapter
@@ -29,9 +30,7 @@ class LastSeenCategoryFragment : Fragment() {
         }
 
         val adapter = CategoriesItemAdapter { product ->
-            val action = LastSeenCategoryFragmentDirections
-                .actionLastSeenCategoryToProduct(product.productUrlLink)
-            view.findNavController().navigate(action)
+            navigateToProduct(product.productUrlLink)
         }
         recyclerView.adapter = adapter
 
@@ -53,5 +52,10 @@ class LastSeenCategoryFragment : Fragment() {
         toolbar.setNavigationOnClickListener {
             it.findNavController().navigateUp()
         }
+    }
+
+    private fun navigateToProduct(productUrlLInk: String) {
+        findNavController().navigate(
+            LastSeenCategoryFragmentDirections.actionLastSeenCategoryToProduct(productUrlLInk))
     }
 }
