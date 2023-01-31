@@ -68,7 +68,7 @@ internal interface ProductDao {
     fun getLastSeenProduct(productUrlLInk: String): Flow<LastSeenRep>
 
     @Query("SELECT * FROM last_seen_product_table "+
-            "ORDER BY last_seen_product_id ASC LIMIT " +
+            "ORDER BY last_seen_product_id DESC LIMIT " +
             ":offset, :limit")
     fun getLastSeenProducts(offset: Int, limit: Int): Flow<List<LastSeenRep>>
 }
