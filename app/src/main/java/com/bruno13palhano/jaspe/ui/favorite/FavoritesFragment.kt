@@ -1,13 +1,11 @@
 package com.bruno13palhano.jaspe.ui.favorite
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.coroutineScope
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bruno13palhano.jaspe.R
@@ -30,30 +28,19 @@ class FavoritesFragment : Fragment() {
         }!!
 
         val adapter = FavoritesItemAdapter(
-            onItemClose = {
-                lifecycle.coroutineScope.launch {
-                    viewModel.deleteProductByUrlLink(it)
-                }
+            onItemClose = { productUrlLink ->
+                deleteProduct(productUrlLink)
             },
             onItemShare = { productName, productLink ->
-                val shareProductLink = Intent.createChooser(Intent().apply {
-                    action = Intent.ACTION_SEND
-                    type = "text/*"
-                    putExtra(Intent.EXTRA_TEXT, productLink)
-                    putExtra(Intent.EXTRA_TITLE, productName)
-                }, null)
-
-                startActivity(shareProductLink)
+                shareProduct(productName, productLink)
             },
             onItemClick = { productUrlLink ->
-                val action =
-                    FavoritesFragmentDirections.actionFavoriteToProduct(productUrlLink)
-                view.findNavController().navigate(action)
+                navigateToProduct(productUrlLink)
             }
         )
 
         lifecycle.coroutineScope.launchWhenCreated {
-            viewModel.getAllFavoritesVisible().collect {
+            viewModel.allFavoritesVisible.collect {
                 adapter.submitList(it)
             }
         }
@@ -77,16 +64,37 @@ class FavoritesFragment : Fragment() {
         toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.deleteAll -> {
-                    lifecycle.coroutineScope.launch {
-                        viewModel.getAllFavorites().collect { favoriteProductList ->
-                            viewModel.deleteAllProduct(favoriteProductList)
-                        }
-                    }
+                    deleteAllFavorites()
                     true
                 }
 
                 else -> false
             }
+        }
+    }
+
+    private fun deleteProduct(productUrlLink: String) {
+        lifecycle.coroutineScope.launch {
+            viewModel.deleteProductByUrlLink(productUrlLink)
+        }
+    }
+
+    private fun shareProduct(
+        productName: String,
+        productUrlLink: String
+    ) {
+        viewModel.shareProduct(
+            this@FavoritesFragment.requireContext(), productName, productUrlLink)
+    }
+
+    private fun navigateToProduct(productUrlLink: String) {
+        findNavController()
+            .navigate(FavoritesFragmentDirections.actionFavoriteToProduct(productUrlLink))
+    }
+
+    private fun deleteAllFavorites() {
+        lifecycle.coroutineScope.launch {
+            viewModel.deleteAllProduct()
         }
     }
 }
