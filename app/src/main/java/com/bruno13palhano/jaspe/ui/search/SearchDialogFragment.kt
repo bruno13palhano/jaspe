@@ -67,8 +67,9 @@ class SearchDialogFragment() : DialogFragment() {
         inputMethodManager.showSoftInput(searchText, InputMethodManager.SHOW_IMPLICIT)
 
         searchText.setOnEditorActionListener { textView, i, _ ->
-            if (i == EditorInfo.IME_ACTION_SEARCH) {
-                val textValue = textView.text.toString().trim()
+            val textValue = textView.text.toString().trim()
+
+            if (i == EditorInfo.IME_ACTION_SEARCH && isNotTextEmpty(textValue)) {
                 insertSearchCache(textValue)
                 prepareNavigation(view, textValue)
             }
@@ -79,6 +80,10 @@ class SearchDialogFragment() : DialogFragment() {
         toolbar.setNavigationOnClickListener {
             view.findNavController().navigateUp()
         }
+    }
+
+    private fun isNotTextEmpty(text: String): Boolean {
+        return text != ""
     }
 
     private fun prepareNavigation(view: View, text: String) {

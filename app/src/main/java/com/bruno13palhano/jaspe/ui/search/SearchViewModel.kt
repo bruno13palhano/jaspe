@@ -17,7 +17,7 @@ class SearchViewModel(
     val searchProducts: StateFlow<List<Product>> = _searchProducts
 
     fun searchProduct(productName: String) {
-        if (productName != "") {
+        if (isNotTextEmpty(productName)) {
             viewModelScope.launch {
                 productRepository.searchProduct(productName.trim()).collect {
                     _searchProducts.value = it
@@ -38,5 +38,9 @@ class SearchViewModel(
                 productRepository.insertLastSeenProduct(lastSeenProduct)
             }
         }
+    }
+
+    private fun isNotTextEmpty(text: String): Boolean {
+        return text != ""
     }
 }
