@@ -13,8 +13,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.coroutineScope
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.NavDirections
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.bruno13palhano.jaspe.MainActivity
@@ -22,13 +21,16 @@ import com.bruno13palhano.jaspe.R
 import com.bruno13palhano.jaspe.ui.ViewModelFactory
 import com.bruno13palhano.jaspe.ui.common.getCategoryList
 import com.bruno13palhano.jaspe.ui.common.openWhatsApp
-import com.bruno13palhano.model.CategoryRoute
+import com.bruno13palhano.model.Route
 import com.bruno13palhano.model.ContactInfo
+import com.bruno13palhano.model.Product
 import com.google.android.material.appbar.MaterialToolbar
 import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
     private var contactInfo = ContactInfo()
+    private lateinit var viewModel: HomeViewModel
+    private lateinit var lastSeenCard: CardView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,82 +54,61 @@ class HomeFragment : Fragment() {
         val viewMoreAvon = view.findViewById<CardView>(R.id.avon_more_products)
         val viewMoreLastSeen = view.findViewById<CardView>(R.id.last_seen_more_products)
 
-        val highlightsCard = view.findViewById<CardView>(R.id.last_seen_card)
+        lastSeenCard = view.findViewById(R.id.last_seen_card)
 
-        val viewModel = requireActivity().applicationContext.let {
+        viewModel = requireActivity().applicationContext.let {
             ViewModelFactory(it, this@HomeFragment).createHomeViewModel()
         }
 
         viewMoreAmazon.setOnClickListener {
-            val action = HomeFragmentDirections.actionHomeToMarketCategory()
-            view.findNavController().navigate(action)
+            navigateTo(Route.MARKET.route)
         }
 
         viewMoreNatura.setOnClickListener {
-            val action = HomeFragmentDirections.actionHomeToNaturaCategory()
-            view.findNavController().navigate(action)
+            navigateTo(Route.NATURA.route)
         }
 
         viewMoreAvon.setOnClickListener {
-            val action = HomeFragmentDirections.actionHomeToAvonCategory()
-            view.findNavController().navigate(action)
+            navigateTo(Route.AVON.route)
         }
 
         viewMoreLastSeen.setOnClickListener {
-            val action = HomeFragmentDirections.actionHomeToLastSeenCategory()
-            view.findNavController().navigate(action)
+            navigateTo(Route.LAST_SEEN.route)
         }
 
         searchProduct.setOnClickListener {
-            val action = HomeFragmentDirections.actionHomeToSearchDialog()
-            view.findNavController().navigate(action)
+            navigateTo(Route.SEARCH_DIALOG.route)
         }
 
         val adapter = HomeItemAdapter { product ->
-            lifecycle.coroutineScope.launch {
-                viewModel.insertLastSeenProduct(product)
-            }
-            val action = HomeFragmentDirections.actionHomeToProduct(product.productUrlLink)
-            view.findNavController().navigate(action)
+            insertLastSeenProduct(product)
+            navigateToProduct(product)
         }
 
         val amazonAdapter = ProductItemAdapter { product ->
-            lifecycle.coroutineScope.launch {
-                viewModel.insertLastSeenProduct(product)
-            }
-            val action = HomeFragmentDirections.actionHomeToProduct(product.productUrlLink)
-            view.findNavController().navigate(action)
+            insertLastSeenProduct(product)
+            navigateToProduct(product)
         }
 
         val naturaAdapter = ProductItemAdapter { product ->
-            lifecycle.coroutineScope.launch {
-                viewModel.insertLastSeenProduct(product)
-            }
-            val action = HomeFragmentDirections.actionHomeToProduct(product.productUrlLink)
-            view.findNavController().navigate(action)
+            insertLastSeenProduct(product)
+            navigateToProduct(product)
         }
 
         val avonAdapter = ProductItemAdapter { product ->
-            lifecycle.coroutineScope.launch {
-                viewModel.insertLastSeenProduct(product)
-            }
-            val action = HomeFragmentDirections.actionHomeToProduct(product.productUrlLink)
-            view.findNavController().navigate(action)
+            insertLastSeenProduct(product)
+            navigateToProduct(product)
         }
 
-        val highlightsAdapter = ProductHorizontalItemAdapter { product ->
-            val action = HomeFragmentDirections.actionHomeToProduct(product.productUrlLink)
-            view.findNavController().navigate(action)
+        val lastSeenAdapter = ProductHorizontalItemAdapter { product ->
+            navigateToProduct(product)
         }
-        highlightsRecyclerView.adapter = highlightsAdapter
+        highlightsRecyclerView.adapter = lastSeenAdapter
 
         val categoryItems = getCategoryList()
         val categoryRecyclerView = view.findViewById<RecyclerView>(R.id.category_recycler_view)
         val categoryAdapter = CategoryItemAdapter {
-            val action = categoryNavigateTo(it)
-            if (action != null) {
-                view.findNavController().navigate(action)
-            }
+            navigateTo(it)
         }
         categoryRecyclerView.adapter = categoryAdapter
         categoryAdapter.submitList(categoryItems)
@@ -208,10 +189,8 @@ class HomeFragment : Fragment() {
 
         lifecycle.coroutineScope.launch {
             viewModel.lastSeenProducts.collect {
-                highlightsAdapter.submitList(it)
-                if (it.size >= 6) {
-                    highlightsCard.visibility = VISIBLE
-                }
+                lastSeenAdapter.submitList(it)
+                setLastSeenCardVisibility(it.size)
             }
         }
 
@@ -240,31 +219,49 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun categoryNavigateTo(categoryRoute: String): NavDirections? {
-        when (categoryRoute) {
-            CategoryRoute.BABY.route -> {
-                return HomeFragmentDirections.actionHomeToBabyCategory()
+    private fun setLastSeenCardVisibility(listSize: Int){
+        if (listSize >= 6) {
+            lastSeenCard.visibility = VISIBLE
+        }
+    }
+
+    private fun insertLastSeenProduct(product: Product) {
+        lifecycle.coroutineScope.launch {
+            viewModel.insertLastSeenProduct(product)
+        }
+    }
+
+    private fun navigateToProduct(product: Product) {
+        val action = HomeFragmentDirections.actionHomeToProduct(product.productUrlLink)
+        findNavController().navigate(action)
+    }
+
+    private fun navigateTo(route: String) {
+        when (route) {
+            Route.BABY.route -> {
+                findNavController().navigate(HomeFragmentDirections.actionHomeToBabyCategory())
             }
-            CategoryRoute.MARKET.route -> {
-                return HomeFragmentDirections.actionHomeToMarketCategory()
+            Route.MARKET.route -> {
+                findNavController().navigate(HomeFragmentDirections.actionHomeToMarketCategory())
             }
-            CategoryRoute.AVON.route -> {
-                return HomeFragmentDirections.actionHomeToAvonCategory()
+            Route.AVON.route -> {
+                findNavController().navigate(HomeFragmentDirections.actionHomeToAvonCategory())
             }
-            CategoryRoute.BLOG.route -> {
-                return HomeFragmentDirections.actionHomeToBlogCategory()
+            Route.BLOG.route -> {
+                findNavController().navigate(HomeFragmentDirections.actionHomeToBlogCategory())
             }
-            CategoryRoute.LAST_SEEN.route -> {
-                return HomeFragmentDirections.actionHomeToLastSeenCategory()
+            Route.LAST_SEEN.route -> {
+                findNavController().navigate(HomeFragmentDirections.actionHomeToLastSeenCategory())
             }
-            CategoryRoute.NATURA.route -> {
-                return HomeFragmentDirections.actionHomeToNaturaCategory()
+            Route.NATURA.route -> {
+                findNavController().navigate(HomeFragmentDirections.actionHomeToNaturaCategory())
             }
-            CategoryRoute.OFFERS.route -> {
-                return HomeFragmentDirections.actionHomeToOffersCategory()
+            Route.OFFERS.route -> {
+                findNavController().navigate(HomeFragmentDirections.actionHomeToOffersCategory())
+            }
+            Route.SEARCH_DIALOG.route -> {
+                findNavController().navigate(HomeFragmentDirections.actionHomeToSearchDialog())
             }
         }
-
-        return null
     }
 }
