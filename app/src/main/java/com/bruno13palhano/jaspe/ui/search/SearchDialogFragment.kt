@@ -21,12 +21,40 @@ import kotlinx.coroutines.launch
 
 
 class SearchDialogFragment() : DialogFragment() {
+    private lateinit var viewModel: SearchDialogViewModel
+    private lateinit var inputMethodManager: InputMethodManager
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.search_dialog, container, false)
+        val view = inflater.inflate(R.layout.search_dialog, container, false)
+
+        viewModel = requireActivity().applicationContext.let {
+            ViewModelFactory(it, this@SearchDialogFragment).createSearchDialogViewModel()
+        }
+
+        inputMethodManager = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+
+        val recyclerView = view.findViewById<RecyclerView>(R.id.search_list)
+        val adapter = SearchCacheAdapterList(
+            onItemClick = {
+                prepareNavigation(view, it)
+            },
+            onCloseClick = {
+                deleteSearchCache(it)
+            }
+        )
+        recyclerView.adapter = adapter
+
+        lifecycle.coroutineScope.launchWhenCreated {
+            viewModel.searchCache.collect {
+                adapter.submitList(it)
+            }
+        }
+
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -36,58 +64,46 @@ class SearchDialogFragment() : DialogFragment() {
 
         val searchText: AppCompatEditText = view.findViewById(R.id.search_text)
         searchText.requestFocus()
-        val inputMethodManager: InputMethodManager = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.showSoftInput(searchText, InputMethodManager.SHOW_IMPLICIT)
 
-        val viewModel = activity?.applicationContext?.let {
-            ViewModelFactory(it, this@SearchDialogFragment).createSearchDialogViewModel()
-        }
-
-        val recyclerView = view.findViewById<RecyclerView>(R.id.search_list)
-        val adapter = SearchCacheAdapterList(
-            onItemClick = {
-                inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
-
-                val action = SearchDialogFragmentDirections.actionSearchDialogToSearch(it)
-                findNavController().navigate(action)
-            },
-            onCloseClick = {
-                lifecycle.coroutineScope.launch {
-                    viewModel?.deleteSearchCacheById(it)
-                }
-            }
-        )
-        recyclerView.adapter = adapter
-
-        toolbar.setNavigationOnClickListener {
-            view.findNavController().navigateUp()
-        }
-
-        lifecycle.coroutineScope.launchWhenCreated {
-            viewModel?.searchCache?.collect {
-                adapter.submitList(it)
-            }
-        }
-
-        searchText.setOnEditorActionListener { textView, i, keyEvent ->
+        searchText.setOnEditorActionListener { textView, i, _ ->
             if (i == EditorInfo.IME_ACTION_SEARCH) {
-                val textValue = searchText.text.toString().trim()
-
-                lifecycle.coroutineScope.launch {
-                    viewModel?.insertSearchCache(
-                        SearchCache(
-                            searchCacheId = 0L,
-                            searchCacheName = textValue
-                        ))
-                }
-
-                inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
-
-                val action = SearchDialogFragmentDirections.actionSearchDialogToSearch(textValue)
-                view.findNavController().navigate(action)
+                val textValue = textView.text.toString().trim()
+                insertSearchCache(textValue)
+                prepareNavigation(view, textValue)
             }
 
             false
         }
+
+        toolbar.setNavigationOnClickListener {
+            view.findNavController().navigateUp()
+        }
+    }
+
+    private fun prepareNavigation(view: View, text: String) {
+        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+        navigateToSearch(text)
+    }
+
+    private fun insertSearchCache(textValue: String) {
+        lifecycle.coroutineScope.launch {
+            viewModel.insertSearchCache(
+                SearchCache(
+                    searchCacheId = 0L,
+                    searchCacheName = textValue
+                ))
+        }
+    }
+
+    private fun deleteSearchCache(id: Long) {
+        lifecycle.coroutineScope.launch {
+            viewModel.deleteSearchCacheById(id)
+        }
+    }
+
+    private fun navigateToSearch(text: String) {
+        val action = SearchDialogFragmentDirections.actionSearchDialogToSearch(text)
+        findNavController().navigate(action)
     }
 }
