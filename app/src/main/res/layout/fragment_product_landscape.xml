@@ -45,6 +45,8 @@
                 android:id="@+id/product_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:maxWidth="200dp"
+                android:minHeight="64dp"
                 android:layout_marginHorizontal="8dp"
                 android:gravity="start"
                 android:textSize="24sp"
@@ -117,12 +119,21 @@
                 android:text="@string/buy_by_whatsapp_label"/>
         </com.google.android.material.card.MaterialCardView>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="72dp"
+            android:text="@string/related_products_label"
+            android:textSize="24sp"
+            android:layout_marginStart="8dp"/>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/related_products_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginStart="8dp"
+            android:layout_marginBottom="8dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 </androidx.core.widget.NestedScrollView>
