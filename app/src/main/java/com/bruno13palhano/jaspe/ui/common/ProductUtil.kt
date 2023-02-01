@@ -30,48 +30,49 @@ fun prepareLastSeenProduct(product: Product): Product {
 fun navigateToProduct(
     navController: NavController,
     route: String,
-    value: String
+    firstArg: String,
+    secondArg: String,
 ) {
     when (route) {
         Route.BABY.route -> {
             navController.navigate(
-                BabyCategoryFragmentDirections.actionBabyCategoryToProduct(value))
+                BabyCategoryFragmentDirections.actionBabyCategoryToProduct(firstArg, secondArg))
         }
         Route.MARKET.route -> {
             navController.navigate(
-                AmazonCategoryFragmentDirections.actionMarketCategoryToProduct(value))
+                AmazonCategoryFragmentDirections.actionMarketCategoryToProduct(firstArg, secondArg))
         }
         Route.AVON.route -> {
             navController.navigate(
-                AvonCategoryFragmentDirections.actionAvonCategoryToProduct(value))
+                AvonCategoryFragmentDirections.actionAvonCategoryToProduct(firstArg, secondArg))
         }
         Route.NATURA.route -> {
             navController.navigate(
-                NaturaCategoryFragmentDirections.actionNaturaCategoryToProduct(value))
+                NaturaCategoryFragmentDirections.actionNaturaCategoryToProduct(firstArg, secondArg))
         }
         Route.OFFERS.route -> {
             navController.navigate(
-                OffersCategoryFragmentDirections.actionOffersCategoryToProduct(value))
+                OffersCategoryFragmentDirections.actionOffersCategoryToProduct(firstArg, secondArg))
         }
         Route.LAST_SEEN.route -> {
             navController.navigate(
-                LastSeenCategoryFragmentDirections.actionLastSeenCategoryToProduct(value))
+                LastSeenCategoryFragmentDirections.actionLastSeenCategoryToProduct(firstArg, secondArg))
         }
         Route.SEARCH_DIALOG.route -> {
             navController.navigate(
-                SearchDialogFragmentDirections.actionSearchDialogToSearch(value))
+                SearchDialogFragmentDirections.actionSearchDialogToSearch(firstArg))
         }
         Route.SEARCH.route -> {
             navController.navigate(
-                SearchFragmentDirections.actionSearchToProduct(value))
+                SearchFragmentDirections.actionSearchToProduct(firstArg, secondArg))
         }
         Route.FAVORITE.route -> {
             navController.navigate(
-                FavoritesFragmentDirections.actionFavoriteToProduct(value))
+                FavoritesFragmentDirections.actionFavoriteToProduct(firstArg, secondArg))
         }
         Route.HOME.route -> {
             navController.navigate(
-                HomeFragmentDirections.actionHomeToProduct(value))
+                HomeFragmentDirections.actionHomeToProduct(firstArg, secondArg))
         }
     }
 }
