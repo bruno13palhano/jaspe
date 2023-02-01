@@ -10,6 +10,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bruno13palhano.jaspe.R
 import com.bruno13palhano.jaspe.ui.ViewModelFactory
+import com.bruno13palhano.jaspe.ui.common.navigateToProduct
+import com.bruno13palhano.model.Route
 import com.google.android.material.appbar.MaterialToolbar
 import kotlinx.coroutines.launch
 
@@ -35,7 +37,11 @@ class FavoritesFragment : Fragment() {
                 shareProduct(productName, productLink)
             },
             onItemClick = { productUrlLink ->
-                navigateToProduct(productUrlLink)
+                navigateToProduct(
+                    navController = findNavController(),
+                    route = Route.FAVORITE.route,
+                    value = productUrlLink
+                )
             }
         )
 
@@ -85,11 +91,6 @@ class FavoritesFragment : Fragment() {
     ) {
         viewModel.shareProduct(
             this@FavoritesFragment.requireContext(), productName, productUrlLink)
-    }
-
-    private fun navigateToProduct(productUrlLink: String) {
-        findNavController()
-            .navigate(FavoritesFragmentDirections.actionFavoriteToProduct(productUrlLink))
     }
 
     private fun deleteAllFavorites() {

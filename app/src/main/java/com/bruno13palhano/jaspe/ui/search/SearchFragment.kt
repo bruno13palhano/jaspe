@@ -14,7 +14,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bruno13palhano.jaspe.R
 import com.bruno13palhano.jaspe.ui.ViewModelFactory
+import com.bruno13palhano.jaspe.ui.common.navigateToProduct
 import com.bruno13palhano.model.Product
+import com.bruno13palhano.model.Route
 import com.google.android.material.appbar.MaterialToolbar
 import kotlinx.coroutines.launch
 
@@ -56,7 +58,7 @@ class SearchFragment : Fragment() {
 
         val searchProduct: CardView = view.findViewById(R.id.search_product)
         searchProduct.setOnClickListener {
-            navigateTo("")
+            findNavController().navigate(SearchFragmentDirections.actionSearchCategoryToSearchDialog())
         }
 
         return view
@@ -75,23 +77,16 @@ class SearchFragment : Fragment() {
 
     private fun prepareNavigation(lastSeen: Product, productUrl: String) {
         insertLastSeen(lastSeen)
-        navigateTo(productUrl)
+        navigateToProduct(
+            navController = findNavController(),
+            route = Route.SEARCH.route,
+            value = productUrl
+        )
     }
 
     private fun insertLastSeen(lastSeen: Product) {
         lifecycle.coroutineScope.launch {
             viewModel.insertLastSeenProduct(lastSeen)
-        }
-    }
-
-    private fun navigateTo(productUrl: String) {
-        when (productUrl) {
-            "" -> {
-                findNavController().navigate(SearchFragmentDirections.actionSearchCategoryToSearchDialog())
-            }
-            else -> {
-                findNavController().navigate(SearchFragmentDirections.actionSearchToProduct(productUrl))
-            }
         }
     }
 }

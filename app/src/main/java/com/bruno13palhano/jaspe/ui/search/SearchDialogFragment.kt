@@ -15,6 +15,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bruno13palhano.jaspe.R
 import com.bruno13palhano.jaspe.ui.ViewModelFactory
+import com.bruno13palhano.jaspe.ui.common.navigateToProduct
+import com.bruno13palhano.model.Route
 import com.bruno13palhano.model.SearchCache
 import com.google.android.material.appbar.MaterialToolbar
 import kotlinx.coroutines.launch
@@ -88,7 +90,11 @@ class SearchDialogFragment() : DialogFragment() {
 
     private fun prepareNavigation(view: View, text: String) {
         inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
-        navigateToSearch(text)
+        navigateToProduct(
+            navController = findNavController(),
+            route = Route.SEARCH_DIALOG.route,
+            value = text
+        )
     }
 
     private fun insertSearchCache(textValue: String) {
@@ -105,10 +111,5 @@ class SearchDialogFragment() : DialogFragment() {
         lifecycle.coroutineScope.launch {
             viewModel.deleteSearchCacheById(id)
         }
-    }
-
-    private fun navigateToSearch(text: String) {
-        val action = SearchDialogFragmentDirections.actionSearchDialogToSearch(text)
-        findNavController().navigate(action)
     }
 }
