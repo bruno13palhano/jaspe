@@ -12,7 +12,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bruno13palhano.jaspe.R
 import com.bruno13palhano.jaspe.ui.category.CategoriesItemAdapter
 import com.bruno13palhano.jaspe.ui.category.CategoriesViewModelFactory
+import com.bruno13palhano.jaspe.ui.common.navigateFromCategoryToProduct
 import com.bruno13palhano.model.Product
+import com.bruno13palhano.model.Route
 import com.google.android.material.appbar.MaterialToolbar
 import kotlinx.coroutines.launch
 
@@ -57,17 +59,16 @@ class AmazonCategoryFragment : Fragment() {
 
     private fun onCategoryItemClick(product: Product) {
         insertLastSeenProduct(product)
-        navigateToProduct(product.productUrlLink)
+        navigateFromCategoryToProduct(
+            navController = findNavController(),
+            route = Route.MARKET.route,
+            productUrlLink = product.productUrlLink
+        )
     }
 
     private fun insertLastSeenProduct(product: Product) {
         lifecycle.coroutineScope.launch {
             viewModel.insertLastSeenProduct(product)
         }
-    }
-
-    private fun navigateToProduct(productUrlLink: String) {
-        findNavController().navigate(
-            AmazonCategoryFragmentDirections.actionMarketCategoryToProduct(productUrlLink))
     }
 }

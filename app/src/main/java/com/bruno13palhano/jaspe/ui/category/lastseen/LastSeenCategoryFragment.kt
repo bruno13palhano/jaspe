@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bruno13palhano.jaspe.R
 import com.bruno13palhano.jaspe.ui.category.CategoriesItemAdapter
 import com.bruno13palhano.jaspe.ui.category.CategoriesViewModelFactory
+import com.bruno13palhano.jaspe.ui.common.navigateFromCategoryToProduct
+import com.bruno13palhano.model.Route
 import com.google.android.material.appbar.MaterialToolbar
 import kotlinx.coroutines.launch
 
@@ -30,7 +32,11 @@ class LastSeenCategoryFragment : Fragment() {
         }
 
         val adapter = CategoriesItemAdapter { product ->
-            navigateToProduct(product.productUrlLink)
+            navigateFromCategoryToProduct(
+                navController = findNavController(),
+                route = Route.LAST_SEEN.route,
+                productUrlLink = product.productUrlLink
+            )
         }
         recyclerView.adapter = adapter
 
@@ -52,10 +58,5 @@ class LastSeenCategoryFragment : Fragment() {
         toolbar.setNavigationOnClickListener {
             it.findNavController().navigateUp()
         }
-    }
-
-    private fun navigateToProduct(productUrlLInk: String) {
-        findNavController().navigate(
-            LastSeenCategoryFragmentDirections.actionLastSeenCategoryToProduct(productUrlLInk))
     }
 }
