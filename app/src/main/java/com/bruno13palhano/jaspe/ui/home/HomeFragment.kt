@@ -20,6 +20,7 @@ import com.bruno13palhano.jaspe.MainActivity
 import com.bruno13palhano.jaspe.R
 import com.bruno13palhano.jaspe.ui.ViewModelFactory
 import com.bruno13palhano.jaspe.ui.common.getCategoryList
+import com.bruno13palhano.jaspe.ui.common.navigateFromCategoryToProduct
 import com.bruno13palhano.jaspe.ui.common.openWhatsApp
 import com.bruno13palhano.model.Route
 import com.bruno13palhano.model.ContactInfo
@@ -42,7 +43,7 @@ class HomeFragment : Fragment() {
         val amazonRecycler = view.findViewById<RecyclerView>(R.id.amazon_recycler_view)
         val naturaRecycler = view.findViewById<RecyclerView>(R.id.natura_recycler_view)
         val avonRecycler = view.findViewById<RecyclerView>(R.id.avon_recycler_view)
-        val highlightsRecyclerView = view.findViewById<RecyclerView>(R.id.last_seen_recycler_view)
+        val lastSeenRecyclerView = view.findViewById<RecyclerView>(R.id.last_seen_recycler_view)
 
         val imageMainBanner = view.findViewById<ImageView>(R.id.main_banner)
         val imageAmazonBanner = view.findViewById<ImageView>(R.id.amazon_banner_image)
@@ -81,29 +82,29 @@ class HomeFragment : Fragment() {
         }
 
         val adapter = HomeItemAdapter { product ->
-            insertLastSeenProduct(product)
-            navigateToProduct(product)
+            onProductItemClick(product)
         }
+        recyclerView.adapter = adapter
 
         val amazonAdapter = ProductItemAdapter { product ->
-            insertLastSeenProduct(product)
-            navigateToProduct(product)
+            onProductItemClick(product)
         }
+        amazonRecycler.adapter = amazonAdapter
 
         val naturaAdapter = ProductItemAdapter { product ->
-            insertLastSeenProduct(product)
-            navigateToProduct(product)
+            onProductItemClick(product)
         }
+        naturaRecycler.adapter = naturaAdapter
 
         val avonAdapter = ProductItemAdapter { product ->
-            insertLastSeenProduct(product)
-            navigateToProduct(product)
+            onProductItemClick(product)
         }
+        avonRecycler.adapter = avonAdapter
 
         val lastSeenAdapter = ProductHorizontalItemAdapter { product ->
-            navigateToProduct(product)
+            onProductItemClick(product)
         }
-        highlightsRecyclerView.adapter = lastSeenAdapter
+        lastSeenRecyclerView.adapter = lastSeenAdapter
 
         val categoryItems = getCategoryList()
         val categoryRecyclerView = view.findViewById<RecyclerView>(R.id.category_recycler_view)
@@ -128,7 +129,6 @@ class HomeFragment : Fragment() {
                 }
             }
         }
-        recyclerView.adapter = adapter
 
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -137,7 +137,6 @@ class HomeFragment : Fragment() {
                 }
             }
         }
-        amazonRecycler.adapter = amazonAdapter
 
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -146,7 +145,6 @@ class HomeFragment : Fragment() {
                 }
             }
         }
-        naturaRecycler.adapter = naturaAdapter
 
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -155,7 +153,6 @@ class HomeFragment : Fragment() {
                 }
             }
         }
-        avonRecycler.adapter = avonAdapter
 
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -225,15 +222,23 @@ class HomeFragment : Fragment() {
         }
     }
 
+    private fun onProductItemClick(product: Product) {
+        insertLastSeenProduct(product)
+        navigateToProduct(product.productUrlLink)
+    }
+
     private fun insertLastSeenProduct(product: Product) {
         lifecycle.coroutineScope.launch {
             viewModel.insertLastSeenProduct(product)
         }
     }
 
-    private fun navigateToProduct(product: Product) {
-        val action = HomeFragmentDirections.actionHomeToProduct(product.productUrlLink)
-        findNavController().navigate(action)
+    private fun navigateToProduct(productUrlLink: String) {
+        navigateFromCategoryToProduct(
+            navController = findNavController(),
+            route = Route.HOME.route,
+            productUrlLink = productUrlLink
+        )
     }
 
     private fun navigateTo(route: String) {
