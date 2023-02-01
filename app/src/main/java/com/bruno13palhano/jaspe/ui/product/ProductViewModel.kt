@@ -30,6 +30,10 @@ class ProductViewModel(
         }
     }
 
+    fun getRelatedProducts(type: String): Flow<List<Product>> {
+        return productRepository.getByType(type)
+    }
+
     fun setFavorite(
         favorite: Boolean,
         favoriteProduct: FavoriteProduct,
