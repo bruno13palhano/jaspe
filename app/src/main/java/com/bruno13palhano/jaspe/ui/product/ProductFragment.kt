@@ -18,7 +18,6 @@ import coil.load
 import com.bruno13palhano.jaspe.R
 import com.bruno13palhano.jaspe.ui.ViewModelFactory
 import com.bruno13palhano.jaspe.ui.common.openWhatsApp
-import com.bruno13palhano.jaspe.ui.home.HomeItemAdapter
 import com.bruno13palhano.model.Company
 import com.bruno13palhano.model.FavoriteProduct
 import com.bruno13palhano.model.Product
@@ -114,7 +113,7 @@ class ProductFragment : Fragment() {
         }
 
         val relatedProductsRecyclerView = view.findViewById<RecyclerView>(R.id.related_products_recycler_view)
-        val relatedProductsAdapter = HomeItemAdapter {
+        val relatedProductsAdapter = RelatedProductItemAdapter {
             setProductViews(it)
             url = it.productUrlLink
         }
