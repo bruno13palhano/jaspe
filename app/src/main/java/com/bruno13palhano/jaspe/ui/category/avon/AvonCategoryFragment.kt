@@ -62,7 +62,8 @@ class AvonCategoryFragment : Fragment() {
         navigateToProduct(
             navController = findNavController(),
             route = Route.AVON.route,
-            value = product.productUrlLink
+            firstArg = product.productUrlLink,
+            secondArg = product.productType
         )
     }
 

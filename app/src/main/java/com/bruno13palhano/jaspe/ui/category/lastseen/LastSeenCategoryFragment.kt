@@ -35,7 +35,8 @@ class LastSeenCategoryFragment : Fragment() {
             navigateToProduct(
                 navController = findNavController(),
                 route = Route.LAST_SEEN.route,
-                value = product.productUrlLink
+                firstArg = product.productUrlLink,
+                secondArg = product.productType
             )
         }
         recyclerView.adapter = adapter

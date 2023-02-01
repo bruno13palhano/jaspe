@@ -40,7 +40,7 @@ class SearchFragment : Fragment() {
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.search_list)
         val adapter = SearchAdapterList { product ->
-            prepareNavigation(product, product.productUrlLink)
+            prepareNavigation(product, product.productUrlLink, product.productType)
         }
         recyclerView.adapter = adapter
 
@@ -75,12 +75,17 @@ class SearchFragment : Fragment() {
         }
     }
 
-    private fun prepareNavigation(lastSeen: Product, productUrl: String) {
+    private fun prepareNavigation(
+        lastSeen: Product,
+        productUrl: String,
+        productType: String
+    ) {
         insertLastSeen(lastSeen)
         navigateToProduct(
             navController = findNavController(),
             route = Route.SEARCH.route,
-            value = productUrl
+            firstArg = productUrl,
+            secondArg = productType
         )
     }
 

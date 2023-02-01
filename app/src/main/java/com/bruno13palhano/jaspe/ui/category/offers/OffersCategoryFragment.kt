@@ -62,7 +62,8 @@ class OffersCategoryFragment : Fragment() {
         navigateToProduct(
             navController = findNavController(),
             route = Route.OFFERS.route,
-            value = product.productUrlLink
+            firstArg = product.productUrlLink,
+            secondArg = product.productType
         )
     }
 

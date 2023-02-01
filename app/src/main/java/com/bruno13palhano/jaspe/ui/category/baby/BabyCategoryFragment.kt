@@ -62,7 +62,8 @@ class BabyCategoryFragment : Fragment() {
         navigateToProduct(
             navController = findNavController(),
             route = Route.BABY.route,
-            value = product.productUrlLink
+            firstArg = product.productUrlLink,
+            secondArg = product.productType
         )
     }
 

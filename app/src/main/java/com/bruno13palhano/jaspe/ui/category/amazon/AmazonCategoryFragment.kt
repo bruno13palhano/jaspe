@@ -62,7 +62,8 @@ class AmazonCategoryFragment : Fragment() {
         navigateToProduct(
             navController = findNavController(),
             route = Route.MARKET.route,
-            value = product.productUrlLink
+            firstArg = product.productUrlLink,
+            secondArg = product.productType
         )
     }
 

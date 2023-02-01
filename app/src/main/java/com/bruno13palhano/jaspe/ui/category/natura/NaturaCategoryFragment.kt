@@ -62,7 +62,8 @@ class NaturaCategoryFragment : Fragment() {
         navigateToProduct(
             navController = findNavController(),
             route = Route.NATURA.route,
-            value = product.productUrlLink
+            firstArg = product.productUrlLink,
+            secondArg = product.productType
         )
     }
 

@@ -93,7 +93,8 @@ class SearchDialogFragment() : DialogFragment() {
         navigateToProduct(
             navController = findNavController(),
             route = Route.SEARCH_DIALOG.route,
-            value = text
+            firstArg = text,
+            secondArg = ""
         )
     }
 

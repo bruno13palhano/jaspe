@@ -224,7 +224,7 @@ class HomeFragment : Fragment() {
 
     private fun onProductItemClick(product: Product) {
         insertLastSeenProduct(product)
-        navigateToProduct(product.productUrlLink)
+        navigateToProduct(product.productUrlLink, product.productType)
     }
 
     private fun insertLastSeenProduct(product: Product) {
@@ -233,11 +233,12 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun navigateToProduct(productUrlLink: String) {
+    private fun navigateToProduct(productUrlLink: String, productType: String) {
         navigateToProduct(
             navController = findNavController(),
             route = Route.HOME.route,
-            value = productUrlLink
+            firstArg = productUrlLink,
+            secondArg = productType
         )
     }
 

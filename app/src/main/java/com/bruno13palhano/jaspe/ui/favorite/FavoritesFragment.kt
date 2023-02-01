@@ -36,11 +36,12 @@ class FavoritesFragment : Fragment() {
             onItemShare = { productName, productLink ->
                 shareProduct(productName, productLink)
             },
-            onItemClick = { productUrlLink ->
+            onItemClick = { productUrlLink, productType ->
                 navigateToProduct(
                     navController = findNavController(),
                     route = Route.FAVORITE.route,
-                    value = productUrlLink
+                    firstArg = productUrlLink,
+                    secondArg = productType
                 )
             }
         )
