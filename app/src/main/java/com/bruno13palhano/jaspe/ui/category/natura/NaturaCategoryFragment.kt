@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bruno13palhano.jaspe.R
 import com.bruno13palhano.jaspe.ui.category.CategoriesItemAdapter
 import com.bruno13palhano.jaspe.ui.category.CategoriesViewModelFactory
-import com.bruno13palhano.jaspe.ui.common.navigateFromCategoryToProduct
+import com.bruno13palhano.jaspe.ui.common.navigateToProduct
 import com.bruno13palhano.model.Product
 import com.bruno13palhano.model.Route
 import com.google.android.material.appbar.MaterialToolbar
@@ -59,10 +59,10 @@ class NaturaCategoryFragment : Fragment() {
 
     private fun onCategoryItemClick(product: Product) {
         insertLastSeenProduct(product)
-        navigateFromCategoryToProduct(
+        navigateToProduct(
             navController = findNavController(),
             route = Route.NATURA.route,
-            productUrlLink = product.productUrlLink
+            value = product.productUrlLink
         )
     }
 

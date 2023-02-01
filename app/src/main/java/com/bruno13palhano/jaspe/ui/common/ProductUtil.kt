@@ -9,7 +9,6 @@ import com.bruno13palhano.jaspe.ui.category.natura.NaturaCategoryFragmentDirecti
 import com.bruno13palhano.jaspe.ui.category.offers.OffersCategoryFragmentDirections
 import com.bruno13palhano.jaspe.ui.home.HomeFragmentDirections
 import com.bruno13palhano.jaspe.ui.search.SearchDialogFragmentDirections
-import com.bruno13palhano.jaspe.ui.search.SearchFragmentDirections
 import com.bruno13palhano.model.Product
 import com.bruno13palhano.model.Route
 
@@ -26,43 +25,43 @@ fun prepareLastSeenProduct(product: Product): Product {
     )
 }
 
-fun navigateFromCategoryToProduct(
+fun navigateToProduct(
     navController: NavController,
     route: String,
-    productUrlLink: String
+    value: String
 ) {
     when (route) {
         Route.BABY.route -> {
             navController.navigate(
-                BabyCategoryFragmentDirections.actionBabyCategoryToProduct(productUrlLink))
+                BabyCategoryFragmentDirections.actionBabyCategoryToProduct(value))
         }
         Route.MARKET.route -> {
             navController.navigate(
-                AmazonCategoryFragmentDirections.actionMarketCategoryToProduct(productUrlLink))
+                AmazonCategoryFragmentDirections.actionMarketCategoryToProduct(value))
         }
         Route.AVON.route -> {
             navController.navigate(
-                AvonCategoryFragmentDirections.actionAvonCategoryToProduct(productUrlLink))
+                AvonCategoryFragmentDirections.actionAvonCategoryToProduct(value))
         }
         Route.NATURA.route -> {
             navController.navigate(
-                NaturaCategoryFragmentDirections.actionNaturaCategoryToProduct(productUrlLink))
+                NaturaCategoryFragmentDirections.actionNaturaCategoryToProduct(value))
         }
         Route.OFFERS.route -> {
             navController.navigate(
-                OffersCategoryFragmentDirections.actionOffersCategoryToProduct(productUrlLink))
+                OffersCategoryFragmentDirections.actionOffersCategoryToProduct(value))
         }
         Route.LAST_SEEN.route -> {
             navController.navigate(
-                LastSeenCategoryFragmentDirections.actionLastSeenCategoryToProduct(productUrlLink))
+                LastSeenCategoryFragmentDirections.actionLastSeenCategoryToProduct(value))
         }
         Route.SEARCH_DIALOG.route -> {
             navController.navigate(
-                SearchDialogFragmentDirections.actionSearchDialogToSearch(productUrlLink))
+                SearchDialogFragmentDirections.actionSearchDialogToSearch(value))
         }
         Route.HOME.route -> {
             navController.navigate(
-                HomeFragmentDirections.actionHomeToProduct(productUrlLink))
+                HomeFragmentDirections.actionHomeToProduct(value))
         }
     }
 }
