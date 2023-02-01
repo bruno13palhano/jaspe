@@ -8,5 +8,7 @@ enum class Route(val route: String) {
     OFFERS("category_offers"),
     LAST_SEEN("category_last_seen"),
     BLOG("category_blog"),
-    SEARCH_DIALOG("search_dialog")
+    SEARCH_DIALOG("search_dialog"),
+    SEARCH("search"),
+    HOME("home")
 }
