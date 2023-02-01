@@ -7,14 +7,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.coroutineScope
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bruno13palhano.jaspe.R
 import com.bruno13palhano.jaspe.ui.category.CategoriesItemAdapter
 import com.bruno13palhano.jaspe.ui.category.CategoriesViewModelFactory
+import com.bruno13palhano.model.Product
 import com.google.android.material.appbar.MaterialToolbar
 import kotlinx.coroutines.launch
 
 class AmazonCategoryFragment : Fragment() {
+    private lateinit var viewModel: AmazonCategoryViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -23,22 +26,17 @@ class AmazonCategoryFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_amazon_category, container, false)
         val recyclerView = view.findViewById<RecyclerView>(R.id.amazon_category_list)
 
-        val viewModel = requireActivity().applicationContext.let {
+        viewModel = requireActivity().applicationContext.let {
             CategoriesViewModelFactory(it, this@AmazonCategoryFragment).createAmazonCategoryViewModel()
         }
 
         val adapter = CategoriesItemAdapter { product ->
-            lifecycle.coroutineScope.launch {
-                viewModel.insertLastSeenProduct(product)
-            }
-            val action = AmazonCategoryFragmentDirections
-                .actionMarketCategoryToProduct(product.productUrlLink)
-            view.findNavController().navigate(action)
+            onCategoryItemClick(product)
         }
         recyclerView.adapter = adapter
 
         viewLifecycleOwner.lifecycle.coroutineScope.launch {
-            viewModel.getAllProducts().collect {
+            viewModel.allProducts.collect {
                 adapter.submitList(it)
             }
         }
@@ -55,5 +53,21 @@ class AmazonCategoryFragment : Fragment() {
         toolbar.setNavigationOnClickListener {
             it.findNavController().navigateUp()
         }
+    }
+
+    private fun onCategoryItemClick(product: Product) {
+        insertLastSeenProduct(product)
+        navigateToProduct(product.productUrlLink)
+    }
+
+    private fun insertLastSeenProduct(product: Product) {
+        lifecycle.coroutineScope.launch {
+            viewModel.insertLastSeenProduct(product)
+        }
+    }
+
+    private fun navigateToProduct(productUrlLink: String) {
+        findNavController().navigate(
+            AmazonCategoryFragmentDirections.actionMarketCategoryToProduct(productUrlLink))
     }
 }
