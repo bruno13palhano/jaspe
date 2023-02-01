@@ -7,11 +7,23 @@ import com.bruno13palhano.model.Product
 import com.bruno13palhano.model.Type
 import com.bruno13palhano.repository.external.ProductRepository
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class AmazonCategoryViewModel(
     private val productRepository: ProductRepository
 ) : ViewModel() {
+    private val _allProducts = MutableStateFlow<List<Product>>(emptyList())
+    val allProducts = _allProducts.asStateFlow()
+
+    init {
+        viewModelScope.launch {
+            productRepository.getByType(Type.MARKET.type).collect {
+                _allProducts.value = it
+            }
+        }
+    }
 
     suspend fun insertLastSeenProduct(product: Product) {
         val lastSeenProduct = prepareLastSeenProduct(product)
@@ -25,9 +37,5 @@ class AmazonCategoryViewModel(
                 productRepository.insertLastSeenProduct(lastSeenProduct)
             }
         }
-    }
-
-    fun getAllProducts(): Flow<List<Product>> {
-        return productRepository.getByType(Type.MARKET.type)
     }
 }
