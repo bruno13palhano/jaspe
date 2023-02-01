@@ -214,6 +214,9 @@
         <argument
             android:name="productUrlLink"
             app:argType="string" />
+        <argument
+            android:name="productType"
+            app:argType="string" />
     </fragment>
 
     <fragment
