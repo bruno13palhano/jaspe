@@ -1,7 +1,6 @@
 package com.bruno13palhano.jaspe.ui.product
 
 import android.content.Intent
-import android.content.res.Configuration
 import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -14,10 +13,12 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.lifecycle.coroutineScope
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.bruno13palhano.jaspe.R
 import com.bruno13palhano.jaspe.ui.ViewModelFactory
 import com.bruno13palhano.jaspe.ui.common.openWhatsApp
+import com.bruno13palhano.jaspe.ui.home.HomeItemAdapter
 import com.bruno13palhano.model.Company
 import com.bruno13palhano.model.FavoriteProduct
 import com.bruno13palhano.model.Product
@@ -41,7 +42,7 @@ class ProductFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val view = setLayout(inflater, container)
+        val view = inflater.inflate(R.layout.fragment_product_landscape, container, false)
 
         productImage = view.findViewById(R.id.product_image)
         productName = view.findViewById(R.id.product_name)
@@ -49,13 +50,13 @@ class ProductFragment : Fragment() {
         productType = view.findViewById(R.id.product_type)
         productDescription = view.findViewById(R.id.product_description)
 
-        productUrlLink = ProductFragmentArgs.fromBundle(
-            requireArguments()
-        ).productUrlLink
+        productUrlLink = ProductFragmentArgs.fromBundle(requireArguments()).productUrlLink
+        val productType = ProductFragmentArgs.fromBundle(requireArguments()).productType
 
+        var url = productUrlLink
         val buyButton = view.findViewById<ExtendedFloatingActionButton>(R.id.buy_product_button)
         buyButton.setOnClickListener {
-            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(productUrlLink)))
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
         }
 
         viewModel = activity?.applicationContext?.let {
@@ -112,6 +113,21 @@ class ProductFragment : Fragment() {
             } catch (ignored: Exception) {}
         }
 
+        val relatedProductsRecyclerView = view.findViewById<RecyclerView>(R.id.related_products_recycler_view)
+        val relatedProductsAdapter = HomeItemAdapter {
+            setProductViews(it)
+            url = it.productUrlLink
+        }
+        relatedProductsRecyclerView.adapter = relatedProductsAdapter
+
+        lifecycle.coroutineScope.launch {
+            try {
+                viewModel.getRelatedProducts(productType).collect {
+                    relatedProductsAdapter.submitList(it)
+                }
+            } catch (ignored: Exception) {}
+        }
+
         return view
     }
 
@@ -151,14 +167,6 @@ class ProductFragment : Fragment() {
                     toolbar.menu.getItem(0).icon?.setTint(resources.getColor(R.color.black))
                 }
             }
-        }
-    }
-
-    private fun setLayout(inflater: LayoutInflater, container: ViewGroup?): View {
-        return if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            inflater.inflate(R.layout.fragment_product_landscape, container, false)
-        } else {
-            inflater.inflate(R.layout.fragment_product, container, false)
         }
     }
 
