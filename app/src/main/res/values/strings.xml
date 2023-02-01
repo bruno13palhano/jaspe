@@ -19,6 +19,7 @@
     <string name="offers_of_the_day_label">Offers of the Day</string>
     <string name="top_sellers_label">Top Sellers</string>
     <string name="remove_product_label">Remove product</string>
+    <string name="related_products_label">Related Products</string>
 
     <!--  content descriptions  -->
     <string name="profile_picture_description">Profile picture</string>
