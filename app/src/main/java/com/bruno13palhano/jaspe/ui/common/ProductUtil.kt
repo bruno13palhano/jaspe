@@ -9,6 +9,7 @@ import com.bruno13palhano.jaspe.ui.category.natura.NaturaCategoryFragmentDirecti
 import com.bruno13palhano.jaspe.ui.category.offers.OffersCategoryFragmentDirections
 import com.bruno13palhano.jaspe.ui.home.HomeFragmentDirections
 import com.bruno13palhano.jaspe.ui.search.SearchDialogFragmentDirections
+import com.bruno13palhano.jaspe.ui.search.SearchFragmentDirections
 import com.bruno13palhano.model.Product
 import com.bruno13palhano.model.Route
 
@@ -58,6 +59,10 @@ fun navigateToProduct(
         Route.SEARCH_DIALOG.route -> {
             navController.navigate(
                 SearchDialogFragmentDirections.actionSearchDialogToSearch(value))
+        }
+        Route.SEARCH.route -> {
+            navController.navigate(
+                SearchFragmentDirections.actionSearchToProduct(value))
         }
         Route.HOME.route -> {
             navController.navigate(
