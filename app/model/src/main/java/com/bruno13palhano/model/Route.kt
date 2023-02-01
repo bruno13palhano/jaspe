@@ -10,5 +10,6 @@ enum class Route(val route: String) {
     BLOG("category_blog"),
     SEARCH_DIALOG("search_dialog"),
     SEARCH("search"),
+    FAVORITE("favorite"),
     HOME("home")
 }

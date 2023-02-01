@@ -7,6 +7,7 @@ import com.bruno13palhano.jaspe.ui.category.baby.BabyCategoryFragmentDirections
 import com.bruno13palhano.jaspe.ui.category.lastseen.LastSeenCategoryFragmentDirections
 import com.bruno13palhano.jaspe.ui.category.natura.NaturaCategoryFragmentDirections
 import com.bruno13palhano.jaspe.ui.category.offers.OffersCategoryFragmentDirections
+import com.bruno13palhano.jaspe.ui.favorite.FavoritesFragmentDirections
 import com.bruno13palhano.jaspe.ui.home.HomeFragmentDirections
 import com.bruno13palhano.jaspe.ui.search.SearchDialogFragmentDirections
 import com.bruno13palhano.jaspe.ui.search.SearchFragmentDirections
@@ -63,6 +64,10 @@ fun navigateToProduct(
         Route.SEARCH.route -> {
             navController.navigate(
                 SearchFragmentDirections.actionSearchToProduct(value))
+        }
+        Route.FAVORITE.route -> {
+            navController.navigate(
+                FavoritesFragmentDirections.actionFavoriteToProduct(value))
         }
         Route.HOME.route -> {
             navController.navigate(
