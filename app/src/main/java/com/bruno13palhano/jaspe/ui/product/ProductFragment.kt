@@ -52,10 +52,9 @@ class ProductFragment : Fragment() {
         productUrlLink = ProductFragmentArgs.fromBundle(requireArguments()).productUrlLink
         val productType = ProductFragmentArgs.fromBundle(requireArguments()).productType
 
-        var url = productUrlLink
         val buyButton = view.findViewById<ExtendedFloatingActionButton>(R.id.buy_product_button)
         buyButton.setOnClickListener {
-            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(productUrlLink)))
         }
 
         viewModel = activity?.applicationContext?.let {
@@ -114,8 +113,20 @@ class ProductFragment : Fragment() {
 
         val relatedProductsRecyclerView = view.findViewById<RecyclerView>(R.id.related_products_recycler_view)
         val relatedProductsAdapter = RelatedProductItemAdapter {
+            favoriteProduct = convertProductToFavorite(it)
             setProductViews(it)
-            url = it.productUrlLink
+            productUrlLink = it.productUrlLink
+            lifecycle.coroutineScope.launch {
+                try {
+                    viewModel.getFavoriteProductByUrlLink(productUrlLink).collect { favorite ->
+                        isFavorite = true
+                        viewModel.setFavoriteValue(favorite.favoriteProductIsVisible)
+                    }
+                } catch (e: Exception) {
+                    isFavorite = false
+                    viewModel.setFavoriteValue(false)
+                }
+            }
         }
         relatedProductsRecyclerView.adapter = relatedProductsAdapter
 
