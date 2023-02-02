@@ -37,4 +37,25 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>
     </style>
+
+    <style name="AlertDialogStyle" parent="@style/ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="android:colorAccent">?colorSecondary</item>
+        <item name="android:textColor">?colorSecondary</item>
+        <item name="android:textColorPrimary">?colorSecondary</item>
+
+        <item name="buttonBarPositiveButtonStyle">
+            @style/PositiveButtonStyle
+        </item>
+        <item name="buttonBarNegativeButtonStyle">
+            @style/NegativeButtonStyle
+        </item>
+    </style>
+
+    <style name="PositiveButtonStyle" parent="@style/Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">?colorSecondary</item>
+    </style>
+
+    <style name="NegativeButtonStyle" parent="@style/Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">?colorSecondary</item>
+    </style>
 </resources>
