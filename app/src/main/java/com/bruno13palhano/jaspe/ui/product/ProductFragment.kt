@@ -10,7 +10,6 @@ import android.view.View.GONE
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.lifecycle.coroutineScope
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -22,6 +21,7 @@ import com.bruno13palhano.model.Company
 import com.bruno13palhano.model.FavoriteProduct
 import com.bruno13palhano.model.Product
 import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import kotlinx.coroutines.launch
 
@@ -35,7 +35,7 @@ class ProductFragment : Fragment() {
     private lateinit var productPrice: TextView
     private lateinit var productType: TextView
     private lateinit var productDescription: TextView
-    private lateinit var buyByWhatsApp: CardView
+    private lateinit var buyByWhatsApp: MaterialButton
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
