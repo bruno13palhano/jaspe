@@ -65,8 +65,8 @@ class SearchFragment : Fragment() {
         val filterSearch: MaterialButton = view.findViewById(R.id.filter_options)
         filterSearch.setOnClickListener {
             val filterDialog = FilterSearchDialogFragment(object : FilterSearchDialogFragment.FilterDialogListener {
-                override fun onDialogPositiveClick(item: String) {
-
+                override fun onDialogPositiveClick(filter: FilterType) {
+                    viewModel.getOrderProducts(filter)
                 }
             })
             filterDialog.show(requireActivity().supportFragmentManager, "filter")

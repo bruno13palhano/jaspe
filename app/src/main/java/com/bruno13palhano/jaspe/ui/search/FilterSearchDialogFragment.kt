@@ -5,7 +5,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import com.bruno13palhano.jaspe.R
-import com.bruno13palhano.jaspe.ui.common.listOfFilter
 
 class FilterSearchDialogFragment(private val listener: FilterDialogListener) : DialogFragment() {
 
@@ -18,7 +17,7 @@ class FilterSearchDialogFragment(private val listener: FilterDialogListener) : D
                     itemPosition = checkedItem
                 }
                 .setPositiveButton(R.string.ok_button_label) { _, _ ->
-                    listener.onDialogPositiveClick(listOfFilter[itemPosition])
+                    listener.onDialogPositiveClick(FilterType.values()[itemPosition])
                 }
                 .setNegativeButton(R.string.cancel_button_label) { dialogInterface, _ ->
                     dialogInterface.cancel()
@@ -28,6 +27,6 @@ class FilterSearchDialogFragment(private val listener: FilterDialogListener) : D
     }
 
     interface FilterDialogListener {
-        fun onDialogPositiveClick(item: String)
+        fun onDialogPositiveClick(filter: FilterType)
     }
 }
