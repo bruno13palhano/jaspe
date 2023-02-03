@@ -62,6 +62,7 @@
 
     <string name="filter_options_label">Order by</string>
     <string-array name="array_filter_options">
+        <item>Default</item>
         <item>Name</item>
         <item>Low Price</item>
         <item>High Price</item>
