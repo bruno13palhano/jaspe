@@ -26,6 +26,20 @@ class SearchViewModel(
         }
     }
 
+    fun getOrderProducts(filter: FilterType) {
+        when (filter) {
+            FilterType.NAME -> {
+                _searchProducts.value = _searchProducts.value.sortedBy { it.productName }
+            }
+            FilterType.LOW_PRICE -> {
+                _searchProducts.value = _searchProducts.value.sortedBy { it.productPrice }
+            }
+            FilterType.HIGH_PRICE -> {
+                _searchProducts.value = _searchProducts.value.sortedByDescending { it.productPrice }
+            }
+        }
+    }
+
     suspend fun insertLastSeenProduct(product: Product) {
         val lastSeenProduct = prepareLastSeenProduct(product)
         viewModelScope.launch {
