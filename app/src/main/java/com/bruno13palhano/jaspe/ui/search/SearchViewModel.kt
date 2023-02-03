@@ -28,6 +28,9 @@ class SearchViewModel(
 
     fun getOrderProducts(filter: FilterType) {
         when (filter) {
+            FilterType.DEFAULT -> {
+                _searchProducts.value = _searchProducts.value.sortedBy { it.productId }
+            }
             FilterType.NAME -> {
                 _searchProducts.value = _searchProducts.value.sortedBy { it.productName }
             }
