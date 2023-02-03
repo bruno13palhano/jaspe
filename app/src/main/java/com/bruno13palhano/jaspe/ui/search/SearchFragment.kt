@@ -18,6 +18,7 @@ import com.bruno13palhano.jaspe.ui.common.navigateToProduct
 import com.bruno13palhano.model.Product
 import com.bruno13palhano.model.Route
 import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.button.MaterialButton
 import kotlinx.coroutines.launch
 
 class SearchFragment : Fragment() {
@@ -59,6 +60,16 @@ class SearchFragment : Fragment() {
         val searchProduct: CardView = view.findViewById(R.id.search_product)
         searchProduct.setOnClickListener {
             findNavController().navigate(SearchFragmentDirections.actionSearchCategoryToSearchDialog())
+        }
+
+        val filterSearch: MaterialButton = view.findViewById(R.id.filter_options)
+        filterSearch.setOnClickListener {
+            val filterDialog = FilterSearchDialogFragment(object : FilterSearchDialogFragment.FilterDialogListener {
+                override fun onDialogPositiveClick(item: String) {
+
+                }
+            })
+            filterDialog.show(requireActivity().supportFragmentManager, "filter")
         }
 
         return view
