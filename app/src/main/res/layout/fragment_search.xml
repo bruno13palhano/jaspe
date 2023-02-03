@@ -8,7 +8,6 @@
     android:orientation="vertical"
     tools:context=".ui.search.SearchFragment">
 
-
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar_search"
         android:layout_width="match_parent"
@@ -43,6 +42,17 @@
                 android:textStyle="italic" />
         </androidx.cardview.widget.CardView>
     </com.google.android.material.appbar.MaterialToolbar>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/filter_options"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/filter_button_label"
+        android:textSize="16sp"
+        android:gravity="end|center"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        app:drawableEndCompat="@drawable/ic_baseline_keyboard_arrow_down_24" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/search_list"
