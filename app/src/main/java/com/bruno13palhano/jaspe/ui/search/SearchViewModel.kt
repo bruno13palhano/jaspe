@@ -2,6 +2,7 @@ package com.bruno13palhano.jaspe.ui.search
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.bruno13palhano.jaspe.ui.common.getOrderedProducts
 import com.bruno13palhano.jaspe.ui.common.prepareLastSeenProduct
 import com.bruno13palhano.model.Product
 import com.bruno13palhano.repository.external.ProductRepository
@@ -26,21 +27,8 @@ class SearchViewModel(
         }
     }
 
-    fun getOrderProducts(filter: FilterType) {
-        when (filter) {
-            FilterType.DEFAULT -> {
-                _searchProducts.value = _searchProducts.value.sortedBy { it.productId }
-            }
-            FilterType.NAME -> {
-                _searchProducts.value = _searchProducts.value.sortedBy { it.productName }
-            }
-            FilterType.LOW_PRICE -> {
-                _searchProducts.value = _searchProducts.value.sortedBy { it.productPrice }
-            }
-            FilterType.HIGH_PRICE -> {
-                _searchProducts.value = _searchProducts.value.sortedByDescending { it.productPrice }
-            }
-        }
+    fun getOrderedProducts(filter: FilterType) {
+        getOrderedProducts(_searchProducts, filter)
     }
 
     suspend fun insertLastSeenProduct(product: Product) {
