@@ -76,9 +76,3 @@ fun navigateToProduct(
         }
     }
 }
-
-val listOfFilter = listOf(
-    "NAME",
-    "HIGH_PRICE",
-    "LOW_PRICE"
-)
