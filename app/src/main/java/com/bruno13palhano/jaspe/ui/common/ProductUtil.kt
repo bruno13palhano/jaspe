@@ -1,7 +1,6 @@
 package com.bruno13palhano.jaspe.ui.common
 
 import androidx.navigation.NavController
-import com.bruno13palhano.jaspe.R
 import com.bruno13palhano.jaspe.ui.category.amazon.AmazonCategoryFragmentDirections
 import com.bruno13palhano.jaspe.ui.category.avon.AvonCategoryFragmentDirections
 import com.bruno13palhano.jaspe.ui.category.baby.BabyCategoryFragmentDirections
