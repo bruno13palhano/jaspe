@@ -259,7 +259,7 @@
         android:id="@+id/lastSeenCategoryFragment"
         android:name="com.bruno13palhano.jaspe.ui.category.lastseen.LastSeenCategoryFragment"
         android:label="HighlightsCategory"
-        tools:layout="@layout/fragment_highlights_category">
+        tools:layout="@layout/fragment_last_seen_category">
 
         <action
             android:id="@+id/action_last_seen_category_to_product"

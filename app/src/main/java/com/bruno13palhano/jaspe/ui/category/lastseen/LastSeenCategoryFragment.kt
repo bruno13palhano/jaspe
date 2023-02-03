@@ -23,7 +23,7 @@ class LastSeenCategoryFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_highlights_category, container, false)
+        val view = inflater.inflate(R.layout.fragment_last_seen_category, container, false)
         val recyclerView = view.findViewById<RecyclerView>(R.id.highlights_category_list)
 
         val viewModel = requireActivity().applicationContext.let {
