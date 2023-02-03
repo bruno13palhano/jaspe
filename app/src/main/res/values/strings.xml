@@ -62,9 +62,13 @@
 
     <string name="filter_options_label">Order by</string>
     <string-array name="array_filter_options">
-        <item>Default</item>
-        <item>Name</item>
-        <item>Low Price</item>
-        <item>High Price</item>
+        <item>@string/default_filter_label</item>
+        <item>@string/name_filter_label</item>
+        <item>@string/low_price_filter_label</item>
+        <item>@string/high_price_filter_label</item>
     </string-array>
+    <string name="default_filter_label">Default</string>
+    <string name="name_filter_label">Name</string>
+    <string name="low_price_filter_label">Low Price</string>
+    <string name="high_price_filter_label">High Price</string>
 </resources>
