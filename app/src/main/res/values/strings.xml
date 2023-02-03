@@ -39,6 +39,8 @@
     <string name="offers_category_label">Offers</string>
     <string name="contact_category_label">Contact</string>
     <string name="icon_label">Icon</string>
+    <string name="ok_button_label">OK</string>
+    <string name="cancel_button_label">Cancel</string>
 
     <!-- SearchCache   -->
     <string name="remove_from_history_label">Remove from history</string>
@@ -56,4 +58,10 @@
     <string name="contact_gmail_error_label">Email app not installed</string>
     <string name="view_more_products_label">View More</string>
     <string name="buy_by_whatsapp_label">Buy by WhatsApp</string>
+
+    <string name="filter_options_label">Filter Options</string>
+    <string-array name="array_filter_options">
+        <item>High Price</item>
+        <item>Low Price</item>
+    </string-array>
 </resources>
