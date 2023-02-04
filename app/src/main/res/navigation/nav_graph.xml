@@ -223,7 +223,7 @@
         android:id="@+id/marketCategoryFragment"
         android:name="com.bruno13palhano.jaspe.ui.category.amazon.AmazonCategoryFragment"
         android:label="AmazonCategory"
-        tools:layout="@layout/fragment_amazon_category">
+        tools:layout="@layout/categories_common_fragment">
 
         <action
             android:id="@+id/action_market_category_to_product"
@@ -238,7 +238,7 @@
         android:id="@+id/avonCategoryFragment"
         android:name="com.bruno13palhano.jaspe.ui.category.avon.AvonCategoryFragment"
         android:label="AvonCategory"
-        tools:layout="@layout/fragment_avon_category">
+        tools:layout="@layout/categories_common_fragment">
 
         <action
             android:id="@+id/action_avon_category_to_product"
@@ -259,7 +259,7 @@
         android:id="@+id/lastSeenCategoryFragment"
         android:name="com.bruno13palhano.jaspe.ui.category.lastseen.LastSeenCategoryFragment"
         android:label="HighlightsCategory"
-        tools:layout="@layout/fragment_last_seen_category">
+        tools:layout="@layout/categories_common_fragment">
 
         <action
             android:id="@+id/action_last_seen_category_to_product"
@@ -274,7 +274,7 @@
         android:id="@+id/naturaCategoryFragment"
         android:name="com.bruno13palhano.jaspe.ui.category.natura.NaturaCategoryFragment"
         android:label="NaturaCategory"
-        tools:layout="@layout/fragment_natura_category">
+        tools:layout="@layout/categories_common_fragment">
 
         <action
             android:id="@+id/action_natura_category_to_product"
@@ -289,7 +289,7 @@
         android:id="@+id/offersCategoryFragment"
         android:name="com.bruno13palhano.jaspe.ui.category.offers.OffersCategoryFragment"
         android:label="OffersCategory"
-        tools:layout="@layout/fragment_offers_category">
+        tools:layout="@layout/categories_common_fragment">
 
         <action
             android:id="@+id/action_offers_category_to_product"
@@ -304,7 +304,7 @@
         android:id="@+id/babyCategoryFragment"
         android:name="com.bruno13palhano.jaspe.ui.category.baby.BabyCategoryFragment"
         android:label="BabyCategory"
-        tools:layout="@layout/fragment_baby_category">
+        tools:layout="@layout/categories_common_fragment">
 
         <action
             android:id="@+id/action_baby_category_to_product"
