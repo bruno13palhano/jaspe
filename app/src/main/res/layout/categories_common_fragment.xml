@@ -2,12 +2,11 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/toolbar_amazon_category"
+        android:id="@+id/toolbar_common_category"
         style="@style/Widget.MaterialComponents.Toolbar.Primary"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
@@ -16,15 +15,15 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/textView"
+        android:id="@+id/products_quantity"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="8dp"
-        android:text="@string/product_name_label"
+        android:text="@string/quantity_of_products_label"
         android:textSize="16sp"
         app:layout_constraintEnd_toStartOf="@+id/filter_options_button"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_amazon_category" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_common_category" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/filter_options_button"
@@ -34,12 +33,12 @@
         android:text="@string/filter_button_label"
         android:textSize="16sp"
         app:drawableRightCompat="@drawable/ic_baseline_keyboard_arrow_down_24"
-        app:layout_constraintBottom_toTopOf="@+id/amazon_category_list"
+        app:layout_constraintBottom_toTopOf="@+id/common_category_list"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_amazon_category" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_common_category" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/amazon_category_list"
+        android:id="@+id/common_category_list"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:orientation="vertical"
@@ -48,6 +47,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/products_quantity"
         app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>
