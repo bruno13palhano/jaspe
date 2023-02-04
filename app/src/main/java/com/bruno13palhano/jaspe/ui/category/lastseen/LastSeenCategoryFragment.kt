@@ -13,8 +13,11 @@ import com.bruno13palhano.jaspe.R
 import com.bruno13palhano.jaspe.ui.category.CategoriesItemAdapter
 import com.bruno13palhano.jaspe.ui.category.CategoriesViewModelFactory
 import com.bruno13palhano.jaspe.ui.common.navigateToProduct
+import com.bruno13palhano.jaspe.ui.search.FilterSearchDialogFragment
+import com.bruno13palhano.jaspe.ui.search.FilterType
 import com.bruno13palhano.model.Route
 import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.button.MaterialButton
 import kotlinx.coroutines.launch
 
 class LastSeenCategoryFragment : Fragment() {
@@ -45,6 +48,16 @@ class LastSeenCategoryFragment : Fragment() {
             viewModel.productLastSeen.collect {
                 adapter.submitList(it)
             }
+        }
+
+        val filterButton = view.findViewById<MaterialButton>(R.id.filter_options_button)
+        filterButton.setOnClickListener {
+            val filterDialog = FilterSearchDialogFragment(object : FilterSearchDialogFragment.FilterDialogListener {
+                override fun onDialogPositiveClick(filter: FilterType) {
+                    viewModel.getOrderedProducts(filter)
+                }
+            })
+            filterDialog.show(requireActivity().supportFragmentManager, "filter")
         }
 
         return view
