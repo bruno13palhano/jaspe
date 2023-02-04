@@ -2,7 +2,9 @@ package com.bruno13palhano.jaspe.ui.category.amazon
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.bruno13palhano.jaspe.ui.common.getOrderedProducts
 import com.bruno13palhano.jaspe.ui.common.prepareLastSeenProduct
+import com.bruno13palhano.jaspe.ui.search.FilterType
 import com.bruno13palhano.model.Product
 import com.bruno13palhano.model.Type
 import com.bruno13palhano.repository.external.ProductRepository
@@ -22,6 +24,10 @@ class AmazonCategoryViewModel(
                 _allProducts.value = it
             }
         }
+    }
+
+    fun getOrderedProducts(filter: FilterType) {
+        getOrderedProducts(_allProducts, filter)
     }
 
     suspend fun insertLastSeenProduct(product: Product) {

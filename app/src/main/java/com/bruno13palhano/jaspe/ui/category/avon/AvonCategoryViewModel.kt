@@ -2,7 +2,9 @@ package com.bruno13palhano.jaspe.ui.category.avon
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.bruno13palhano.jaspe.ui.common.getOrderedProducts
 import com.bruno13palhano.jaspe.ui.common.prepareLastSeenProduct
+import com.bruno13palhano.jaspe.ui.search.FilterType
 import com.bruno13palhano.model.Company
 import com.bruno13palhano.model.Product
 import com.bruno13palhano.repository.external.ProductRepository
@@ -18,10 +20,14 @@ class AvonCategoryViewModel(
 
     init {
         viewModelScope.launch {
-            productRepository.getByCompany(Company.NATURA.company, 0, 10).collect {
+            productRepository.getByCompany(Company.AVON.company, 0, 10).collect {
                 _allProducts.value = it
             }
         }
+    }
+
+    fun getOrderedProducts(filter: FilterType){
+        getOrderedProducts(_allProducts, filter)
     }
 
     suspend fun insertLastSeenProduct(product: Product) {

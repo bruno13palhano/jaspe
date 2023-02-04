@@ -2,6 +2,8 @@ package com.bruno13palhano.jaspe.ui.category.lastseen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.bruno13palhano.jaspe.ui.common.getOrderedProducts
+import com.bruno13palhano.jaspe.ui.search.FilterType
 import com.bruno13palhano.model.Product
 import com.bruno13palhano.repository.external.ProductRepository
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,6 +16,10 @@ class LastSeenCategoryViewModel(
 
     private val _productLastSeen = MutableStateFlow<List<Product>>(emptyList())
     val productLastSeen  = _productLastSeen.asStateFlow()
+
+    fun getOrderedProducts(filter: FilterType) {
+        getOrderedProducts(_productLastSeen, filter)
+    }
 
     init {
         viewModelScope.launch {
