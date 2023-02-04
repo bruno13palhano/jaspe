@@ -42,6 +42,7 @@
     <string name="icon_label">Icon</string>
     <string name="ok_button_label">OK</string>
     <string name="cancel_button_label">Cancel</string>
+    <string name="quantity_of_products_label">%d products</string>
 
     <!-- SearchCache   -->
     <string name="remove_from_history_label">Remove from history</string>
