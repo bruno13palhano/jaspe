@@ -17,7 +17,6 @@ import com.bruno13palhano.jaspe.ui.search.FilterSearchDialogFragment
 import com.bruno13palhano.jaspe.ui.search.FilterType
 import com.bruno13palhano.model.Route
 import com.google.android.material.appbar.MaterialToolbar
-import com.google.android.material.button.MaterialButton
 import com.google.android.material.textview.MaterialTextView
 import kotlinx.coroutines.launch
 
@@ -27,8 +26,9 @@ class LastSeenCategoryFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_last_seen_category, container, false)
-        val recyclerView = view.findViewById<RecyclerView>(R.id.highlights_category_list)
+        val view = inflater.inflate(R.layout.categories_common_fragment, container, false)
+        val recyclerView = view.findViewById<RecyclerView>(R.id.common_category_list)
+        val quantityProducts = view.findViewById<MaterialTextView>(R.id.products_quantity)
 
         val viewModel = requireActivity().applicationContext.let {
             CategoriesViewModelFactory(it, this@LastSeenCategoryFragment)
@@ -48,6 +48,7 @@ class LastSeenCategoryFragment : Fragment() {
         lifecycle.coroutineScope.launch {
             viewModel.productLastSeen.collect {
                 adapter.submitList(it)
+                quantityProducts.text = getString(R.string.quantity_of_products_label, it.size)
             }
         }
 
@@ -66,7 +67,7 @@ class LastSeenCategoryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val toolbar = view.findViewById<MaterialToolbar>(R.id.toolbar_highlights_category)
+        val toolbar = view.findViewById<MaterialToolbar>(R.id.toolbar_common_category)
         toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24)
         toolbar.setTitle(R.string.last_seen_category_label)
 

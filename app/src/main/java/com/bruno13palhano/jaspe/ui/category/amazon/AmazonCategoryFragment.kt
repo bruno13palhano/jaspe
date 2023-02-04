@@ -18,7 +18,6 @@ import com.bruno13palhano.jaspe.ui.search.FilterType
 import com.bruno13palhano.model.Product
 import com.bruno13palhano.model.Route
 import com.google.android.material.appbar.MaterialToolbar
-import com.google.android.material.button.MaterialButton
 import com.google.android.material.textview.MaterialTextView
 import kotlinx.coroutines.launch
 
@@ -29,8 +28,9 @@ class AmazonCategoryFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_amazon_category, container, false)
-        val recyclerView = view.findViewById<RecyclerView>(R.id.amazon_category_list)
+        val view = inflater.inflate(R.layout.categories_common_fragment, container, false)
+        val recyclerView = view.findViewById<RecyclerView>(R.id.common_category_list)
+        val quantityProducts = view.findViewById<MaterialTextView>(R.id.products_quantity)
 
         viewModel = requireActivity().applicationContext.let {
             CategoriesViewModelFactory(it, this@AmazonCategoryFragment).createAmazonCategoryViewModel()
@@ -44,6 +44,7 @@ class AmazonCategoryFragment : Fragment() {
         viewLifecycleOwner.lifecycle.coroutineScope.launch {
             viewModel.allProducts.collect {
                 adapter.submitList(it)
+                quantityProducts.text = getString(R.string.quantity_of_products_label, it.size)
             }
         }
 
@@ -62,7 +63,7 @@ class AmazonCategoryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val toolbar = view.findViewById<MaterialToolbar>(R.id.toolbar_amazon_category)
+        val toolbar = view.findViewById<MaterialToolbar>(R.id.toolbar_common_category)
         toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24)
         toolbar.setTitle(R.string.amazon_category_label)
 
