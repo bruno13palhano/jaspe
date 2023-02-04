@@ -19,6 +19,7 @@ import com.bruno13palhano.model.Product
 import com.bruno13palhano.model.Route
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.textview.MaterialTextView
 import kotlinx.coroutines.launch
 
 class BabyCategoryFragment : Fragment() {
@@ -46,7 +47,7 @@ class BabyCategoryFragment : Fragment() {
             }
         }
 
-        val filterButton = view.findViewById<MaterialButton>(R.id.filter_options_button)
+        val filterButton = view.findViewById<MaterialTextView>(R.id.filter_options_button)
         filterButton.setOnClickListener {
             val filterDialog = FilterSearchDialogFragment(object : FilterSearchDialogFragment.FilterDialogListener {
                 override fun onDialogPositiveClick(filter: FilterType) {
