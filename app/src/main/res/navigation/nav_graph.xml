@@ -85,6 +85,14 @@
             app:popExitAnim="@android:anim/slide_out_right" />
 
         <action
+            android:id="@+id/action_home_to_common_categories"
+            app:destination="@id/categoriesFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
+
+        <action
             android:id="@+id/action_home_to_search_dialog"
             app:destination="@id/searchDialogFragment"
             app:enterAnim="@android:anim/slide_in_left"
@@ -146,8 +154,8 @@
         tools:layout="@layout/fragment_category">
 
         <action
-            android:id="@+id/action_category_to_market_category"
-            app:destination="@id/marketCategoryFragment"
+            android:id="@+id/action_category_to_common_categories"
+            app:destination="@id/categoriesFragment"
             app:enterAnim="@android:anim/slide_in_left"
             app:exitAnim="@android:anim/slide_out_right"
             app:popEnterAnim="@android:anim/slide_in_left"
@@ -324,6 +332,24 @@
         <action
             android:id="@+id/action_search_dialog_to_search"
             app:destination="@id/searchFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/categoriesFragment"
+        android:name="com.bruno13palhano.jaspe.ui.category.common.CategoriesFragment"
+        android:label="CategoriesFragment"
+        tools:layout="@layout/categories_common_fragment">
+
+        <argument
+            android:name="categoryRoute"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_categories_to_product"
+            app:destination="@id/productFragment"
             app:enterAnim="@android:anim/slide_in_left"
             app:exitAnim="@android:anim/slide_out_right"
             app:popEnterAnim="@android:anim/slide_in_left"
