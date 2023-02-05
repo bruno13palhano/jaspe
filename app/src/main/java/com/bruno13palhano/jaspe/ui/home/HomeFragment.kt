@@ -20,7 +20,6 @@ import com.bruno13palhano.jaspe.MainActivity
 import com.bruno13palhano.jaspe.R
 import com.bruno13palhano.jaspe.ui.ViewModelFactory
 import com.bruno13palhano.jaspe.ui.common.getCategoryList
-import com.bruno13palhano.jaspe.ui.common.navigateToProduct
 import com.bruno13palhano.jaspe.ui.common.openWhatsApp
 import com.bruno13palhano.model.Route
 import com.bruno13palhano.model.ContactInfo
@@ -234,39 +233,18 @@ class HomeFragment : Fragment() {
     }
 
     private fun navigateToProduct(productUrlLink: String, productType: String) {
-        navigateToProduct(
-            navController = findNavController(),
-            route = Route.HOME.route,
-            firstArg = productUrlLink,
-            secondArg = productType
-        )
+        findNavController().navigate(HomeFragmentDirections
+            .actionHomeToProduct(productUrlLink, productType))
     }
 
     private fun navigateTo(route: String) {
         when (route) {
-            Route.BABY.route -> {
-                findNavController().navigate(HomeFragmentDirections.actionHomeToBabyCategory())
-            }
-            Route.MARKET.route -> {
-                findNavController().navigate(HomeFragmentDirections.actionHomeToMarketCategory())
-            }
-            Route.AVON.route -> {
-                findNavController().navigate(HomeFragmentDirections.actionHomeToAvonCategory())
-            }
-            Route.BLOG.route -> {
-                findNavController().navigate(HomeFragmentDirections.actionHomeToBlogCategory())
-            }
-            Route.LAST_SEEN.route -> {
-                findNavController().navigate(HomeFragmentDirections.actionHomeToLastSeenCategory())
-            }
-            Route.NATURA.route -> {
-                findNavController().navigate(HomeFragmentDirections.actionHomeToNaturaCategory())
-            }
-            Route.OFFERS.route -> {
-                findNavController().navigate(HomeFragmentDirections.actionHomeToOffersCategory())
-            }
             Route.SEARCH_DIALOG.route -> {
                 findNavController().navigate(HomeFragmentDirections.actionHomeToSearchDialog())
+            }
+            else -> {
+                findNavController().navigate(HomeFragmentDirections
+                    .actionHomeToCommonCategories(route))
             }
         }
     }
