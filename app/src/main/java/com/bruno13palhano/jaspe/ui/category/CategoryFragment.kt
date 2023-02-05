@@ -9,7 +9,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bruno13palhano.jaspe.R
 import com.bruno13palhano.jaspe.ui.common.getCategoryList
-import com.bruno13palhano.model.Route
 import com.google.android.material.appbar.MaterialToolbar
 
 class CategoryFragment : Fragment() {
@@ -22,7 +21,7 @@ class CategoryFragment : Fragment() {
         val recyclerView = view.findViewById<RecyclerView>(R.id.category_list)
 
         val adapter = CategoryListAdapter {
-            categoryNavigationTo(it)
+            navigateToCommonCategories(it)
         }
         recyclerView.adapter = adapter
         adapter.submitList(getCategoryList())
@@ -41,26 +40,8 @@ class CategoryFragment : Fragment() {
         }
     }
 
-    private fun categoryNavigationTo(categoryRoute: String) {
-        when (categoryRoute) {
-            Route.BABY.route -> {
-                findNavController().navigate(CategoryFragmentDirections.actionCategoryToBabyCategory())
-            }
-            Route.MARKET.route -> {
-                findNavController().navigate(CategoryFragmentDirections.actionCategoryToMarketCategory())
-            }
-            Route.AVON.route -> {
-                findNavController().navigate(CategoryFragmentDirections.actionCategoryToAvonCategory())
-            }
-            Route.NATURA.route -> {
-                findNavController().navigate(CategoryFragmentDirections.actionCategoryToNaturaCategory())
-            }
-            Route.LAST_SEEN.route -> {
-                findNavController().navigate(CategoryFragmentDirections.actionCategoryToLastSeenCategory())
-            }
-            Route.OFFERS.route -> {
-                findNavController().navigate(CategoryFragmentDirections.actionCategoryToOffersCategory())
-            }
-        }
+    private fun navigateToCommonCategories(route: String) {
+        findNavController().navigate(CategoryFragmentDirections
+            .actionCategoryToCommonCategories(route))
     }
 }
