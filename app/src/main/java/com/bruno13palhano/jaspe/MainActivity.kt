@@ -17,13 +17,15 @@ import androidx.navigation.ui.onNavDestinationSelected
 import com.bruno13palhano.jaspe.ui.common.openEmail
 import com.bruno13palhano.jaspe.ui.common.openInstagram
 import com.bruno13palhano.jaspe.ui.common.openWhatsApp
+import com.bruno13palhano.jaspe.ui.home.HomeFragmentDirections
 import com.bruno13palhano.model.ContactInfo
 import com.bruno13palhano.repository.RepositoryFactory
 import com.google.android.material.navigation.NavigationView
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var contactInfo: ContactInfo
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -31,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         val viewModel = MainViewModelFactory(application, RepositoryFactory(this)
             .createContactInfoRepository()).create(MainViewModel::class.java)
 
-        var contactInfo = ContactInfo()
+        contactInfo = ContactInfo()
 
         lifecycle.coroutineScope.launch {
             viewModel.contactInfo.collect {
@@ -54,37 +56,91 @@ class MainActivity : AppCompatActivity() {
         navView.setNavigationItemSelectedListener { item ->
             drawer.closeDrawer(GravityCompat.START)
 
+            navigateTo(
+                navController = navController,
+                item = item
+            )
+
+            true
+        }
+    }
+
+    private fun navigateTo(
+        navController: NavController,
+        item: MenuItem
+    ) {
+        if (!item.isChecked) {
             when (item.itemId) {
                 R.id.homeFragment -> {
-                    navigateTo(navController, item, R.id.homeFragment)
+                    lifecycleScope.launch {
+                        navController.apply {
+                            popBackStack(R.id.homeFragment, inclusive = false, saveState = true)
+                            navigate(HomeFragmentDirections.actionHomeToHome())
+                        }
+                    }
                 }
 
                 R.id.searchDialogFragment -> {
-                    navigateTo(navController, item, R.id.searchDialogFragment)
+                    lifecycleScope.launch {
+                        navController.apply {
+                            popBackStack(R.id.homeFragment, inclusive = false, saveState = true)
+                            navigate(HomeFragmentDirections.actionHomeToSearchDialog())
+                        }
+                    }
                 }
 
-                R.id.offersCategoryFragment -> {
-                    navigateTo(navController, item, R.id.offersCategoryFragment)
+                R.id.offersFragment -> {
+                    lifecycleScope.launch {
+                        navController.apply {
+                            popBackStack(R.id.homeFragment, inclusive = false, saveState = true)
+                            navigate(HomeFragmentDirections.actionHomeToOffersCategory())
+                        }
+                    }
                 }
 
                 R.id.favoritesFragment -> {
-                    navigateTo(navController, item, R.id.favoritesFragment)
+                    lifecycleScope.launch {
+                        navController.apply {
+                            popBackStack(R.id.homeFragment, inclusive = false, saveState = true)
+                            navigate(HomeFragmentDirections.actionHomeToFavorites())
+                        }
+                    }
                 }
 
                 R.id.categoryFragment -> {
-                    navigateTo(navController, item, R.id.categoryFragment)
+                    lifecycleScope.launch {
+                        navController.apply {
+                            popBackStack(R.id.homeFragment, inclusive = false, saveState = true)
+                            navigate(HomeFragmentDirections.actionHomeToCategory())
+                        }
+                    }
                 }
 
                 R.id.accountFragment -> {
-                    navigateTo(navController, item, R.id.accountFragment)
+                    lifecycleScope.launch {
+                        navController.apply {
+                            popBackStack(R.id.homeFragment, inclusive = false, saveState = true)
+                            navigate(HomeFragmentDirections.actionHomeToAccount())
+                        }
+                    }
                 }
 
-                R.id.blogCategoryFragment -> {
-                    navigateTo(navController, item, R.id.blogCategoryFragment)
+                R.id.blogFragment -> {
+                    lifecycleScope.launch {
+                        navController.apply {
+                            popBackStack(R.id.homeFragment, inclusive = false, saveState = true)
+                            navigate(HomeFragmentDirections.actionHomeToBlogCategory())
+                        }
+                    }
                 }
 
                 R.id.helpFragment -> {
-                    navigateTo(navController, item, R.id.helpFragment)
+                    lifecycleScope.launch {
+                        navController.apply {
+                            popBackStack(R.id.homeFragment, inclusive = false, saveState = true)
+                            navigate(HomeFragmentDirections.actionHomeToHelp())
+                        }
+                    }
                 }
 
                 R.id.whatsapp -> {
@@ -97,34 +153,6 @@ class MainActivity : AppCompatActivity() {
 
                 R.id.email -> {
                     openEmail(this, contactInfo.contactEmail)
-                }
-            }
-
-            true
-        }
-    }
-
-    private fun navigateTo(
-        navController: NavController,
-        item: MenuItem,
-        routeId: Int
-    ) {
-        if (!item.isChecked) {
-            if (routeId == R.id.homeFragment) {
-                lifecycleScope.launch {
-                    delay(270L)
-                    navController.apply {
-                        popBackStack(R.id.nav_graph, inclusive = false, saveState = false)
-                        navigate(routeId)
-                    }
-                }
-            } else {
-                lifecycleScope.launch {
-                    delay(270L)
-                    navController.apply {
-                        popBackStack(R.id.homeFragment, inclusive = false, saveState = true)
-                        navigate(routeId)
-                    }
                 }
             }
         }
