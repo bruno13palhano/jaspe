@@ -1,12 +1,6 @@
 package com.bruno13palhano.jaspe.ui.common
 
 import androidx.navigation.NavController
-import com.bruno13palhano.jaspe.ui.category.amazon.AmazonCategoryFragmentDirections
-import com.bruno13palhano.jaspe.ui.category.avon.AvonCategoryFragmentDirections
-import com.bruno13palhano.jaspe.ui.category.baby.BabyCategoryFragmentDirections
-import com.bruno13palhano.jaspe.ui.category.lastseen.LastSeenCategoryFragmentDirections
-import com.bruno13palhano.jaspe.ui.category.natura.NaturaCategoryFragmentDirections
-import com.bruno13palhano.jaspe.ui.category.offers.OffersCategoryFragmentDirections
 import com.bruno13palhano.jaspe.ui.favorite.FavoritesFragmentDirections
 import com.bruno13palhano.jaspe.ui.home.HomeFragmentDirections
 import com.bruno13palhano.jaspe.ui.search.FilterType
@@ -36,30 +30,6 @@ fun navigateToProduct(
     secondArg: String,
 ) {
     when (route) {
-        Route.BABY.route -> {
-            navController.navigate(
-                BabyCategoryFragmentDirections.actionBabyCategoryToProduct(firstArg, secondArg))
-        }
-        Route.MARKET.route -> {
-            navController.navigate(
-                AmazonCategoryFragmentDirections.actionMarketCategoryToProduct(firstArg, secondArg))
-        }
-        Route.AVON.route -> {
-            navController.navigate(
-                AvonCategoryFragmentDirections.actionAvonCategoryToProduct(firstArg, secondArg))
-        }
-        Route.NATURA.route -> {
-            navController.navigate(
-                NaturaCategoryFragmentDirections.actionNaturaCategoryToProduct(firstArg, secondArg))
-        }
-        Route.OFFERS.route -> {
-            navController.navigate(
-                OffersCategoryFragmentDirections.actionOffersCategoryToProduct(firstArg, secondArg))
-        }
-        Route.LAST_SEEN.route -> {
-            navController.navigate(
-                LastSeenCategoryFragmentDirections.actionLastSeenCategoryToProduct(firstArg, secondArg))
-        }
         Route.SEARCH_DIALOG.route -> {
             navController.navigate(
                 SearchDialogFragmentDirections.actionSearchDialogToSearch(firstArg))
