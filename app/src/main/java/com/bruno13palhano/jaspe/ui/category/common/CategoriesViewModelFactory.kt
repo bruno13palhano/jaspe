@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.bruno13palhano.repository.external.ProductRepository
 
-class CategoriesVIewModelFactory(
+class CategoriesViewModelFactory(
     private val productRepository: ProductRepository
 ) : ViewModelProvider.Factory {
 
