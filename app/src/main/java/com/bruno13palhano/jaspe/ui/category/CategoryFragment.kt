@@ -9,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bruno13palhano.jaspe.R
 import com.bruno13palhano.jaspe.ui.common.getCategoryList
+import com.bruno13palhano.model.Route
 import com.google.android.material.appbar.MaterialToolbar
 
 class CategoryFragment : Fragment() {
@@ -41,7 +42,15 @@ class CategoryFragment : Fragment() {
     }
 
     private fun navigateToCommonCategories(route: String) {
-        findNavController().navigate(CategoryFragmentDirections
-            .actionCategoryToCommonCategories(route))
+        when (route) {
+            Route.OFFERS.route -> {
+                findNavController().navigate(CategoryFragmentDirections
+                    .actionCategoryToOffers())
+            }
+            else -> {
+                findNavController().navigate(CategoryFragmentDirections
+                    .actionCategoryToCommonCategories(route))
+            }
+        }
     }
 }
