@@ -240,11 +240,10 @@ class HomeFragment : Fragment() {
     private fun navigateTo(route: String) {
         when (route) {
             Route.SEARCH_DIALOG.route -> {
-                findNavController().navigate(HomeFragmentDirections.actionHomeToSearchDialog())
+                findNavController().navigate(R.id.action_to_search_dialog)
             }
             Route.OFFERS.route -> {
-                findNavController().navigate(HomeFragmentDirections
-                    .actionHomeToOffersCategory())
+                findNavController().navigate(R.id.action_to_offers_category)
             }
             else -> {
                 findNavController().navigate(HomeFragmentDirections

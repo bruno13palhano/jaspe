@@ -17,7 +17,6 @@ import androidx.navigation.ui.onNavDestinationSelected
 import com.bruno13palhano.jaspe.ui.common.openEmail
 import com.bruno13palhano.jaspe.ui.common.openInstagram
 import com.bruno13palhano.jaspe.ui.common.openWhatsApp
-import com.bruno13palhano.jaspe.ui.home.HomeFragmentDirections
 import com.bruno13palhano.model.ContactInfo
 import com.bruno13palhano.repository.RepositoryFactory
 import com.google.android.material.navigation.NavigationView
@@ -75,7 +74,7 @@ class MainActivity : AppCompatActivity() {
                     lifecycleScope.launch {
                         navController.apply {
                             popBackStack(R.id.homeFragment, inclusive = false, saveState = true)
-                            navigate(HomeFragmentDirections.actionHomeToHome())
+                            navigate(R.id.action_to_home)
                         }
                     }
                 }
@@ -84,7 +83,7 @@ class MainActivity : AppCompatActivity() {
                     lifecycleScope.launch {
                         navController.apply {
                             popBackStack(R.id.homeFragment, inclusive = false, saveState = true)
-                            navigate(HomeFragmentDirections.actionHomeToSearchDialog())
+                            navigate(R.id.action_to_search_dialog)
                         }
                     }
                 }
@@ -93,7 +92,7 @@ class MainActivity : AppCompatActivity() {
                     lifecycleScope.launch {
                         navController.apply {
                             popBackStack(R.id.homeFragment, inclusive = false, saveState = true)
-                            navigate(HomeFragmentDirections.actionHomeToOffersCategory())
+                            navigate(R.id.action_to_offers_category)
                         }
                     }
                 }
@@ -102,7 +101,7 @@ class MainActivity : AppCompatActivity() {
                     lifecycleScope.launch {
                         navController.apply {
                             popBackStack(R.id.homeFragment, inclusive = false, saveState = true)
-                            navigate(HomeFragmentDirections.actionHomeToFavorites())
+                            navigate(R.id.action_to_favorites)
                         }
                     }
                 }
@@ -111,7 +110,7 @@ class MainActivity : AppCompatActivity() {
                     lifecycleScope.launch {
                         navController.apply {
                             popBackStack(R.id.homeFragment, inclusive = false, saveState = true)
-                            navigate(HomeFragmentDirections.actionHomeToCategory())
+                            navigate(R.id.action_to_category)
                         }
                     }
                 }
@@ -120,7 +119,7 @@ class MainActivity : AppCompatActivity() {
                     lifecycleScope.launch {
                         navController.apply {
                             popBackStack(R.id.homeFragment, inclusive = false, saveState = true)
-                            navigate(HomeFragmentDirections.actionHomeToAccount())
+                            navigate(R.id.action_to_account)
                         }
                     }
                 }
@@ -129,7 +128,7 @@ class MainActivity : AppCompatActivity() {
                     lifecycleScope.launch {
                         navController.apply {
                             popBackStack(R.id.homeFragment, inclusive = false, saveState = true)
-                            navigate(HomeFragmentDirections.actionHomeToBlogCategory())
+                            navigate(R.id.action_to_blog)
                         }
                     }
                 }
@@ -138,7 +137,7 @@ class MainActivity : AppCompatActivity() {
                     lifecycleScope.launch {
                         navController.apply {
                             popBackStack(R.id.homeFragment, inclusive = false, saveState = true)
-                            navigate(HomeFragmentDirections.actionHomeToHelp())
+                            navigate(R.id.action_to_help)
                         }
                     }
                 }
