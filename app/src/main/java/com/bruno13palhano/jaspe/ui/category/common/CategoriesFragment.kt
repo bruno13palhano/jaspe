@@ -1,60 +1,113 @@
-package com.bruno13palhano.jaspe.ui.category
+package com.bruno13palhano.jaspe.ui.category.common
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.coroutineScope
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.RecyclerView
 import com.bruno13palhano.jaspe.R
+import com.bruno13palhano.jaspe.ui.category.CategoriesItemAdapter
+import com.bruno13palhano.jaspe.ui.search.FilterSearchDialogFragment
+import com.bruno13palhano.jaspe.ui.search.FilterType
+import com.bruno13palhano.model.Product
+import com.bruno13palhano.model.Route
+import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.textview.MaterialTextView
+import kotlinx.coroutines.launch
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [CategoriesFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class CategoriesFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var viewModel: CategoriesViewModel
+    private var categoryRoute = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_categories, container, false)
+        val view = inflater.inflate(R.layout.categories_common_fragment, container, false)
+        val commonRecyclerView = view.findViewById<RecyclerView>(R.id.common_category_list)
+        val quantityProducts = view.findViewById<MaterialTextView>(R.id.products_quantity)
+
+        categoryRoute = CategoriesFragmentArgs.fromBundle(requireArguments())
+            .categoryRoute
+
+        viewModel = requireActivity().applicationContext.let {
+            com.bruno13palhano.jaspe.ui.category.CategoriesViewModelFactory(it, this@CategoriesFragment).createCategoriesViewModel()
+        }
+
+        viewModel.setProducts(categoryRoute)
+
+        val adapter = CategoriesItemAdapter { product ->
+            onProductItemClick(product)
+        }
+        commonRecyclerView.adapter = adapter
+
+        lifecycle.coroutineScope.launch {
+            viewModel.allProduct.collect {
+                adapter.submitList(it)
+                quantityProducts.text = getString(R.string.quantity_of_products_label, it.size)
+            }
+        }
+
+        val filterButton = view.findViewById<MaterialTextView>(R.id.filter_options_button)
+        filterButton.setOnClickListener {
+            val filterDialog = FilterSearchDialogFragment(object  : FilterSearchDialogFragment.FilterDialogListener {
+                override fun onDialogPositiveClick(filter: FilterType) {
+                    viewModel.getOrderedProducts(filter)
+                }
+            })
+            filterDialog.show(requireActivity().supportFragmentManager, "filter")
+        }
+
+        return view
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment CategoriesFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            CategoriesFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val toolbar = view.findViewById<MaterialToolbar>(R.id.toolbar_common_category)
+        toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24)
+        toolbar.title = setToolbarTitle(categoryRoute)
+
+        toolbar.setNavigationOnClickListener {
+            findNavController().navigateUp()
+        }
+    }
+
+    private fun onProductItemClick(product: Product) {
+        insertLastSeenProduct(product)
+        findNavController().navigate(CategoriesFragmentDirections
+            .actionCategoriesToProduct(product.productUrlLink, product.productType))
+    }
+
+    private fun insertLastSeenProduct(product: Product) {
+        lifecycle.coroutineScope.launch {
+            viewModel.insertLastSeenProduct(product)
+        }
+    }
+
+    private fun setToolbarTitle(route: String): String {
+        return when (route) {
+            Route.BABY.route -> {
+                getString(R.string.baby_category_label)
             }
+            Route.MARKET.route -> {
+                getString(R.string.amazon_category_label)
+            }
+            Route.AVON.route -> {
+                getString(R.string.avon_category_label)
+            }
+            Route.NATURA.route -> {
+                getString(R.string.natura_category_label)
+            }
+            Route.OFFERS.route -> {
+                getString(R.string.offers_category_label)
+            }
+            Route.LAST_SEEN.route -> {
+                getString(R.string.last_seen_category_label)
+            }
+            else -> ""
+        }
     }
 }
