@@ -242,6 +242,10 @@ class HomeFragment : Fragment() {
             Route.SEARCH_DIALOG.route -> {
                 findNavController().navigate(HomeFragmentDirections.actionHomeToSearchDialog())
             }
+            Route.OFFERS.route -> {
+                findNavController().navigate(HomeFragmentDirections
+                    .actionHomeToOffersCategory())
+            }
             else -> {
                 findNavController().navigate(HomeFragmentDirections
                     .actionHomeToCommonCategories(route))
