@@ -30,4 +30,9 @@ class RepositoryFactory(
         val contactRepositoryDao = JaspeDatabase.getInstance(context).contactInfoDao
         return ContactInfoRepositoryImpl(contactRepositoryDao)
     }
+
+    fun createBlogRepository(): BlogPostRepository {
+        val blogPostDao = JaspeDatabase.getInstance(context).blogPostDao
+        return BlogPostRepositoryImpl(blogPostDao)
+    }
 }
