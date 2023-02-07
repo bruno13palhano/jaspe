@@ -3,6 +3,8 @@ package com.bruno13palhano.jaspe.ui.category
 import android.content.Context
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
+import com.bruno13palhano.jaspe.ui.category.blog.BlogViewModel
+import com.bruno13palhano.jaspe.ui.category.blog.BlogViewModelFactory
 import com.bruno13palhano.jaspe.ui.category.common.CategoriesViewModelFactory
 import com.bruno13palhano.jaspe.ui.category.common.CategoriesViewModel
 import com.bruno13palhano.jaspe.ui.category.offers.OffersViewModel
@@ -16,14 +18,20 @@ class CategoriesViewModelFactory(
     private val repositoryFactory = RepositoryFactory(context)
 
     fun createCategoriesViewModel(): CategoriesViewModel {
-        val categoriesViewModel =
+        val categoriesViewModelFactory =
             CategoriesViewModelFactory(repositoryFactory.createProductRepository())
-        return ViewModelProvider(owner, categoriesViewModel)[CategoriesViewModel::class.java]
+        return ViewModelProvider(owner, categoriesViewModelFactory)[CategoriesViewModel::class.java]
     }
 
     fun createOffersViewModel(): OffersViewModel {
-        val offersViewModel =
+        val offersViewModelFactory =
             OffersViewModelFactory(repositoryFactory.createProductRepository())
-        return ViewModelProvider(owner, offersViewModel)[OffersViewModel::class.java]
+        return ViewModelProvider(owner, offersViewModelFactory)[OffersViewModel::class.java]
+    }
+
+    fun createBlogViewModel(): BlogViewModel {
+        val blogViewModelFactory =
+            BlogViewModelFactory(repositoryFactory.createBlogRepository())
+        return ViewModelProvider(owner, blogViewModelFactory)[BlogViewModel::class.java]
     }
 }
