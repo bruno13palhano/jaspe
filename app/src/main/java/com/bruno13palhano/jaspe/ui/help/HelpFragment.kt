@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.navigation.fragment.findNavController
 import com.bruno13palhano.jaspe.R
 import com.google.android.material.appbar.MaterialToolbar
@@ -15,7 +16,14 @@ class HelpFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_help, container, false)
+        val view = inflater.inflate(R.layout.fragment_help, container, false)
+        val visitUs = view.findViewById<AppCompatTextView>(R.id.visit_us)
+
+        visitUs.setOnClickListener {
+            println("clicked")
+        }
+
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

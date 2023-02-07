@@ -185,7 +185,7 @@
 
     <fragment
         android:id="@+id/helpFragment"
-        android:name="com.bruno13palhano.jaspe.ui.HelpFragment"
+        android:name="com.bruno13palhano.jaspe.ui.help.HelpFragment"
         android:label="@string/help_label"
         tools:layout="@layout/fragment_help" />
 
