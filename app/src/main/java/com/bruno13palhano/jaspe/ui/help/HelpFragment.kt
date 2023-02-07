@@ -11,11 +11,13 @@ import androidx.navigation.fragment.findNavController
 import com.bruno13palhano.jaspe.R
 import com.bruno13palhano.jaspe.ui.ViewModelFactory
 import com.bruno13palhano.jaspe.ui.common.openInstagram
+import com.bruno13palhano.jaspe.ui.common.openWhatsApp
 import com.bruno13palhano.model.ContactInfo
 import com.google.android.material.appbar.MaterialToolbar
 import kotlinx.coroutines.launch
 
 class HelpFragment : Fragment() {
+    private lateinit  var contactInfo: ContactInfo
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,7 +26,7 @@ class HelpFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_help, container, false)
         val visitUs = view.findViewById<AppCompatTextView>(R.id.visit_us)
 
-        var contactInfo = ContactInfo()
+        contactInfo = ContactInfo()
 
         visitUs.setOnClickListener {
            openInstagram(requireActivity(), contactInfo.contactInstagram)
@@ -48,6 +50,16 @@ class HelpFragment : Fragment() {
         toolbar.inflateMenu(R.menu.menu_toolbar)
         toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24)
         toolbar.title = getString(R.string.help_label)
+
+        toolbar.setOnMenuItemClickListener {
+            when(it.itemId) {
+                R.id.whatsappChat -> {
+                    openWhatsApp(requireContext(), contactInfo.contactWhatsApp, "")
+                    true
+                }
+                else -> false
+            }
+        }
 
         toolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
