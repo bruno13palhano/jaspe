@@ -1,4 +1,4 @@
-package com.bruno13palhano.jaspe.ui
+package com.bruno13palhano.jaspe.ui.help
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,9 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.lifecycle.coroutineScope
 import androidx.navigation.fragment.findNavController
 import com.bruno13palhano.jaspe.R
+import com.bruno13palhano.jaspe.ui.ViewModelFactory
+import com.bruno13palhano.jaspe.ui.common.openInstagram
+import com.bruno13palhano.model.ContactInfo
 import com.google.android.material.appbar.MaterialToolbar
+import kotlinx.coroutines.launch
 
 class HelpFragment : Fragment() {
 
@@ -19,8 +24,19 @@ class HelpFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_help, container, false)
         val visitUs = view.findViewById<AppCompatTextView>(R.id.visit_us)
 
+        var contactInfo = ContactInfo()
+
         visitUs.setOnClickListener {
-            println("clicked")
+           openInstagram(requireActivity(), contactInfo.contactInstagram)
+        }
+
+        val viewModel = ViewModelFactory(requireContext().applicationContext, this@HelpFragment)
+            .createHelpViewModel()
+
+        lifecycle.coroutineScope.launch {
+            viewModel.contactInfo.collect {
+                contactInfo = it
+            }
         }
 
         return view
