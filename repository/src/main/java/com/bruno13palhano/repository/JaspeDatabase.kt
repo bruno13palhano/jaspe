@@ -30,6 +30,7 @@ internal abstract class JaspeDatabase : RoomDatabase() {
     abstract val favoriteProductDao: FavoriteProductDao
     abstract val searchCacheDao: SearchCacheRepDao
     abstract val contactInfoDao: ContactInfoDao
+    abstract val blogPostDao: BlogPostDao
 
     companion object {
         @Volatile
