@@ -2,6 +2,8 @@ package com.example.network.service
 
 import com.example.network.service.banner.BannerNetwork
 import com.example.network.service.banner.BannerNetworkImpl
+import com.example.network.service.blog.BlogPostNetwork
+import com.example.network.service.blog.BlogPostNetworkImpl
 import com.example.network.service.contact.ContactInfoNetwork
 import com.example.network.service.contact.ContactInfoNetworkImp
 import com.example.network.service.product.ProductNetwork
@@ -19,5 +21,9 @@ class NetworkFactory {
 
     fun createContactInfoNetwork(): ContactInfoNetwork {
         return ContactInfoNetworkImp()
+    }
+
+    fun createBlogPostNetwork(): BlogPostNetwork {
+        return BlogPostNetworkImpl()
     }
 }

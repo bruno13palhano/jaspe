@@ -1,6 +1,7 @@
 package com.example.network.service
 
 import com.example.network.model.BannerNet
+import com.example.network.model.BlogPostNet
 import com.example.network.model.ContactInfoNet
 import com.example.network.model.ProductNet
 import retrofit2.http.GET
@@ -46,4 +47,7 @@ internal interface Service {
 
     @GET("contact")
     suspend fun getContact(): ContactInfoNet
+
+    @GET("posts")
+    suspend fun getBlogPosts(): List<BlogPostNet>
 }
