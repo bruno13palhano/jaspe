@@ -9,8 +9,7 @@ import com.bruno13palhano.jaspe.ui.help.HelpViewModel
 import com.bruno13palhano.jaspe.ui.help.HelpViewModelFactory
 import com.bruno13palhano.jaspe.ui.home.HomeViewModel
 import com.bruno13palhano.jaspe.ui.home.HomeViewModelFactory
-import com.bruno13palhano.jaspe.ui.product.ProductViewModel
-import com.bruno13palhano.jaspe.ui.product.ProductViewModelFactory
+import com.bruno13palhano.jaspe.ui.product.*
 import com.bruno13palhano.jaspe.ui.search.SearchDialogViewModel
 import com.bruno13palhano.jaspe.ui.search.SearchDialogViewModelFactory
 import com.bruno13palhano.jaspe.ui.search.SearchViewModel
@@ -69,5 +68,27 @@ class ViewModelFactory(
             HelpViewModelFactory(repositoryFactory.createContactInfoRepository())
 
         return ViewModelProvider(owner, helpViewModelFactory)[HelpViewModel::class.java]
+    }
+
+    fun createMockViewModel(): MockViewModel {
+        val mockViewModelFactory =
+            MockViewModelFactory(
+                productRepository = repositoryFactory.createProductRepository(),
+                favoriteProductRepository = repositoryFactory.createFavoriteProductRepository(),
+                contactInfoRepository = repositoryFactory.createContactInfoRepository()
+            )
+
+        return ViewModelProvider(owner, mockViewModelFactory)[MockViewModel::class.java]
+    }
+
+    fun createProductSlidePageViewModel(): ProductSlidePageViewModel {
+        val productSlidePageViewModelFactory =
+            ProductSlidePageViewModelFactory(
+                productRepository = repositoryFactory.createProductRepository(),
+                favoriteProductRepository = repositoryFactory.createFavoriteProductRepository(),
+                contactInfoRepository = repositoryFactory.createContactInfoRepository()
+            )
+
+        return ViewModelProvider(owner, productSlidePageViewModelFactory)[ProductSlidePageViewModel::class.java]
     }
 }

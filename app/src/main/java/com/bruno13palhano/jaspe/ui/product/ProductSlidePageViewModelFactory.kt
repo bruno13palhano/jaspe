@@ -6,15 +6,15 @@ import com.bruno13palhano.repository.external.ContactInfoRepository
 import com.bruno13palhano.repository.external.FavoriteProductRepository
 import com.bruno13palhano.repository.external.ProductRepository
 
-class MockViewModelFactory(
+class ProductSlidePageViewModelFactory(
     private val productRepository: ProductRepository,
     private val favoriteProductRepository: FavoriteProductRepository,
     private val contactInfoRepository: ContactInfoRepository
 ) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(MockViewModel::class.java)) {
-            return MockViewModel(
+        if (modelClass.isAssignableFrom(ProductSlidePageViewModel::class.java)) {
+            return ProductSlidePageViewModel(
                 productRepository = productRepository,
                 favoriteProductRepository = favoriteProductRepository,
                 contactInfoRepository = contactInfoRepository
