@@ -62,6 +62,10 @@
         android:id="@+id/menuBottom"
         android:checkableBehavior="single">
         <item
+            android:id="@+id/loginFragment"
+            android:icon="@drawable/ic_baseline_keyboard_arrow_down_24"
+            android:title="Login" />
+        <item
             android:id="@+id/blogFragment"
             android:icon="@drawable/ic_baseline_message_24"
             android:title="@string/blog_category_label"/>
