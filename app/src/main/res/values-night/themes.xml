@@ -58,4 +58,10 @@
     <style name="NegativeButtonStyle" parent="@style/Widget.MaterialComponents.Button.TextButton.Dialog">
         <item name="android:textColor">?colorSecondary</item>
     </style>
+
+    <style name="CustomTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/selector</item>
+        <item name="hintTextColor">?colorSecondary</item>
+        <item name="android:textColorHint">?colorSecondary</item>
+    </style>
 </resources>
