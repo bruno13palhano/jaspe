@@ -5,21 +5,20 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import com.bruno13palhano.jaspe.R
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
 class LoginFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
-    private var user: FirebaseUser? = null
-    private lateinit var emailEditText: EditText
-    private lateinit var passwordEditText: EditText
+    private lateinit var emailEditText: TextInputEditText
+    private lateinit var passwordEditText: TextInputEditText
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,7 +37,7 @@ class LoginFragment : Fragment() {
         }
 
         createAccount.setOnClickListener {
-            println("create account was clicked")
+            navigateToCreateAccount()
         }
 
         return view
@@ -50,7 +49,6 @@ class LoginFragment : Fragment() {
 
         if (isParamsValid(email, password)) {
             login(email, password)
-            //call navigateToHome()
         } else {
             Toast.makeText(
                 context, getString(R.string.invalid_login_params), Toast.LENGTH_SHORT).show()
@@ -58,7 +56,13 @@ class LoginFragment : Fragment() {
     }
 
     private fun navigateToHome() {
-        // TODO: implementar a navegação
+        findNavController().navigate(
+            LoginFragmentDirections.actionLoginToHome())
+    }
+
+    private fun navigateToCreateAccount() {
+        findNavController().navigate(
+            LoginFragmentDirections.actionLoginToCreateAccount())
     }
 
     private fun isParamsValid(email: String, password: String): Boolean =
@@ -68,10 +72,7 @@ class LoginFragment : Fragment() {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    user = auth.currentUser
-                    println("username: ${user?.displayName}")
-                    println("email: ${user?.email}")
-                    println("photoUrl: ${user?.photoUrl}")
+                    navigateToHome()
                 } else {
                     Toast.makeText(
                         context, getString(R.string.invalid_login_params), Toast.LENGTH_SHORT).show()
