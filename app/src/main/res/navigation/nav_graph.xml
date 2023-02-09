@@ -13,6 +13,14 @@
         tools:layout="@layout/fragment_login">
 
         <action
+            android:id="@+id/action_login_to_home"
+            app:destination="@id/homeFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
+
+        <action
             android:id="@+id/action_login_to_create_account"
             app:destination="@id/createAccountFragment"
             app:enterAnim="@android:anim/slide_in_left"
