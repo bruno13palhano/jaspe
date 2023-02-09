@@ -7,6 +7,12 @@
     app:startDestination="@id/homeFragment">
 
     <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.bruno13palhano.jaspe.ui.login.LoginFragment"
+        android:label="LoginFragment"
+        tools:layout="@layout/fragment_login" />
+
+    <fragment
         android:id="@+id/mockProductFragment"
         android:name="com.bruno13palhano.jaspe.ui.product.MockProductFragment"
         android:label="MockProduct"
@@ -19,6 +25,14 @@
             android:name="productType"
             app:argType="string" />
     </fragment>
+
+    <action
+        android:id="@+id/action_to_login"
+        app:destination="@id/loginFragment"
+        app:enterAnim="@android:anim/slide_in_left"
+        app:exitAnim="@android:anim/slide_out_right"
+        app:popEnterAnim="@android:anim/slide_in_left"
+        app:popExitAnim="@android:anim/slide_out_right" />
 
     <action
         android:id="@+id/action_to_home"
