@@ -81,5 +81,7 @@
     <string name="login_button_label">login</string>
     <string name="create_account_label">create account</string>
     <string name="invalid_login_params">Invalid email or password</string>
-
+    <string name="username_label">username</string>
+    <string name="back_label">back</string>
+    <string name="create_label">create</string>
 </resources>
