@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/loginFragment">
 
     <fragment
         android:id="@+id/loginFragment"
@@ -33,7 +33,16 @@
         android:id="@+id/createAccountFragment"
         android:name="com.bruno13palhano.jaspe.ui.create_account.CreateAccountFragment"
         android:label="CreateAccount"
-        tools:layout="@layout/fragment_create_account" />
+        tools:layout="@layout/fragment_create_account">
+
+        <action
+            android:id="@+id/action_create_account_to_home"
+            app:destination="@id/homeFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
+    </fragment>
 
     <fragment
         android:id="@+id/mockProductFragment"
