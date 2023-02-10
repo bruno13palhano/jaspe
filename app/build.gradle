@@ -47,6 +47,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation project(path: ':app:model')
     implementation project(path: ':network')
+    implementation project(path: ':authentication')
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
@@ -59,7 +60,4 @@ dependencies {
 
     implementation("io.coil-kt:coil:2.2.2")
     implementation "androidx.work:work-runtime-ktx:$versions_work"
-
-    implementation platform('com.google.firebase:firebase-bom:31.2.0')
-    implementation 'com.google.firebase:firebase-auth-ktx'
 }
