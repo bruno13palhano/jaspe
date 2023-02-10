@@ -22,8 +22,9 @@ import com.bruno13palhano.repository.RepositoryFactory
 import com.google.android.material.navigation.NavigationView
 import kotlinx.coroutines.launch
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), DrawerLock {
     private lateinit var contactInfo: ContactInfo
+    private lateinit var drawer: DrawerLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +45,7 @@ class MainActivity : AppCompatActivity() {
             .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
 
-        val drawer = findViewById<DrawerLayout>(R.id.drawer_layout)
+        drawer = findViewById(R.id.drawer_layout)
 
         val builder = AppBarConfiguration.Builder(navController.graph)
         builder.setOpenableLayout(drawer)
@@ -167,4 +168,21 @@ class MainActivity : AppCompatActivity() {
         return item.onNavDestinationSelected(navController)
                 || super.onOptionsItemSelected(item)
     }
+
+    override fun setDrawerEnable(enabled: Boolean) {
+        val lockMode = when (enabled) {
+            true -> {
+                DrawerLayout.LOCK_MODE_UNLOCKED
+            }
+            else -> {
+                DrawerLayout.LOCK_MODE_LOCKED_CLOSED
+            }
+        }
+
+        drawer.setDrawerLockMode(lockMode)
+    }
+}
+
+interface DrawerLock {
+    fun setDrawerEnable(enabled: Boolean)
 }
