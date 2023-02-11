@@ -4,12 +4,10 @@ import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.PeriodicWorkRequest
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
-import com.bruno13palhano.jaspe.work.BannerWork
-import com.bruno13palhano.jaspe.work.ContactWork
-import com.bruno13palhano.jaspe.work.NotificationWork
-import com.bruno13palhano.jaspe.work.ProductWork
+import com.bruno13palhano.jaspe.work.*
 import com.bruno13palhano.model.ContactInfo
 import com.bruno13palhano.repository.external.ContactInfoRepository
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -42,14 +40,7 @@ class MainViewModel(
     val contactInfo = _contactInfo.asStateFlow()
 
     init {
-        workManager.enqueueUniquePeriodicWork(
-            "PRODUCT_WORK", ExistingPeriodicWorkPolicy.KEEP, fetchProductData)
-        workManager.enqueueUniquePeriodicWork(
-            "BANNER_WORK", ExistingPeriodicWorkPolicy.KEEP, fetchBannerData)
-        workManager.enqueueUniquePeriodicWork(
-            "CONTACT_WORK", ExistingPeriodicWorkPolicy.KEEP, fetchContactData)
-        workManager.enqueueUniquePeriodicWork(
-            "NOTIFICATION_WORK", ExistingPeriodicWorkPolicy.KEEP, fetchNotificationData)
+        initWorks()
 
         viewModelScope.launch {
             try {
@@ -58,5 +49,21 @@ class MainViewModel(
                 }
             } catch (ignored: Exception) {}
         }
+    }
+
+    private fun initWorks() {
+        setWork(WorkNames.PRODUCT, workManager, fetchProductData)
+        setWork(WorkNames.BANNER, workManager, fetchBannerData)
+        setWork(WorkNames.CONTACT, workManager, fetchContactData)
+        setWork(WorkNames.NOTIFICATION, workManager, fetchNotificationData)
+    }
+
+    private fun setWork(
+        workName: WorkNames,
+        workManager: WorkManager,
+        periodicWorkRequest: PeriodicWorkRequest
+    ) {
+        workManager.enqueueUniquePeriodicWork(
+            workName.tag, ExistingPeriodicWorkPolicy.KEEP, periodicWorkRequest)
     }
 }
