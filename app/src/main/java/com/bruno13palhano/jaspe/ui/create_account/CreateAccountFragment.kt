@@ -5,56 +5,72 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import android.widget.Toast
+import androidx.navigation.fragment.findNavController
+import com.bruno13palhano.authentication.core.UserAuthentication
+import com.bruno13palhano.authentication.core.UserFirebase
 import com.bruno13palhano.jaspe.R
+import com.bruno13palhano.model.User
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.textfield.TextInputEditText
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [CreateAccountFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class CreateAccountFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var authentication: UserAuthentication
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_create_account, container, false)
+        val view = inflater.inflate(R.layout.fragment_create_account, container, false)
+        val createAccountButton = view.findViewById<MaterialButton>(R.id.create)
+        val back = view.findViewById<TextView>(R.id.back)
+        val usernameEditText = view.findViewById<TextInputEditText>(R.id.username)
+        val emailEditText = view.findViewById<TextInputEditText>(R.id.email)
+        val passwordEditText = view.findViewById<TextInputEditText>(R.id.password)
+
+        authentication = UserFirebase()
+
+        createAccountButton.setOnClickListener {
+            val username = usernameEditText.text.toString()
+            val email = emailEditText.text.toString()
+            val password = passwordEditText.text.toString()
+
+            if (isUserParamsValid(username, email, password)) {
+                val user = User(
+                    username = username,
+                    email = email,
+                    password = password
+                )
+                createUser(user)
+            }
+        }
+
+        back.setOnClickListener {
+            findNavController().navigateUp()
+        }
+
+        return view
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment CreateAccountFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            CreateAccountFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    private fun createUser(user: User) {
+        authentication.createUser(
+            user = user,
+            successfulCallback = {
+                navigateToHome()
+            },
+            failedCallback = {
+                Toast.makeText(requireContext(), R.string.authentication_failed_label,
+                    Toast.LENGTH_SHORT).show()
             }
+        )
+    }
+
+    private fun isUserParamsValid(username: String, email: String, password: String): Boolean =
+        (username != "") && (email != "") && (password != "")
+
+    private fun navigateToHome() {
+        findNavController().navigate(
+            CreateAccountFragmentDirections.actionCreateAccountToHome())
     }
 }
