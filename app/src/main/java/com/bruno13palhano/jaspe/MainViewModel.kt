@@ -8,6 +8,7 @@ import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import com.bruno13palhano.jaspe.work.BannerWork
 import com.bruno13palhano.jaspe.work.ContactWork
+import com.bruno13palhano.jaspe.work.NotificationWork
 import com.bruno13palhano.jaspe.work.ProductWork
 import com.bruno13palhano.model.ContactInfo
 import com.bruno13palhano.repository.external.ContactInfoRepository
@@ -33,6 +34,10 @@ class MainViewModel(
         PeriodicWorkRequestBuilder<ContactWork>(1, TimeUnit.HOURS)
             .build()
 
+    private val fetchNotificationData =
+        PeriodicWorkRequestBuilder<NotificationWork>(15, TimeUnit.MINUTES)
+            .build()
+
     private val _contactInfo = MutableStateFlow(ContactInfo())
     val contactInfo = _contactInfo.asStateFlow()
 
@@ -43,6 +48,8 @@ class MainViewModel(
             "BANNER_WORK", ExistingPeriodicWorkPolicy.KEEP, fetchBannerData)
         workManager.enqueueUniquePeriodicWork(
             "CONTACT_WORK", ExistingPeriodicWorkPolicy.KEEP, fetchContactData)
+        workManager.enqueueUniquePeriodicWork(
+            "NOTIFICATION_WORK", ExistingPeriodicWorkPolicy.KEEP, fetchNotificationData)
 
         viewModelScope.launch {
             try {
