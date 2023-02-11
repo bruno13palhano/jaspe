@@ -1,9 +1,11 @@
 package com.example.network.service
 
+import com.example.network.model.*
 import com.example.network.model.BannerNet
 import com.example.network.model.BlogPostNet
 import com.example.network.model.ContactInfoNet
 import com.example.network.model.ProductNet
+import kotlinx.coroutines.flow.Flow
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -50,4 +52,7 @@ internal interface Service {
 
     @GET("posts")
     suspend fun getBlogPosts(): List<BlogPostNet>
+
+    @GET("notification/offer")
+    suspend fun getOfferNotification(): OfferNotificationNet
 }
