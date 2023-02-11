@@ -30,6 +30,15 @@
                 android:contentDescription="@string/product_picture_description"
                 android:src="@drawable/profile"
                 android:scaleType="centerCrop" />
+
+            <ImageView
+                android:id="@+id/close_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:padding="8dp"
+                android:src="@drawable/ic_baseline_close_24"
+                android:contentDescription="@string/close_login" />
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.textfield.TextInputLayout
