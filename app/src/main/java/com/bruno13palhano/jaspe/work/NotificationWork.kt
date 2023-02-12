@@ -26,10 +26,8 @@ class NotificationWork(
 
     override suspend fun doWork(): Result {
 
-        if (authentication.isUserAuthenticated()) {
-            offerNotificationNetwork.getOfferNotification().collect {
-                initOfferNotification(it)
-            }
+        offerNotificationNetwork.getOfferNotification().collect {
+            initOfferNotification(it)
         }
 
         return Result.success()
