@@ -22,7 +22,8 @@ import com.bruno13palhano.repository.model.SearchCacheRep
     SearchCacheRep::class,
     ContactInfoRep::class,
     LastSeenRep::class,
-    BlogPostRep::class],
+    BlogPostRep::class,
+    UserRep::class],
     version = 1, exportSchema = false)
 internal abstract class JaspeDatabase : RoomDatabase() {
     abstract val productDao: ProductDao
@@ -31,6 +32,7 @@ internal abstract class JaspeDatabase : RoomDatabase() {
     abstract val searchCacheDao: SearchCacheRepDao
     abstract val contactInfoDao: ContactInfoDao
     abstract val blogPostDao: BlogPostDao
+    abstract val userDao: UserDao
 
     companion object {
         @Volatile
