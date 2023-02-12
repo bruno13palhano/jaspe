@@ -8,18 +8,23 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.lifecycle.coroutineScope
 import androidx.navigation.fragment.findNavController
 import com.bruno13palhano.authentication.core.UserAuthentication
 import com.bruno13palhano.authentication.core.UserFirebase
 import com.bruno13palhano.jaspe.DrawerLock
 import com.bruno13palhano.jaspe.R
+import com.bruno13palhano.jaspe.ui.ViewModelFactory
+import com.bruno13palhano.model.User
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
+import kotlinx.coroutines.launch
 
 class LoginFragment : Fragment() {
     private lateinit var emailEditText: TextInputEditText
     private lateinit var passwordEditText: TextInputEditText
     private lateinit var authentication: UserAuthentication
+    private lateinit var viewModel: LoginViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,6 +34,9 @@ class LoginFragment : Fragment() {
         val loginButton = view.findViewById<MaterialButton>(R.id.login_button)
         val createAccount = view.findViewById<TextView>(R.id.create_account)
         val closeLogin = view.findViewById<ImageView>(R.id.close_login)
+
+        viewModel = ViewModelFactory(requireContext(), this@LoginFragment)
+            .createLoginViewModel()
 
         authentication = UserFirebase()
         emailEditText = view.findViewById(R.id.email)
@@ -54,8 +62,15 @@ class LoginFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         if (authentication.isUserAuthenticated()) {
+            insertUserInDb(authentication.getCurrentUser())
             findNavController().navigate(LoginFragmentDirections.actionLoginToHome())
             setDrawerEnable(true)
+        }
+    }
+
+    private fun insertUserInDb(user: User) {
+        lifecycle.coroutineScope.launch {
+            viewModel.insertUser(user)
         }
     }
 
@@ -96,7 +111,10 @@ class LoginFragment : Fragment() {
         authentication.login(
             email = email,
             password = password,
-            successfulCallback = { navigateToHome() },
+            successfulCallback = {
+                navigateToHome()
+                insertUserInDb(authentication.getCurrentUser())
+            },
             failedCallback = {
                 Toast.makeText(
                         context, getString(R.string.invalid_login_params), Toast.LENGTH_SHORT).show()
