@@ -7,16 +7,21 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.lifecycle.coroutineScope
 import androidx.navigation.fragment.findNavController
 import com.bruno13palhano.authentication.core.UserAuthentication
 import com.bruno13palhano.authentication.core.UserFirebase
+import com.bruno13palhano.jaspe.DrawerLock
 import com.bruno13palhano.jaspe.R
+import com.bruno13palhano.jaspe.ui.ViewModelFactory
 import com.bruno13palhano.model.User
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
+import kotlinx.coroutines.launch
 
 class CreateAccountFragment : Fragment() {
     private lateinit var authentication: UserAuthentication
+    private lateinit var viewModel: CreateAccountViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,6 +35,9 @@ class CreateAccountFragment : Fragment() {
         val passwordEditText = view.findViewById<TextInputEditText>(R.id.password)
 
         authentication = UserFirebase()
+
+        viewModel = ViewModelFactory(requireContext(), this@CreateAccountFragment)
+            .createCreateAccountViewModel()
 
         createAccountButton.setOnClickListener {
             val username = usernameEditText.text.toString()
@@ -57,6 +65,8 @@ class CreateAccountFragment : Fragment() {
         authentication.createUser(
             user = user,
             successfulCallback = {
+                insertUserInDB(authentication.getCurrentUser())
+                setDrawerEnable()
                 navigateToHome()
             },
             failedCallback = {
@@ -64,6 +74,16 @@ class CreateAccountFragment : Fragment() {
                     Toast.LENGTH_SHORT).show()
             }
         )
+    }
+
+    private fun setDrawerEnable() {
+        ((activity as DrawerLock)).setDrawerEnable(true)
+    }
+
+    private fun insertUserInDB(user: User) {
+        lifecycle.coroutineScope.launch {
+            viewModel.insertUser(user)
+        }
     }
 
     private fun isUserParamsValid(username: String, email: String, password: String): Boolean =
