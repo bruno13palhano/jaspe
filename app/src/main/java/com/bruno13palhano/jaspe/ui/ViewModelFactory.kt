@@ -3,12 +3,16 @@ package com.bruno13palhano.jaspe.ui
 import android.content.Context
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
+import com.bruno13palhano.jaspe.ui.create_account.CreateAccountViewModel
+import com.bruno13palhano.jaspe.ui.create_account.CreateAccountViewModelFactory
 import com.bruno13palhano.jaspe.ui.favorite.FavoritesViewModel
 import com.bruno13palhano.jaspe.ui.favorite.FavoritesViewModelFactory
 import com.bruno13palhano.jaspe.ui.help.HelpViewModel
 import com.bruno13palhano.jaspe.ui.help.HelpViewModelFactory
 import com.bruno13palhano.jaspe.ui.home.HomeViewModel
 import com.bruno13palhano.jaspe.ui.home.HomeViewModelFactory
+import com.bruno13palhano.jaspe.ui.login.LoginViewModel
+import com.bruno13palhano.jaspe.ui.login.LoginViewModelFactory
 import com.bruno13palhano.jaspe.ui.product.*
 import com.bruno13palhano.jaspe.ui.search.SearchDialogViewModel
 import com.bruno13palhano.jaspe.ui.search.SearchDialogViewModelFactory
@@ -90,5 +94,19 @@ class ViewModelFactory(
             )
 
         return ViewModelProvider(owner, productSlidePageViewModelFactory)[ProductSlidePageViewModel::class.java]
+    }
+
+    fun createCreateAccountViewModel(): CreateAccountViewModel {
+        val createAccountViewModelFactory =
+            CreateAccountViewModelFactory(repositoryFactory.createUserRepository())
+
+        return ViewModelProvider(owner, createAccountViewModelFactory)[CreateAccountViewModel::class.java]
+    }
+
+    fun createLoginViewModel(): LoginViewModel {
+        val loginViewModelFactory =
+            LoginViewModelFactory(repositoryFactory.createUserRepository())
+
+        return ViewModelProvider(owner, loginViewModelFactory)[LoginViewModel::class.java]
     }
 }
