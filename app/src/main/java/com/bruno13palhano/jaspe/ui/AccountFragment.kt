@@ -38,6 +38,7 @@ class AccountFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val toolbar = view.findViewById<MaterialToolbar>(R.id.toolbar_account)
+        toolbar.inflateMenu(R.menu.menu_toolbar_account)
         toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24)
         toolbar.title = getString(R.string.account_label)
 
@@ -47,6 +48,17 @@ class AccountFragment : Fragment() {
             setUserView(user)
         } else {
             navigateToLogin()
+        }
+
+        toolbar.setOnMenuItemClickListener {
+            when(it.itemId){
+                R.id.logout -> {
+                    authentication.logout()
+                    navigateToHome()
+                    true
+                }
+                else -> false
+            }
         }
 
         toolbar.setNavigationOnClickListener {
@@ -65,5 +77,9 @@ class AccountFragment : Fragment() {
 
     private fun navigateToLogin() {
         findNavController().navigate(AccountFragmentDirections.actionAccountToLogin())
+    }
+
+    private fun navigateToHome() {
+        findNavController().navigate(AccountFragmentDirections.actionToHome())
     }
 }
