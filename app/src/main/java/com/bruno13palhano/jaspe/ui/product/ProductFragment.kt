@@ -10,7 +10,10 @@ import android.view.View.GONE
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.coroutineScope
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
@@ -27,6 +30,7 @@ import kotlinx.coroutines.launch
 
 class ProductFragment : Fragment() {
     private var productUrlLink: String = ""
+    private var productTypeArg: String = ""
     private lateinit var viewModel: ProductViewModel
     private lateinit var favoriteProduct: FavoriteProduct
     private var isFavorite = false
@@ -50,7 +54,7 @@ class ProductFragment : Fragment() {
         productDescription = view.findViewById(R.id.product_description)
 
         productUrlLink = ProductFragmentArgs.fromBundle(requireArguments()).productUrlLink
-        val productType = ProductFragmentArgs.fromBundle(requireArguments()).productType
+        productTypeArg = ProductFragmentArgs.fromBundle(requireArguments()).productType
 
         val buyButton = view.findViewById<ExtendedFloatingActionButton>(R.id.buy_product_button)
         buyButton.setOnClickListener {
@@ -73,70 +77,7 @@ class ProductFragment : Fragment() {
             }
         }
 
-        lifecycle.coroutineScope.launch {
-            try {
-                viewModel.getProductByUrlLink(productUrlLink).collect {
-                    favoriteProduct = convertProductToFavorite(it)
-                    setProductViews(it)
-                    setBuyByWhatsAppVisibility(it.productCompany)
-                }
-            } catch (ignored: Exception) {
-                try {
-                    viewModel.getFavoriteProductByUrlLink(productUrlLink).collect {
-                        isFavorite = true
-                        favoriteProduct = it
-                        viewModel.setFavoriteValue(it.favoriteProductIsVisible)
-                        setFavoriteProductViews(it)
-                        setBuyByWhatsAppVisibility(it.favoriteProductCompany)
-                    }
-                } catch (ignored: Exception) {
-                    try {
-                        viewModel.getProductLastSeen(productUrlLink).collect {
-                            favoriteProduct = convertProductToFavorite(it)
-                            setProductViews(it)
-                            setBuyByWhatsAppVisibility(it.productCompany)
-                        }
-                    } catch (ignored: Exception) {}
-                }
-            }
-        }
 
-        lifecycle.coroutineScope.launch {
-            try {
-                viewModel.getFavoriteProductByUrlLink(productUrlLink).collect {
-                    isFavorite = true
-                    favoriteProduct = it
-                    viewModel.setFavoriteValue(it.favoriteProductIsVisible)
-                }
-            } catch (ignored: Exception) {}
-        }
-
-        val relatedProductsRecyclerView = view.findViewById<RecyclerView>(R.id.related_products_recycler_view)
-        val relatedProductsAdapter = RelatedProductItemAdapter {
-            favoriteProduct = convertProductToFavorite(it)
-            setProductViews(it)
-            productUrlLink = it.productUrlLink
-            lifecycle.coroutineScope.launch {
-                try {
-                    viewModel.getFavoriteProductByUrlLink(productUrlLink).collect { favorite ->
-                        isFavorite = true
-                        viewModel.setFavoriteValue(favorite.favoriteProductIsVisible)
-                    }
-                } catch (e: Exception) {
-                    isFavorite = false
-                    viewModel.setFavoriteValue(false)
-                }
-            }
-        }
-        relatedProductsRecyclerView.adapter = relatedProductsAdapter
-
-        lifecycle.coroutineScope.launch {
-            try {
-                viewModel.getRelatedProducts(productType).collect {
-                    relatedProductsAdapter.submitList(it)
-                }
-            } catch (ignored: Exception) {}
-        }
 
         return view
     }
@@ -165,6 +106,84 @@ class ProductFragment : Fragment() {
 
         toolbar.setNavigationOnClickListener {
             it.findNavController().navigateUp()
+        }
+
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            try {
+                viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                    viewModel.getProductByUrlLink(productUrlLink).collect {
+                        favoriteProduct = convertProductToFavorite(it)
+                        setProductViews(it)
+                        setBuyByWhatsAppVisibility(it.productCompany)
+                    }
+                }
+            } catch (ignored: Exception) {
+                try {
+                    viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                        viewModel.getFavoriteProductByUrlLink(productUrlLink).collect {
+                            isFavorite = true
+                            favoriteProduct = it
+                            viewModel.setFavoriteValue(it.favoriteProductIsVisible)
+                            setFavoriteProductViews(it)
+                            setBuyByWhatsAppVisibility(it.favoriteProductCompany)
+                        }
+                    }
+                } catch (ignored: Exception) {
+                    try {
+                        viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                            viewModel.getProductLastSeen(productUrlLink).collect {
+                                favoriteProduct = convertProductToFavorite(it)
+                                setProductViews(it)
+                                setBuyByWhatsAppVisibility(it.productCompany)
+                            }
+                        }
+                    } catch (ignored: Exception) {}
+                }
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            try {
+                viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                    viewModel.getFavoriteProductByUrlLink(productUrlLink).collect {
+                        isFavorite = true
+                        favoriteProduct = it
+                        viewModel.setFavoriteValue(it.favoriteProductIsVisible)
+                    }
+                }
+            } catch (ignored: Exception) {}
+        }
+
+        val relatedProductsRecyclerView = view.findViewById<RecyclerView>(R.id.related_products_recycler_view)
+        val relatedProductsAdapter = RelatedProductItemAdapter {
+            favoriteProduct = convertProductToFavorite(it)
+            setProductViews(it)
+            productUrlLink = it.productUrlLink
+            viewLifecycleOwner.lifecycleScope.launch {
+                try {
+                    viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                        viewModel.getFavoriteProductByUrlLink(productUrlLink).collect { favorite ->
+                            isFavorite = true
+                            viewModel.setFavoriteValue(favorite.favoriteProductIsVisible)
+                        }
+                    }
+                } catch (e: Exception) {
+                    isFavorite = false
+                    viewModel.setFavoriteValue(false)
+                }
+            }
+        }
+        relatedProductsRecyclerView.adapter = relatedProductsAdapter
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            try {
+                viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                    viewModel.getRelatedProducts(productTypeArg).collect {
+                        relatedProductsAdapter.submitList(it)
+                    }
+                }
+            } catch (ignored: Exception) {}
         }
     }
 

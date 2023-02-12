@@ -32,32 +32,79 @@ class HomeFragment : Fragment() {
     private lateinit var viewModel: HomeViewModel
     private lateinit var lastSeenCard: CardView
 
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var searchProduct: CardView
+    private lateinit var amazonRecycler: RecyclerView
+    private lateinit var naturaRecycler: RecyclerView
+    private lateinit var avonRecycler: RecyclerView
+    private lateinit var lastSeenRecyclerView: RecyclerView
+    private lateinit var imageMainBanner: ImageView
+    private lateinit var imageAmazonBanner: ImageView
+    private lateinit var imageNaturaBanner: ImageView
+    private lateinit var imageAvonBanner: ImageView
+    private lateinit var viewMoreAmazon: CardView
+    private lateinit var viewMoreNatura: CardView
+    private lateinit var viewMoreAvon: CardView
+    private lateinit var viewMoreLastSeen: CardView
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
-        val recyclerView = view.findViewById<RecyclerView>(R.id.home_list)
-        val searchProduct = view.findViewById<CardView>(R.id.search_product)
-        val amazonRecycler = view.findViewById<RecyclerView>(R.id.amazon_recycler_view)
-        val naturaRecycler = view.findViewById<RecyclerView>(R.id.natura_recycler_view)
-        val avonRecycler = view.findViewById<RecyclerView>(R.id.avon_recycler_view)
-        val lastSeenRecyclerView = view.findViewById<RecyclerView>(R.id.last_seen_recycler_view)
+        recyclerView = view.findViewById(R.id.home_list)
+        searchProduct = view.findViewById(R.id.search_product)
+        amazonRecycler = view.findViewById(R.id.amazon_recycler_view)
+        naturaRecycler = view.findViewById(R.id.natura_recycler_view)
+        avonRecycler = view.findViewById(R.id.avon_recycler_view)
+        lastSeenRecyclerView = view.findViewById(R.id.last_seen_recycler_view)
 
-        val imageMainBanner = view.findViewById<ImageView>(R.id.main_banner)
-        val imageAmazonBanner = view.findViewById<ImageView>(R.id.amazon_banner_image)
-        val imageNaturaBanner = view.findViewById<ImageView>(R.id.natura_banner_image)
-        val imageAvonBanner = view.findViewById<ImageView>(R.id.avon_banner_image)
+        imageMainBanner = view.findViewById(R.id.main_banner)
+        imageAmazonBanner = view.findViewById(R.id.amazon_banner_image)
+        imageNaturaBanner = view.findViewById(R.id.natura_banner_image)
+        imageAvonBanner = view.findViewById(R.id.avon_banner_image)
 
-        val viewMoreAmazon = view.findViewById<CardView>(R.id.amazon_more_products)
-        val viewMoreNatura = view.findViewById<CardView>(R.id.natura_more_products)
-        val viewMoreAvon = view.findViewById<CardView>(R.id.avon_more_products)
-        val viewMoreLastSeen = view.findViewById<CardView>(R.id.last_seen_more_products)
+        viewMoreAmazon = view.findViewById(R.id.amazon_more_products)
+        viewMoreNatura = view.findViewById(R.id.natura_more_products)
+        viewMoreAvon = view.findViewById(R.id.avon_more_products)
+        viewMoreLastSeen = view.findViewById(R.id.last_seen_more_products)
 
         lastSeenCard = view.findViewById(R.id.last_seen_card)
 
         viewModel = requireActivity().applicationContext.let {
             ViewModelFactory(it, this@HomeFragment).createHomeViewModel()
+        }
+
+        val categoryItems = getCategoryList()
+        val categoryRecyclerView = view.findViewById<RecyclerView>(R.id.category_recycler_view)
+        val categoryAdapter = CategoryItemAdapter {
+            navigateTo(it)
+        }
+        categoryRecyclerView.adapter = categoryAdapter
+        categoryAdapter.submitList(categoryItems)
+
+        return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val toolbar = view.findViewById<MaterialToolbar>(R.id.toolbar)
+        toolbar.inflateMenu(R.menu.menu_toolbar)
+        toolbar.setNavigationIcon(R.drawable.ic_baseline_menu_24)
+
+        toolbar.setNavigationOnClickListener {
+            val drawer = ((activity as MainActivity)).findViewById<DrawerLayout>(R.id.drawer_layout)
+            drawer.open()
+        }
+
+        toolbar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.whatsappChat -> {
+                    openWhatsApp(this.requireContext(), contactInfo.contactWhatsApp, "")
+                    true
+                }
+                else -> false
+            }
         }
 
         viewMoreAmazon.setOnClickListener {
@@ -108,15 +155,7 @@ class HomeFragment : Fragment() {
         }
         lastSeenRecyclerView.adapter = lastSeenAdapter
 
-        val categoryItems = getCategoryList()
-        val categoryRecyclerView = view.findViewById<RecyclerView>(R.id.category_recycler_view)
-        val categoryAdapter = CategoryItemAdapter {
-            navigateTo(it)
-        }
-        categoryRecyclerView.adapter = categoryAdapter
-        categoryAdapter.submitList(categoryItems)
-
-        lifecycle.coroutineScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.mainBanner.collect {
                     imageMainBanner.load(it.bannerUrlImage)
@@ -124,7 +163,7 @@ class HomeFragment : Fragment() {
             }
         }
 
-        lifecycle.coroutineScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.allProducts.collect {
                     adapter.submitList(it)
@@ -132,7 +171,7 @@ class HomeFragment : Fragment() {
             }
         }
 
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.amazonProducts.collect {
                     amazonAdapter.submitList(it)
@@ -140,7 +179,7 @@ class HomeFragment : Fragment() {
             }
         }
 
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.naturaProducts.collect {
                     naturaAdapter.submitList(it)
@@ -148,7 +187,7 @@ class HomeFragment : Fragment() {
             }
         }
 
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.avonProducts.collect {
                     avonAdapter.submitList(it)
@@ -156,7 +195,7 @@ class HomeFragment : Fragment() {
             }
         }
 
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.amazonBanner.collect {
                     imageAmazonBanner.load(it.bannerUrlImage)
@@ -164,7 +203,7 @@ class HomeFragment : Fragment() {
             }
         }
 
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.naturaBanner.collect {
                     imageNaturaBanner.load(it.bannerUrlImage)
@@ -172,7 +211,7 @@ class HomeFragment : Fragment() {
             }
         }
 
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.avonBanner.collect {
                     imageAvonBanner.load(it.bannerUrlImage)
@@ -180,40 +219,20 @@ class HomeFragment : Fragment() {
             }
         }
 
-        lifecycle.coroutineScope.launch {
-            viewModel.contactInfo.collect {
-                contactInfo = it
-            }
-        }
-
-        lifecycle.coroutineScope.launch {
-            viewModel.lastSeenProducts.collect {
-                lastSeenAdapter.submitList(it)
-                setLastSeenCardVisibility(it.size)
-            }
-        }
-
-        return view
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val toolbar = view.findViewById<MaterialToolbar>(R.id.toolbar)
-        toolbar.inflateMenu(R.menu.menu_toolbar)
-        toolbar.setNavigationIcon(R.drawable.ic_baseline_menu_24)
-
-        toolbar.setNavigationOnClickListener {
-            val drawer = ((activity as MainActivity)).findViewById<DrawerLayout>(R.id.drawer_layout)
-            drawer.open()
-        }
-
-        toolbar.setOnMenuItemClickListener {
-            when (it.itemId) {
-                R.id.whatsappChat -> {
-                    openWhatsApp(this.requireContext(), contactInfo.contactWhatsApp, "")
-                    true
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.contactInfo.collect {
+                    contactInfo = it
                 }
-                else -> false
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.lastSeenProducts.collect {
+                    lastSeenAdapter.submitList(it)
+                    setLastSeenCardVisibility(it.size)
+                }
             }
         }
     }
