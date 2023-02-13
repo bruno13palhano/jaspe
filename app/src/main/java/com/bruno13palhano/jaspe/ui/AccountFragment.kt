@@ -9,8 +9,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.navigation.fragment.findNavController
 import coil.load
+import com.bruno13palhano.authentication.core.AuthenticationFactory
 import com.bruno13palhano.authentication.core.UserAuthentication
-import com.bruno13palhano.authentication.core.UserFirebase
 import com.bruno13palhano.jaspe.R
 import com.bruno13palhano.model.User
 import com.google.android.material.appbar.MaterialToolbar
@@ -30,7 +30,7 @@ class AccountFragment : Fragment() {
         usernameTextView = view.findViewById(R.id.username)
         emailTextView = view.findViewById(R.id.email)
 
-        authentication = UserFirebase()
+        authentication = AuthenticationFactory().createUserFirebase()
 
         return view
     }

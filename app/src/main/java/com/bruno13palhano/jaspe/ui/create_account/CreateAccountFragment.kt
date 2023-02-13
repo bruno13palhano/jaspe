@@ -9,8 +9,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.coroutineScope
 import androidx.navigation.fragment.findNavController
+import com.bruno13palhano.authentication.core.AuthenticationFactory
 import com.bruno13palhano.authentication.core.UserAuthentication
-import com.bruno13palhano.authentication.core.UserFirebase
 import com.bruno13palhano.jaspe.DrawerLock
 import com.bruno13palhano.jaspe.R
 import com.bruno13palhano.jaspe.ui.ViewModelFactory
@@ -34,7 +34,7 @@ class CreateAccountFragment : Fragment() {
         val emailEditText = view.findViewById<TextInputEditText>(R.id.email)
         val passwordEditText = view.findViewById<TextInputEditText>(R.id.password)
 
-        authentication = UserFirebase()
+        authentication = AuthenticationFactory().createUserFirebase()
 
         viewModel = ViewModelFactory(requireContext(), this@CreateAccountFragment)
             .createCreateAccountViewModel()

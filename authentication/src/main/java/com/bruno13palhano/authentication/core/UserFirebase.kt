@@ -3,14 +3,13 @@ package com.bruno13palhano.authentication.core
 import android.net.Uri
 import com.bruno13palhano.model.User
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
 import com.google.firebase.auth.ktx.userProfileChangeRequest
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
+import com.google.firebase.firestore.FirebaseFirestore
 
-class UserFirebase : UserAuthentication {
-    private var auth: FirebaseAuth = Firebase.auth
-    private var firebaseDB = Firebase.firestore
+internal class UserFirebase(
+    private val auth: FirebaseAuth,
+    private val firebaseDB: FirebaseFirestore
+) : UserAuthentication {
 
     override fun createUser(
         user: User,

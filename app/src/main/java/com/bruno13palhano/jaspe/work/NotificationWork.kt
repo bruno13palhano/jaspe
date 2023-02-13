@@ -10,7 +10,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
-import com.bruno13palhano.authentication.core.UserFirebase
+import com.bruno13palhano.authentication.core.AuthenticationFactory
 import com.bruno13palhano.jaspe.MainActivity
 import com.bruno13palhano.jaspe.R
 import com.bruno13palhano.model.OfferNotification
@@ -22,7 +22,7 @@ class NotificationWork(
 ) : CoroutineWorker(context, params) {
 
     private val offerNotificationNetwork = NetworkFactory().createOfferNotificationNetwork()
-    private val authentication = UserFirebase()
+    private val authentication = AuthenticationFactory().createUserFirebase()
 
     override suspend fun doWork(): Result {
 
