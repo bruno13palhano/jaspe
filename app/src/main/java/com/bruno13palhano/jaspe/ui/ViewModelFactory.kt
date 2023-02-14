@@ -3,6 +3,7 @@ package com.bruno13palhano.jaspe.ui
 import android.content.Context
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
+import com.bruno13palhano.authentication.core.AuthenticationFactory
 import com.bruno13palhano.jaspe.ui.create_account.CreateAccountViewModel
 import com.bruno13palhano.jaspe.ui.create_account.CreateAccountViewModelFactory
 import com.bruno13palhano.jaspe.ui.favorite.FavoritesViewModel
@@ -25,6 +26,7 @@ class ViewModelFactory(
     private val owner: ViewModelStoreOwner
 ) {
     private val repositoryFactory = RepositoryFactory(context)
+    private val authenticationFactory = AuthenticationFactory()
 
     fun createProductViewModel(): ProductViewModel {
         val productViewModelFactory =
@@ -105,7 +107,10 @@ class ViewModelFactory(
 
     fun createLoginViewModel(): LoginViewModel {
         val loginViewModelFactory =
-            LoginViewModelFactory(repositoryFactory.createUserRepository())
+            LoginViewModelFactory(
+                userRepository = repositoryFactory.createUserRepository(),
+                authentication = authenticationFactory.createUserFirebase()
+            )
 
         return ViewModelProvider(owner, loginViewModelFactory)[LoginViewModel::class.java]
     }
