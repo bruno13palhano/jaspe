@@ -9,18 +9,14 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.coroutineScope
 import androidx.navigation.fragment.findNavController
-import com.bruno13palhano.authentication.core.AuthenticationFactory
-import com.bruno13palhano.authentication.core.UserAuthentication
 import com.bruno13palhano.jaspe.DrawerLock
 import com.bruno13palhano.jaspe.R
 import com.bruno13palhano.jaspe.ui.ViewModelFactory
-import com.bruno13palhano.model.User
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.coroutines.launch
 
-class CreateAccountFragment : Fragment() {
-    private lateinit var authentication: UserAuthentication
+class CreateAccountFragment : Fragment(), AccountView {
     private lateinit var viewModel: CreateAccountViewModel
 
     override fun onCreateView(
@@ -34,8 +30,6 @@ class CreateAccountFragment : Fragment() {
         val emailEditText = view.findViewById<TextInputEditText>(R.id.email)
         val passwordEditText = view.findViewById<TextInputEditText>(R.id.password)
 
-        authentication = AuthenticationFactory().createUserFirebase()
-
         viewModel = ViewModelFactory(requireContext(), this@CreateAccountFragment)
             .createCreateAccountViewModel()
 
@@ -44,13 +38,28 @@ class CreateAccountFragment : Fragment() {
             val email = emailEditText.text.toString()
             val password = passwordEditText.text.toString()
 
-            if (isUserParamsValid(username, email, password)) {
-                val user = User(
+            lifecycle.coroutineScope.launch {
+                viewModel.createAccount(
                     username = username,
                     email = email,
                     password = password
                 )
-                createUser(user)
+            }
+        }
+
+        lifecycle.coroutineScope.launch {
+            viewModel.createAccountStatus.collect {
+                when (it) {
+                    CreateAccountStatus.Success -> {
+                        onSuccess()
+                    }
+                    CreateAccountStatus.Error -> {
+                        onFail()
+                    }
+                    CreateAccountStatus.Loading -> {
+                        onLoading()
+                    }
+                }
             }
         }
 
@@ -61,36 +70,26 @@ class CreateAccountFragment : Fragment() {
         return view
     }
 
-    private fun createUser(user: User) {
-        authentication.createUser(
-            user = user,
-            successfulCallback = {
-                insertUserInDB(authentication.getCurrentUser())
-                setDrawerEnable()
-                navigateToHome()
-            },
-            failedCallback = {
-                Toast.makeText(requireContext(), R.string.authentication_failed_label,
-                    Toast.LENGTH_SHORT).show()
-            }
-        )
-    }
-
     private fun setDrawerEnable() {
         ((activity as DrawerLock)).setDrawerEnable(true)
     }
 
-    private fun insertUserInDB(user: User) {
-        lifecycle.coroutineScope.launch {
-            viewModel.insertUser(user)
-        }
-    }
-
-    private fun isUserParamsValid(username: String, email: String, password: String): Boolean =
-        (username != "") && (email != "") && (password != "")
-
     private fun navigateToHome() {
         findNavController().navigate(
             CreateAccountFragmentDirections.actionCreateAccountToHome())
+    }
+
+    override fun onSuccess() {
+        setDrawerEnable()
+        navigateToHome()
+    }
+
+    override fun onFail() {
+        Toast.makeText(requireContext(), R.string.authentication_failed_label,
+            Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onLoading() {
+
     }
 }
