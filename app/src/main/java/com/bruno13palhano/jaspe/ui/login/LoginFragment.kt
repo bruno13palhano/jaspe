@@ -18,8 +18,6 @@ import com.google.android.material.textfield.TextInputEditText
 import kotlinx.coroutines.launch
 
 class LoginFragment : Fragment(), LoginView {
-    private lateinit var emailEditText: TextInputEditText
-    private lateinit var passwordEditText: TextInputEditText
     private lateinit var viewModel: LoginViewModel
 
     override fun onCreateView(
@@ -34,8 +32,8 @@ class LoginFragment : Fragment(), LoginView {
         viewModel = ViewModelFactory(requireContext(), this@LoginFragment)
             .createLoginViewModel()
 
-        emailEditText = view.findViewById(R.id.email)
-        passwordEditText = view.findViewById(R.id.password)
+        val emailEditText = view.findViewById<TextInputEditText>(R.id.email)
+        val passwordEditText = view.findViewById<TextInputEditText>(R.id.password)
 
         loginButton.setOnClickListener {
             viewModel.login(emailEditText.text.toString(), passwordEditText.text.toString())
@@ -69,7 +67,6 @@ class LoginFragment : Fragment(), LoginView {
 
         return view
     }
-
 
     override fun onLoginSuccess() {
         setDrawerEnable(true)
