@@ -100,7 +100,10 @@ class ViewModelFactory(
 
     fun createCreateAccountViewModel(): CreateAccountViewModel {
         val createAccountViewModelFactory =
-            CreateAccountViewModelFactory(repositoryFactory.createUserRepository())
+            CreateAccountViewModelFactory(
+                userRepository = repositoryFactory.createUserRepository(),
+                authentication = authenticationFactory.createUserFirebase()
+            )
 
         return ViewModelProvider(owner, createAccountViewModelFactory)[CreateAccountViewModel::class.java]
     }
