@@ -12,12 +12,11 @@ import com.bruno13palhano.jaspe.R
 import com.bruno13palhano.jaspe.ui.ViewModelFactory
 import com.bruno13palhano.jaspe.ui.common.openInstagram
 import com.bruno13palhano.jaspe.ui.common.openWhatsApp
-import com.bruno13palhano.model.ContactInfo
 import com.google.android.material.appbar.MaterialToolbar
 import kotlinx.coroutines.launch
 
 class HelpFragment : Fragment() {
-    private lateinit  var contactInfo: ContactInfo
+    private var whatsApp = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,18 +25,24 @@ class HelpFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_help, container, false)
         val visitUs = view.findViewById<AppCompatTextView>(R.id.visit_us)
 
-        contactInfo = ContactInfo()
+        var instagram = ""
 
         visitUs.setOnClickListener {
-           openInstagram(requireActivity(), contactInfo.contactInstagram)
+           openInstagram(requireActivity(), instagram)
         }
 
         val viewModel = ViewModelFactory(requireContext().applicationContext, this@HelpFragment)
             .createHelpViewModel()
 
         lifecycle.coroutineScope.launch {
-            viewModel.contactInfo.collect {
-                contactInfo = it
+            viewModel.instagramInfo.collect {
+                instagram = it
+            }
+        }
+
+        lifecycle.coroutineScope.launch {
+            viewModel.whatsAppInfo.collect {
+                whatsApp = it
             }
         }
 
@@ -54,7 +59,7 @@ class HelpFragment : Fragment() {
         toolbar.setOnMenuItemClickListener {
             when(it.itemId) {
                 R.id.whatsappChat -> {
-                    openWhatsApp(requireContext(), contactInfo.contactWhatsApp, "")
+                    openWhatsApp(requireContext(), whatsApp, "")
                     true
                 }
                 else -> false
