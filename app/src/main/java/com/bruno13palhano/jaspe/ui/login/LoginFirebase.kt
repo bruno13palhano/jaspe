@@ -15,7 +15,7 @@ class LoginFirebase(
                 email = email,
                 password = password,
                 successfulCallback = {
-                    callback.onSuccess()
+                    callback.onSuccess(authentication.getCurrentUser())
                 },
                 failedCallback = {
                     callback.onFail()
