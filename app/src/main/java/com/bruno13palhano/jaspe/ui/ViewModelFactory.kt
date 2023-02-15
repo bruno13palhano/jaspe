@@ -4,6 +4,8 @@ import android.content.Context
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
 import com.bruno13palhano.authentication.core.AuthenticationFactory
+import com.bruno13palhano.jaspe.ui.account.AccountViewModel
+import com.bruno13palhano.jaspe.ui.account.AccountViewModelFactory
 import com.bruno13palhano.jaspe.ui.create_account.CreateAccountViewModel
 import com.bruno13palhano.jaspe.ui.create_account.CreateAccountViewModelFactory
 import com.bruno13palhano.jaspe.ui.favorite.FavoritesViewModel
@@ -116,5 +118,12 @@ class ViewModelFactory(
             )
 
         return ViewModelProvider(owner, loginViewModelFactory)[LoginViewModel::class.java]
+    }
+
+    fun createAccountViewModel(): AccountViewModel {
+        val accountViewModelFactory =
+            AccountViewModelFactory(authenticationFactory.createUserFirebase())
+
+        return ViewModelProvider(owner, accountViewModelFactory)[AccountViewModel::class.java]
     }
 }
