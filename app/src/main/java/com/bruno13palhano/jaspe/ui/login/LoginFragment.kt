@@ -36,7 +36,10 @@ class LoginFragment : Fragment(), LoginView {
         val passwordEditText = view.findViewById<TextInputEditText>(R.id.password)
 
         loginButton.setOnClickListener {
-            viewModel.login(emailEditText.text.toString(), passwordEditText.text.toString())
+            viewModel.login(
+                email = emailEditText.text.toString(),
+                password = passwordEditText.text.toString()
+            )
         }
 
         createAccount.setOnClickListener {
@@ -85,8 +88,7 @@ class LoginFragment : Fragment(), LoginView {
     override fun onStart() {
         super.onStart()
         if (viewModel.isUserAuthenticated()) {
-            findNavController().navigate(LoginFragmentDirections.actionLoginToHome())
-            setDrawerEnable(true)
+            onLoginSuccess()
         }
     }
 

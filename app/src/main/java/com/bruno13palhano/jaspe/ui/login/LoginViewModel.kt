@@ -13,26 +13,30 @@ import kotlinx.coroutines.launch
 class LoginViewModel(
     private val userRepository: UserRepository,
     private val authentication: UserAuthentication
-) : ViewModel(), Login {
+) : ViewModel() {
     private val _loginStatus = MutableStateFlow<LoginStatus>(LoginStatus.Loading)
     val loginStatus = _loginStatus.asStateFlow()
 
-    override fun login(email: String, password: String) {
-        if (isParamsValid(email, password)) {
-            authentication.login(
-                email = email,
-                password = password,
-                successfulCallback = {
+    fun login(email: String, password: String) {
+        val loginFirebase = LoginFirebase(authentication)
+        loginFirebase.login(
+            email = email,
+            password = password,
+            callback = object : Login.LoginCallback {
+                override fun onSuccess(user: User) {
                     _loginStatus.value = LoginStatus.Success
-                    insertUser(authentication.getCurrentUser())
-                },
-                failedCallback = {
+                    insertUser(user)
+                }
+
+                override fun onFail() {
                     _loginStatus.value = LoginStatus.Error
                 }
-            )
-        } else {
-            _loginStatus.value = LoginStatus.Error
-        }
+
+                override fun onLoading() {
+                    _loginStatus.value = LoginStatus.Loading
+                }
+            }
+        )
     }
 
     fun getUserByUid(userUid: String): Flow<User> {
@@ -53,9 +57,6 @@ class LoginViewModel(
             userRepository.insertUser(user)
         }
     }
-
-    private fun isParamsValid(email: String, password: String): Boolean =
-        email != "" && password != ""
 }
 
 sealed class LoginStatus {
