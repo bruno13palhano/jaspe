@@ -18,7 +18,7 @@ class LoginViewModel(
     val loginStatus = _loginStatus.asStateFlow()
 
     fun login(email: String, password: String) {
-        _loginStatus.value = LoginStatus.Loading
+        loading()
         val loginFirebase = LoginFirebase(authentication)
         loginFirebase.login(
             email = email,
@@ -31,10 +31,6 @@ class LoginViewModel(
 
                 override fun onFail() {
                     _loginStatus.value = LoginStatus.Error
-                }
-
-                override fun onLoading() {
-                    _loginStatus.value = LoginStatus.Loading
                 }
             }
         )
@@ -51,6 +47,10 @@ class LoginViewModel(
         } else {
             false
         }
+    }
+
+    private fun loading() {
+        _loginStatus.value = LoginStatus.Loading
     }
 
     private fun insertUser(user: User) {
