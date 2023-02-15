@@ -4,7 +4,10 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.coroutineScope
@@ -18,6 +21,7 @@ import kotlinx.coroutines.launch
 
 class CreateAccountFragment : Fragment(), AccountView {
     private lateinit var viewModel: CreateAccountViewModel
+    private lateinit var loginProgress: FrameLayout
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,6 +33,7 @@ class CreateAccountFragment : Fragment(), AccountView {
         val usernameEditText = view.findViewById<TextInputEditText>(R.id.username)
         val emailEditText = view.findViewById<TextInputEditText>(R.id.email)
         val passwordEditText = view.findViewById<TextInputEditText>(R.id.password)
+        loginProgress = view.findViewById(R.id.login_progress)
 
         viewModel = ViewModelFactory(requireContext(), this@CreateAccountFragment)
             .createCreateAccountViewModel()
@@ -59,6 +64,9 @@ class CreateAccountFragment : Fragment(), AccountView {
                     CreateAccountStatus.Loading -> {
                         onLoading()
                     }
+                    CreateAccountStatus.Default -> {
+
+                    }
                 }
             }
         }
@@ -85,11 +93,12 @@ class CreateAccountFragment : Fragment(), AccountView {
     }
 
     override fun onFail() {
+        loginProgress.visibility = GONE
         Toast.makeText(requireContext(), R.string.authentication_failed_label,
             Toast.LENGTH_SHORT).show()
     }
 
     override fun onLoading() {
-
+        loginProgress.visibility = VISIBLE
     }
 }

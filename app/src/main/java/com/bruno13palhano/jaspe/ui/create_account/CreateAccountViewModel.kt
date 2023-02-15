@@ -14,7 +14,7 @@ class CreateAccountViewModel(
     private val authentication: UserAuthentication
 ) : ViewModel() {
     private val _createAccountStatus =
-        MutableStateFlow<CreateAccountStatus>(CreateAccountStatus.Loading)
+        MutableStateFlow<CreateAccountStatus>(CreateAccountStatus.Default)
     val createAccountStatus = _createAccountStatus.asStateFlow()
 
     fun createAccount(
@@ -22,6 +22,7 @@ class CreateAccountViewModel(
         email: String,
         password: String,
     ) {
+        loading()
         val accountFirebase = AccountFirebase(authentication)
         accountFirebase.createUser(
             username = username,
@@ -36,12 +37,12 @@ class CreateAccountViewModel(
                 override fun onFail() {
                     _createAccountStatus.value = CreateAccountStatus.Error
                 }
-
-                override fun onLoading() {
-                    _createAccountStatus.value = CreateAccountStatus.Loading
-                }
             }
         )
+    }
+
+    private fun loading() {
+        _createAccountStatus.value = CreateAccountStatus.Loading
     }
 
     private fun insertUser(user: User) {
@@ -55,4 +56,5 @@ sealed class CreateAccountStatus {
     object Loading: CreateAccountStatus()
     object Error: CreateAccountStatus()
     object Success: CreateAccountStatus()
+    object Default: CreateAccountStatus()
 }
