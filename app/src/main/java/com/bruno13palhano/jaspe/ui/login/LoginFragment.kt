@@ -4,7 +4,10 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -19,6 +22,7 @@ import kotlinx.coroutines.launch
 
 class LoginFragment : Fragment(), LoginView {
     private lateinit var viewModel: LoginViewModel
+    private lateinit var loginProgress: FrameLayout
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,6 +32,7 @@ class LoginFragment : Fragment(), LoginView {
         val loginButton = view.findViewById<MaterialButton>(R.id.login_button)
         val createAccount = view.findViewById<TextView>(R.id.create_account)
         val closeLogin = view.findViewById<ImageView>(R.id.close_login)
+        loginProgress = view.findViewById(R.id.login_progress)
 
         viewModel = ViewModelFactory(requireContext(), this@LoginFragment)
             .createLoginViewModel()
@@ -64,6 +69,9 @@ class LoginFragment : Fragment(), LoginView {
                     LoginStatus.Error -> {
                         onLoginError()
                     }
+                    LoginStatus.Default -> {
+
+                    }
                 }
             }
         }
@@ -77,12 +85,13 @@ class LoginFragment : Fragment(), LoginView {
     }
 
     override fun onLoginError() {
+        loginProgress.visibility = GONE
         Toast.makeText(
             context, getString(R.string.invalid_login_params), Toast.LENGTH_SHORT).show()
     }
 
     override fun onLoginLoading() {
-        println("Loading")
+        loginProgress.visibility = VISIBLE
     }
 
     override fun onStart() {

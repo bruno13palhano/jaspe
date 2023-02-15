@@ -14,10 +14,11 @@ class LoginViewModel(
     private val userRepository: UserRepository,
     private val authentication: UserAuthentication
 ) : ViewModel() {
-    private val _loginStatus = MutableStateFlow<LoginStatus>(LoginStatus.Loading)
+    private val _loginStatus = MutableStateFlow<LoginStatus>(LoginStatus.Default)
     val loginStatus = _loginStatus.asStateFlow()
 
     fun login(email: String, password: String) {
+        _loginStatus.value = LoginStatus.Loading
         val loginFirebase = LoginFirebase(authentication)
         loginFirebase.login(
             email = email,
@@ -63,4 +64,5 @@ sealed class LoginStatus {
     object Loading: LoginStatus()
     object Error : LoginStatus()
     object Success : LoginStatus()
+    object Default : LoginStatus()
 }
