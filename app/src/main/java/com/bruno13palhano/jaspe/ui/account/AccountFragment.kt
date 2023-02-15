@@ -1,4 +1,4 @@
-package com.bruno13palhano.jaspe.ui
+package com.bruno13palhano.jaspe.ui.account
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -76,10 +76,10 @@ class AccountFragment : Fragment() {
         uid != ""
 
     private fun navigateToLogin() {
-        findNavController().navigate(AccountFragmentDirections.actionAccountToLogin())
+        findNavController().navigate(com.bruno13palhano.jaspe.ui.account.AccountFragmentDirections.actionAccountToLogin())
     }
 
     private fun navigateToHome() {
-        findNavController().navigate(AccountFragmentDirections.actionToHome())
+        findNavController().navigate(com.bruno13palhano.jaspe.ui.account.AccountFragmentDirections.actionToHome())
     }
 }
