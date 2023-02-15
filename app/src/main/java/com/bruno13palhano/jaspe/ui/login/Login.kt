@@ -8,6 +8,5 @@ interface Login {
     interface LoginCallback {
         fun onSuccess(user: User)
         fun onFail()
-        fun onLoading()
     }
 }
