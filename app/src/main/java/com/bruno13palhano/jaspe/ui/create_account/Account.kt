@@ -13,6 +13,5 @@ interface Account {
     interface CreateAccountCallback {
         fun onSuccess(newUser: User)
         fun onFail()
-        fun onLoading()
     }
 }
