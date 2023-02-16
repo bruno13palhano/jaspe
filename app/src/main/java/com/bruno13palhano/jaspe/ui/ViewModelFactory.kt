@@ -122,7 +122,10 @@ class ViewModelFactory(
 
     fun createAccountViewModel(): AccountViewModel {
         val accountViewModelFactory =
-            AccountViewModelFactory(authenticationFactory.createUserFirebase())
+            AccountViewModelFactory(
+                authentication = authenticationFactory.createUserFirebase(),
+                userRepository = repositoryFactory.createUserRepository()
+            )
 
         return ViewModelProvider(owner, accountViewModelFactory)[AccountViewModel::class.java]
     }
