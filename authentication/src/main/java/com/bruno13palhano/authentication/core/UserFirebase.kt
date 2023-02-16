@@ -1,14 +1,17 @@
 package com.bruno13palhano.authentication.core
 
-import android.net.Uri
+import android.graphics.Bitmap
 import com.bruno13palhano.model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
+import java.io.ByteArrayOutputStream
 
 internal class UserFirebase(
     private val auth: FirebaseAuth,
-    private val firebaseDB: FirebaseFirestore
+    private val firebaseDB: FirebaseFirestore,
+    private val storage: FirebaseStorage
 ) : UserAuthentication {
 
     override fun createUser(
@@ -49,12 +52,58 @@ internal class UserFirebase(
         auth.signOut()
     }
 
-    override fun updateUser(user: User) {
-        val profileUpdates = userProfileChangeRequest {
-            displayName = user.username
-            photoUri = Uri.parse(user.urlPhoto)
+    override fun updateUserUrlPhoto(
+        photo: Bitmap,
+        onSuccess: () -> Unit,
+        onFail: () -> Unit
+    ) {
+        val storageRef = storage.reference
+
+        auth.currentUser?.let {
+            val profilePhotoRef = storageRef.child("${it.email}/profile_image.jpg")
+
+            val baos = ByteArrayOutputStream()
+            photo.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+            val data = baos.toByteArray()
+
+            val uploadTask = profilePhotoRef.putBytes(data)
+            uploadTask.addOnFailureListener {
+                    onFail()
+                }
+                .addOnSuccessListener { taskSnapshot ->
+                    profilePhotoRef.downloadUrl.addOnSuccessListener { uri ->
+                        val profileUpdates = userProfileChangeRequest {
+                            photoUri = uri
+                        }
+                        it.updateProfile(profileUpdates).addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                onSuccess()
+                            } else {
+                                onFail()
+                            }
+                        }
+                    }
+                }
         }
-        auth.currentUser!!.updateProfile(profileUpdates)
+    }
+
+    override fun updateUsername(
+        username: String,
+        onSuccess: () -> Unit,
+        onFail: () -> Unit
+    ) {
+        val profileUpdates = userProfileChangeRequest {
+            displayName = username
+        }
+        auth.currentUser?.let {
+            it.updateProfile(profileUpdates).addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    onSuccess()
+                } else {
+                    onFail()
+                }
+            }
+        }
     }
 
     override fun isUserAuthenticated(): Boolean {
