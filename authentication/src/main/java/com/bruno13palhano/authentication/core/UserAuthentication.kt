@@ -1,5 +1,6 @@
 package com.bruno13palhano.authentication.core
 
+import android.graphics.Bitmap
 import com.bruno13palhano.model.User
 
 
@@ -9,5 +10,6 @@ interface UserAuthentication {
     fun logout()
     fun isUserAuthenticated(): Boolean
     fun getCurrentUser(): User
-    fun updateUser(user: User)
+    fun updateUserUrlPhoto(photo: Bitmap, onSuccess: () -> Unit, onFail: () -> Unit)
+    fun updateUsername(username: String, onSuccess: () -> Unit, onFail: () -> Unit)
 }
