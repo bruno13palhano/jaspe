@@ -1,11 +1,7 @@
 package com.bruno13palhano.jaspe.ui.account
 
 import android.graphics.Bitmap
-import android.graphics.ImageDecoder
-import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import android.provider.MediaStore
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +9,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -29,44 +24,7 @@ class AccountFragment : Fragment() {
     private lateinit var usernameTextView: TextView
     private lateinit var emailTextView: TextView
     private lateinit var viewModel: AccountViewModel
-
     private lateinit var photoObserver: ProfilePhotoLifecycleObserver
-
-    private val photoUriContent = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
-        try {
-            if (Build.VERSION.SDK_INT < 28) {
-                uri?.let {
-                    val bitmapPhoto: Bitmap = MediaStore.Images.Media
-                        .getBitmap(requireContext().contentResolver, uri)
-
-                    viewModel.updateUserUrlPhoto(
-                        photo = bitmapPhoto,
-                        onSuccess = {
-
-                        },
-                        onFail = {
-
-                        }
-                    )
-                }
-            } else {
-                uri?.let {
-                    val source = ImageDecoder.createSource(requireContext().contentResolver, uri)
-                    val bitmapPhoto = ImageDecoder.decodeBitmap(source)
-
-                    viewModel.updateUserUrlPhoto(
-                        photo = bitmapPhoto,
-                        onSuccess = {
-
-                        },
-                        onFail = {
-
-                        }
-                    )
-                }
-            }
-        } catch (ignored: Exception) {}
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
