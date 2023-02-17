@@ -54,7 +54,7 @@ internal class UserFirebase(
 
     override fun updateUserUrlPhoto(
         photo: Bitmap,
-        onSuccess: () -> Unit,
+        onSuccess: (newPhotoUrl: String, userUId: String) -> Unit,
         onFail: () -> Unit
     ) {
         val storageRef = storage.reference
@@ -77,7 +77,7 @@ internal class UserFirebase(
                         }
                         it.updateProfile(profileUpdates).addOnCompleteListener { task ->
                             if (task.isSuccessful) {
-                                onSuccess()
+                                onSuccess(uri.toString(), it.uid)
                             } else {
                                 onFail()
                             }
@@ -89,7 +89,7 @@ internal class UserFirebase(
 
     override fun updateUsername(
         username: String,
-        onSuccess: () -> Unit,
+        onSuccess: (newUsername: String, userUid: String) -> Unit,
         onFail: () -> Unit
     ) {
         val profileUpdates = userProfileChangeRequest {
@@ -98,7 +98,7 @@ internal class UserFirebase(
         auth.currentUser?.let {
             it.updateProfile(profileUpdates).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    onSuccess()
+                    onSuccess(username, it.uid)
                 } else {
                     onFail()
                 }
