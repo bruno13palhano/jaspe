@@ -2,6 +2,7 @@ package com.bruno13palhano.jaspe.ui.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.bruno13palhano.authentication.core.UserAuthentication
 import com.bruno13palhano.jaspe.ui.common.prepareLastSeenProduct
 import com.bruno13palhano.model.Banner
 import com.bruno13palhano.model.Company
@@ -10,13 +11,16 @@ import com.bruno13palhano.model.Product
 import com.bruno13palhano.repository.external.BannerRepository
 import com.bruno13palhano.repository.external.ContactInfoRepository
 import com.bruno13palhano.repository.external.ProductRepository
+import com.bruno13palhano.repository.external.UserRepository
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 class HomeViewModel(
     private val productRepository: ProductRepository,
     private val bannerRepository: BannerRepository,
-    private val contactInfoRepository: ContactInfoRepository
+    private val contactInfoRepository: ContactInfoRepository,
+    private val userRepository: UserRepository,
+    private val authentication: UserAuthentication
 ) : ViewModel() {
 
     private val _mainBanner = MutableStateFlow(Banner())
@@ -49,7 +53,20 @@ class HomeViewModel(
     private val _lastSeenProducts = MutableStateFlow<List<Product>>(emptyList())
     val lastSeenProducts = _lastSeenProducts.asStateFlow()
 
+    private val _username = MutableStateFlow("")
+    val username = _username.asStateFlow()
+
+    private val _profileUrlPhoto = MutableStateFlow("")
+    val profileUrlPhoto = _profileUrlPhoto.asStateFlow()
+
     init {
+        viewModelScope.launch {
+            userRepository.getUserByUid(authentication.getCurrentUser().uid).collect {
+                _username.value = it.username
+                _profileUrlPhoto.value = it.urlPhoto
+            }
+        }
+
         viewModelScope.launch {
             try {
                 contactInfoRepository.getContactInfo(1L).collect {

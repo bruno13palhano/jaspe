@@ -7,6 +7,7 @@ import android.view.View
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Lifecycle
@@ -25,6 +26,7 @@ import com.bruno13palhano.model.Route
 import com.bruno13palhano.model.ContactInfo
 import com.bruno13palhano.model.Product
 import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.navigation.NavigationView
 import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
@@ -92,8 +94,43 @@ class HomeFragment : Fragment() {
         toolbar.inflateMenu(R.menu.menu_toolbar)
         toolbar.setNavigationIcon(R.drawable.ic_baseline_menu_24)
 
+        val drawer = ((activity as MainActivity)).findViewById<DrawerLayout>(R.id.drawer_layout)
+        val navView = ((activity as MainActivity)).findViewById<NavigationView>(R.id.nav_view)
+
+        val profilePhotoView = navView.getHeaderView(0)
+            .findViewById<ImageView>(R.id.profile_photo)
+        lifecycleScope.launch {
+            viewModel.profileUrlPhoto.collect {
+                if (it.isNotEmpty()) {
+                    profilePhotoView.load(it)
+                }
+            }
+        }
+        profilePhotoView.setOnClickListener {
+            findNavController().currentDestination?.let {
+                if (it.id == R.id.accountFragment) {
+                    drawer.close()
+                } else {
+                    drawer.close()
+                    findNavController().apply {
+                        popBackStack(R.id.homeFragment, inclusive = false, saveState = true)
+                        navigate(R.id.action_to_account)
+                    }
+                }
+            }
+        }
+
+        val usernameView = navView.getHeaderView(0)
+            .findViewById<TextView>(R.id.username)
+        lifecycleScope.launch {
+            viewModel.username.collect {
+                if (it.isNotEmpty()) {
+                    usernameView.text = it
+                }
+            }
+        }
+
         toolbar.setNavigationOnClickListener {
-            val drawer = ((activity as MainActivity)).findViewById<DrawerLayout>(R.id.drawer_layout)
             drawer.open()
         }
 
