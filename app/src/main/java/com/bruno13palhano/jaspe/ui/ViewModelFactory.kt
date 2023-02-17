@@ -81,28 +81,6 @@ class ViewModelFactory(
         return ViewModelProvider(owner, helpViewModelFactory)[HelpViewModel::class.java]
     }
 
-    fun createMockViewModel(): MockViewModel {
-        val mockViewModelFactory =
-            MockViewModelFactory(
-                productRepository = repositoryFactory.createProductRepository(),
-                favoriteProductRepository = repositoryFactory.createFavoriteProductRepository(),
-                contactInfoRepository = repositoryFactory.createContactInfoRepository()
-            )
-
-        return ViewModelProvider(owner, mockViewModelFactory)[MockViewModel::class.java]
-    }
-
-    fun createProductSlidePageViewModel(): ProductSlidePageViewModel {
-        val productSlidePageViewModelFactory =
-            ProductSlidePageViewModelFactory(
-                productRepository = repositoryFactory.createProductRepository(),
-                favoriteProductRepository = repositoryFactory.createFavoriteProductRepository(),
-                contactInfoRepository = repositoryFactory.createContactInfoRepository()
-            )
-
-        return ViewModelProvider(owner, productSlidePageViewModelFactory)[ProductSlidePageViewModel::class.java]
-    }
-
     fun createCreateAccountViewModel(): CreateAccountViewModel {
         val createAccountViewModelFactory =
             CreateAccountViewModelFactory(
