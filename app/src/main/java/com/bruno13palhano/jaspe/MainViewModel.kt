@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit
 
 class MainViewModel(
     application: Application,
-    contactInfoRepository: ContactInfoRepository
+    private val contactInfoRepository: ContactInfoRepository
 ) : ViewModel() {
 
     private val workManager = WorkManager.getInstance(application)
