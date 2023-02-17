@@ -14,6 +14,14 @@ internal class UserRepositoryImpl(
         userDao.insert(user.asUserRep())
     }
 
+    override suspend fun updateUsername(newUsername: String, userUid: String) {
+        userDao.updateUsername(newUsername, userUid)
+    }
+
+    override suspend fun updateUserUrlPhoto(newUrlPhoto: String, userUid: String) {
+        userDao.updateUserUrlPhoto(newUrlPhoto, userUid)
+    }
+
     override fun getUserByUid(userUid: String): Flow<User> {
         return userDao.getUserByUid(userUid).map {
             it.asUser()
