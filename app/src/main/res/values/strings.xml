@@ -75,7 +75,7 @@
     <string name="help_description_label">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
     <string name="visit_us_label">Visit Us</string>
 
-    <!-- Login and Create Account-->
+    <!-- Login ,Create Account and Account-->
     <string name="email_label">email</string>
     <string name="password_label">password</string>
     <string name="login_button_label">login</string>
@@ -88,4 +88,7 @@
     <string name="document_error_label">Error writing document.</string>
     <string name="close_login">Close login page</string>
     <string name="logout_label">Logout</string>
+    <string name="server_error_label">Server error</string>
+    <string name="processing_image_error">Error during image processing</string>
+    <string name="image_updated_successfully_label">Image updated successfully</string>
 </resources>
