@@ -185,10 +185,7 @@ class HomeFragment : Fragment() {
         avonRecycler.adapter = avonAdapter
 
         val lastSeenAdapter = ProductHorizontalItemAdapter { product ->
-//            onProductItemClick(product)
-            insertLastSeenProduct(product)
-            findNavController().navigate(HomeFragmentDirections
-                .actionHomeToMockProduct(product.productUrlLink, product.productType))
+            onProductItemClick(product)
         }
         lastSeenRecyclerView.adapter = lastSeenAdapter
 
