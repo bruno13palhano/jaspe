@@ -46,8 +46,9 @@ class AccountFragment : Fragment() {
                     viewModel.updateUserUrlPhoto(
                         photo = bitmapPhoto,
                         onSuccess = {
-                            Toast.makeText(requireContext(), R.string.image_updated_successfully_label,
-                            Toast.LENGTH_SHORT).show()
+                            Toast.makeText(requireContext(),
+                                R.string.username_updated_successfully_label,
+                                Toast.LENGTH_SHORT).show()
                         },
                         onFail = {
                             Toast.makeText(requireContext(), R.string.server_error_label,
@@ -76,6 +77,31 @@ class AccountFragment : Fragment() {
 
         userProfileImage.setOnClickListener {
             photoObserver.selectImage()
+        }
+
+        usernameTextView.setOnClickListener {
+            val dialog = UpdateUsernameDialogFragment(object : UpdateUsernameDialogFragment
+                .UsernameListener {
+                override fun onDialogPositiveClick(newUsername: String) {
+                    if (newUsername.isNotEmpty()) {
+                        viewModel.updateUsername(
+                            username = newUsername,
+                            onSuccess = {
+                                Toast.makeText(requireContext(),
+                                    R.string.image_updated_successfully_label,
+                                    Toast.LENGTH_SHORT).show()
+                            },
+                            onFail = {
+                                Toast.makeText(requireContext(), R.string.server_error_label,
+                                    Toast.LENGTH_SHORT).show()
+                            }
+                        )
+                    }
+                }
+
+            })
+            dialog.show(requireActivity().supportFragmentManager,
+                "UpdateUsernameDialogFragment")
         }
 
         if (viewModel.isUserAuthenticated()) {
