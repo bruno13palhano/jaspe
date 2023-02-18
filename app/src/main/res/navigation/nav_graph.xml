@@ -123,14 +123,6 @@
         tools:layout="@layout/fragment_home">
 
         <action
-            android:id="@+id/action_home_to_mock_product"
-            app:destination="@id/mockProductFragment"
-            app:enterAnim="@android:anim/slide_in_left"
-            app:exitAnim="@android:anim/slide_out_right"
-            app:popEnterAnim="@android:anim/slide_in_left"
-            app:popExitAnim="@android:anim/slide_out_right" />
-
-        <action
             android:id="@+id/action_home_to_product"
             app:destination="@id/productFragment"
             app:enterAnim="@android:anim/slide_in_left"
