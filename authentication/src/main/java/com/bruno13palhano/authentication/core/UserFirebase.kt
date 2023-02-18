@@ -98,7 +98,19 @@ internal class UserFirebase(
         auth.currentUser?.let {
             it.updateProfile(profileUpdates).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    onSuccess(username, it.uid)
+                    updateUsernameInFirebaseDb(
+                        newUsername = username,
+                        userUid = it.uid,
+                        callback = object : FirebaseDBCallback {
+                            override fun onSuccess() {
+                                onSuccess(username, it.uid)
+                            }
+
+                            override fun onFail() {
+                                onFail()
+                            }
+                        }
+                    )
                 } else {
                     onFail()
                 }
@@ -121,7 +133,7 @@ internal class UserFirebase(
     }
 
     private fun onSuccessfulCreateUser(username: String, userUid: String) {
-        addUser(username, userUid)
+        addUserInFirebaseDB(username, userUid)
         updateProfile(username)
     }
 
@@ -133,10 +145,26 @@ internal class UserFirebase(
         user!!.updateProfile(profileUpdates)
     }
 
-    private fun addUser(username: String, userUid: String) {
+    private fun addUserInFirebaseDB(username: String, userUid: String) {
         val user = hashMapOf( "username" to username )
         firebaseDB.collection("users")
             .document(userUid)
             .set(user)
+    }
+
+    private fun updateUsernameInFirebaseDb(newUsername: String, userUid: String, callback: FirebaseDBCallback) {
+        val usernameRef = firebaseDB.collection("users").document(userUid)
+        usernameRef.update("username", newUsername)
+            .addOnSuccessListener {
+                callback.onSuccess()
+            }
+            .addOnFailureListener {
+                callback.onFail()
+            }
+    }
+
+    interface FirebaseDBCallback {
+        fun onSuccess()
+        fun onFail()
     }
 }
