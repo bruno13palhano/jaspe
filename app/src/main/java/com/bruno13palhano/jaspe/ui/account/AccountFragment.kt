@@ -88,7 +88,7 @@ class AccountFragment : Fragment() {
                             username = newUsername,
                             onSuccess = {
                                 Toast.makeText(requireContext(),
-                                    R.string.image_updated_successfully_label,
+                                    R.string.username_updated_successfully_label,
                                     Toast.LENGTH_SHORT).show()
                             },
                             onFail = {
