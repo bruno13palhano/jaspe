@@ -44,20 +44,6 @@
             app:popExitAnim="@android:anim/slide_out_right" />
     </fragment>
 
-    <fragment
-        android:id="@+id/mockProductFragment"
-        android:name="com.bruno13palhano.jaspe.ui.product.MockProductFragment"
-        android:label="MockProduct"
-        tools:layout="@layout/fragment_mock_product">
-
-        <argument
-            android:name="productUrlLink"
-            app:argType="string" />
-        <argument
-            android:name="productType"
-            app:argType="string" />
-    </fragment>
-
     <action
         android:id="@+id/action_to_login"
         app:destination="@id/loginFragment"
