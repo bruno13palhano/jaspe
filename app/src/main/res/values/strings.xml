@@ -76,14 +76,15 @@
     <string name="visit_us_label">Visit Us</string>
 
     <!-- Login ,Create Account and Account-->
-    <string name="email_label">email</string>
-    <string name="password_label">password</string>
-    <string name="login_button_label">login</string>
-    <string name="create_account_label">create account</string>
+    <string name="email_label">Email</string>
+    <string name="password_label">Password</string>
+    <string name="login_button_label">Login</string>
+    <string name="create_account_label">Create account</string>
     <string name="invalid_login_params">Invalid email or password</string>
-    <string name="username_label">username</string>
-    <string name="back_label">back</string>
-    <string name="create_label">create</string>
+    <string name="username_label">Username</string>
+    <string name="new_username_label">New username</string>
+    <string name="back_label">Back</string>
+    <string name="create_label">Create</string>
     <string name="authentication_failed_label">Authentication failed.</string>
     <string name="document_error_label">Error writing document.</string>
     <string name="close_login">Close login page</string>
