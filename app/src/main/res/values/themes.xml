@@ -64,4 +64,10 @@
         <item name="hintTextColor">?colorSecondary</item>
         <item name="android:textColorHint">?colorSecondary</item>
     </style>
+
+    <style name="CustomTextInputLayout2" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/selector_2</item>
+        <item name="hintTextColor">?colorSecondary</item>
+        <item name="android:textColorHint">?colorSecondary</item>
+    </style>
 </resources>
