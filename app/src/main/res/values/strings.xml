@@ -92,4 +92,5 @@
     <string name="server_error_label">Server error</string>
     <string name="processing_image_error">Error during image processing</string>
     <string name="image_updated_successfully_label">Image updated successfully</string>
+    <string name="username_updated_successfully_label">Username updated successfully</string>
 </resources>
