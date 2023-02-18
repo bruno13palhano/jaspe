@@ -59,6 +59,29 @@
         <item name="android:textColor">?colorSecondary</item>
     </style>
 
+    <style name="AlertDialogStyle2" parent="@style/ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="android:colorAccent">?colorSecondary</item>
+        <item name="android:textColor">?colorSecondary</item>
+        <item name="android:textColorPrimary">?colorSecondary</item>
+
+        <item name="buttonBarPositiveButtonStyle">
+            @style/PositiveButtonStyle2
+        </item>
+        <item name="buttonBarNegativeButtonStyle">
+            @style/NegativeButtonStyle2
+        </item>
+    </style>
+
+    <style name="PositiveButtonStyle2" parent="@style/Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">?colorPrimary</item>
+        <item name="backgroundTint">?colorSecondary</item>
+    </style>
+
+    <style name="NegativeButtonStyle2" parent="@style/Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">?colorPrimary</item>
+        <item name="backgroundTint">?colorSecondary</item>
+    </style>
+
     <style name="CustomTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="boxStrokeColor">@color/selector</item>
         <item name="hintTextColor">?colorSecondary</item>
