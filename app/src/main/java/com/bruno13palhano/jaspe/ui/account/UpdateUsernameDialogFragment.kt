@@ -13,7 +13,7 @@ class UpdateUsernameDialogFragment(
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
-            val builder = AlertDialog.Builder(it, R.style.AlertDialogStyle)
+            val builder = AlertDialog.Builder(it, R.style.AlertDialogStyle2)
             val inflater = requireActivity().layoutInflater
             val view = inflater.inflate(R.layout.dialog_update_username, null)
             val usernameView = view.findViewById<TextInputEditText>(R.id.username)
