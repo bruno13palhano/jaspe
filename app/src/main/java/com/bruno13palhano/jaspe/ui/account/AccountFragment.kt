@@ -17,10 +17,11 @@ import coil.load
 import com.bruno13palhano.jaspe.R
 import com.bruno13palhano.jaspe.ui.ViewModelFactory
 import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.imageview.ShapeableImageView
 import kotlinx.coroutines.launch
 
 class AccountFragment : Fragment() {
-    private lateinit var userProfileImage: ImageView
+    private lateinit var userProfileImage: ShapeableImageView
     private lateinit var usernameTextView: TextView
     private lateinit var emailTextView: TextView
     private lateinit var viewModel: AccountViewModel

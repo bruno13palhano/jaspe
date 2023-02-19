@@ -24,13 +24,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_account">
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/profile_image"
-            android:layout_width="160dp"
+            android:layout_width="214dp"
             android:layout_height="214dp"
             android:layout_gravity="center"
+            android:layout_margin="8dp"
+            android:src="@drawable/ic_baseline_image_24"
+            android:scaleType="centerCrop"
             android:contentDescription="@string/profile_picture_description"
-            android:src="@drawable/ic_baseline_image_24" />
+            app:shapeAppearanceOverlay="@style/roundedImageViewRounded" />
     </androidx.cardview.widget.CardView>
 
     <TextView
