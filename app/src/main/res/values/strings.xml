@@ -11,6 +11,8 @@
     <string name="categories_label">Categories</string>
     <string name="category_item_label">Category item</string>
     <string name="search_product_label">Search Product</string>
+    <string name="welcome_user_label">Welcome, %s</string>
+
     <!-- product labels   -->
     <string name="product_name_label">Product name</string>
     <string name="product_price_label">\R$%1$.2f</string>
@@ -25,6 +27,7 @@
     <string name="profile_picture_description">Profile picture</string>
     <string name="product_picture_description">Product picture</string>
     <string name="banners_picture_description">Banners</string>
+    <string name="app_logo_picture_description">App logo</string>
 
     <!--  button labels  -->
     <string name="buy_button_label">Buy</string>
