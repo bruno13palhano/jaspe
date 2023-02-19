@@ -26,6 +26,7 @@ import com.bruno13palhano.model.Route
 import com.bruno13palhano.model.ContactInfo
 import com.bruno13palhano.model.Product
 import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.navigation.NavigationView
 import kotlinx.coroutines.launch
 
@@ -98,7 +99,7 @@ class HomeFragment : Fragment() {
         val navView = ((activity as MainActivity)).findViewById<NavigationView>(R.id.nav_view)
 
         val profilePhotoView = navView.getHeaderView(0)
-            .findViewById<ImageView>(R.id.profile_photo)
+            .findViewById<ShapeableImageView>(R.id.profile_photo)
         lifecycleScope.launch {
             viewModel.profileUrlPhoto.collect {
                 if (it.isNotEmpty()) {
@@ -106,7 +107,10 @@ class HomeFragment : Fragment() {
                 }
             }
         }
-        profilePhotoView.setOnClickListener {
+
+        val profileHeader = navView.getHeaderView(0)
+            .findViewById<CardView>(R.id.profile_header)
+        profileHeader.setOnClickListener {
             findNavController().currentDestination?.let {
                 if (it.id == R.id.accountFragment) {
                     drawer.close()
@@ -125,7 +129,7 @@ class HomeFragment : Fragment() {
         lifecycleScope.launch {
             viewModel.username.collect {
                 if (it.isNotEmpty()) {
-                    usernameView.text = it
+                    usernameView.text = getString(R.string.welcome_user_label, it)
                 }
             }
         }
