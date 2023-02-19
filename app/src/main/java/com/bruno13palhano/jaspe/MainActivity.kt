@@ -98,6 +98,15 @@ class MainActivity : AppCompatActivity(), DrawerLock {
                     }
                 }
 
+                R.id.notificationsFragment -> {
+                    lifecycleScope.launch {
+                        navController.apply {
+                            popBackStack(R.id.homeFragment, inclusive = false, saveState = true)
+                            navigate(R.id.action_to_notifications)
+                        }
+                    }
+                }
+
                 R.id.favoritesFragment -> {
                     lifecycleScope.launch {
                         navController.apply {

@@ -61,6 +61,14 @@
         app:popExitAnim="@android:anim/slide_out_right" />
 
     <action
+        android:id="@+id/action_to_notifications"
+        app:destination="@id/notificationsFragment"
+        app:enterAnim="@android:anim/slide_in_left"
+        app:exitAnim="@android:anim/slide_out_right"
+        app:popEnterAnim="@android:anim/slide_in_left"
+        app:popExitAnim="@android:anim/slide_out_right" />
+
+    <action
         android:id="@+id/action_to_search_dialog"
         app:destination="@id/searchDialogFragment"
         app:enterAnim="@android:anim/slide_in_left"
@@ -169,6 +177,12 @@
             app:popEnterAnim="@android:anim/slide_in_left"
             app:popExitAnim="@android:anim/slide_out_right" />
     </fragment>
+
+    <fragment
+        android:id="@+id/notificationsFragment"
+        android:name="com.bruno13palhano.jaspe.ui.notifications.NotificationsFragment"
+        android:label="@string/notifications_label"
+        tools:layout="@layout/fragment_notifications" />
 
     <fragment
         android:id="@+id/favoritesFragment"
