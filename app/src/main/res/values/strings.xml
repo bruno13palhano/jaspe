@@ -2,6 +2,7 @@
     <string name="app_name">Jaspe</string>
     <string name="home_label">Home</string>
     <string name="favorite_label">Favorites</string>
+    <string name="notifications_label">Notifications</string>
     <string name="help_label">Help</string>
     <string name="search_label">Search</string>
     <string name="offers_label">Offers of the day</string>
@@ -12,6 +13,7 @@
     <string name="category_item_label">Category item</string>
     <string name="search_product_label">Search Product</string>
     <string name="welcome_user_label">Welcome, %s</string>
+    <string name="notifications_count_label">1</string>
 
     <!-- product labels   -->
     <string name="product_name_label">Product name</string>
