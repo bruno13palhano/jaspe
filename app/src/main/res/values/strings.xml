@@ -13,7 +13,6 @@
     <string name="category_item_label">Category item</string>
     <string name="search_product_label">Search Product</string>
     <string name="welcome_user_label">Welcome, %s</string>
-    <string name="notifications_count_label">1</string>
 
     <!-- product labels   -->
     <string name="product_name_label">Product name</string>
@@ -30,6 +29,7 @@
     <string name="product_picture_description">Product picture</string>
     <string name="banners_picture_description">Banners</string>
     <string name="app_logo_picture_description">App logo</string>
+    <string name="notification_icon_description">Notification icon</string>
 
     <!--  button labels  -->
     <string name="buy_button_label">Buy</string>
@@ -98,4 +98,9 @@
     <string name="processing_image_error">Error during image processing</string>
     <string name="image_updated_successfully_label">Image updated successfully</string>
     <string name="username_updated_successfully_label">Username updated successfully</string>
+
+    <!--  Notifications  -->
+    <string name="notification_title_label">Notification title</string>
+    <string name="notification_description_label">Notification description</string>
+    <string name="notifications_count_label">1</string>
 </resources>
