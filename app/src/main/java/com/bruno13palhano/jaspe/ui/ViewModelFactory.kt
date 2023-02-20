@@ -16,6 +16,8 @@ import com.bruno13palhano.jaspe.ui.home.HomeViewModel
 import com.bruno13palhano.jaspe.ui.home.HomeViewModelFactory
 import com.bruno13palhano.jaspe.ui.login.LoginViewModel
 import com.bruno13palhano.jaspe.ui.login.LoginViewModelFactory
+import com.bruno13palhano.jaspe.ui.notifications.NotificationsViewModel
+import com.bruno13palhano.jaspe.ui.notifications.NotificationsViewModelFactory
 import com.bruno13palhano.jaspe.ui.product.*
 import com.bruno13palhano.jaspe.ui.search.SearchDialogViewModel
 import com.bruno13palhano.jaspe.ui.search.SearchDialogViewModelFactory
@@ -71,7 +73,8 @@ class ViewModelFactory(
         val searchDialogViewModelFactory =
             SearchDialogViewModelFactory(repositoryFactory.createSearchCacheRepository())
 
-        return ViewModelProvider(owner, searchDialogViewModelFactory)[SearchDialogViewModel::class.java]
+        return ViewModelProvider(owner,
+            searchDialogViewModelFactory)[SearchDialogViewModel::class.java]
     }
 
     fun createHelpViewModel(): HelpViewModel {
@@ -88,7 +91,8 @@ class ViewModelFactory(
                 authentication = authenticationFactory.createUserFirebase()
             )
 
-        return ViewModelProvider(owner, createAccountViewModelFactory)[CreateAccountViewModel::class.java]
+        return ViewModelProvider(owner,
+            createAccountViewModelFactory)[CreateAccountViewModel::class.java]
     }
 
     fun createLoginViewModel(): LoginViewModel {
@@ -109,5 +113,13 @@ class ViewModelFactory(
             )
 
         return ViewModelProvider(owner, accountViewModelFactory)[AccountViewModel::class.java]
+    }
+
+    fun createNotificationViewModel(): NotificationsViewModel {
+        val notificationViewModelFactory =
+            NotificationsViewModelFactory(repositoryFactory.createNotificationRepository())
+
+        return ViewModelProvider(owner,
+            notificationViewModelFactory)[NotificationsViewModel::class.java]
     }
 }
