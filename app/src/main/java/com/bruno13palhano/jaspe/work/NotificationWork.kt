@@ -10,10 +10,10 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
-import com.bruno13palhano.authentication.core.AuthenticationFactory
 import com.bruno13palhano.jaspe.MainActivity
 import com.bruno13palhano.jaspe.R
 import com.bruno13palhano.model.Notification
+import com.bruno13palhano.repository.RepositoryFactory
 import com.example.network.service.NetworkFactory
 
 class NotificationWork(
@@ -22,11 +22,12 @@ class NotificationWork(
 ) : CoroutineWorker(context, params) {
 
     private val offerNotificationNetwork = NetworkFactory().createOfferNotificationNetwork()
-    private val authentication = AuthenticationFactory().createUserFirebase()
+    private val notificationRepository = RepositoryFactory(context).createNotificationRepository()
 
     override suspend fun doWork(): Result {
 
         offerNotificationNetwork.getOfferNotification().collect {
+            notificationRepository.insertNotification(it)
             initOfferNotification(it)
         }
 
@@ -37,11 +38,13 @@ class NotificationWork(
         val intent = Intent(applicationContext, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
-        val pendingIntent: PendingIntent = PendingIntent.getActivity(applicationContext, 0, intent, PendingIntent.FLAG_IMMUTABLE)
+        val pendingIntent: PendingIntent = PendingIntent.getActivity(applicationContext,
+            0, intent, PendingIntent.FLAG_IMMUTABLE)
 
         createNotificationChannel()
 
-        val builderNotification = NotificationCompat.Builder(applicationContext, "OFFERS_NOTIFICATION")
+        val builderNotification = NotificationCompat.Builder(applicationContext,
+                "OFFERS_NOTIFICATION")
             .setSmallIcon(R.drawable.ic_baseline_email_24)
             .setContentTitle(offerNotification.title)
             .setContentText(offerNotification.description)
@@ -59,12 +62,14 @@ class NotificationWork(
             val name = "shopdani"
             val descriptionText = "notification shopdani"
             val importance = NotificationManager.IMPORTANCE_DEFAULT
-            val channel = NotificationChannel("OFFERS_NOTIFICATION", name, importance).apply {
+            val channel = NotificationChannel("OFFERS_NOTIFICATION", name, importance)
+                    .apply {
                 description = descriptionText
             }
 
             val notificationManager: NotificationManager =
-                applicationContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+                applicationContext
+                    .getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.createNotificationChannel(channel)
         }
     }
