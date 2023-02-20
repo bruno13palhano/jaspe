@@ -40,4 +40,9 @@ class RepositoryFactory(
         val userDao = JaspeDatabase.getInstance(context).userDao
         return UserRepositoryImpl(userDao)
     }
+
+    fun createNotificationRepository(): NotificationRepository {
+        val notificationDao = JaspeDatabase.getInstance(context).notificationDao
+        return NotificationRepositoryImpl(notificationDao)
+    }
 }
