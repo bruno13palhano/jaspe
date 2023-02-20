@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.bruno13palhano.model.Notification
 import com.bruno13palhano.repository.dao.*
 import com.bruno13palhano.repository.dao.BannerDao
 import com.bruno13palhano.repository.dao.FavoriteProductDao
@@ -25,7 +24,7 @@ import com.bruno13palhano.repository.model.SearchCacheRep
     LastSeenRep::class,
     BlogPostRep::class,
     UserRep::class,
-    Notification::class],
+    NotificationRep::class],
     version = 1, exportSchema = false)
 internal abstract class JaspeDatabase : RoomDatabase() {
     abstract val productDao: ProductDao
