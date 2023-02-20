@@ -6,8 +6,8 @@ import com.example.network.service.blog.BlogPostNetwork
 import com.example.network.service.blog.BlogPostNetworkImpl
 import com.example.network.service.contact.ContactInfoNetwork
 import com.example.network.service.contact.ContactInfoNetworkImp
-import com.example.network.service.offers.OfferNotificationNetwork
-import com.example.network.service.offers.OfferNotificationNetworkImpl
+import com.example.network.service.notification.NotificationNetwork
+import com.example.network.service.notification.NotificationNetworkImpl
 import com.example.network.service.product.ProductNetwork
 import com.example.network.service.product.ProductNetworkImpl
 
@@ -29,7 +29,7 @@ class NetworkFactory {
         return BlogPostNetworkImpl()
     }
 
-    fun createOfferNotificationNetwork(): OfferNotificationNetwork {
-        return OfferNotificationNetworkImpl()
+    fun createOfferNotificationNetwork(): NotificationNetwork {
+        return NotificationNetworkImpl()
     }
 }
