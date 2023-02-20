@@ -13,7 +13,7 @@ import androidx.work.WorkerParameters
 import com.bruno13palhano.authentication.core.AuthenticationFactory
 import com.bruno13palhano.jaspe.MainActivity
 import com.bruno13palhano.jaspe.R
-import com.bruno13palhano.model.OfferNotification
+import com.bruno13palhano.model.Notification
 import com.example.network.service.NetworkFactory
 
 class NotificationWork(
@@ -33,7 +33,7 @@ class NotificationWork(
         return Result.success()
     }
 
-    private fun initOfferNotification(offerNotification: OfferNotification) {
+    private fun initOfferNotification(offerNotification: Notification) {
         val intent = Intent(applicationContext, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
