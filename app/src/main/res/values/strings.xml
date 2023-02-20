@@ -103,4 +103,5 @@
     <string name="notification_title_label">Notification title</string>
     <string name="notification_description_label">Notification description</string>
     <string name="notifications_count_label">1</string>
+    <string name="notification_delete_label">Delete notification</string>
 </resources>
