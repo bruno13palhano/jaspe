@@ -5,11 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bruno13palhano.jaspe.R
-import com.bruno13palhano.model.Notification
+import com.bruno13palhano.jaspe.ui.ViewModelFactory
 import com.google.android.material.appbar.MaterialToolbar
+import kotlinx.coroutines.launch
 
 class NotificationsFragment : Fragment() {
 
@@ -20,26 +22,21 @@ class NotificationsFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_notifications, container, false)
         val notificationRecyclerView = view.findViewById<RecyclerView>(R.id.notifications_list)
 
-        val notificationList = listOf(
-            Notification(
-                title = "ofertas 1",
-                description = "descrição 1"
-            ),
-            Notification(
-                title = "ofertas 2",
-                description = "descrição 2"
-            ),
-            Notification(
-                title = "ofertas 3",
-                description = "descrição 3"
-            ),
-        )
+        val viewModel = ViewModelFactory(requireContext(),
+            this@NotificationsFragment).createNotificationViewModel()
 
         val adapter = NotificationsItemAdapter {
-            println(it)
+           lifecycleScope.launch {
+               viewModel.deleteNotification(it)
+           }
         }
         notificationRecyclerView.adapter = adapter
-        adapter.submitList(notificationList)
+
+        lifecycleScope.launch {
+            viewModel.notifications.collect {
+                adapter.submitList(it)
+            }
+        }
 
         return view
     }
