@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginHorizontal="16dp"
-            android:hint="@string/username_label"
+            android:text="@string/welcome_user_default_label"
             android:textSize="16sp" />
     </LinearLayout>
 
