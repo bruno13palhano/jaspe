@@ -26,4 +26,8 @@ internal class NotificationRepositoryImpl(
             }
         }
     }
+
+    override suspend fun setNotificationVisualized(id: Long, isVisualized: Boolean) {
+        notificationDao.setNotificationVisualized(id, isVisualized)
+    }
 }

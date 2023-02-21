@@ -7,4 +7,5 @@ interface NotificationRepository {
     suspend fun insertNotification(notification: Notification)
     suspend fun deleteNotification(notification: Notification)
     fun getAllNotifications(): Flow<List<Notification>>
+    suspend fun setNotificationVisualized(id: Long, isVisualized: Boolean)
 }

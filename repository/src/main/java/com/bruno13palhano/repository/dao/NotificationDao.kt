@@ -19,4 +19,8 @@ internal interface NotificationDao {
 
     @Query("SELECT * FROM notification_table")
     fun getAllNotifications(): Flow<List<NotificationRep>>
+
+    @Query("UPDATE notification_table SET notification_is_visualized " +
+            "= :isVisualized WHERE notification_id = :id")
+    suspend fun setNotificationVisualized(id: Long, isVisualized: Boolean)
 }
