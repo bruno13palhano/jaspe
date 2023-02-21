@@ -115,6 +115,8 @@ class HomeFragment : Fragment() {
             viewModel.profileUrlPhoto.collect {
                 if (it.isNotEmpty()) {
                     profilePhotoView.load(it)
+                } else {
+                    profilePhotoView.setImageResource(R.drawable.ic_baseline_account_circle_24)
                 }
             }
         }
@@ -141,6 +143,8 @@ class HomeFragment : Fragment() {
             viewModel.username.collect {
                 if (it.isNotEmpty()) {
                     usernameView.text = getString(R.string.welcome_user_label, it)
+                } else {
+                    usernameView.text = getString(R.string.welcome_user_default_label)
                 }
             }
         }
