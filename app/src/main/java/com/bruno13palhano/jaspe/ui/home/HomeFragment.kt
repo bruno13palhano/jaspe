@@ -4,6 +4,7 @@ import  android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -97,6 +98,16 @@ class HomeFragment : Fragment() {
 
         val drawer = ((activity as MainActivity)).findViewById<DrawerLayout>(R.id.drawer_layout)
         val navView = ((activity as MainActivity)).findViewById<NavigationView>(R.id.nav_view)
+
+        val notificationItemMenu = navView.menu.findItem(R.id.notificationsFragment)
+        val notificationCountView = notificationItemMenu
+            .actionView?.findViewById<TextView>(R.id.notification_count)
+
+        lifecycleScope.launch {
+            viewModel.notificationCount.collect { nonVisualizedNotificationsCount ->
+                setNotificationsCountView(notificationCountView, nonVisualizedNotificationsCount)
+            }
+        }
 
         val profilePhotoView = navView.getHeaderView(0)
             .findViewById<ShapeableImageView>(R.id.profile_photo)
@@ -271,6 +282,17 @@ class HomeFragment : Fragment() {
                     lastSeenAdapter.submitList(it)
                     setLastSeenCardVisibility(it.size)
                 }
+            }
+        }
+    }
+
+    private fun setNotificationsCountView(countView: TextView?, count: Long) {
+        countView?.let {
+            if (count > 0) {
+                it.visibility = VISIBLE
+                it.text = count.toString()
+            } else {
+                it.visibility = GONE
             }
         }
     }
