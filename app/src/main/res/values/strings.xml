@@ -13,6 +13,7 @@
     <string name="category_item_label">Category item</string>
     <string name="search_product_label">Search Product</string>
     <string name="welcome_user_label">Welcome, %s</string>
+    <string name="welcome_user_default_label">Welcome to ShopDani</string>
 
     <!-- product labels   -->
     <string name="product_name_label">Product name</string>
