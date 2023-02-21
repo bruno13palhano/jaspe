@@ -8,10 +8,7 @@ import com.bruno13palhano.model.Banner
 import com.bruno13palhano.model.Company
 import com.bruno13palhano.model.ContactInfo
 import com.bruno13palhano.model.Product
-import com.bruno13palhano.repository.external.BannerRepository
-import com.bruno13palhano.repository.external.ContactInfoRepository
-import com.bruno13palhano.repository.external.ProductRepository
-import com.bruno13palhano.repository.external.UserRepository
+import com.bruno13palhano.repository.external.*
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
@@ -20,6 +17,7 @@ class HomeViewModel(
     private val bannerRepository: BannerRepository,
     private val contactInfoRepository: ContactInfoRepository,
     private val userRepository: UserRepository,
+    private val notificationRepository: NotificationRepository,
     private val authentication: UserAuthentication
 ) : ViewModel() {
 
@@ -59,7 +57,22 @@ class HomeViewModel(
     private val _profileUrlPhoto = MutableStateFlow("")
     val profileUrlPhoto = _profileUrlPhoto.asStateFlow()
 
+    private val _notificationsCount = MutableStateFlow(0L)
+    val notificationCount = _notificationsCount.asStateFlow()
+
     init {
+        viewModelScope.launch {
+            notificationRepository.getAllNotifications().collect {
+                var count = 0L
+                it.forEach { notification ->
+                    if (!notification.isVisualized) {
+                        count++
+                    }
+                }
+                _notificationsCount.value = count
+            }
+        }
+
         viewModelScope.launch {
             userRepository.getUserByUid(authentication.getCurrentUser().uid).collect {
                 _username.value = it.username
