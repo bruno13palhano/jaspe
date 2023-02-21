@@ -12,7 +12,7 @@ import com.bruno13palhano.jaspe.R
 import com.bruno13palhano.model.Notification
 
 class NotificationsItemAdapter(
-    private val onClick: (message: String) -> Unit
+    private val onClick: (notification: Notification) -> Unit
 ) : ListAdapter<Notification, NotificationsItemAdapter
         .NotificationItemViewHolder>(NotificationDiffCallback()) {
 
@@ -28,19 +28,20 @@ class NotificationsItemAdapter(
 
     class NotificationItemViewHolder(
         rootView: CardView,
-        val onClick: (message: String) -> Unit
+        val onClick: (notification: Notification) -> Unit
     ) : RecyclerView.ViewHolder(rootView) {
         private val notificationTitle: TextView = rootView.findViewById(R.id.notification_title)
         private val notificationDescription: TextView =
             rootView.findViewById(R.id.notification_description)
         private val notificationIcon: ImageView = rootView.findViewById(R.id.notification_icon)
+        private val notificationClose: ImageView = rootView.findViewById(R.id.notification_close)
 
         var currentNotification: Notification? = null
 
         init {
-            rootView.setOnClickListener {
+            notificationClose.setOnClickListener {
                 currentNotification?.let {
-                    onClick(it.title)
+                    onClick(it)
                 }
             }
         }
