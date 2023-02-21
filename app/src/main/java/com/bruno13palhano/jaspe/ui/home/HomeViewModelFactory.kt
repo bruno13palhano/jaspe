@@ -3,16 +3,14 @@ package com.bruno13palhano.jaspe.ui.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.bruno13palhano.authentication.core.UserAuthentication
-import com.bruno13palhano.repository.external.BannerRepository
-import com.bruno13palhano.repository.external.ContactInfoRepository
-import com.bruno13palhano.repository.external.ProductRepository
-import com.bruno13palhano.repository.external.UserRepository
+import com.bruno13palhano.repository.external.*
 
 class HomeViewModelFactory(
     private val productRepository: ProductRepository,
     private val bannerRepository: BannerRepository,
     private val contactInfoRepository: ContactInfoRepository,
     private val userRepository: UserRepository,
+    private val notificationRepository: NotificationRepository,
     private val authentication: UserAuthentication
 ) : ViewModelProvider.Factory {
 
@@ -23,6 +21,7 @@ class HomeViewModelFactory(
                 bannerRepository = bannerRepository,
                 contactInfoRepository = contactInfoRepository,
                 userRepository = userRepository,
+                notificationRepository = notificationRepository,
                 authentication = authentication
             ) as T
         }

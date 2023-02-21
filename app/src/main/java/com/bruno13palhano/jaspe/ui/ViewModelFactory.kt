@@ -49,6 +49,7 @@ class ViewModelFactory(
                 bannerRepository = repositoryFactory.createBannerRepository(),
                 contactInfoRepository = repositoryFactory.createContactInfoRepository(),
                 userRepository = repositoryFactory.createUserRepository(),
+                notificationRepository = repositoryFactory.createNotificationRepository(),
                 authentication = authenticationFactory.createUserFirebase()
             )
 
