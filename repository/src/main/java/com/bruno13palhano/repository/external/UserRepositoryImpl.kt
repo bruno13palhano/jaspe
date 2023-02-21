@@ -5,7 +5,6 @@ import com.bruno13palhano.repository.dao.UserDao
 import com.bruno13palhano.repository.model.asUser
 import com.bruno13palhano.repository.model.asUserRep
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 
