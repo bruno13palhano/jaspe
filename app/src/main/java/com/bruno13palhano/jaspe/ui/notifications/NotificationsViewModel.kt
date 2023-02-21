@@ -18,6 +18,12 @@ class NotificationsViewModel(
     init {
         viewModelScope.launch {
             notificationRepository.getAllNotifications().collect {
+                it.forEach { notification ->
+                    if(!notification.isVisualized) {
+                        notificationRepository
+                            .setNotificationVisualized(notification.id, true)
+                    }
+                }
                 _notifications.value = it
             }
         }
