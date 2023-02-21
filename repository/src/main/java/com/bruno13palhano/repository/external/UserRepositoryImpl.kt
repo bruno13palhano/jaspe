@@ -5,6 +5,8 @@ import com.bruno13palhano.repository.dao.UserDao
 import com.bruno13palhano.repository.model.asUser
 import com.bruno13palhano.repository.model.asUserRep
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.emptyFlow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 
 internal class UserRepositoryImpl(
@@ -22,9 +24,19 @@ internal class UserRepositoryImpl(
         userDao.updateUserUrlPhoto(newUrlPhoto, userUid)
     }
 
-    override fun getUserByUid(userUid: String): Flow<User> {
-        return userDao.getUserByUid(userUid).map {
-            it.asUser()
+    override fun getUserByUid(userUid: String?): Flow<User> {
+        return if (isUserUidValid(userUid)) {
+            userDao.getUserByUid(userUid).map {
+                it.asUser()
+            }
+        } else {
+            flow {
+                User()
+            }
         }
     }
+
+    private fun isUserUidValid(userUid: String?): Boolean =
+        userUid != null && userUid != ""
+
 }

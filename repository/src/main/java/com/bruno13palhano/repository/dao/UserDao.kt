@@ -22,5 +22,5 @@ internal interface UserDao {
     suspend fun updateUserUrlPhoto(newUrlPhoto: String, userUid: String)
 
     @Query("SELECT * FROM user_table WHERE user_id = :userUid")
-    fun getUserByUid(userUid: String): Flow<UserRep>
+    fun getUserByUid(userUid: String?): Flow<UserRep>
 }
