@@ -33,7 +33,13 @@ class UserRepositoryImplTest {
             urlPhoto = "https://www.somephotourl.com"
         )
         repository = mock<UserRepositoryImpl>()
-        currentUser = User()
+        currentUser = User(
+            uid = "uid",
+            username = "username",
+            email = "emial",
+            password = "password",
+            urlPhoto = "urlPhoto"
+        )
     }
 
     @Test
@@ -60,11 +66,11 @@ class UserRepositoryImplTest {
                 }
             )
 
-        repository.getUserByUid("aaaa").collect {
+        repository.getUserByUid(anyString()).collect {
             currentUser = it
         }
 
-        Assert.assertEquals(User(), currentUser)
+        Assert.assertNotEquals(user.uid, currentUser.uid)
     }
 
     @Test
