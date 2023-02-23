@@ -14,5 +14,5 @@ object UserFactory {
         )
     }
 
-    private fun makeRandomString() = UUID.randomUUID().toString()
+    fun makeRandomString() = UUID.randomUUID().toString()
 }
