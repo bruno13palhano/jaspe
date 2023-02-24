@@ -1,4 +1,4 @@
-package com.bruno13palhano.repository
+package com.bruno13palhano.repository.user
 
 import com.bruno13palhano.model.User
 import java.util.UUID

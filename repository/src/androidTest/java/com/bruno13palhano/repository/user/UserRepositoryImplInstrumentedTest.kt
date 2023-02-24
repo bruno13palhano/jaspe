@@ -1,4 +1,4 @@
-package com.bruno13palhano.repository
+package com.bruno13palhano.repository.user
 
 import android.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
@@ -7,7 +7,8 @@ import androidx.test.filters.SmallTest
 import androidx.test.platform.app.InstrumentationRegistry
 import app.cash.turbine.test
 import com.bruno13palhano.model.User
-import com.bruno13palhano.repository.UserFactory.createUser
+import com.bruno13palhano.repository.JaspeDatabase
+import com.bruno13palhano.repository.user.UserFactory.createUser
 import com.bruno13palhano.repository.dao.UserDao
 import com.bruno13palhano.repository.external.UserRepository
 import com.bruno13palhano.repository.external.UserRepositoryImpl
@@ -21,7 +22,7 @@ import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 @SmallTest
-class UserRepositoryImplTest {
+class UserRepositoryImplInstrumentedTest {
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
