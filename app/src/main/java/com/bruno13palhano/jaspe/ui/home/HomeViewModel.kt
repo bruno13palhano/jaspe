@@ -74,10 +74,12 @@ class HomeViewModel(
         }
 
         viewModelScope.launch {
-            userRepository.getUserByUid(authentication.getCurrentUser().uid).collect {
-                _username.value = it.username
-                _profileUrlPhoto.value = it.urlPhoto
-            }
+            try {
+                userRepository.getUserByUid(authentication.getCurrentUser().uid).collect {
+                    _username.value = it.username
+                    _profileUrlPhoto.value = it.urlPhoto
+                }
+            } catch (ignored: Exception) {}
         }
 
         viewModelScope.launch {
