@@ -29,9 +29,7 @@ internal class UserRepositoryImpl(
                 it.asUser()
             }
         } else {
-            flow {
-                User()
-            }
+            throw Exception()
         }
     }
 
