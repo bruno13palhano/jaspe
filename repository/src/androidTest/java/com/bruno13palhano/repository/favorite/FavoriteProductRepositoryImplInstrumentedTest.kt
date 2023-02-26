@@ -136,7 +136,7 @@ class FavoriteProductRepositoryImplInstrumentedTest {
     @Test
     fun getFavoriteByUrl_withInvalidUrl_shouldReturnException() = runBlocking {
         val randomUrl = makeRandomString()
-        repository.getFavoriteByLink(randomUrl    ).test {
+        repository.getFavoriteByLink(randomUrl).test {
             val error = awaitError()
 
             Assert.assertNotEquals(error.message, null)
