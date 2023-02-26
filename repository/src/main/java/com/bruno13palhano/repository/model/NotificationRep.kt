@@ -19,19 +19,24 @@ internal data class NotificationRep(
     val description: String,
 
     @ColumnInfo(name = "notification_is_visualized")
-    val isVisualized: Boolean
+    val isVisualized: Boolean,
+
+    @ColumnInfo(name = "notification_type")
+    val type: String
 )
 
 internal fun NotificationRep.asNotification() = Notification(
     id = id,
     title = title,
     description = description,
-    isVisualized = isVisualized
+    isVisualized = isVisualized,
+    type = type
 )
 
 internal fun Notification.asNotificationRep() = NotificationRep(
     id = id,
     title = title,
     description = description,
-    isVisualized = isVisualized
+    isVisualized = isVisualized,
+    type = type
 )
