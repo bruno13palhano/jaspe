@@ -50,6 +50,8 @@ class NetworkServiceTest {
         val firstProduct = makeProduct()
         val secondProduct = makeProduct()
         val products = listOf(firstProduct, secondProduct)
+        val offset = 0
+        val limit = 100
 
         val productsJSON = makeProductListJSON(products)
 
@@ -58,9 +60,12 @@ class NetworkServiceTest {
                 .setBody(productsJSON)
                 .setResponseCode(200))
 
-        val productsResponse = apiService.getProducts(listOf(0, 100))
+        val productsResponse = apiService.getProducts(listOf(offset, limit))
 
         Assert.assertTrue(productsResponse.containsAll(products.map { it.asProductNet() }))
+
+        Assert.assertEquals("/products?params=$offset&params=$limit",
+            mockWebServer.takeRequest().path)
     }
 
     @Test
@@ -76,6 +81,9 @@ class NetworkServiceTest {
         val productResponse = apiService.getProductById(product.productId)
 
         Assert.assertEquals(product.productId, productResponse.productId)
+
+        Assert.assertEquals("/product?productId=${product.productId}",
+            mockWebServer.takeRequest().path)
     }
 
     @Test
@@ -94,6 +102,9 @@ class NetworkServiceTest {
         val productsResponse = apiService.getAmazonProducts()
 
         Assert.assertTrue(productsResponse.containsAll(products.map { it.asProductNet() }))
+
+        Assert.assertEquals("/products/amazon",
+            mockWebServer.takeRequest().path)
     }
 
     @Test
@@ -113,6 +124,9 @@ class NetworkServiceTest {
         val productsResponse = apiService.getNaturaProducts()
 
         Assert.assertTrue(productsResponse.containsAll(products.map { it.asProductNet() }))
+
+        Assert.assertEquals("/products/natura",
+            mockWebServer.takeRequest().path)
     }
 
     @Test
@@ -131,6 +145,9 @@ class NetworkServiceTest {
         val productsResponse = apiService.getAvonProducts()
 
         Assert.assertTrue(productsResponse.containsAll(products.map { it.asProductNet() }))
+
+        Assert.assertEquals("/products/avon",
+            mockWebServer.takeRequest().path)
     }
 
     @Test
@@ -147,6 +164,9 @@ class NetworkServiceTest {
         val bannerResponse = apiService.getBannerById(banner.bannerId)
 
         Assert.assertEquals(bannerResponse.bannerId, banner.bannerId)
+
+        Assert.assertEquals("/banner?bannerId=${banner.bannerId}",
+            mockWebServer.takeRequest().path)
     }
 
     @Test
@@ -165,6 +185,9 @@ class NetworkServiceTest {
         val bannersResponse = apiService.getBanners()
 
         Assert.assertTrue(bannersResponse.containsAll(banners.map { it.asBannerNet() }))
+
+        Assert.assertEquals("/",
+            mockWebServer.takeRequest().path)
     }
 
     @Test
@@ -183,6 +206,9 @@ class NetworkServiceTest {
         val bannersResponse = apiService.getAmazonBanners()
 
         Assert.assertTrue(bannersResponse.containsAll(banners.map { it.asBannerNet() }))
+
+        Assert.assertEquals("/banners/amazon",
+            mockWebServer.takeRequest().path)
     }
 
     @Test
@@ -201,6 +227,9 @@ class NetworkServiceTest {
         val bannersResponse = apiService.getNaturaBanners()
 
         Assert.assertTrue(bannersResponse.containsAll(banners.map { it.asBannerNet() }))
+
+        Assert.assertEquals("/banners/natura",
+            mockWebServer.takeRequest().path)
     }
 
     @Test
@@ -219,6 +248,9 @@ class NetworkServiceTest {
         val bannersResponse = apiService.getAvonBanners()
 
         Assert.assertTrue(bannersResponse.containsAll(banners.map { it.asBannerNet() }))
+
+        Assert.assertEquals("/banners/avon",
+            mockWebServer.takeRequest().path)
     }
 
     @Test
@@ -235,6 +267,9 @@ class NetworkServiceTest {
         val contactInfoResponse = apiService.getContact()
 
         Assert.assertEquals(contactInfoResponse.asContactInfo(), contactInfo)
+
+        Assert.assertEquals("/contact",
+            mockWebServer.takeRequest().path)
     }
 
     @Test
@@ -253,6 +288,9 @@ class NetworkServiceTest {
         val blogPostsResponse = apiService.getBlogPosts()
 
         Assert.assertTrue(blogPostsResponse.containsAll(blogPosts.map { it.asBlogPostNet() }))
+
+        Assert.assertEquals("/posts",
+            mockWebServer.takeRequest().path)
     }
 
     @Test
@@ -269,5 +307,8 @@ class NetworkServiceTest {
         val notificationResponse = apiService.getOfferNotification()
 
         Assert.assertEquals(notification.description, notificationResponse.description)
+
+        Assert.assertEquals("/notification/offer",
+            mockWebServer.takeRequest().path)
     }
 }
