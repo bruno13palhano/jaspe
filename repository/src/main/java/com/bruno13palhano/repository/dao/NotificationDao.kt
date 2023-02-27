@@ -17,6 +17,9 @@ internal interface NotificationDao {
     @Delete
     suspend fun delete(notification: NotificationRep)
 
+    @Delete
+    suspend fun deleteAll(notifications: List<NotificationRep>)
+
     @Query("SELECT * FROM notification_table")
     fun getAllNotifications(): Flow<List<NotificationRep>>
 

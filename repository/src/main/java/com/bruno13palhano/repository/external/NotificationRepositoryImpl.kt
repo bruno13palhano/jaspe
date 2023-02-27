@@ -19,6 +19,10 @@ internal class NotificationRepositoryImpl(
         notificationDao.delete(notification.asNotificationRep())
     }
 
+    override suspend fun deleteAllNotifications(notifications: List<Notification>) {
+        notificationDao.deleteAll(notifications.map { it.asNotificationRep() })
+    }
+
     override fun getAllNotifications(): Flow<List<Notification>> {
         return notificationDao.getAllNotifications().map {
             it.map { notificationRep ->
