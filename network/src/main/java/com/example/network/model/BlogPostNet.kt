@@ -28,3 +28,11 @@ internal fun BlogPostNet.asBlogPost() = BlogPost(
     postUrlImage = postUrlImage,
     postUrlLink = postUrlLink
 )
+
+internal fun BlogPost.asBlogPostNet() = BlogPostNet (
+    postId = postId,
+    postTitle = postTitle,
+    postDescription = postDescription,
+    postUrlImage = postUrlImage,
+    postUrlLink = postUrlLink
+)
