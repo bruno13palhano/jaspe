@@ -34,4 +34,10 @@ class NotificationsViewModel(
             notificationRepository.deleteNotification(notification)
         }
     }
+
+    fun deleteAllNotifications(notifications: List<Notification>) {
+        viewModelScope.launch {
+            notificationRepository.deleteAllNotifications(notifications)
+        }
+    }
 }
