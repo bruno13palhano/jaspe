@@ -45,6 +45,14 @@
     </fragment>
 
     <action
+        android:id="@+id/action_to_product"
+        app:destination="@+id/productFragment"
+        app:enterAnim="@android:anim/slide_in_left"
+        app:exitAnim="@android:anim/slide_out_right"
+        app:popEnterAnim="@android:anim/slide_in_left"
+        app:popExitAnim="@android:anim/slide_out_right" />
+
+    <action
         android:id="@+id/action_to_login"
         app:destination="@id/loginFragment"
         app:enterAnim="@android:anim/slide_in_left"
