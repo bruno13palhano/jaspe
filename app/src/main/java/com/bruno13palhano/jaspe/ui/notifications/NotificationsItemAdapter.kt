@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bruno13palhano.jaspe.R
 import com.bruno13palhano.model.Notification
+import com.bruno13palhano.model.NotificationTypes
 
 class NotificationsItemAdapter(
     private val onCloseClick: (notification: Notification) -> Unit,
@@ -58,7 +59,24 @@ class NotificationsItemAdapter(
             currentNotification = item
             notificationTitle.text = item.title
             notificationDescription.text = item.description
+            setNotificationIcon(notificationIcon, item.type)
+        }
 
+        private fun setNotificationIcon(iconView: ImageView, type: String) {
+            when (type) {
+                NotificationTypes.ANNOUNCEMENT.type -> {
+                    iconView.setImageResource(R.drawable.ic_baseline_announcement_24)
+                }
+                NotificationTypes.NEW_PRODUCTS.type -> {
+                    iconView.setImageResource(R.drawable.ic_baseline_new_releases_24)
+                }
+                NotificationTypes.OFFERS.type -> {
+                    iconView.setImageResource(R.drawable.ic_baseline_loyalty_24)
+                }
+                NotificationTypes.DEFAULT.type -> {
+                    iconView.setImageResource(R.drawable.ic_baseline_notifications_24)
+                }
+            }
         }
     }
 
