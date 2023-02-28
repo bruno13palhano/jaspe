@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bruno13palhano.jaspe.R
 import com.bruno13palhano.jaspe.ui.ViewModelFactory
+import com.bruno13palhano.model.NotificationTypes
 import com.google.android.material.appbar.MaterialToolbar
 import kotlinx.coroutines.launch
 
@@ -27,11 +28,16 @@ class NotificationsFragment : Fragment() {
         viewModel = ViewModelFactory(requireContext(),
             this@NotificationsFragment).createNotificationViewModel()
 
-        val adapter = NotificationsItemAdapter {
-           lifecycleScope.launch {
-               viewModel.deleteNotification(it)
-           }
-        }
+        val adapter = NotificationsItemAdapter(
+            onCloseClick = {
+                lifecycleScope.launch {
+                   viewModel.deleteNotification(it)
+                }
+            },
+            onItemClick = {
+                navigateTo(it)
+            }
+        )
         notificationRecyclerView.adapter = adapter
 
         lifecycleScope.launch {
@@ -67,6 +73,23 @@ class NotificationsFragment : Fragment() {
 
         toolbar.setOnClickListener {
             findNavController().navigateUp()
+        }
+    }
+
+    private fun navigateTo(type: String) {
+        when (type) {
+            NotificationTypes.ANNOUNCEMENT.type -> {
+                findNavController().navigate(R.id.action_to_blog)
+            }
+            NotificationTypes.NEW_PRODUCTS.type -> {
+                findNavController().navigate(R.id.action_to_product)
+            }
+            NotificationTypes.OFFERS.type -> {
+                findNavController().navigate(R.id.action_to_offers_category)
+            }
+            NotificationTypes.DEFAULT.type -> {
+                findNavController().navigate(R.id.action_to_home)
+            }
         }
     }
 }
