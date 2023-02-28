@@ -12,14 +12,15 @@ import com.bruno13palhano.jaspe.R
 import com.bruno13palhano.model.Notification
 
 class NotificationsItemAdapter(
-    private val onClick: (notification: Notification) -> Unit
+    private val onCloseClick: (notification: Notification) -> Unit,
+    private val onItemClick: (type: String) -> Unit
 ) : ListAdapter<Notification, NotificationsItemAdapter
         .NotificationItemViewHolder>(NotificationDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotificationItemViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.notification_card_item, parent, false) as CardView
-        return NotificationItemViewHolder(view, onClick)
+        return NotificationItemViewHolder(view, onCloseClick, onItemClick)
     }
 
     override fun onBindViewHolder(holder: NotificationItemViewHolder, position: Int) {
@@ -28,7 +29,8 @@ class NotificationsItemAdapter(
 
     class NotificationItemViewHolder(
         rootView: CardView,
-        val onClick: (notification: Notification) -> Unit
+        val onCloseClick: (notification: Notification) -> Unit,
+        val onItemClick: (type: String) -> Unit
     ) : RecyclerView.ViewHolder(rootView) {
         private val notificationTitle: TextView = rootView.findViewById(R.id.notification_title)
         private val notificationDescription: TextView =
@@ -41,7 +43,13 @@ class NotificationsItemAdapter(
         init {
             notificationClose.setOnClickListener {
                 currentNotification?.let {
-                    onClick(it)
+                    onCloseClick(it)
+                }
+            }
+
+            rootView.setOnClickListener {
+                currentNotification?.let {
+                    onItemClick(it.type)
                 }
             }
         }
