@@ -45,7 +45,7 @@ class HomeViewModel(
     private val _avonProducts = MutableStateFlow<List<Product>>(emptyList())
     val avonProducts: StateFlow<List<Product>> = _avonProducts
 
-    private val _contactInfo = MutableStateFlow<ContactInfo>(ContactInfo())
+    private val _contactInfo = MutableStateFlow(ContactInfo())
     val contactInfo = _contactInfo.asStateFlow()
 
     private val _lastSeenProducts = MutableStateFlow<List<Product>>(emptyList())
@@ -131,7 +131,7 @@ class HomeViewModel(
         }
 
         viewModelScope.launch {
-            bannerRepository.getByCompany(Company.NATURA.company, 0, 1).collect() { banner ->
+            bannerRepository.getByCompany(Company.NATURA.company, 0, 1).collect { banner ->
                 try {
                     _naturaBanner.value = banner[0]
                 } catch (ignored: IndexOutOfBoundsException) {}
@@ -151,10 +151,6 @@ class HomeViewModel(
                 _lastSeenProducts.value = it
             }
         }
-    }
-
-    fun getAllProducts(): Flow<List<Product>> {
-        return productRepository.getAll()
     }
 
     suspend fun insertLastSeenProduct(product: Product) {
