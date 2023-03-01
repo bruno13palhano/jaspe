@@ -57,11 +57,11 @@ object ModelFactory {
         urlPhoto = makeRandomString()
     )
 
-    fun makeRandomString() = UUID.randomUUID().toString()
+    private fun makeRandomString() = UUID.randomUUID().toString()
 
-    fun makeRandomLong() = ThreadLocalRandom.current()
+    private fun makeRandomLong() = ThreadLocalRandom.current()
         .nextLong(0, 1000)
 
-    fun makeRandomFloat() = ThreadLocalRandom.current()
+    private fun makeRandomFloat() = ThreadLocalRandom.current()
         .nextFloat()
 }
