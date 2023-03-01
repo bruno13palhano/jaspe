@@ -67,10 +67,10 @@ class HomeViewModelTest {
     private lateinit var notifications: List<Notification>
     private lateinit var user: User
 
-    private val amazon = "Amazon"
-    private val avon = "Avon"
-    private val natura = "Natura"
-    private val main = "Main"
+    private val amazon = Company.AMAZON.company
+    private val avon = Company.AVON.company
+    private val natura = Company.NATURA.company
+    private val main = Company.MAIN.company
     private val offset = 0
     private val bannersLimit = 1
     private val productsLimit = 6
