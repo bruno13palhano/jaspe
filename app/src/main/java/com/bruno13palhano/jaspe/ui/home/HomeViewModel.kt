@@ -139,7 +139,7 @@ class HomeViewModel(
         }
 
         viewModelScope.launch {
-            bannerRepository.getByCompany(Company.NATURA.company, 0, 1).collect { banner ->
+            bannerRepository.getByCompany(Company.AVON.company, 0, 1).collect { banner ->
                 try {
                     _avonBanner.value = banner[0]
                 } catch (ignored: IndexOutOfBoundsException) {}
