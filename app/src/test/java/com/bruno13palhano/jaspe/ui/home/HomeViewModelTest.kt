@@ -23,10 +23,7 @@ import org.junit.runner.RunWith
 import org.mockito.ArgumentMatchers.*
 import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
-import org.mockito.kotlin.doReturn
-import org.mockito.kotlin.mock
-import org.mockito.kotlin.spy
-import org.mockito.kotlin.verify
+import org.mockito.kotlin.*
 
 @OptIn(ExperimentalCoroutinesApi::class)
 @RunWith(MockitoJUnitRunner::class)
@@ -184,6 +181,25 @@ class HomeViewModelTest {
             val currentProducts = awaitItem()
 
             Assert.assertTrue(currentProducts.containsAll(lastSeenProducts))
+            cancel()
+        }
+    }
+
+    @Test
+    fun insertLastSeen_shouldReturnProducts() = runTest {
+        val product = makeProduct()
+
+        doReturn(flow { emit(listOf(product)) }).`when`(productRepository)
+            .getLastSeenProducts(offset, productsLimit)
+        viewModel = HomeViewModel(productRepository, bannerRepository, contactInfoRepository,
+            userRepository, notificationRepository, authentication)
+
+        viewModel.insertLastSeenProduct(product)
+
+        viewModel.lastSeenProducts.test {
+            val products = awaitItem()
+
+            Assert.assertTrue(products.contains(product))
             cancel()
         }
     }
