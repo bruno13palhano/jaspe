@@ -28,6 +28,20 @@ object ModelFactory {
         productUrlLink = makeRandomString()
     )
 
+    fun makeFavoriteProduct(
+        isVisible: Boolean = makeRandomBoolean()
+    ) = FavoriteProduct(
+        favoriteProductId = makeRandomLong(),
+        favoriteProductName = makeRandomString(),
+        favoriteProductUrlImage = makeRandomString(),
+        favoriteProductPrice = makeRandomFloat(),
+        favoriteProductType = makeRandomString(),
+        favoriteProductDescription = makeRandomString(),
+        favoriteProductCompany = makeRandomString(),
+        favoriteProductUrlLink = makeRandomString(),
+        favoriteProductIsVisible = isVisible
+    )
+
     fun makeBanner(company: String) = Banner(
         bannerId = makeRandomLong(),
         bannerName = makeRandomString(),
@@ -64,4 +78,7 @@ object ModelFactory {
 
     private fun makeRandomFloat() = ThreadLocalRandom.current()
         .nextFloat()
+
+    private fun makeRandomBoolean() = ThreadLocalRandom.current()
+        .nextBoolean()
 }
