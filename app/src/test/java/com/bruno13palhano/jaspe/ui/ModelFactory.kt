@@ -63,8 +63,8 @@ object ModelFactory {
         contactEmail = makeRandomString()
     )
 
-    fun makeUser() = User(
-        uid = makeRandomString(),
+    fun makeUser(uid: String = makeRandomString()) = User(
+        uid = uid,
         username = makeRandomString(),
         email = makeRandomString(),
         password = "",
