@@ -71,6 +71,14 @@ object ModelFactory {
         urlPhoto = makeRandomString()
     )
 
+    fun makeBlogPost() = BlogPost(
+        postId = makeRandomLong(),
+        postTitle = makeRandomString(),
+        postDescription = makeRandomString(),
+        postUrlImage = makeRandomString(),
+        postUrlLink = makeRandomString()
+    )
+
     private fun makeRandomString() = UUID.randomUUID().toString()
 
     private fun makeRandomLong() = ThreadLocalRandom.current()
