@@ -2,9 +2,9 @@ package com.bruno13palhano.jaspe.ui.product
 
 import app.cash.turbine.test
 import com.bruno13palhano.jaspe.ui.home.MainDispatcherRule
-import com.bruno13palhano.jaspe.ui.home.ModelFactory.makeContactInfo
-import com.bruno13palhano.jaspe.ui.home.ModelFactory.makeFavoriteProduct
-import com.bruno13palhano.jaspe.ui.home.ModelFactory.makeProduct
+import com.bruno13palhano.jaspe.ui.ModelFactory.makeContactInfo
+import com.bruno13palhano.jaspe.ui.ModelFactory.makeFavoriteProduct
+import com.bruno13palhano.jaspe.ui.ModelFactory.makeProduct
 import com.bruno13palhano.model.ContactInfo
 import com.bruno13palhano.model.FavoriteProduct
 import com.bruno13palhano.model.Product

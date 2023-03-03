@@ -2,7 +2,7 @@ package com.bruno13palhano.jaspe.ui.help
 
 import app.cash.turbine.test
 import com.bruno13palhano.jaspe.ui.home.MainDispatcherRule
-import com.bruno13palhano.jaspe.ui.home.ModelFactory.makeContactInfo
+import com.bruno13palhano.jaspe.ui.ModelFactory.makeContactInfo
 import com.bruno13palhano.model.ContactInfo
 import com.bruno13palhano.repository.external.ContactInfoRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi

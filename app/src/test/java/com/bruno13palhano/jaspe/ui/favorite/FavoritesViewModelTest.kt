@@ -2,7 +2,7 @@ package com.bruno13palhano.jaspe.ui.favorite
 
 import app.cash.turbine.test
 import com.bruno13palhano.jaspe.ui.home.MainDispatcherRule
-import com.bruno13palhano.jaspe.ui.home.ModelFactory.makeFavoriteProduct
+import com.bruno13palhano.jaspe.ui.ModelFactory.makeFavoriteProduct
 import com.bruno13palhano.model.FavoriteProduct
 import com.bruno13palhano.repository.external.FavoriteProductRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi

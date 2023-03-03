@@ -2,7 +2,7 @@ package com.bruno13palhano.jaspe.ui.category.blog
 
 import app.cash.turbine.test
 import com.bruno13palhano.jaspe.ui.home.MainDispatcherRule
-import com.bruno13palhano.jaspe.ui.home.ModelFactory.makeBlogPost
+import com.bruno13palhano.jaspe.ui.ModelFactory.makeBlogPost
 import com.bruno13palhano.model.BlogPost
 import com.bruno13palhano.repository.external.BlogPostRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi

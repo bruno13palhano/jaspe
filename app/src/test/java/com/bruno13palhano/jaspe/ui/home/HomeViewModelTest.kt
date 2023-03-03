@@ -2,11 +2,11 @@ package com.bruno13palhano.jaspe.ui.home
 
 import app.cash.turbine.test
 import com.bruno13palhano.authentication.core.UserAuthentication
-import com.bruno13palhano.jaspe.ui.home.ModelFactory.makeBanner
-import com.bruno13palhano.jaspe.ui.home.ModelFactory.makeContactInfo
-import com.bruno13palhano.jaspe.ui.home.ModelFactory.makeNotification
-import com.bruno13palhano.jaspe.ui.home.ModelFactory.makeProduct
-import com.bruno13palhano.jaspe.ui.home.ModelFactory.makeUser
+import com.bruno13palhano.jaspe.ui.ModelFactory.makeBanner
+import com.bruno13palhano.jaspe.ui.ModelFactory.makeContactInfo
+import com.bruno13palhano.jaspe.ui.ModelFactory.makeNotification
+import com.bruno13palhano.jaspe.ui.ModelFactory.makeProduct
+import com.bruno13palhano.jaspe.ui.ModelFactory.makeUser
 import com.bruno13palhano.model.*
 import com.bruno13palhano.repository.external.*
 import kotlinx.coroutines.Dispatchers

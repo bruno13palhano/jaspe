@@ -3,7 +3,7 @@ package com.bruno13palhano.jaspe.ui.account
 import app.cash.turbine.test
 import com.bruno13palhano.authentication.core.UserAuthentication
 import com.bruno13palhano.jaspe.ui.home.MainDispatcherRule
-import com.bruno13palhano.jaspe.ui.home.ModelFactory.makeUser
+import com.bruno13palhano.jaspe.ui.ModelFactory.makeUser
 import com.bruno13palhano.model.User
 import com.bruno13palhano.repository.external.UserRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
