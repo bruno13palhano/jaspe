@@ -1,4 +1,4 @@
-package com.bruno13palhano.jaspe.ui.home
+package com.bruno13palhano.jaspe.ui
 
 import com.bruno13palhano.model.*
 import java.util.UUID
@@ -6,25 +6,17 @@ import java.util.concurrent.ThreadLocalRandom
 
 object ModelFactory {
 
-    fun makeProduct() = Product(
-        productId = makeRandomLong(),
-        productName = makeRandomString(),
-        productUrlImage = makeRandomString(),
-        productPrice = makeRandomFloat(),
-        productDescription = makeRandomString(),
-        productCompany = makeRandomString(),
-        productType = makeRandomString(),
-        productUrlLink = makeRandomString()
-    )
-
-    fun makeProduct(company: String) = Product(
+    fun makeProduct(
+        company: String = makeRandomString(),
+        type: String = makeRandomString()
+    ) = Product(
         productId = makeRandomLong(),
         productName = makeRandomString(),
         productUrlImage = makeRandomString(),
         productPrice = makeRandomFloat(),
         productDescription = makeRandomString(),
         productCompany = company,
-        productType = makeRandomString(),
+        productType = type,
         productUrlLink = makeRandomString()
     )
 
