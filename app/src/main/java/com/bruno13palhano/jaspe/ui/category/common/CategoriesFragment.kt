@@ -45,7 +45,7 @@ class CategoriesFragment : Fragment() {
         commonRecyclerView.adapter = adapter
 
         lifecycle.coroutineScope.launch {
-            viewModel.allProduct.collect {
+            viewModel.allProducts.collect {
                 adapter.submitList(it)
                 quantityProducts.text = getString(R.string.quantity_of_products_label, it.size)
             }
