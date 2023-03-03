@@ -17,7 +17,7 @@ class CategoriesViewModel(
     private val productRepository: ProductRepository
 ): ViewModel() {
     private val _allProducts = MutableStateFlow<List<Product>>(emptyList())
-    val allProduct = _allProducts.asStateFlow()
+    val allProducts = _allProducts.asStateFlow()
 
     fun setProducts(route: String) {
         when (route) {
