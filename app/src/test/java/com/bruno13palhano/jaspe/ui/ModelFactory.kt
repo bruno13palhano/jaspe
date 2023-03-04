@@ -71,6 +71,11 @@ object ModelFactory {
         postUrlLink = makeRandomString()
     )
 
+    fun makeSearchCache() = SearchCache(
+        searchCacheId = makeRandomLong(),
+        searchCacheName = makeRandomString()
+    )
+
     private fun makeRandomString() = UUID.randomUUID().toString()
 
     private fun makeRandomLong() = ThreadLocalRandom.current()
