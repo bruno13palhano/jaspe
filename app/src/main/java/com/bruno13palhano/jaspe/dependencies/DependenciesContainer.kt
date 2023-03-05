@@ -1,11 +1,10 @@
 package com.bruno13palhano.jaspe.dependencies
 
 import android.app.Application
-import com.bruno13palhano.jaspe.dependencies.factories.MainViewModelFactory
-import com.bruno13palhano.jaspe.dependencies.factories.NotificationsViewModelFactory
-import com.bruno13palhano.jaspe.dependencies.factories.ProductViewModelFactory
-import com.bruno13palhano.jaspe.dependencies.factories.SearchDialogViewModelFactory
+import com.bruno13palhano.authentication.core.AuthenticationFactory
+import com.bruno13palhano.jaspe.dependencies.factories.*
 import com.bruno13palhano.repository.RepositoryFactory
+import com.example.network.service.NetworkFactory
 
 class DependenciesContainer(
     application: Application,
@@ -25,6 +24,11 @@ class DependenciesContainer(
     private val notificationRepository = RepositoryFactory(application)
         .createNotificationRepository()
 
+    private val userRepository = RepositoryFactory(application)
+        .createUserRepository()
+
+    private val authentication = AuthenticationFactory().createUserFirebase()
+
     val mainViewModelFactory = MainViewModelFactory(application, contactInfoRepository)
 
     val productViewModelFactory = ProductViewModelFactory(
@@ -36,4 +40,6 @@ class DependenciesContainer(
     val searchDialogViewModelFactory = SearchDialogViewModelFactory(searchCacheRepository)
 
     val notificationsViewModelFactory = NotificationsViewModelFactory(notificationRepository)
+
+    val loginViewModelFactory = LoginViewModelFactory(userRepository, authentication)
 }
