@@ -2,6 +2,7 @@ package com.bruno13palhano.jaspe.dependencies
 
 import android.app.Application
 import com.bruno13palhano.jaspe.dependencies.factories.MainViewModelFactory
+import com.bruno13palhano.jaspe.dependencies.factories.NotificationsViewModelFactory
 import com.bruno13palhano.jaspe.dependencies.factories.ProductViewModelFactory
 import com.bruno13palhano.jaspe.dependencies.factories.SearchDialogViewModelFactory
 import com.bruno13palhano.repository.RepositoryFactory
@@ -21,6 +22,9 @@ class DependenciesContainer(
     private val searchCacheRepository = RepositoryFactory(application)
         .createSearchCacheRepository()
 
+    private val notificationRepository = RepositoryFactory(application)
+        .createNotificationRepository()
+
     val mainViewModelFactory = MainViewModelFactory(application, contactInfoRepository)
 
     val productViewModelFactory = ProductViewModelFactory(
@@ -30,4 +34,6 @@ class DependenciesContainer(
     )
 
     val searchDialogViewModelFactory = SearchDialogViewModelFactory(searchCacheRepository)
+
+    val notificationsViewModelFactory = NotificationsViewModelFactory(notificationRepository)
 }
