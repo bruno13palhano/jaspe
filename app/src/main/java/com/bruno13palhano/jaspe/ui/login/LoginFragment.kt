@@ -15,7 +15,7 @@ import androidx.lifecycle.coroutineScope
 import androidx.navigation.fragment.findNavController
 import com.bruno13palhano.jaspe.DrawerLock
 import com.bruno13palhano.jaspe.R
-import com.bruno13palhano.jaspe.ui.ViewModelFactory
+import com.bruno13palhano.jaspe.dependencies.DependenciesApplication
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.coroutines.launch
@@ -34,8 +34,10 @@ class LoginFragment : Fragment(), LoginView {
         val closeLogin = view.findViewById<ImageView>(R.id.close_login)
         loginProgress = view.findViewById(R.id.login_progress)
 
-        viewModel = ViewModelFactory(requireContext(), this@LoginFragment)
-            .createLoginViewModel()
+        val dependenciesContainer = (requireActivity().application as DependenciesApplication)
+            .dependenciesContainer
+
+        viewModel = dependenciesContainer.loginViewModelFactory.create()
 
         val emailEditText = view.findViewById<TextInputEditText>(R.id.email)
         val passwordEditText = view.findViewById<TextInputEditText>(R.id.password)
