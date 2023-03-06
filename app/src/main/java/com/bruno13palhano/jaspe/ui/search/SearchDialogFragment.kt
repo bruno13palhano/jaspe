@@ -14,7 +14,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bruno13palhano.jaspe.R
-import com.bruno13palhano.jaspe.ui.ViewModelFactory
+import com.bruno13palhano.jaspe.dependencies.DependenciesApplication
 import com.bruno13palhano.jaspe.ui.common.navigateToProduct
 import com.bruno13palhano.model.Route
 import com.bruno13palhano.model.SearchCache
@@ -33,9 +33,10 @@ class SearchDialogFragment() : DialogFragment() {
     ): View {
         val view = inflater.inflate(R.layout.search_dialog, container, false)
 
-        viewModel = requireActivity().applicationContext.let {
-            ViewModelFactory(it, this@SearchDialogFragment).createSearchDialogViewModel()
-        }
+        val dependenciesContainer = (requireActivity().application as DependenciesApplication)
+            .dependenciesContainer
+
+        viewModel = dependenciesContainer.searchDialogViewModelFactory.create()
 
         inputMethodManager = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
