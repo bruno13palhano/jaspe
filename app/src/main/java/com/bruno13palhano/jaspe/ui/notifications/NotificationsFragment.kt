@@ -10,7 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bruno13palhano.jaspe.R
-import com.bruno13palhano.jaspe.ui.ViewModelFactory
+import com.bruno13palhano.jaspe.dependencies.DependenciesApplication
 import com.bruno13palhano.model.NotificationTypes
 import com.google.android.material.appbar.MaterialToolbar
 import kotlinx.coroutines.launch
@@ -25,8 +25,10 @@ class NotificationsFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_notifications, container, false)
         val notificationRecyclerView = view.findViewById<RecyclerView>(R.id.notifications_list)
 
-        viewModel = ViewModelFactory(requireContext(),
-            this@NotificationsFragment).createNotificationViewModel()
+        val dependenciesContainer = (requireActivity().application as DependenciesApplication)
+            .dependenciesContainer
+
+        viewModel = dependenciesContainer.notificationsViewModelFactory.create()
 
         val adapter = NotificationsItemAdapter(
             onCloseClick = {
