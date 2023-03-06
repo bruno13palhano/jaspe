@@ -14,25 +14,25 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.onNavDestinationSelected
+import com.bruno13palhano.jaspe.dependencies.DependenciesApplication
 import com.bruno13palhano.jaspe.ui.common.openEmail
 import com.bruno13palhano.jaspe.ui.common.openInstagram
 import com.bruno13palhano.jaspe.ui.common.openWhatsApp
 import com.bruno13palhano.model.ContactInfo
-import com.bruno13palhano.repository.RepositoryFactory
 import com.google.android.material.navigation.NavigationView
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity(), DrawerLock {
     private lateinit var contactInfo: ContactInfo
     private lateinit var drawer: DrawerLayout
+    private lateinit var viewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val viewModel = MainViewModelFactory(application, RepositoryFactory(this)
-            .createContactInfoRepository()).create(MainViewModel::class.java)
-
+        val dependenciesContainer = (application as DependenciesApplication).dependenciesContainer
+        viewModel = dependenciesContainer.mainViewModelFactory.create()
         contactInfo = ContactInfo()
 
         lifecycle.coroutineScope.launch {
