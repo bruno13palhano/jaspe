@@ -7,8 +7,11 @@ import com.bruno13palhano.repository.model.asFavoriteProductRep
 import com.bruno13palhano.repository.repository.FavoriteProductRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
+import javax.inject.Singleton
 
-internal class FavoriteProductRepositoryImpl(
+@Singleton
+internal class FavoriteProductRepositoryImpl @Inject constructor(
     private val dao: FavoriteProductDao
 ) : FavoriteProductRepository {
     override suspend fun insertFavoriteProduct(favoriteProduct: FavoriteProduct) {
