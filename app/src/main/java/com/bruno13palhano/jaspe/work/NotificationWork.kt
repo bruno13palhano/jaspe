@@ -1,28 +1,36 @@
 package com.bruno13palhano.jaspe.work
 
+import android.Manifest
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Build
+import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.bruno13palhano.jaspe.MainActivity
 import com.bruno13palhano.jaspe.R
 import com.bruno13palhano.model.Notification
-import com.bruno13palhano.repository.RepositoryFactory
+import com.bruno13palhano.repository.di.DefaultNotificationRepository
+import com.bruno13palhano.repository.repository.NotificationRepository
 import com.example.network.service.NetworkFactory
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedInject
 
-class NotificationWork(
-    context: Context,
-    params: WorkerParameters
+@HiltWorker
+class NotificationWork @AssistedInject constructor(
+    @Assisted context: Context,
+    @Assisted params: WorkerParameters,
+    @DefaultNotificationRepository val notificationRepository: NotificationRepository
 ) : CoroutineWorker(context, params) {
 
     private val offerNotificationNetwork = NetworkFactory().createOfferNotificationNetwork()
-    private val notificationRepository = RepositoryFactory(context).createNotificationRepository()
 
     override suspend fun doWork(): Result {
 
@@ -53,6 +61,13 @@ class NotificationWork(
             .setAutoCancel(true)
 
         with (NotificationManagerCompat.from(applicationContext)) {
+            if (ActivityCompat.checkSelfPermission(
+                    applicationContext,
+                    Manifest.permission.POST_NOTIFICATIONS
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                return
+            }
             notify(1, builderNotification.build())
         }
     }
