@@ -5,12 +5,17 @@ import androidx.lifecycle.viewModelScope
 import com.bruno13palhano.jaspe.ui.common.getOrderedProducts
 import com.bruno13palhano.jaspe.ui.common.prepareLastSeenProduct
 import com.bruno13palhano.model.Product
-import com.bruno13palhano.repository.external.ProductRepository
+import com.bruno13palhano.repository.di.DefaultProductRepository
+import com.bruno13palhano.repository.repository.ProductRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SearchViewModel(
+@HiltViewModel
+class SearchViewModel @Inject constructor(
+    @DefaultProductRepository
     private val productRepository: ProductRepository
 ) : ViewModel() {
 
