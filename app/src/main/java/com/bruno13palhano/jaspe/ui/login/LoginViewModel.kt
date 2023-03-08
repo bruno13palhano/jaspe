@@ -2,16 +2,24 @@ package com.bruno13palhano.jaspe.ui.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.bruno13palhano.authentication.core.DefaultUserFirebase
 import com.bruno13palhano.authentication.core.UserAuthentication
 import com.bruno13palhano.model.User
-import com.bruno13palhano.repository.external.UserRepository
+import com.bruno13palhano.repository.di.DefaultUserRepository
+import com.bruno13palhano.repository.repository.UserRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class LoginViewModel(
+@HiltViewModel
+class LoginViewModel @Inject constructor(
+    @DefaultUserRepository
     private val userRepository: UserRepository,
+
+    @DefaultUserFirebase
     private val authentication: UserAuthentication
 ) : ViewModel() {
     private val _loginStatus = MutableStateFlow<LoginStatus>(LoginStatus.Default)
