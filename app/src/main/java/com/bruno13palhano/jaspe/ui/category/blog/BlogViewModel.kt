@@ -3,7 +3,6 @@ package com.bruno13palhano.jaspe.ui.category.blog
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bruno13palhano.model.BlogPost
-import com.bruno13palhano.repository.di.DefaultBannerRepository
 import com.bruno13palhano.repository.di.DefaultBlogPostRepository
 import com.bruno13palhano.repository.repository.BlogPostRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
