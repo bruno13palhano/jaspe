@@ -3,12 +3,17 @@ package com.bruno13palhano.jaspe.ui.search
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bruno13palhano.model.SearchCache
-import com.bruno13palhano.repository.external.SearchCacheRepository
+import com.bruno13palhano.repository.di.DefaultSearchCacheRepository
+import com.bruno13palhano.repository.repository.SearchCacheRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SearchDialogViewModel(
+@HiltViewModel
+class SearchDialogViewModel @Inject constructor(
+    @DefaultSearchCacheRepository
     private val searchCacheRepository: SearchCacheRepository
 ) : ViewModel() {
 
