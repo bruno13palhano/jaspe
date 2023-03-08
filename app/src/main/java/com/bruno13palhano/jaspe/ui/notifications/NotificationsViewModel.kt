@@ -3,12 +3,17 @@ package com.bruno13palhano.jaspe.ui.notifications
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bruno13palhano.model.Notification
-import com.bruno13palhano.repository.external.NotificationRepository
+import com.bruno13palhano.repository.di.DefaultNotificationRepository
+import com.bruno13palhano.repository.repository.NotificationRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class NotificationsViewModel(
+@HiltViewModel
+class NotificationsViewModel @Inject constructor(
+    @DefaultNotificationRepository
     private val notificationRepository: NotificationRepository
 ) : ViewModel() {
 
