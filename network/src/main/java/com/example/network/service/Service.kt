@@ -5,7 +5,6 @@ import com.example.network.model.BannerNet
 import com.example.network.model.BlogPostNet
 import com.example.network.model.ContactInfoNet
 import com.example.network.model.ProductNet
-import kotlinx.coroutines.flow.Flow
 import retrofit2.http.GET
 import retrofit2.http.Query
 
