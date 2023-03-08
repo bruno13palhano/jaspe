@@ -7,7 +7,7 @@ import com.bruno13palhano.repository.model.SearchCacheRep
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-internal interface SearchCacheRepDao {
+internal interface SearchCacheDao {
 
     @Insert
     suspend fun insert(searchCache: SearchCacheRep)
