@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.coroutineScope
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bruno13palhano.jaspe.R
@@ -30,9 +32,11 @@ class BlogCategoryFragment : Fragment() {
         }
         recyclerView.adapter = blogAdapter
 
-        lifecycle.coroutineScope.launch {
-            viewModel.allBlogPosts.collect {
-                blogAdapter.submitList(it)
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.allBlogPosts.collect {
+                    blogAdapter.submitList(it)
+                }
             }
         }
 

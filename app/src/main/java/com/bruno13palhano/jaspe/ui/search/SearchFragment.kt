@@ -9,6 +9,7 @@ import androidx.cardview.widget.CardView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.coroutineScope
+import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -43,13 +44,15 @@ class SearchFragment : Fragment() {
         }
         recyclerView.adapter = adapter
 
-        lifecycle.coroutineScope.launchWhenCreated {
-            viewModel.searchProducts.collect {
-                adapter.submitList(it)
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.searchProducts.collect {
+                    adapter.submitList(it)
+                }
             }
         }
 
-        lifecycle.coroutineScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.searchProduct(searchCacheName)
             }

@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.coroutineScope
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.bruno13palhano.jaspe.R
 import com.bruno13palhano.jaspe.ui.common.openInstagram
@@ -34,15 +36,19 @@ class HelpFragment : Fragment() {
            openInstagram(requireActivity(), instagram)
         }
 
-        lifecycle.coroutineScope.launch {
-            viewModel.instagramInfo.collect {
-                instagram = it
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.instagramInfo.collect {
+                    instagram = it
+                }
             }
         }
 
-        lifecycle.coroutineScope.launch {
-            viewModel.whatsAppInfo.collect {
-                whatsApp = it
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.whatsAppInfo.collect {
+                    whatsApp = it
+                }
             }
         }
 

@@ -56,7 +56,7 @@ class LoginFragment : Fragment(), LoginView {
 
         setDrawerEnable(false)
 
-        lifecycle.coroutineScope.launch {
+        viewLifecycleOwner.lifecycle.coroutineScope.launch {
             viewModel.loginStatus.collect {
                 when (it) {
                     LoginStatus.Loading -> {

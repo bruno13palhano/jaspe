@@ -11,14 +11,19 @@ import android.widget.FrameLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.coroutineScope
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.bruno13palhano.jaspe.DrawerLock
 import com.bruno13palhano.jaspe.R
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class CreateAccountFragment : Fragment(), AccountView {
     private val viewModel: CreateAccountViewModel by viewModels()
     private lateinit var loginProgress: FrameLayout
@@ -49,20 +54,22 @@ class CreateAccountFragment : Fragment(), AccountView {
             }
         }
 
-        lifecycle.coroutineScope.launch {
-            viewModel.createAccountStatus.collect {
-                when (it) {
-                    CreateAccountStatus.Success -> {
-                        onSuccess()
-                    }
-                    CreateAccountStatus.Error -> {
-                        onFail()
-                    }
-                    CreateAccountStatus.Loading -> {
-                        onLoading()
-                    }
-                    CreateAccountStatus.Default -> {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.createAccountStatus.collect {
+                    when (it) {
+                        CreateAccountStatus.Success -> {
+                            onSuccess()
+                        }
+                        CreateAccountStatus.Error -> {
+                            onFail()
+                        }
+                        CreateAccountStatus.Loading -> {
+                            onLoading()
+                        }
+                        CreateAccountStatus.Default -> {
 
+                        }
                     }
                 }
             }

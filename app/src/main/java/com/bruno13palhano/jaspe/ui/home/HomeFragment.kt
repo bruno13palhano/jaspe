@@ -101,7 +101,7 @@ class HomeFragment : Fragment() {
         val notificationCountView = notificationItemMenu
             .actionView?.findViewById<TextView>(R.id.notification_count)
 
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             viewModel.notificationCount.collect { nonVisualizedNotificationsCount ->
                 setNotificationsCountView(notificationCountView, nonVisualizedNotificationsCount)
             }
@@ -109,7 +109,7 @@ class HomeFragment : Fragment() {
 
         val profilePhotoView = navView.getHeaderView(0)
             .findViewById<ShapeableImageView>(R.id.profile_photo)
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             viewModel.profileUrlPhoto.collect {
                 if (it.isNotEmpty()) {
                     profilePhotoView.load(it)
@@ -137,7 +137,7 @@ class HomeFragment : Fragment() {
 
         val usernameView = navView.getHeaderView(0)
             .findViewById<TextView>(R.id.username)
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             viewModel.username.collect {
                 if (it.isNotEmpty()) {
                     usernameView.text = getString(R.string.welcome_user_label, it)

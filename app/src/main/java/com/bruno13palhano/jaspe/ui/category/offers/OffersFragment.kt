@@ -6,7 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.coroutineScope
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bruno13palhano.jaspe.R
@@ -37,10 +40,12 @@ class OffersFragment : Fragment() {
         }
         commonRecyclerView.adapter = adapter
 
-        lifecycle.coroutineScope.launch {
-            viewModel.allProducts.collect {
-                adapter.submitList(it)
-                quantityProducts.text = getString(R.string.quantity_of_products_label, it.size)
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.allProducts.collect {
+                    adapter.submitList(it)
+                    quantityProducts.text = getString(R.string.quantity_of_products_label, it.size)
+                }
             }
         }
 

@@ -6,7 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.coroutineScope
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bruno13palhano.jaspe.R
@@ -44,9 +47,11 @@ class FavoritesFragment : Fragment() {
             }
         )
 
-        lifecycle.coroutineScope.launchWhenCreated {
-            viewModel.allFavoritesVisible.collect {
-                adapter.submitList(it)
+        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.allFavoritesVisible.collect {
+                    adapter.submitList(it)
+                }
             }
         }
 

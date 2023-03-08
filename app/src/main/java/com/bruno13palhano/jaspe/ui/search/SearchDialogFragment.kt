@@ -10,7 +10,10 @@ import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.coroutineScope
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -47,9 +50,11 @@ class SearchDialogFragment : DialogFragment() {
         )
         recyclerView.adapter = adapter
 
-        lifecycle.coroutineScope.launchWhenCreated {
-            viewModel.searchCache.collect {
-                adapter.submitList(it)
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.searchCache.collect {
+                    adapter.submitList(it)
+                }
             }
         }
 

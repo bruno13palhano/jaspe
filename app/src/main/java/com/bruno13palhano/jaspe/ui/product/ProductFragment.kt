@@ -186,12 +186,14 @@ class ProductFragment : Fragment() {
     }
 
     private fun setFavoriteIconAppearance(toolbar: MaterialToolbar) {
-        lifecycle.coroutineScope.launch {
-            viewModel.isFavorite.collect {
-                if (it) {
-                    toolbar.menu.getItem(0).icon?.setTint(resources.getColor(R.color.pink_light))
-                } else {
-                    toolbar.menu.getItem(0).icon?.setTint(resources.getColor(R.color.black))
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.isFavorite.collect {
+                    if (it) {
+                        toolbar.menu.getItem(0).icon?.setTint(resources.getColor(R.color.pink_light))
+                    } else {
+                        toolbar.menu.getItem(0).icon?.setTint(resources.getColor(R.color.black))
+                    }
                 }
             }
         }
