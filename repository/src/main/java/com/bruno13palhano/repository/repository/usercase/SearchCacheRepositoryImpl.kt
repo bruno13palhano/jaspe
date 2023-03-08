@@ -7,8 +7,11 @@ import com.bruno13palhano.repository.model.asSearchCacheRep
 import com.bruno13palhano.repository.repository.SearchCacheRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
+import javax.inject.Singleton
 
-internal class SearchCacheRepositoryImpl(
+@Singleton
+internal class SearchCacheRepositoryImpl @Inject constructor(
     private val daoCache: SearchCacheDao
 ) : SearchCacheRepository {
     override suspend fun insertSearchCache(searchCache: SearchCache) {
