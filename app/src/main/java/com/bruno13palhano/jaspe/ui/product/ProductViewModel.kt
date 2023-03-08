@@ -6,15 +6,26 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bruno13palhano.model.FavoriteProduct
 import com.bruno13palhano.model.Product
-import com.bruno13palhano.repository.external.ContactInfoRepository
-import com.bruno13palhano.repository.external.FavoriteProductRepository
-import com.bruno13palhano.repository.external.ProductRepository
+import com.bruno13palhano.repository.di.DefaultContactInfoRepository
+import com.bruno13palhano.repository.di.DefaultFavoriteProductRepository
+import com.bruno13palhano.repository.di.DefaultProductRepository
+import com.bruno13palhano.repository.repository.ContactInfoRepository
+import com.bruno13palhano.repository.repository.FavoriteProductRepository
+import com.bruno13palhano.repository.repository.ProductRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ProductViewModel(
+@HiltViewModel
+class ProductViewModel @Inject constructor(
+    @DefaultProductRepository
     private val productRepository: ProductRepository,
+
+    @DefaultFavoriteProductRepository
     private val favoriteProductRepository: FavoriteProductRepository,
+
+    @DefaultContactInfoRepository
     private val contactInfoRepository: ContactInfoRepository
 ) : ViewModel() {
     private val _isFavorite = MutableStateFlow<Boolean>(false)
