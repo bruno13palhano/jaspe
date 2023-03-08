@@ -2,12 +2,17 @@ package com.bruno13palhano.jaspe.ui.help
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.bruno13palhano.repository.external.ContactInfoRepository
+import com.bruno13palhano.repository.di.DefaultContactInfoRepository
+import com.bruno13palhano.repository.repository.ContactInfoRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class HelpViewModel(
+@HiltViewModel
+class HelpViewModel @Inject constructor(
+    @DefaultContactInfoRepository
     private val contactInfoRepository: ContactInfoRepository
 ) : ViewModel() {
     private val _instagramInfo = MutableStateFlow("")
