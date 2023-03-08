@@ -2,22 +2,38 @@ package com.bruno13palhano.jaspe.ui.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.bruno13palhano.authentication.core.DefaultUserFirebase
 import com.bruno13palhano.authentication.core.UserAuthentication
 import com.bruno13palhano.jaspe.ui.common.prepareLastSeenProduct
 import com.bruno13palhano.model.Banner
 import com.bruno13palhano.model.Company
 import com.bruno13palhano.model.ContactInfo
 import com.bruno13palhano.model.Product
-import com.bruno13palhano.repository.external.*
+import com.bruno13palhano.repository.di.*
+import com.bruno13palhano.repository.repository.*
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class HomeViewModel(
+@HiltViewModel
+class HomeViewModel @Inject constructor(
+    @DefaultProductRepository
     private val productRepository: ProductRepository,
+
+    @DefaultBannerRepository
     private val bannerRepository: BannerRepository,
+
+    @DefaultContactInfoRepository
     private val contactInfoRepository: ContactInfoRepository,
+
+    @DefaultUserRepository
     private val userRepository: UserRepository,
+
+    @DefaultNotificationRepository
     private val notificationRepository: NotificationRepository,
+
+    @DefaultUserFirebase
     private val authentication: UserAuthentication
 ) : ViewModel() {
 
