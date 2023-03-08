@@ -7,8 +7,11 @@ import com.bruno13palhano.repository.model.asNotificationRep
 import com.bruno13palhano.repository.repository.NotificationRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
+import javax.inject.Singleton
 
-internal class NotificationRepositoryImpl(
+@Singleton
+internal class NotificationRepositoryImpl @Inject constructor(
     private val notificationDao: NotificationDao
 ) : NotificationRepository {
 
