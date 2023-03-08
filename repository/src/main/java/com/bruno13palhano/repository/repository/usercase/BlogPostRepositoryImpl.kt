@@ -7,10 +7,14 @@ import com.bruno13palhano.repository.model.asBlogPostRep
 import com.bruno13palhano.repository.repository.BlogPostRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
+import javax.inject.Singleton
 
-internal class BlogPostRepositoryImpl(
+@Singleton
+internal class BlogPostRepositoryImpl @Inject constructor(
     private val dao: BlogPostDao
 ) : BlogPostRepository {
+
     override suspend fun insertAllBlogPosts(blogPostList: List<BlogPost>) {
         dao.insertAll(blogPostList.map {
             it.asBlogPostRep()
