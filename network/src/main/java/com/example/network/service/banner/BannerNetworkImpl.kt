@@ -2,20 +2,19 @@ package com.example.network.service.banner
 
 import com.bruno13palhano.model.Banner
 import com.example.network.model.asBanner
-import com.example.network.service.ApiService
-import dagger.hilt.android.scopes.ActivityScoped
+import com.example.network.service.Service
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 import javax.inject.Singleton
 
-@ActivityScoped
+@Singleton
 internal class BannerNetworkImpl @Inject constructor(
-
+    private val apiService: Service
 ) : BannerNetwork {
     override suspend fun getBanners(): Flow<List<Banner>> = flow {
         try {
-            emit(ApiService.ProductApi.apiService.getBanners().map {
+            emit(apiService.getBanners().map {
                 it.asBanner()
             })
         } catch (e: Exception) {
@@ -25,7 +24,7 @@ internal class BannerNetworkImpl @Inject constructor(
 
     override suspend fun getBannerById(bannerId: Long): Flow<Banner> = flow {
         try {
-            emit(ApiService.ProductApi.apiService.getBannerById(bannerId).asBanner())
+            emit(apiService.getBannerById(bannerId).asBanner())
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -34,7 +33,7 @@ internal class BannerNetworkImpl @Inject constructor(
     override suspend fun getAmazonBanners(): Flow<List<Banner>> = flow {
         try {
             emit(
-                ApiService.ProductApi.apiService.getAmazonBanners().map {
+                apiService.getAmazonBanners().map {
                     it.asBanner()
                 }
             )
@@ -46,7 +45,7 @@ internal class BannerNetworkImpl @Inject constructor(
     override suspend fun getNaturaBanners(): Flow<List<Banner>> = flow {
         try {
             emit(
-                ApiService.ProductApi.apiService.getNaturaBanners().map {
+                apiService.getNaturaBanners().map {
                     it.asBanner()
                 }
             )
@@ -58,7 +57,7 @@ internal class BannerNetworkImpl @Inject constructor(
     override suspend fun getAvonBanners(): Flow<List<Banner>> = flow {
         try {
             emit(
-                ApiService.ProductApi.apiService.getAvonBanners().map {
+                apiService.getAvonBanners().map {
                     it.asBanner()
                 }
             )
