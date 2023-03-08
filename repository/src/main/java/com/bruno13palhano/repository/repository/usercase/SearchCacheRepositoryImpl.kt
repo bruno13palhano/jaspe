@@ -1,9 +1,10 @@
-package com.bruno13palhano.repository.external
+package com.bruno13palhano.repository.repository.usercase
 
 import com.bruno13palhano.model.SearchCache
-import com.bruno13palhano.repository.dao.SearchCacheRepDao
+import com.bruno13palhano.repository.database.dao.SearchCacheRepDao
 import com.bruno13palhano.repository.model.asSearchCache
 import com.bruno13palhano.repository.model.asSearchCacheRep
+import com.bruno13palhano.repository.repository.SearchCacheRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 

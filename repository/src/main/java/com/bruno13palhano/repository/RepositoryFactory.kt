@@ -1,7 +1,15 @@
 package com.bruno13palhano.repository
 
 import android.content.Context
-import com.bruno13palhano.repository.external.*
+import com.bruno13palhano.repository.database.JaspeDatabase
+import com.bruno13palhano.repository.repository.*
+import com.bruno13palhano.repository.repository.usercase.BannerRepositoryImpl
+import com.bruno13palhano.repository.repository.usercase.BlogPostRepositoryImpl
+import com.bruno13palhano.repository.repository.usercase.ContactInfoRepositoryImpl
+import com.bruno13palhano.repository.repository.usercase.FavoriteProductRepositoryImpl
+import com.bruno13palhano.repository.repository.usercase.NotificationRepositoryImpl
+import com.bruno13palhano.repository.repository.usercase.ProductRepositoryImpl
+import com.bruno13palhano.repository.repository.usercase.SearchCacheRepositoryImpl
 
 class RepositoryFactory(
     private val context: Context

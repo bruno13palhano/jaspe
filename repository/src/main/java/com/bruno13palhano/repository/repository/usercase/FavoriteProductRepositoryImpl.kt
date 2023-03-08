@@ -1,9 +1,10 @@
-package com.bruno13palhano.repository.external
+package com.bruno13palhano.repository.repository.usercase
 
 import com.bruno13palhano.model.FavoriteProduct
-import com.bruno13palhano.repository.dao.FavoriteProductDao
+import com.bruno13palhano.repository.database.dao.FavoriteProductDao
 import com.bruno13palhano.repository.model.asFavoriteProduct
 import com.bruno13palhano.repository.model.asFavoriteProductRep
+import com.bruno13palhano.repository.repository.FavoriteProductRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 

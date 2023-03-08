@@ -1,4 +1,4 @@
-package com.bruno13palhano.repository.dao
+package com.bruno13palhano.repository.database.dao
 
 import androidx.room.Dao
 import androidx.room.Insert

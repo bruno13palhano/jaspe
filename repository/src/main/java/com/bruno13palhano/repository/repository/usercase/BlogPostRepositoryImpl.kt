@@ -1,9 +1,10 @@
-package com.bruno13palhano.repository.external
+package com.bruno13palhano.repository.repository.usercase
 
 import com.bruno13palhano.model.BlogPost
-import com.bruno13palhano.repository.dao.BlogPostDao
+import com.bruno13palhano.repository.database.dao.BlogPostDao
 import com.bruno13palhano.repository.model.asBlogPost
 import com.bruno13palhano.repository.model.asBlogPostRep
+import com.bruno13palhano.repository.repository.BlogPostRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 

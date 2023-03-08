@@ -1,14 +1,17 @@
-package com.bruno13palhano.repository
+package com.bruno13palhano.repository.database
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.bruno13palhano.repository.dao.*
-import com.bruno13palhano.repository.dao.BannerDao
-import com.bruno13palhano.repository.dao.FavoriteProductDao
-import com.bruno13palhano.repository.dao.ProductDao
-import com.bruno13palhano.repository.dao.SearchCacheRepDao
+import com.bruno13palhano.repository.database.dao.ProductDao
+import com.bruno13palhano.repository.database.dao.SearchCacheRepDao
+import com.bruno13palhano.repository.database.dao.*
+import com.bruno13palhano.repository.database.dao.BannerDao
+import com.bruno13palhano.repository.database.dao.BlogPostDao
+import com.bruno13palhano.repository.database.dao.ContactInfoDao
+import com.bruno13palhano.repository.database.dao.FavoriteProductDao
+import com.bruno13palhano.repository.database.dao.NotificationDao
 import com.bruno13palhano.repository.model.*
 import com.bruno13palhano.repository.model.BannerRep
 import com.bruno13palhano.repository.model.FavoriteProductRep
