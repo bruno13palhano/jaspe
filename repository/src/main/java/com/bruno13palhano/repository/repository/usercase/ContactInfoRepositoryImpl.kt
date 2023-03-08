@@ -7,8 +7,11 @@ import com.bruno13palhano.repository.model.asContactInfoRep
 import com.bruno13palhano.repository.repository.ContactInfoRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
+import javax.inject.Singleton
 
-internal class ContactInfoRepositoryImpl(
+@Singleton
+internal class ContactInfoRepositoryImpl @Inject constructor(
     private val dao: ContactInfoDao
 ) : ContactInfoRepository {
     override suspend fun insertContactInfo(contactInfo: ContactInfo) {
