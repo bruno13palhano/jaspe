@@ -6,10 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.coroutineScope
 import androidx.navigation.fragment.findNavController
 import com.bruno13palhano.jaspe.R
-import com.bruno13palhano.jaspe.ui.ViewModelFactory
 import com.bruno13palhano.jaspe.ui.common.openInstagram
 import com.bruno13palhano.jaspe.ui.common.openWhatsApp
 import com.google.android.material.appbar.MaterialToolbar
@@ -17,6 +17,7 @@ import kotlinx.coroutines.launch
 
 class HelpFragment : Fragment() {
     private var whatsApp = ""
+    private val viewModel: HelpViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,9 +31,6 @@ class HelpFragment : Fragment() {
         visitUs.setOnClickListener {
            openInstagram(requireActivity(), instagram)
         }
-
-        val viewModel = ViewModelFactory(requireContext().applicationContext, this@HelpFragment)
-            .createHelpViewModel()
 
         lifecycle.coroutineScope.launch {
             viewModel.instagramInfo.collect {

@@ -5,18 +5,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.coroutineScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bruno13palhano.jaspe.R
-import com.bruno13palhano.jaspe.ui.ViewModelFactory
 import com.bruno13palhano.jaspe.ui.common.navigateToProduct
 import com.bruno13palhano.model.Route
 import com.google.android.material.appbar.MaterialToolbar
 import kotlinx.coroutines.launch
 
 class FavoritesFragment : Fragment() {
-    private lateinit var viewModel: FavoritesViewModel
+    private val viewModel: FavoritesViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,10 +24,6 @@ class FavoritesFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_favorites, container, false)
         val recyclerView = view.findViewById<RecyclerView>(R.id.favorite_list)
-
-        viewModel = activity?.applicationContext?.let {
-            ViewModelFactory(it, this@FavoritesFragment).createFavoritesViewModel()
-        }!!
 
         val adapter = FavoritesItemAdapter(
             onItemClose = { productUrlLink ->

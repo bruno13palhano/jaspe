@@ -10,6 +10,7 @@ import android.view.View.GONE
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.coroutineScope
 import androidx.lifecycle.lifecycleScope
@@ -18,7 +19,6 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.bruno13palhano.jaspe.R
-import com.bruno13palhano.jaspe.dependencies.DependenciesApplication
 import com.bruno13palhano.jaspe.ui.common.openWhatsApp
 import com.bruno13palhano.model.Company
 import com.bruno13palhano.model.FavoriteProduct
@@ -31,7 +31,7 @@ import kotlinx.coroutines.launch
 class ProductFragment : Fragment() {
     private var productUrlLink: String = ""
     private var productTypeArg: String = ""
-    private lateinit var viewModel: ProductViewModel
+    private val viewModel: ProductViewModel by viewModels()
     private lateinit var favoriteProduct: FavoriteProduct
     private var isFavorite = false
     private lateinit var productImage: ImageView
@@ -60,11 +60,6 @@ class ProductFragment : Fragment() {
         buyButton.setOnClickListener {
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(productUrlLink)))
         }
-
-        val dependenciesContainer = (requireActivity().application as DependenciesApplication)
-            .dependenciesContainer
-
-        viewModel = dependenciesContainer.productViewModelFactory.create()
 
         buyByWhatsApp = view.findViewById(R.id.buy_by_whatsapp)
         buyByWhatsApp.setOnClickListener {

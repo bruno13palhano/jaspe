@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.cardview.widget.CardView
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.coroutineScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -13,7 +14,6 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bruno13palhano.jaspe.R
-import com.bruno13palhano.jaspe.ui.ViewModelFactory
 import com.bruno13palhano.jaspe.ui.common.navigateToProduct
 import com.bruno13palhano.model.Product
 import com.bruno13palhano.model.Route
@@ -23,17 +23,13 @@ import kotlinx.coroutines.launch
 
 class SearchFragment : Fragment() {
     private var searchCacheName: String = ""
-    private lateinit var viewModel: SearchViewModel
+    private val viewModel: SearchViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_search, container, false)
-
-        viewModel = requireActivity().applicationContext.let {
-            ViewModelFactory(it, this@SearchFragment).createSearchViewModel()
-        }
 
         try {
             searchCacheName = SearchFragmentArgs.fromBundle(requireArguments()).searchCacheName

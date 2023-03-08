@@ -9,12 +9,12 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.coroutineScope
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bruno13palhano.jaspe.R
-import com.bruno13palhano.jaspe.dependencies.DependenciesApplication
 import com.bruno13palhano.jaspe.ui.common.navigateToProduct
 import com.bruno13palhano.model.Route
 import com.bruno13palhano.model.SearchCache
@@ -23,7 +23,7 @@ import kotlinx.coroutines.launch
 
 
 class SearchDialogFragment() : DialogFragment() {
-    private lateinit var viewModel: SearchDialogViewModel
+    private val viewModel: SearchDialogViewModel by viewModels()
     private lateinit var inputMethodManager: InputMethodManager
 
     override fun onCreateView(
@@ -32,11 +32,6 @@ class SearchDialogFragment() : DialogFragment() {
         savedInstanceState: Bundle?
     ): View {
         val view = inflater.inflate(R.layout.search_dialog, container, false)
-
-        val dependenciesContainer = (requireActivity().application as DependenciesApplication)
-            .dependenciesContainer
-
-        viewModel = dependenciesContainer.searchDialogViewModelFactory.create()
 
         inputMethodManager = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 

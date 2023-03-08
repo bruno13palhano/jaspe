@@ -11,6 +11,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.coroutineScope
 import androidx.lifecycle.lifecycleScope
@@ -20,7 +21,6 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.bruno13palhano.jaspe.MainActivity
 import com.bruno13palhano.jaspe.R
-import com.bruno13palhano.jaspe.ui.ViewModelFactory
 import com.bruno13palhano.jaspe.ui.common.getCategoryList
 import com.bruno13palhano.jaspe.ui.common.openWhatsApp
 import com.bruno13palhano.model.Route
@@ -33,7 +33,7 @@ import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
     private var contactInfo = ContactInfo()
-    private lateinit var viewModel: HomeViewModel
+    private val viewModel: HomeViewModel by viewModels()
     private lateinit var lastSeenCard: CardView
 
     private lateinit var recyclerView: RecyclerView
@@ -74,10 +74,6 @@ class HomeFragment : Fragment() {
         viewMoreLastSeen = view.findViewById(R.id.last_seen_more_products)
 
         lastSeenCard = view.findViewById(R.id.last_seen_card)
-
-        viewModel = requireActivity().applicationContext.let {
-            ViewModelFactory(it, this@HomeFragment).createHomeViewModel()
-        }
 
         val categoryItems = getCategoryList()
         val categoryRecyclerView = view.findViewById<RecyclerView>(R.id.category_recycler_view)

@@ -10,17 +10,17 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.coroutineScope
 import androidx.navigation.fragment.findNavController
 import com.bruno13palhano.jaspe.DrawerLock
 import com.bruno13palhano.jaspe.R
-import com.bruno13palhano.jaspe.ui.ViewModelFactory
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.coroutines.launch
 
 class CreateAccountFragment : Fragment(), AccountView {
-    private lateinit var viewModel: CreateAccountViewModel
+    private val viewModel: CreateAccountViewModel by viewModels()
     private lateinit var loginProgress: FrameLayout
 
     override fun onCreateView(
@@ -34,9 +34,6 @@ class CreateAccountFragment : Fragment(), AccountView {
         val emailEditText = view.findViewById<TextInputEditText>(R.id.email)
         val passwordEditText = view.findViewById<TextInputEditText>(R.id.password)
         loginProgress = view.findViewById(R.id.login_progress)
-
-        viewModel = ViewModelFactory(requireContext(), this@CreateAccountFragment)
-            .createCreateAccountViewModel()
 
         createAccountButton.setOnClickListener {
             val username = usernameEditText.text.toString()

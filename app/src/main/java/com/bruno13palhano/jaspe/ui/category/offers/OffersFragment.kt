@@ -5,12 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.coroutineScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bruno13palhano.jaspe.R
 import com.bruno13palhano.jaspe.ui.category.CategoriesItemAdapter
-import com.bruno13palhano.jaspe.ui.category.CategoriesViewModelFactory
 import com.bruno13palhano.jaspe.ui.search.FilterSearchDialogFragment
 import com.bruno13palhano.jaspe.ui.search.FilterType
 import com.bruno13palhano.model.Product
@@ -19,7 +19,7 @@ import com.google.android.material.textview.MaterialTextView
 import kotlinx.coroutines.launch
 
 class OffersFragment : Fragment() {
-    private lateinit var viewModel: OffersViewModel
+    private val viewModel: OffersViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,10 +29,6 @@ class OffersFragment : Fragment() {
         val view = inflater.inflate(R.layout.categories_common_fragment, container, false)
         val commonRecyclerView = view.findViewById<RecyclerView>(R.id.common_category_list)
         val quantityProducts = view.findViewById<MaterialTextView>(R.id.products_quantity)
-
-        viewModel = requireActivity().applicationContext.let {
-            CategoriesViewModelFactory(it, this@OffersFragment).createOffersViewModel()
-        }
 
         val adapter = CategoriesItemAdapter { product ->
             onProductItemClick(product)

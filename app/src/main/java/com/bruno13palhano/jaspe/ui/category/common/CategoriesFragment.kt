@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.coroutineScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -19,7 +20,7 @@ import com.google.android.material.textview.MaterialTextView
 import kotlinx.coroutines.launch
 
 class CategoriesFragment : Fragment() {
-    private lateinit var viewModel: CategoriesViewModel
+    private val viewModel: CategoriesViewModel by viewModels()
     private var categoryRoute = ""
 
     override fun onCreateView(
@@ -32,10 +33,6 @@ class CategoriesFragment : Fragment() {
 
         categoryRoute = CategoriesFragmentArgs.fromBundle(requireArguments())
             .categoryRoute
-
-        viewModel = requireActivity().applicationContext.let {
-            com.bruno13palhano.jaspe.ui.category.CategoriesViewModelFactory(it, this@CategoriesFragment).createCategoriesViewModel()
-        }
 
         viewModel.setProducts(categoryRoute)
 

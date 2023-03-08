@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.viewModels
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.coroutineScope
@@ -14,7 +15,6 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.onNavDestinationSelected
-import com.bruno13palhano.jaspe.dependencies.DependenciesApplication
 import com.bruno13palhano.jaspe.ui.common.openEmail
 import com.bruno13palhano.jaspe.ui.common.openInstagram
 import com.bruno13palhano.jaspe.ui.common.openWhatsApp
@@ -25,14 +25,12 @@ import kotlinx.coroutines.launch
 class MainActivity : AppCompatActivity(), DrawerLock {
     private lateinit var contactInfo: ContactInfo
     private lateinit var drawer: DrawerLayout
-    private lateinit var viewModel: MainViewModel
+    private val viewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val dependenciesContainer = (application as DependenciesApplication).dependenciesContainer
-        viewModel = dependenciesContainer.mainViewModelFactory.create()
         contactInfo = ContactInfo()
 
         lifecycle.coroutineScope.launch {

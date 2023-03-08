@@ -5,16 +5,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.coroutineScope
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bruno13palhano.jaspe.R
-import com.bruno13palhano.jaspe.ui.category.CategoriesViewModelFactory
-import com.bruno13palhano.model.BlogPost
 import com.google.android.material.appbar.MaterialToolbar
 import kotlinx.coroutines.launch
 
 class BlogCategoryFragment : Fragment() {
+    private val viewModel: BlogViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -22,10 +22,6 @@ class BlogCategoryFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_blog_category, container, false)
         val recyclerView = view.findViewById<RecyclerView>(R.id.blog_category_list)
-
-        val viewModel = requireActivity().applicationContext.let {
-            CategoriesViewModelFactory(it, this@BlogCategoryFragment).createBlogViewModel()
-        }
 
         val blogAdapter = BlogListAdapter {
             println("post url: $it")

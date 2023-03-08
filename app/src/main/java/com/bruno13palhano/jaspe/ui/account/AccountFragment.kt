@@ -8,13 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import coil.load
 import com.bruno13palhano.jaspe.R
-import com.bruno13palhano.jaspe.ui.ViewModelFactory
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.imageview.ShapeableImageView
 import kotlinx.coroutines.launch
@@ -23,7 +23,7 @@ class AccountFragment : Fragment() {
     private lateinit var userProfileImage: ShapeableImageView
     private lateinit var usernameTextView: TextView
     private lateinit var emailTextView: TextView
-    private lateinit var viewModel: AccountViewModel
+    private val viewModel: AccountViewModel by viewModels()
     private lateinit var photoObserver: ProfilePhotoLifecycleObserver
 
     override fun onCreateView(
@@ -34,9 +34,6 @@ class AccountFragment : Fragment() {
         userProfileImage = view.findViewById(R.id.profile_image)
         usernameTextView = view.findViewById(R.id.username)
         emailTextView = view.findViewById(R.id.email)
-
-        viewModel = ViewModelFactory(requireActivity(), this@AccountFragment)
-            .createAccountViewModel()
 
         photoObserver = ProfilePhotoLifecycleObserver(
             registry = requireActivity().activityResultRegistry,
