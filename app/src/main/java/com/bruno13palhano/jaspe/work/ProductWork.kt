@@ -6,7 +6,8 @@ import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.bruno13palhano.repository.di.DefaultProductRepository
 import com.bruno13palhano.repository.repository.ProductRepository
-import com.example.network.service.NetworkFactory
+import com.example.network.DefaultProductNetwork
+import com.example.network.service.product.ProductNetwork
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 
@@ -14,10 +15,9 @@ import dagger.assisted.AssistedInject
 class ProductWork @AssistedInject constructor(
     @Assisted context: Context,
     @Assisted params: WorkerParameters,
-    @DefaultProductRepository val productRepository: ProductRepository
+    @DefaultProductRepository val productRepository: ProductRepository,
+    @DefaultProductNetwork val productNetwork: ProductNetwork
 ) : CoroutineWorker(context, params) {
-
-    private val productNetwork = NetworkFactory().createProductNetwork()
 
     override suspend fun doWork(): Result {
         productNetwork.getProducts(listOf(0, 100)).collect {
