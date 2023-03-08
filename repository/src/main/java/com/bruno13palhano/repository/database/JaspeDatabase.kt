@@ -1,8 +1,6 @@
 package com.bruno13palhano.repository.database
 
-import android.content.Context
 import androidx.room.Database
-import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.bruno13palhano.repository.database.dao.ProductDao
 import com.bruno13palhano.repository.database.dao.SearchCacheDao
@@ -38,27 +36,4 @@ internal abstract class JaspeDatabase : RoomDatabase() {
     abstract val blogPostDao: BlogPostDao
     abstract val userDao: UserDao
     abstract val notificationDao: NotificationDao
-
-    companion object {
-        @Volatile
-        private var INSTANCE: JaspeDatabase? = null
-
-        fun getInstance(context: Context): JaspeDatabase {
-            synchronized(this) {
-                var instance = INSTANCE
-                if (instance == null) {
-                    instance = Room.databaseBuilder(
-                        context,
-                        JaspeDatabase::class.java,
-                        "products_db"
-                    )
-                        .fallbackToDestructiveMigration()
-                        .build()
-                    INSTANCE = instance
-                }
-
-                return instance
-            }
-        }
-    }
 }
