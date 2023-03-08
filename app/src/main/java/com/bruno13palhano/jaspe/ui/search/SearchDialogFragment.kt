@@ -19,10 +19,11 @@ import com.bruno13palhano.jaspe.ui.common.navigateToProduct
 import com.bruno13palhano.model.Route
 import com.bruno13palhano.model.SearchCache
 import com.google.android.material.appbar.MaterialToolbar
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
-
-class SearchDialogFragment() : DialogFragment() {
+@AndroidEntryPoint
+class SearchDialogFragment : DialogFragment() {
     private val viewModel: SearchDialogViewModel by viewModels()
     private lateinit var inputMethodManager: InputMethodManager
 

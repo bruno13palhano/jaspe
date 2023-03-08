@@ -26,8 +26,10 @@ import com.bruno13palhano.model.Product
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class ProductFragment : Fragment() {
     private var productUrlLink: String = ""
     private var productTypeArg: String = ""

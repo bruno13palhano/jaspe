@@ -18,8 +18,10 @@ import com.bruno13palhano.jaspe.DrawerLock
 import com.bruno13palhano.jaspe.R
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class LoginFragment : Fragment(), LoginView {
     private val viewModel: LoginViewModel by viewModels()
     private lateinit var loginProgress: FrameLayout

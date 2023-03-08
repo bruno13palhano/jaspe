@@ -20,8 +20,10 @@ import com.bruno13palhano.jaspe.ui.common.openInstagram
 import com.bruno13palhano.jaspe.ui.common.openWhatsApp
 import com.bruno13palhano.model.ContactInfo
 import com.google.android.material.navigation.NavigationView
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity(), DrawerLock {
     private lateinit var contactInfo: ContactInfo
     private lateinit var drawer: DrawerLayout

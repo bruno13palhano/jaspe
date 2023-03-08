@@ -16,8 +16,10 @@ import com.bruno13palhano.jaspe.ui.search.FilterType
 import com.bruno13palhano.model.Product
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.textview.MaterialTextView
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class OffersFragment : Fragment() {
     private val viewModel: OffersViewModel by viewModels()
 

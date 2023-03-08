@@ -17,8 +17,10 @@ import coil.load
 import com.bruno13palhano.jaspe.R
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.imageview.ShapeableImageView
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class AccountFragment : Fragment() {
     private lateinit var userProfileImage: ShapeableImageView
     private lateinit var usernameTextView: TextView

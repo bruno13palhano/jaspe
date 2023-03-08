@@ -13,8 +13,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bruno13palhano.jaspe.R
 import com.bruno13palhano.model.NotificationTypes
 import com.google.android.material.appbar.MaterialToolbar
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class NotificationsFragment : Fragment() {
     private val viewModel: NotificationsViewModel by viewModels()
 

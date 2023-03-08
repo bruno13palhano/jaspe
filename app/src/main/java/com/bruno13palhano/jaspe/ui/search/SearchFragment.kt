@@ -19,8 +19,10 @@ import com.bruno13palhano.model.Product
 import com.bruno13palhano.model.Route
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.button.MaterialButton
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class SearchFragment : Fragment() {
     private var searchCacheName: String = ""
     private val viewModel: SearchViewModel by viewModels()

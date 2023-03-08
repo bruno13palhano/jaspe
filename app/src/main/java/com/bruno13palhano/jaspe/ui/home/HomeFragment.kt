@@ -29,8 +29,10 @@ import com.bruno13palhano.model.Product
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.navigation.NavigationView
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
     private var contactInfo = ContactInfo()
     private val viewModel: HomeViewModel by viewModels()

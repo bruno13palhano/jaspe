@@ -17,8 +17,10 @@ import com.bruno13palhano.model.Product
 import com.bruno13palhano.model.Route
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.textview.MaterialTextView
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class CategoriesFragment : Fragment() {
     private val viewModel: CategoriesViewModel by viewModels()
     private var categoryRoute = ""

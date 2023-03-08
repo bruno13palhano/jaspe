@@ -13,8 +13,10 @@ import com.bruno13palhano.jaspe.R
 import com.bruno13palhano.jaspe.ui.common.openInstagram
 import com.bruno13palhano.jaspe.ui.common.openWhatsApp
 import com.google.android.material.appbar.MaterialToolbar
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class HelpFragment : Fragment() {
     private var whatsApp = ""
     private val viewModel: HelpViewModel by viewModels()
