@@ -19,7 +19,8 @@ import com.bruno13palhano.jaspe.R
 import com.bruno13palhano.model.Notification
 import com.bruno13palhano.repository.di.DefaultNotificationRepository
 import com.bruno13palhano.repository.repository.NotificationRepository
-import com.example.network.service.NetworkFactory
+import com.example.network.DefaultNotificationNetwork
+import com.example.network.service.notification.NotificationNetwork
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 
@@ -27,10 +28,9 @@ import dagger.assisted.AssistedInject
 class NotificationWork @AssistedInject constructor(
     @Assisted context: Context,
     @Assisted params: WorkerParameters,
-    @DefaultNotificationRepository val notificationRepository: NotificationRepository
+    @DefaultNotificationRepository val notificationRepository: NotificationRepository,
+    @DefaultNotificationNetwork val offerNotificationNetwork: NotificationNetwork
 ) : CoroutineWorker(context, params) {
-
-    private val offerNotificationNetwork = NetworkFactory().createOfferNotificationNetwork()
 
     override suspend fun doWork(): Result {
 
