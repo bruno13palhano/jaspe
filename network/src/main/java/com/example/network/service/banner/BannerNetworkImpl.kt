@@ -3,10 +3,16 @@ package com.example.network.service.banner
 import com.bruno13palhano.model.Banner
 import com.example.network.model.asBanner
 import com.example.network.service.ApiService
+import dagger.hilt.android.scopes.ActivityScoped
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import javax.inject.Inject
+import javax.inject.Singleton
 
-internal class BannerNetworkImpl : BannerNetwork {
+@ActivityScoped
+internal class BannerNetworkImpl @Inject constructor(
+
+) : BannerNetwork {
     override suspend fun getBanners(): Flow<List<Banner>> = flow {
         try {
             emit(ApiService.ProductApi.apiService.getBanners().map {
