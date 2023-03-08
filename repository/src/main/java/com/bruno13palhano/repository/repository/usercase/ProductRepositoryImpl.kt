@@ -8,8 +8,11 @@ import com.bruno13palhano.repository.model.asProductRep
 import com.bruno13palhano.repository.repository.ProductRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
+import javax.inject.Singleton
 
-internal class ProductRepositoryImpl(
+@Singleton
+internal class ProductRepositoryImpl @Inject constructor(
     private val dao: ProductDao
 ) : ProductRepository {
     override suspend fun insertProducts(productList: List<Product>) {
