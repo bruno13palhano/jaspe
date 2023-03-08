@@ -3,10 +3,15 @@ package com.example.network.service.product
 import com.bruno13palhano.model.Product
 import com.example.network.model.asProduct
 import com.example.network.service.ApiService
+import dagger.hilt.android.scopes.ActivityScoped
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import javax.inject.Inject
 
-internal class ProductNetworkImpl : ProductNetwork {
+@ActivityScoped
+internal class ProductNetworkImpl @Inject constructor(
+
+) : ProductNetwork {
 
     override suspend fun getProducts(params: List<Int>): Flow<List<Product>> = flow {
         try {
