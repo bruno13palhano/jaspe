@@ -7,8 +7,11 @@ import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import java.io.ByteArrayOutputStream
+import javax.inject.Inject
+import javax.inject.Singleton
 
-internal class UserFirebase(
+@Singleton
+internal class UserFirebase @Inject constructor(
     private val auth: FirebaseAuth,
     private val firebaseDB: FirebaseFirestore,
     private val storage: FirebaseStorage
