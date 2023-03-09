@@ -28,7 +28,7 @@ class BlogCategoryFragment : Fragment() {
         val recyclerView = view.findViewById<RecyclerView>(R.id.blog_category_list)
 
         val blogAdapter = BlogListAdapter {
-            println("post url: $it")
+
         }
         recyclerView.adapter = blogAdapter
 
@@ -51,7 +51,6 @@ class BlogCategoryFragment : Fragment() {
         toolbar.setTitle(R.string.blog_category_label)
 
         toolbar.setOnMenuItemClickListener {
-            println("Menu in blog")
             false
         }
 
