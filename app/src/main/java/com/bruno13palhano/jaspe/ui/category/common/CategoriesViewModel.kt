@@ -2,6 +2,8 @@ package com.bruno13palhano.jaspe.ui.category.common
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
+import com.bruno13palhano.jaspe.ui.common.getOrderedProducts
 import com.bruno13palhano.jaspe.ui.common.prepareLastSeenProduct
 import com.bruno13palhano.jaspe.ui.search.FilterType
 import com.bruno13palhano.model.Company
@@ -96,10 +98,19 @@ class CategoriesViewModel @Inject constructor(
     }
 
     fun getOrderedProducts(filter: FilterType) {
-        com.bruno13palhano.jaspe.ui.common.getOrderedProducts(_allProducts, filter)
+        getOrderedProducts(_allProducts, filter)
     }
 
-    suspend fun insertLastSeenProduct(product: Product) {
+    suspend fun onProductItemClick(navController: NavController, product: Product) {
+        insertLastSeenProduct(product)
+        CategoriesSimpleStateHolder.navigateToProduct(
+            navController = navController,
+            productUrlLink = product.productUrlLink,
+            productType = product.productType
+        )
+    }
+
+    private suspend fun insertLastSeenProduct(product: Product) {
         val lastSeenProduct = prepareLastSeenProduct(product)
         viewModelScope.launch {
             try {
