@@ -16,7 +16,6 @@ import androidx.lifecycle.coroutineScope
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import com.bruno13palhano.jaspe.DrawerLock
 import com.bruno13palhano.jaspe.R
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
@@ -82,18 +81,9 @@ class CreateAccountFragment : Fragment(), AccountView {
         return view
     }
 
-    private fun setDrawerEnable() {
-        ((activity as DrawerLock)).setDrawerEnable(true)
-    }
-
-    private fun navigateToHome() {
-        findNavController().navigate(
-            CreateAccountFragmentDirections.actionCreateAccountToHome())
-    }
-
     override fun onSuccess() {
-        setDrawerEnable()
-        navigateToHome()
+        CreateAccountSimpleStateHolder.setDrawerEnable(activity)
+        CreateAccountSimpleStateHolder.navigateToHome(findNavController())
     }
 
     override fun onFail() {
