@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.coroutineScope
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
@@ -16,7 +15,6 @@ import com.bruno13palhano.jaspe.R
 import com.bruno13palhano.jaspe.ui.category.CategoriesItemAdapter
 import com.bruno13palhano.jaspe.ui.search.FilterSearchDialogFragment
 import com.bruno13palhano.jaspe.ui.search.FilterType
-import com.bruno13palhano.model.Product
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.textview.MaterialTextView
 import dagger.hilt.android.AndroidEntryPoint
@@ -36,7 +34,9 @@ class OffersFragment : Fragment() {
         val quantityProducts = view.findViewById<MaterialTextView>(R.id.products_quantity)
 
         val adapter = CategoriesItemAdapter { product ->
-            onProductItemClick(product)
+            viewLifecycleOwner.lifecycleScope.launch {
+                viewModel.onProductItemClick(findNavController(), product)
+            }
         }
         commonRecyclerView.adapter = adapter
 
@@ -70,18 +70,6 @@ class OffersFragment : Fragment() {
 
         toolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
-        }
-    }
-
-    private fun onProductItemClick(product: Product) {
-        insertLastSeenProduct(product)
-        findNavController().navigate(OffersFragmentDirections
-            .actionOffersToProduct(product.productUrlLink, product.productType))
-    }
-
-    private fun insertLastSeenProduct(product: Product) {
-        lifecycle.coroutineScope.launch {
-            viewModel.insertLastSeenProduct(product)
         }
     }
 }

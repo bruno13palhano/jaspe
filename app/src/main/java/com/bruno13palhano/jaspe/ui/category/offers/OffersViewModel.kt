@@ -2,6 +2,7 @@ package com.bruno13palhano.jaspe.ui.category.offers
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
 import com.bruno13palhano.jaspe.ui.common.getOrderedProducts
 import com.bruno13palhano.jaspe.ui.common.prepareLastSeenProduct
 import com.bruno13palhano.jaspe.ui.search.FilterType
@@ -35,7 +36,16 @@ class OffersViewModel @Inject constructor(
         getOrderedProducts(_allProducts, filter)
     }
 
-    suspend fun insertLastSeenProduct(product: Product) {
+    suspend fun onProductItemClick(navController: NavController, product: Product) {
+        insertLastSeenProduct(product)
+        OffersSimpleStateHolder.navigateToProduct(
+            navController = navController,
+            productUrlLink = product.productUrlLink,
+            productType = product.productType
+        )
+    }
+
+    private suspend fun insertLastSeenProduct(product: Product) {
         val lastSeenProduct = prepareLastSeenProduct(product)
         viewModelScope.launch {
             try {
