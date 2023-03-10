@@ -80,7 +80,7 @@ class HomeFragment : Fragment() {
         val categoryItems = getCategoryList()
         val categoryRecyclerView = view.findViewById<RecyclerView>(R.id.category_recycler_view)
         val categoryAdapter = CategoryItemAdapter {
-            navigateTo(it)
+            HomeSimpleStateHolder.navigateTo(findNavController(), it)
         }
         categoryRecyclerView.adapter = categoryAdapter
         categoryAdapter.submitList(categoryItems)
@@ -162,47 +162,62 @@ class HomeFragment : Fragment() {
         }
 
         viewMoreAmazon.setOnClickListener {
-            navigateTo(Route.MARKET.route)
+            HomeSimpleStateHolder.
+            navigateTo(findNavController(), Route.MARKET.route)
         }
 
         viewMoreNatura.setOnClickListener {
-            navigateTo(Route.NATURA.route)
+            HomeSimpleStateHolder
+                .navigateTo(findNavController(), Route.NATURA.route)
         }
 
         viewMoreAvon.setOnClickListener {
-            navigateTo(Route.AVON.route)
+            HomeSimpleStateHolder
+                .navigateTo(findNavController(), Route.AVON.route)
         }
 
         viewMoreLastSeen.setOnClickListener {
-            navigateTo(Route.LAST_SEEN.route)
+            HomeSimpleStateHolder
+                .navigateTo(findNavController(), Route.LAST_SEEN.route)
         }
 
         searchProduct.setOnClickListener {
-            navigateTo(Route.SEARCH_DIALOG.route)
+            HomeSimpleStateHolder
+                .navigateTo(findNavController(), Route.SEARCH_DIALOG.route)
         }
 
         val adapter = HomeItemAdapter { product ->
-            onProductItemClick(product)
+            viewLifecycleOwner.lifecycleScope.launch {
+                viewModel.onProductItemClick(findNavController(), product)
+            }
         }
         recyclerView.adapter = adapter
 
         val amazonAdapter = ProductItemAdapter { product ->
-            onProductItemClick(product)
+            viewLifecycleOwner.lifecycleScope.launch {
+                viewModel.onProductItemClick(findNavController(), product)
+            }
         }
         amazonRecycler.adapter = amazonAdapter
 
         val naturaAdapter = ProductItemAdapter { product ->
-            onProductItemClick(product)
+            viewLifecycleOwner.lifecycleScope.launch {
+                viewModel.onProductItemClick(findNavController(), product)
+            }
         }
         naturaRecycler.adapter = naturaAdapter
 
         val avonAdapter = ProductItemAdapter { product ->
-            onProductItemClick(product)
+            viewLifecycleOwner.lifecycleScope.launch {
+                viewModel.onProductItemClick(findNavController(), product)
+            }
         }
         avonRecycler.adapter = avonAdapter
 
         val lastSeenAdapter = ProductHorizontalItemAdapter { product ->
-            onProductItemClick(product)
+            viewLifecycleOwner.lifecycleScope.launch {
+                viewModel.onProductItemClick(findNavController(), product)
+            }
         }
         lastSeenRecyclerView.adapter = lastSeenAdapter
 
@@ -302,37 +317,6 @@ class HomeFragment : Fragment() {
     private fun setLastSeenCardVisibility(listSize: Int){
         if (listSize >= 6) {
             lastSeenCard.visibility = VISIBLE
-        }
-    }
-
-    private fun onProductItemClick(product: Product) {
-        insertLastSeenProduct(product)
-        navigateToProduct(product.productUrlLink, product.productType)
-    }
-
-    private fun insertLastSeenProduct(product: Product) {
-        lifecycle.coroutineScope.launch {
-            viewModel.insertLastSeenProduct(product)
-        }
-    }
-
-    private fun navigateToProduct(productUrlLink: String, productType: String) {
-        findNavController().navigate(HomeFragmentDirections
-            .actionHomeToProduct(productUrlLink, productType))
-    }
-
-    private fun navigateTo(route: String) {
-        when (route) {
-            Route.SEARCH_DIALOG.route -> {
-                findNavController().navigate(R.id.action_to_search_dialog)
-            }
-            Route.OFFERS.route -> {
-                findNavController().navigate(R.id.action_to_offers_category)
-            }
-            else -> {
-                findNavController().navigate(HomeFragmentDirections
-                    .actionHomeToCommonCategories(route))
-            }
         }
     }
 }

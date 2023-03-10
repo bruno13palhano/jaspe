@@ -2,6 +2,7 @@ package com.bruno13palhano.jaspe.ui.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
 import com.bruno13palhano.authentication.core.DefaultUserFirebase
 import com.bruno13palhano.authentication.core.UserAuthentication
 import com.bruno13palhano.jaspe.ui.common.prepareLastSeenProduct
@@ -169,7 +170,16 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    suspend fun insertLastSeenProduct(product: Product) {
+    suspend fun onProductItemClick(navController: NavController, product: Product) {
+        insertLastSeenProduct(product)
+        HomeSimpleStateHolder.navigateToProduct(
+            navController = navController,
+            productUrlLink = product.productUrlLink,
+            productType = product.productType
+        )
+    }
+
+    private suspend fun insertLastSeenProduct(product: Product) {
         val lastSeenProduct = prepareLastSeenProduct(product)
         viewModelScope.launch {
             try {
