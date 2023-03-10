@@ -14,7 +14,6 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.coroutineScope
 import androidx.navigation.fragment.findNavController
-import com.bruno13palhano.jaspe.DrawerLock
 import com.bruno13palhano.jaspe.R
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
@@ -47,14 +46,18 @@ class LoginFragment : Fragment(), LoginView {
         }
 
         createAccount.setOnClickListener {
-            navigateToCreateAccount()
+            LoginSimpleStateHolder.navigateToCreateAccount(findNavController())
         }
 
         closeLogin.setOnClickListener {
-            onCloseClicked()
+            LoginSimpleStateHolder.onCloseOrSuccess(
+                navController = findNavController(),
+                activity = this@LoginFragment.requireActivity(),
+                enabled = true
+            )
         }
 
-        setDrawerEnable(false)
+        LoginSimpleStateHolder.setDrawerEnable(this@LoginFragment.requireActivity(), false)
 
         viewLifecycleOwner.lifecycle.coroutineScope.launch {
             viewModel.loginStatus.collect {
@@ -79,8 +82,11 @@ class LoginFragment : Fragment(), LoginView {
     }
 
     override fun onLoginSuccess() {
-        setDrawerEnable(true)
-        navigateToHome()
+        LoginSimpleStateHolder.onCloseOrSuccess(
+            navController = findNavController(),
+            activity = this@LoginFragment.requireActivity(),
+            enabled = true
+        )
     }
 
     override fun onLoginError() {
@@ -98,22 +104,5 @@ class LoginFragment : Fragment(), LoginView {
         if (viewModel.isUserAuthenticated()) {
             onLoginSuccess()
         }
-    }
-
-    private fun setDrawerEnable(enabled: Boolean) {
-        ((activity as DrawerLock)).setDrawerEnable(enabled)
-    }
-
-    private fun onCloseClicked() {
-        setDrawerEnable(true)
-        navigateToHome()
-    }
-
-    private fun navigateToHome() {
-        findNavController().navigate(LoginFragmentDirections.actionLoginToHome())
-    }
-
-    private fun navigateToCreateAccount() {
-        findNavController().navigate(LoginFragmentDirections.actionLoginToCreateAccount())
     }
 }
