@@ -3,6 +3,7 @@ package com.bruno13palhano.jaspe.ui.account
 import android.graphics.Bitmap
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
 import com.bruno13palhano.authentication.core.DefaultUserFirebase
 import com.bruno13palhano.authentication.core.UserAuthentication
 import com.bruno13palhano.repository.di.DefaultUserRepository
@@ -91,5 +92,8 @@ class AccountViewModel @Inject constructor(
 
     fun isUserAuthenticated(): Boolean = authentication.getCurrentUser().uid != ""
 
-    fun logout() = authentication.logout()
+    fun logout(navController: NavController) {
+        authentication.logout()
+        AccountSimpleStateHolder.navigateToHome(navController)
+    }
 }
