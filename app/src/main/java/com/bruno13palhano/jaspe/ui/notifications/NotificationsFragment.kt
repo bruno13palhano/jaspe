@@ -13,7 +13,6 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bruno13palhano.jaspe.R
-import com.bruno13palhano.model.NotificationTypes
 import com.google.android.material.appbar.MaterialToolbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -36,7 +35,7 @@ class NotificationsFragment : Fragment() {
                 }
             },
             onItemClick = {
-                navigateTo(it)
+                NotificationSimpleStateHolder.navigateTo(findNavController(), it)
             }
         )
         notificationRecyclerView.adapter = adapter
@@ -76,23 +75,6 @@ class NotificationsFragment : Fragment() {
 
         toolbar.setOnClickListener {
             findNavController().navigateUp()
-        }
-    }
-
-    private fun navigateTo(type: String) {
-        when (type) {
-            NotificationTypes.ANNOUNCEMENT.type -> {
-                findNavController().navigate(R.id.action_to_blog)
-            }
-            NotificationTypes.NEW_PRODUCTS.type -> {
-                findNavController().navigate(R.id.action_to_product)
-            }
-            NotificationTypes.OFFERS.type -> {
-                findNavController().navigate(R.id.action_to_offers_category)
-            }
-            NotificationTypes.DEFAULT.type -> {
-                findNavController().navigate(R.id.action_to_home)
-            }
         }
     }
 }
