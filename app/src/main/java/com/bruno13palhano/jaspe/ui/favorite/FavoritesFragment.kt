@@ -35,7 +35,11 @@ class FavoritesFragment : Fragment() {
                 deleteProduct(productUrlLink)
             },
             onItemShare = { productName, productLink ->
-                shareProduct(productName, productLink)
+                FavoritesSimpleStateHolder.shareProduct(
+                    context = this@FavoritesFragment.requireContext(),
+                    productName = productName,
+                    productUrlLink = productLink
+                )
             },
             onItemClick = { productUrlLink, productType ->
                 navigateToProduct(
@@ -87,14 +91,6 @@ class FavoritesFragment : Fragment() {
         lifecycle.coroutineScope.launch {
             viewModel.deleteProductByUrlLink(productUrlLink)
         }
-    }
-
-    private fun shareProduct(
-        productName: String,
-        productUrlLink: String
-    ) {
-        viewModel.shareProduct(
-            this@FavoritesFragment.requireContext(), productName, productUrlLink)
     }
 
     private fun deleteAllFavorites() {

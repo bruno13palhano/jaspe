@@ -1,7 +1,5 @@
 package com.bruno13palhano.jaspe.ui.favorite
 
-import android.content.Context
-import android.content.Intent
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bruno13palhano.model.FavoriteProduct
@@ -42,20 +40,5 @@ class FavoritesViewModel @Inject constructor(
 
     private fun getAllFavorites(): Flow<List<FavoriteProduct>> {
         return favoriteRepository.getAllFavoriteProducts()
-    }
-
-    fun shareProduct(
-        context: Context,
-        productName: String,
-        productUrlLink: String,
-    ) {
-        val shareProduct = Intent.createChooser(Intent().apply {
-            action = Intent.ACTION_SEND
-            type = "text/*"
-            putExtra(Intent.EXTRA_TITLE, productName)
-            putExtra(Intent.EXTRA_TEXT, productUrlLink)
-        }, null)
-
-        context.startActivity(shareProduct)
     }
 }
