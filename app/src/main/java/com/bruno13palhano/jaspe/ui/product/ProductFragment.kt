@@ -75,8 +75,6 @@ class ProductFragment : Fragment() {
             }
         }
 
-
-
         return view
     }
 
@@ -105,7 +103,6 @@ class ProductFragment : Fragment() {
         toolbar.setNavigationOnClickListener {
             it.findNavController().navigateUp()
         }
-
 
         viewLifecycleOwner.lifecycleScope.launch {
             try {
