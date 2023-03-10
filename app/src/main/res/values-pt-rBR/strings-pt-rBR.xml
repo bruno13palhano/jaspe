@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Jaspe</string>
+    <string name="home_label">Home</string>
+    <string name="favorite_label">Favoritos</string>
+    <string name="notifications_label">Notificações</string>
+    <string name="help_label">Ajuda</string>
+    <string name="search_label">Pesquisar</string>
+    <string name="offers_label">Ofertas do dia</string>
+    <string name="support_label">"Suporte</string>
+    <string name="account_label">Minha conta</string>
+    <string name="share_label">Compartilhar produto</string>
+    <string name="categories_label">Categorias</string>
+    <string name="category_item_label">Categoria</string>
+    <string name="search_product_label">Pesquisar produto</string>
+    <string name="welcome_user_label">Olá, %s</string>
+    <string name="welcome_user_default_label">Bem-vindo ao ShopDani</string>
+
+    <!--  product labels  -->
+    <string name="product_name_label">Nome do produto</string>
+    <string name="product_price_label">\R$%1$.2f</string>
+    <string name="product_type_label">Tipo do produto</string>
+    <string name="product_description_label">Descrição do produto</string>
+    <string name="offers_of_the_day_label">Ofertas do dia</string>
+    <string name="top_sellers_label">Mais vendidos</string>
+    <string name="remove_product_label">Remover produto</string>
+    <string name="related_products_label">Produtos relacionados</string>
+
+    <!--  content descriptions  -->
+    <string name="profile_picture_description">Imagem de perfil</string>
+    <string name="product_picture_description">Imagem do produto</string>
+    <string name="banners_picture_description">Banners</string>
+    <string name="app_logo_picture_description">App logo</string>
+    <string name="notification_icon_description">Icone de notificação</string>
+
+    <!--  button labels  -->
+    <string name="buy_button_label">Comprar</string>
+    <string name="filter_button_label">filtro</string>
+
+    <!--  Categories  -->
+    <string name="amazon_category_label">Mercado</string>
+    <string name="avon_category_label">Avon</string>
+    <string name="baby_category_label">Bebê</string>
+    <string name="blog_category_label">Blog</string>
+    <string name="last_seen_category_label">Visto recentement</string>
+    <string name="natura_category_label">Natura</string>
+    <string name="offers_category_label">Ofertas</string>
+    <string name="contact_category_label">Contatos</string>
+    <string name="icon_label">Icone</string>
+    <string name="ok_button_label">OK</string>
+    <string name="cancel_button_label">Cancelar</string>
+    <string name="quantity_of_products_label">%d produtos</string>
+
+    <!-- SearchCache   -->
+    <string name="remove_from_history_label">Remover do histórico</string>
+    <string name="search_item_label">Pesquisar item</string>
+
+    <string name="remove_all_label">Remover todos</string>
+    <string name="options_label">Optições</string>
+
+    <!--  Contact  -->
+    <string name="contact_whatsapp_label">WhatsApp</string>
+    <string name="contact_instagram_label">Instagram</string>
+    <string name="contact_gmail_label">Gmail</string>
+    <string name="contact_whatsapp_error_label">WhatsApp não está instalado</string>
+    <string name="contact_instagram_error_label">Instagram não está instalado</string>
+    <string name="contact_gmail_error_label">Aplicativo de email não instalado</string>
+    <string name="view_more_products_label">Ver mais</string>
+    <string name="buy_by_whatsapp_label">Comprar pelo WhatsApp</string>
+
+    <string name="filter_options_label">Ordenar por</string>
+    <string-array name="array_filter_options">
+        <item>@string/default_filter_label</item>
+        <item>@string/name_filter_label</item>
+        <item>@string/low_price_filter_label</item>
+        <item>@string/high_price_filter_label</item>
+    </string-array>
+    <string name="default_filter_label">Padrão</string>
+    <string name="name_filter_label">Nome</string>
+    <string name="low_price_filter_label">Menor preço</string>
+    <string name="high_price_filter_label">Maior preço</string>
+    <string name="help_description_label">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
+    <string name="visit_us_label">Visite-nos</string>
+
+    <!-- Login ,Create Account and Account-->
+    <string name="email_label">Email</string>
+    <string name="password_label">Senha</string>
+    <string name="login_button_label">Login</string>
+    <string name="create_account_label">Criar conta</string>
+    <string name="invalid_login_params">Email ou senha inválidos</string>
+    <string name="username_label">Nome de usuário</string>
+    <string name="new_username_label">Novo nome de usuário</string>
+    <string name="back_label">Voltar</string>
+    <string name="create_label">Criar</string>
+    <string name="authentication_failed_label">Falha na autentificação.</string>
+    <string name="document_error_label">Erro na escrita do documento</string>
+    <string name="close_login">Fechar a página de login</string>
+    <string name="logout_label">Sair</string>
+    <string name="server_error_label">Erro no servidor</string>
+    <string name="processing_image_error">Erro no processamento da imagem</string>
+    <string name="image_updated_successfully_label">Imagem modificada com sucesso</string>
+    <string name="username_updated_successfully_label">Nome de usuário modificado com sucesso</string>
+
+    <!--  Notifications  -->
+    <string name="notification_title_label">Título da notificação</string>
+    <string name="notification_description_label">Descrição da notificação</string>
+    <string name="notifications_count_label">1</string>
+    <string name="notification_delete_label">Remover notificação</string>
+</resources>
