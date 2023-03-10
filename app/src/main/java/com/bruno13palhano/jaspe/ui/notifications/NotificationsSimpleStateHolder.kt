@@ -4,7 +4,7 @@ import androidx.navigation.NavController
 import com.bruno13palhano.jaspe.R
 import com.bruno13palhano.model.NotificationTypes
 
-object NotificationSimpleStateHolder {
+object NotificationsSimpleStateHolder {
 
     fun navigateTo(navController: NavController, type: String) {
         when (type) {

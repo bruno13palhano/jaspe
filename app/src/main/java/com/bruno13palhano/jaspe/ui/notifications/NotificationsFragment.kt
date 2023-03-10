@@ -35,7 +35,7 @@ class NotificationsFragment : Fragment() {
                 }
             },
             onItemClick = {
-                NotificationSimpleStateHolder.navigateTo(findNavController(), it)
+                NotificationsSimpleStateHolder.navigateTo(findNavController(), it)
             }
         )
         notificationRecyclerView.adapter = adapter
