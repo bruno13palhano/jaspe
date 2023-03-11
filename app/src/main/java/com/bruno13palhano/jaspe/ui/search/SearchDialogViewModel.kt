@@ -28,13 +28,13 @@ class SearchDialogViewModel @Inject constructor(
         }
     }
 
-    suspend fun insertSearchCache(searchCache: SearchCache) {
+    fun insertSearchCache(searchCache: SearchCache) {
         viewModelScope.launch {
             searchCacheRepository.insertSearchCache(searchCache)
         }
     }
 
-    suspend fun deleteSearchCacheById(searchCacheId: Long) {
+    fun deleteSearchCacheById(searchCacheId: Long) {
         viewModelScope.launch {
             searchCacheRepository.deleteSearchCacheById(searchCacheId)
         }

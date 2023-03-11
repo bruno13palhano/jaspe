@@ -11,7 +11,6 @@ import androidx.appcompat.widget.AppCompatEditText
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.coroutineScope
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.findNavController
@@ -45,7 +44,7 @@ class SearchDialogFragment : DialogFragment() {
                 prepareNavigation(view, it)
             },
             onCloseClick = {
-                deleteSearchCache(it)
+                viewModel.deleteSearchCacheById(it)
             }
         )
         recyclerView.adapter = adapter
@@ -74,7 +73,11 @@ class SearchDialogFragment : DialogFragment() {
             val textValue = textView.text.toString().trim()
 
             if (i == EditorInfo.IME_ACTION_SEARCH && isNotTextEmpty(textValue)) {
-                insertSearchCache(textValue)
+                viewModel.insertSearchCache(
+                    SearchCache(
+                        searchCacheId = 0L,
+                        searchCacheName = textValue
+                    ))
                 prepareNavigation(view, textValue)
             }
 
@@ -98,21 +101,5 @@ class SearchDialogFragment : DialogFragment() {
             firstArg = text,
             secondArg = ""
         )
-    }
-
-    private fun insertSearchCache(textValue: String) {
-        lifecycle.coroutineScope.launch {
-            viewModel.insertSearchCache(
-                SearchCache(
-                    searchCacheId = 0L,
-                    searchCacheName = textValue
-                ))
-        }
-    }
-
-    private fun deleteSearchCache(id: Long) {
-        lifecycle.coroutineScope.launch {
-            viewModel.deleteSearchCacheById(id)
-        }
     }
 }
