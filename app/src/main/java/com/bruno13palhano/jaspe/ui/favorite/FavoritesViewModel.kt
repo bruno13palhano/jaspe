@@ -28,13 +28,17 @@ class FavoritesViewModel @Inject constructor(
         }
     }
 
-    suspend fun deleteProductByUrlLink(favoriteProductUrlLink: String) {
-        favoriteRepository.deleteFavoriteProductByUrlLink(favoriteProductUrlLink)
+    fun deleteProductByUrlLink(favoriteProductUrlLink: String) {
+        viewModelScope.launch {
+            favoriteRepository.deleteFavoriteProductByUrlLink(favoriteProductUrlLink)
+        }
     }
 
-    suspend fun deleteAllProduct() {
-        getAllFavorites().collect {
-            favoriteRepository.deleteAllFavoriteProduct(it)
+    fun deleteAllFavorites() {
+        viewModelScope.launch {
+            getAllFavorites().collect {
+                favoriteRepository.deleteAllFavoriteProduct(it)
+            }
         }
     }
 
