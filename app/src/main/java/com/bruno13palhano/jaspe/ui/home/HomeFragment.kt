@@ -13,7 +13,6 @@ import androidx.cardview.widget.CardView
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.coroutineScope
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
@@ -25,7 +24,6 @@ import com.bruno13palhano.jaspe.ui.common.getCategoryList
 import com.bruno13palhano.jaspe.ui.common.openWhatsApp
 import com.bruno13palhano.model.Route
 import com.bruno13palhano.model.ContactInfo
-import com.bruno13palhano.model.Product
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.navigation.NavigationView
@@ -187,37 +185,27 @@ class HomeFragment : Fragment() {
         }
 
         val adapter = HomeItemAdapter { product ->
-            viewLifecycleOwner.lifecycleScope.launch {
-                viewModel.onProductItemClick(findNavController(), product)
-            }
+            viewModel.onProductItemClick(findNavController(), product)
         }
         recyclerView.adapter = adapter
 
         val amazonAdapter = ProductItemAdapter { product ->
-            viewLifecycleOwner.lifecycleScope.launch {
-                viewModel.onProductItemClick(findNavController(), product)
-            }
+            viewModel.onProductItemClick(findNavController(), product)
         }
         amazonRecycler.adapter = amazonAdapter
 
         val naturaAdapter = ProductItemAdapter { product ->
-            viewLifecycleOwner.lifecycleScope.launch {
-                viewModel.onProductItemClick(findNavController(), product)
-            }
+            viewModel.onProductItemClick(findNavController(), product)
         }
         naturaRecycler.adapter = naturaAdapter
 
         val avonAdapter = ProductItemAdapter { product ->
-            viewLifecycleOwner.lifecycleScope.launch {
-                viewModel.onProductItemClick(findNavController(), product)
-            }
+            viewModel.onProductItemClick(findNavController(), product)
         }
         avonRecycler.adapter = avonAdapter
 
         val lastSeenAdapter = ProductHorizontalItemAdapter { product ->
-            viewLifecycleOwner.lifecycleScope.launch {
-                viewModel.onProductItemClick(findNavController(), product)
-            }
+            viewModel.onProductItemClick(findNavController(), product)
         }
         lastSeenRecyclerView.adapter = lastSeenAdapter
 

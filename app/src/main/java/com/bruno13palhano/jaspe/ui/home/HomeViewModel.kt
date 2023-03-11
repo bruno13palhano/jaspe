@@ -170,7 +170,7 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    suspend fun onProductItemClick(navController: NavController, product: Product) {
+    fun onProductItemClick(navController: NavController, product: Product) {
         insertLastSeenProduct(product)
         HomeSimpleStateHolder.navigateToProduct(
             navController = navController,
@@ -179,7 +179,7 @@ class HomeViewModel @Inject constructor(
         )
     }
 
-    private suspend fun insertLastSeenProduct(product: Product) {
+    private fun insertLastSeenProduct(product: Product) {
         val lastSeenProduct = prepareLastSeenProduct(product)
         viewModelScope.launch {
             try {
