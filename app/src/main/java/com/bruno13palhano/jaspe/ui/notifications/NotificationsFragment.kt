@@ -30,9 +30,7 @@ class NotificationsFragment : Fragment() {
 
         val adapter = NotificationsItemAdapter(
             onCloseClick = {
-                lifecycleScope.launch {
-                   viewModel.deleteNotification(it)
-                }
+                viewModel.deleteNotification(it)
             },
             onItemClick = {
                 NotificationsSimpleStateHolder.navigateTo(findNavController(), it)
