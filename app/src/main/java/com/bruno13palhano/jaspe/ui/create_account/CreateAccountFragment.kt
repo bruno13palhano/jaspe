@@ -44,13 +44,11 @@ class CreateAccountFragment : Fragment(), AccountView {
             val email = emailEditText.text.toString()
             val password = passwordEditText.text.toString()
 
-            lifecycle.coroutineScope.launch {
-                viewModel.createAccount(
-                    username = username,
-                    email = email,
-                    password = password
-                )
-            }
+            viewModel.createAccount(
+                username = username,
+                email = email,
+                password = password
+            )
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
