@@ -39,9 +39,7 @@ class CategoriesFragment : Fragment() {
         viewModel.setProducts(categoryRoute)
 
         val adapter = CategoriesItemAdapter { product ->
-            viewLifecycleOwner.lifecycleScope.launch {
-                viewModel.onProductItemClick(findNavController(), product)
-            }
+            viewModel.onProductItemClick(findNavController(), product)
         }
         commonRecyclerView.adapter = adapter
 
