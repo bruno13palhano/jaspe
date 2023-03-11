@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.coroutineScope
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.findNavController
@@ -92,18 +91,12 @@ class SearchFragment : Fragment() {
         productUrl: String,
         productType: String
     ) {
-        insertLastSeen(lastSeen)
+        viewModel.insertLastSeenProduct(lastSeen)
         navigateToProduct(
             navController = findNavController(),
             route = Route.SEARCH.route,
             firstArg = productUrl,
             secondArg = productType
         )
-    }
-
-    private fun insertLastSeen(lastSeen: Product) {
-        lifecycle.coroutineScope.launch {
-            viewModel.insertLastSeenProduct(lastSeen)
-        }
     }
 }

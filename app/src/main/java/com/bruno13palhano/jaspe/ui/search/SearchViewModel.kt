@@ -36,7 +36,7 @@ class SearchViewModel @Inject constructor(
         getOrderedProducts(_searchProducts, filter)
     }
 
-    suspend fun insertLastSeenProduct(product: Product) {
+    fun insertLastSeenProduct(product: Product) {
         val lastSeenProduct = prepareLastSeenProduct(product)
         viewModelScope.launch {
             try {
