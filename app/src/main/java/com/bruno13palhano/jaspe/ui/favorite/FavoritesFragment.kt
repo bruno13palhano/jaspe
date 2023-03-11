@@ -32,7 +32,7 @@ class FavoritesFragment : Fragment() {
 
         val adapter = FavoritesItemAdapter(
             onItemClose = { productUrlLink ->
-                deleteProduct(productUrlLink)
+                viewModel.deleteProductByUrlLink(productUrlLink)
             },
             onItemShare = { productName, productLink ->
                 FavoritesSimpleStateHolder.shareProduct(
@@ -78,24 +78,12 @@ class FavoritesFragment : Fragment() {
         toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.deleteAll -> {
-                    deleteAllFavorites()
+                    viewModel.deleteAllFavorites()
                     true
                 }
 
                 else -> false
             }
-        }
-    }
-
-    private fun deleteProduct(productUrlLink: String) {
-        lifecycle.coroutineScope.launch {
-            viewModel.deleteProductByUrlLink(productUrlLink)
-        }
-    }
-
-    private fun deleteAllFavorites() {
-        lifecycle.coroutineScope.launch {
-            viewModel.deleteAllProduct()
         }
     }
 }
