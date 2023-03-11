@@ -21,7 +21,13 @@ class AccountFirebase(
             authentication.createUser(
                 user = user,
                 successfulCallback = {
-                    callback.onSuccess(authentication.getCurrentUser())
+                    val newUser = User(
+                        uid = authentication.getCurrentUser().uid,
+                        username = user.username,
+                        email = user.email,
+                    )
+
+                    callback.onSuccess(newUser)
                 },
                 failedCallback = {
                     callback.onFail()
