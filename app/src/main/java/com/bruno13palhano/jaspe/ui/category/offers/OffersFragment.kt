@@ -34,9 +34,7 @@ class OffersFragment : Fragment() {
         val quantityProducts = view.findViewById<MaterialTextView>(R.id.products_quantity)
 
         val adapter = CategoriesItemAdapter { product ->
-            viewLifecycleOwner.lifecycleScope.launch {
-                viewModel.onProductItemClick(findNavController(), product)
-            }
+            viewModel.onProductItemClick(findNavController(), product)
         }
         commonRecyclerView.adapter = adapter
 

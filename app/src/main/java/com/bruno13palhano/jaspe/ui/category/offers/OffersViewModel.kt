@@ -36,7 +36,7 @@ class OffersViewModel @Inject constructor(
         getOrderedProducts(_allProducts, filter)
     }
 
-    suspend fun onProductItemClick(navController: NavController, product: Product) {
+    fun onProductItemClick(navController: NavController, product: Product) {
         insertLastSeenProduct(product)
         OffersSimpleStateHolder.navigateToProduct(
             navController = navController,
@@ -45,7 +45,7 @@ class OffersViewModel @Inject constructor(
         )
     }
 
-    private suspend fun insertLastSeenProduct(product: Product) {
+    private fun insertLastSeenProduct(product: Product) {
         val lastSeenProduct = prepareLastSeenProduct(product)
         viewModelScope.launch {
             try {
