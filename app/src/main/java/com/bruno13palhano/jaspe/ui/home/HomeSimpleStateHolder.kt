@@ -17,11 +17,17 @@ object HomeSimpleStateHolder {
 
     fun navigateTo(navController: NavController, route: String) {
         when (route) {
-            Route.SEARCH.route -> {
-                navController.navigate(R.id.action_to_search_dialog)
+            Route.SEARCH_DIALOG.route -> {
+                navController.apply {
+                    popBackStack(R.id.homeFragment, inclusive = false, saveState = true)
+                    navigate(R.id.action_to_search_dialog)
+                }
             }
             Route.OFFERS.route -> {
-                navController.navigate(R.id.action_to_offers_category)
+                navController.apply {
+                    popBackStack(R.id.homeFragment, inclusive = false, saveState = true)
+                    navigate(R.id.action_to_offers_category)
+                }
             }
             else -> {
                 navController.navigate(HomeFragmentDirections
