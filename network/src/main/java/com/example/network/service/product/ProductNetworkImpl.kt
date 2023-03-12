@@ -1,9 +1,11 @@
 package com.example.network.service.product
 
+import com.bruno13palhano.common.di.Dispatcher
+import com.bruno13palhano.common.di.ShopDaniDispatchers.IO
 import com.bruno13palhano.model.Product
 import com.example.network.model.asProduct
 import com.example.network.service.Service
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
@@ -12,7 +14,8 @@ import javax.inject.Singleton
 
 @Singleton
 internal class ProductNetworkImpl @Inject constructor(
-    private val apiService: Service
+    private val apiService: Service,
+    @Dispatcher(IO) private val dispatcher: CoroutineDispatcher
 ) : ProductNetwork {
 
     override fun getProducts(params: List<Int>): Flow<List<Product>> = flow {
@@ -23,7 +26,7 @@ internal class ProductNetworkImpl @Inject constructor(
         } catch (e: Exception) {
             e.printStackTrace()
         }
-    }.flowOn(Dispatchers.IO)
+    }.flowOn(dispatcher)
 
 
     override fun getProductById(productId: Long): Flow<Product> = flow {
@@ -32,7 +35,7 @@ internal class ProductNetworkImpl @Inject constructor(
         } catch (e: Exception) {
             e.printStackTrace()
         }
-    }.flowOn(Dispatchers.IO)
+    }.flowOn(dispatcher)
 
     override fun getAmazonProducts(): Flow<List<Product>> = flow {
         try {
@@ -44,7 +47,7 @@ internal class ProductNetworkImpl @Inject constructor(
         } catch (e: Exception) {
             e.printStackTrace()
         }
-    }.flowOn(Dispatchers.IO)
+    }.flowOn(dispatcher)
 
     override fun getNaturaProducts(): Flow<List<Product>> = flow {
         try {
@@ -56,7 +59,7 @@ internal class ProductNetworkImpl @Inject constructor(
         } catch (e: Exception) {
             e.printStackTrace()
         }
-    }.flowOn(Dispatchers.IO)
+    }.flowOn(dispatcher)
 
     override fun getAvonProducts(): Flow<List<Product>> = flow {
         try {
@@ -68,5 +71,5 @@ internal class ProductNetworkImpl @Inject constructor(
         } catch (e: Exception) {
             e.printStackTrace()
         }
-    }.flowOn(Dispatchers.IO)
+    }.flowOn(dispatcher)
 }
