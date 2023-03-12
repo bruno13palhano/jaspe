@@ -100,19 +100,26 @@ class HomeFragment : Fragment() {
             .actionView?.findViewById<TextView>(R.id.notification_count)
 
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.notificationCount.collect { nonVisualizedNotificationsCount ->
-                setNotificationsCountView(notificationCountView, nonVisualizedNotificationsCount)
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.notificationCount.collect { nonVisualizedNotificationsCount ->
+                    setNotificationsCountView(
+                        notificationCountView,
+                        nonVisualizedNotificationsCount
+                    )
+                }
             }
         }
 
         val profilePhotoView = navView.getHeaderView(0)
             .findViewById<ShapeableImageView>(R.id.profile_photo)
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.profileUrlPhoto.collect {
-                if (it.isNotEmpty()) {
-                    profilePhotoView.load(it)
-                } else {
-                    profilePhotoView.setImageResource(R.drawable.ic_baseline_account_circle_24)
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.profileUrlPhoto.collect {
+                    if (it.isNotEmpty()) {
+                        profilePhotoView.load(it)
+                    } else {
+                        profilePhotoView.setImageResource(R.drawable.ic_baseline_account_circle_24)
+                    }
                 }
             }
         }
@@ -136,11 +143,13 @@ class HomeFragment : Fragment() {
         val usernameView = navView.getHeaderView(0)
             .findViewById<TextView>(R.id.username)
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.username.collect {
-                if (it.isNotEmpty()) {
-                    usernameView.text = getString(R.string.welcome_user_label, it)
-                } else {
-                    usernameView.text = getString(R.string.welcome_user_default_label)
+            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.username.collect {
+                    if (it.isNotEmpty()) {
+                        usernameView.text = getString(R.string.welcome_user_label, it)
+                    } else {
+                        usernameView.text = getString(R.string.welcome_user_default_label)
+                    }
                 }
             }
         }
