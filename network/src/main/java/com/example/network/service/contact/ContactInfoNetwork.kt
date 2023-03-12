@@ -4,5 +4,5 @@ import com.bruno13palhano.model.ContactInfo
 import kotlinx.coroutines.flow.Flow
 
 interface ContactInfoNetwork {
-    suspend fun getContactInfo(): Flow<ContactInfo>
+    fun getContactInfo(): Flow<ContactInfo>
 }

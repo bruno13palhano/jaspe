@@ -3,8 +3,10 @@ package com.example.network.service.blog
 import com.bruno13palhano.model.BlogPost
 import com.example.network.model.asBlogPost
 import com.example.network.service.Service
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -12,7 +14,7 @@ import javax.inject.Singleton
 internal class BlogPostNetworkImpl @Inject constructor(
     private val apiService: Service
 ) : BlogPostNetwork {
-    override suspend fun getBlogPosts(): Flow<List<BlogPost>> = flow {
+    override fun getBlogPosts(): Flow<List<BlogPost>> = flow {
         try {
             emit(apiService.getBlogPosts().map {
                 it.asBlogPost()
@@ -20,5 +22,5 @@ internal class BlogPostNetworkImpl @Inject constructor(
         } catch (e: Exception) {
             e.printStackTrace()
         }
-    }
+    }.flowOn(Dispatchers.IO)
 }
