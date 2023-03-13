@@ -32,4 +32,14 @@ internal class BannerRepositoryImpl @Inject constructor(
                 }
             }
     }
+
+    override fun getLastBannerByCompany(bannerCompany: String): Flow<Banner> {
+        return dao.getLastBannerByCompany(bannerCompany).map {
+            try {
+                it.asBanner()
+            } catch (ignored: Exception) {
+                Banner()
+            }
+        }
+    }
 }
