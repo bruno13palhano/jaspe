@@ -14,6 +14,7 @@ import com.bruno13palhano.repository.di.*
 import com.bruno13palhano.repository.repository.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.SharingStarted.Companion.WhileSubscribed
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -38,137 +39,122 @@ class HomeViewModel @Inject constructor(
     private val authentication: UserAuthentication
 ) : ViewModel() {
 
-    private val _mainBanner = MutableStateFlow(Banner())
-    val mainBanner: StateFlow<Banner> = _mainBanner
+    val mainBanner: StateFlow<Banner> =
+        bannerRepository.getLastBannerByCompany(Company.MAIN.company)
+            .stateIn(
+                initialValue = Banner(),
+                scope = viewModelScope,
+                started = WhileSubscribed(5000)
+            )
 
-    private val _amazonBanner = MutableStateFlow(Banner())
-    val amazonBanner: StateFlow<Banner> = _amazonBanner
+    val amazonBanner: StateFlow<Banner> =
+        bannerRepository.getLastBannerByCompany(Company.AMAZON.company)
+            .stateIn(
+                initialValue = Banner(),
+                scope = viewModelScope,
+                started = WhileSubscribed(5000)
+            )
 
-    private val _naturaBanner = MutableStateFlow(Banner())
-    val naturaBanner: StateFlow<Banner> = _naturaBanner
+    val naturaBanner: StateFlow<Banner> =
+        bannerRepository.getLastBannerByCompany(Company.NATURA.company)
+            .stateIn(
+                initialValue = Banner(),
+                scope = viewModelScope,
+                started = WhileSubscribed(5000)
+            )
 
-    private val _avonBanner = MutableStateFlow(Banner())
-    val avonBanner: StateFlow<Banner> = _avonBanner
+    val avonBanner: StateFlow<Banner> =
+        bannerRepository.getLastBannerByCompany(Company.AVON.company)
+            .stateIn(
+                initialValue = Banner(),
+                scope = viewModelScope,
+                started = WhileSubscribed(5000)
+            )
 
-    private val _allProducts = MutableStateFlow<List<Product>>(emptyList())
-    val allProducts: StateFlow<List<Product>> = _allProducts
+    val allProducts: StateFlow<List<Product>> = productRepository.getAll()
+            .stateIn(
+                initialValue = emptyList(),
+                scope = viewModelScope,
+                started = WhileSubscribed(5000)
+            )
 
-    private val _amazonProducts = MutableStateFlow<List<Product>>(emptyList())
-    val amazonProducts: StateFlow<List<Product>> = _amazonProducts
+    val amazonProducts: StateFlow<List<Product>> =
+        productRepository.getByCompany(Company.AMAZON.company, 0, 6)
+            .stateIn(
+                initialValue = emptyList(),
+                scope = viewModelScope,
+                started = WhileSubscribed(5000)
+            )
 
-    private val _naturaProducts = MutableStateFlow<List<Product>>(emptyList())
-    val naturaProducts: StateFlow<List<Product>> = _naturaProducts
+    val naturaProducts: StateFlow<List<Product>> =
+        productRepository.getByCompany(Company.NATURA.company, 0, 6)
+            .stateIn(
+                initialValue = emptyList(),
+                scope = viewModelScope,
+                started = WhileSubscribed(5000)
+            )
 
-    private val _avonProducts = MutableStateFlow<List<Product>>(emptyList())
-    val avonProducts: StateFlow<List<Product>> = _avonProducts
+    val avonProducts: StateFlow<List<Product>> =
+        productRepository.getByCompany(Company.AVON.company, 0, 6)
+            .stateIn(
+                initialValue = emptyList(),
+                scope = viewModelScope,
+                started = WhileSubscribed(5000)
+            )
 
-    private val _contactInfo = MutableStateFlow(ContactInfo())
-    val contactInfo = _contactInfo.asStateFlow()
+    val lastSeenProducts: StateFlow<List<Product>> =
+        productRepository.getLastSeenProducts(0, 6)
+            .stateIn(
+                initialValue = emptyList(),
+                scope = viewModelScope,
+                started = WhileSubscribed(5000)
+            )
 
-    private val _lastSeenProducts = MutableStateFlow<List<Product>>(emptyList())
-    val lastSeenProducts = _lastSeenProducts.asStateFlow()
+    val contactInfo: StateFlow<ContactInfo> =
+        contactInfoRepository.getContactInfo(1L)
+            .stateIn(
+                initialValue = ContactInfo(),
+                scope = viewModelScope,
+                started = WhileSubscribed(5000)
+            )
 
-    private val _username = MutableStateFlow("")
-    val username = _username.asStateFlow()
+    val username: StateFlow<String> =
+        userRepository.getUserByUid(authentication.getCurrentUser().uid)
+            .map {
+                it.username
+            }
+            .stateIn(
+                initialValue = "",
+                scope = viewModelScope,
+                started = WhileSubscribed(5000)
+            )
 
-    private val _profileUrlPhoto = MutableStateFlow("")
-    val profileUrlPhoto = _profileUrlPhoto.asStateFlow()
+    val profileUrlPhoto =
+        userRepository.getUserByUid(authentication.getCurrentUser().uid)
+            .map {
+                it.urlPhoto
+            }
+            .stateIn(
+                initialValue = "",
+                scope = viewModelScope,
+                started = WhileSubscribed(5000)
+            )
 
-    private val _notificationsCount = MutableStateFlow(0L)
-    val notificationCount = _notificationsCount.asStateFlow()
-
-    init {
-        viewModelScope.launch {
-            notificationRepository.getAllNotifications().collect {
-                var count = 0L
-                it.forEach { notification ->
-                    if (!notification.isVisualized) {
-                        count++
-                    }
+    val notificationCount: StateFlow<Long> = notificationRepository.getAllNotifications()
+        .map { notifications ->
+            var count = 0L
+            notifications.forEach { notification ->
+                if (!notification.isVisualized) {
+                    count++
                 }
-                _notificationsCount.value = count
             }
+            count
         }
-
-        viewModelScope.launch {
-            try {
-                userRepository.getUserByUid(authentication.getCurrentUser().uid).collect {
-                    _username.value = it.username
-                    _profileUrlPhoto.value = it.urlPhoto
-                }
-            } catch (ignored: Exception) {}
-        }
-
-        viewModelScope.launch {
-            try {
-                contactInfoRepository.getContactInfo(1L).collect {
-                    _contactInfo.value = it
-                }
-            } catch (ignored: Exception) {}
-        }
-
-        viewModelScope.launch {
-            bannerRepository.getByCompany(Company.MAIN.company, 0, 1).collect { banner ->
-                try {
-                    _mainBanner.value = banner[0]
-                } catch (ignored: IndexOutOfBoundsException) {}
-            }
-        }
-
-        viewModelScope.launch {
-            productRepository.getAll().collect {
-                _allProducts.value = it
-            }
-        }
-
-        viewModelScope.launch {
-            productRepository.getByCompany(Company.AMAZON.company, 0, 6).collect {
-                _amazonProducts.value = it
-            }
-        }
-
-        viewModelScope.launch {
-            productRepository.getByCompany(Company.NATURA.company, 0, 6).collect {
-                _naturaProducts.value = it
-            }
-        }
-
-        viewModelScope.launch {
-            productRepository.getByCompany(Company.AVON.company, 0, 6).collect {
-                _avonProducts.value = it
-            }
-        }
-
-        viewModelScope.launch {
-            bannerRepository.getByCompany(Company.AMAZON.company, 0, 1).collect { banner ->
-                try {
-                    _amazonBanner.value = banner[0]
-                } catch (ignored: IndexOutOfBoundsException) {}
-            }
-        }
-
-        viewModelScope.launch {
-            bannerRepository.getByCompany(Company.NATURA.company, 0, 1).collect { banner ->
-                try {
-                    _naturaBanner.value = banner[0]
-                } catch (ignored: IndexOutOfBoundsException) {}
-            }
-        }
-
-        viewModelScope.launch {
-            bannerRepository.getByCompany(Company.AVON.company, 0, 1).collect { banner ->
-                try {
-                    _avonBanner.value = banner[0]
-                } catch (ignored: IndexOutOfBoundsException) {}
-            }
-        }
-
-        viewModelScope.launch {
-            productRepository.getLastSeenProducts(0, 6).collect {
-                _lastSeenProducts.value = it
-            }
-        }
-    }
+        .stateIn(
+            initialValue = 0L,
+            scope = viewModelScope,
+            started = WhileSubscribed(5000)
+        )
 
     fun onProductItemClick(navController: NavController, product: Product) {
         insertLastSeenProduct(product)
