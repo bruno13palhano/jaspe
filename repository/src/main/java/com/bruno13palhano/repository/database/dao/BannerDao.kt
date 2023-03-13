@@ -40,4 +40,8 @@ internal interface BannerDao {
         offset: Int,
         limit: Int
     ): Flow<List<BannerRep>>
+
+    @Query("SELECT * FROM banner_table WHERE banner_company = :bannerCompany " +
+            "ORDER BY banner_id DESC LIMIT 0, 1")
+    fun getLastBannerByCompany(bannerCompany: String): Flow<BannerRep>
 }
