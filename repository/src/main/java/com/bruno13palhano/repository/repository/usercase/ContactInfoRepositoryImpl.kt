@@ -20,7 +20,11 @@ internal class ContactInfoRepositoryImpl @Inject constructor(
 
     override fun getContactInfo(contactInfoId: Long): Flow<ContactInfo> {
         return dao.getContactInfo(contactInfoId).map {
-            it.asContactInfo()
+            try {
+                it.asContactInfo()
+            } catch (ignored: Exception) {
+                ContactInfo()
+            }
         }
     }
 }
