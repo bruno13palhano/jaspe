@@ -6,8 +6,9 @@ import com.bruno13palhano.model.SearchCache
 import com.bruno13palhano.repository.di.DefaultSearchCacheRepository
 import com.bruno13palhano.repository.repository.SearchCacheRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted.Companion.WhileSubscribed
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -17,16 +18,13 @@ class SearchDialogViewModel @Inject constructor(
     private val searchCacheRepository: SearchCacheRepository
 ) : ViewModel() {
 
-    private val _searchCache = MutableStateFlow<List<SearchCache>>(emptyList())
-    val searchCache: StateFlow<List<SearchCache>> = _searchCache
-
-    init {
-        viewModelScope.launch {
-            searchCacheRepository.getAllSearchCache().collect {
-                _searchCache.value = it
-            }
-        }
-    }
+    val searchCache: StateFlow<List<SearchCache>> =
+        searchCacheRepository.getAllSearchCache()
+            .stateIn(
+                initialValue = emptyList(),
+                scope = viewModelScope,
+                started = WhileSubscribed(5000)
+            )
 
     fun insertSearchCache(searchCache: SearchCache) {
         viewModelScope.launch {
