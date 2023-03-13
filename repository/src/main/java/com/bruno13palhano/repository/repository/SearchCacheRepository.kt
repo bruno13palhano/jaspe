@@ -6,5 +6,5 @@ import kotlinx.coroutines.flow.Flow
 interface SearchCacheRepository {
     suspend fun insertSearchCache(searchCache: SearchCache)
     suspend fun deleteSearchCacheById(searchCacheId: Long)
-    suspend fun getAllSearchCache(): Flow<List<SearchCache>>
+    fun getAllSearchCache(): Flow<List<SearchCache>>
 }

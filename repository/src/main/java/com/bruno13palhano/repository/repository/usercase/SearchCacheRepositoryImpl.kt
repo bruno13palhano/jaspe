@@ -22,7 +22,7 @@ internal class SearchCacheRepositoryImpl @Inject constructor(
         daoCache.deleteById(searchCacheId)
     }
 
-    override suspend fun getAllSearchCache(): Flow<List<SearchCache>> {
+    override fun getAllSearchCache(): Flow<List<SearchCache>> {
         return daoCache.getAll().map {
             it.map { searchCacheRep ->
                 searchCacheRep.asSearchCache()
