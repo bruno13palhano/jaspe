@@ -35,7 +35,6 @@ class HomeFragment : Fragment() {
     private var contactInfo = ContactInfo()
     private val viewModel: HomeViewModel by viewModels()
     private lateinit var lastSeenCard: CardView
-
     private lateinit var recyclerView: RecyclerView
     private lateinit var searchProduct: CardView
     private lateinit var amazonRecycler: RecyclerView
@@ -50,6 +49,8 @@ class HomeFragment : Fragment() {
     private lateinit var viewMoreNatura: CardView
     private lateinit var viewMoreAvon: CardView
     private lateinit var viewMoreLastSeen: CardView
+    private lateinit var drawer: DrawerLayout
+    private lateinit var navView: NavigationView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -75,6 +76,19 @@ class HomeFragment : Fragment() {
 
         lastSeenCard = view.findViewById(R.id.last_seen_card)
 
+        drawer = ((activity as MainActivity)).findViewById<DrawerLayout>(R.id.drawer_layout)
+        navView = ((activity as MainActivity)).findViewById<NavigationView>(R.id.nav_view)
+
+        val notificationItemMenu = navView.menu.findItem(R.id.notificationsFragment)
+        val notificationCountView = notificationItemMenu
+            .actionView?.findViewById<TextView>(R.id.notification_count)
+
+        val profilePhotoView = navView.getHeaderView(0)
+            .findViewById<ShapeableImageView>(R.id.profile_photo)
+
+        val usernameView = navView.getHeaderView(0)
+            .findViewById<TextView>(R.id.username)
+
         val categoryItems = getCategoryList()
         val categoryRecyclerView = view.findViewById<RecyclerView>(R.id.category_recycler_view)
         val categoryAdapter = CategoryItemAdapter {
@@ -82,116 +96,6 @@ class HomeFragment : Fragment() {
         }
         categoryRecyclerView.adapter = categoryAdapter
         categoryAdapter.submitList(categoryItems)
-
-        return view
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val toolbar = view.findViewById<MaterialToolbar>(R.id.toolbar)
-        toolbar.inflateMenu(R.menu.menu_toolbar)
-        toolbar.setNavigationIcon(R.drawable.ic_baseline_menu_24)
-
-        val drawer = ((activity as MainActivity)).findViewById<DrawerLayout>(R.id.drawer_layout)
-        val navView = ((activity as MainActivity)).findViewById<NavigationView>(R.id.nav_view)
-
-        val notificationItemMenu = navView.menu.findItem(R.id.notificationsFragment)
-        val notificationCountView = notificationItemMenu
-            .actionView?.findViewById<TextView>(R.id.notification_count)
-
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.notificationCount.collect { nonVisualizedNotificationsCount ->
-                    setNotificationsCountView(
-                        notificationCountView,
-                        nonVisualizedNotificationsCount
-                    )
-                }
-            }
-        }
-
-        val profilePhotoView = navView.getHeaderView(0)
-            .findViewById<ShapeableImageView>(R.id.profile_photo)
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.profileUrlPhoto.collect {
-                    if (it.isNotEmpty()) {
-                        profilePhotoView.load(it)
-                    } else {
-                        profilePhotoView.setImageResource(R.drawable.ic_baseline_account_circle_24)
-                    }
-                }
-            }
-        }
-
-        val profileHeader = navView.getHeaderView(0)
-            .findViewById<CardView>(R.id.profile_header)
-        profileHeader.setOnClickListener {
-            findNavController().currentDestination?.let {
-                if (it.id == R.id.accountFragment) {
-                    drawer.close()
-                } else {
-                    drawer.close()
-                    findNavController().apply {
-                        popBackStack(R.id.homeFragment, inclusive = false, saveState = true)
-                        navigate(R.id.action_to_account)
-                    }
-                }
-            }
-        }
-
-        val usernameView = navView.getHeaderView(0)
-            .findViewById<TextView>(R.id.username)
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.username.collect {
-                    if (it.isNotEmpty()) {
-                        usernameView.text = getString(R.string.welcome_user_label, it)
-                    } else {
-                        usernameView.text = getString(R.string.welcome_user_default_label)
-                    }
-                }
-            }
-        }
-
-        toolbar.setNavigationOnClickListener {
-            drawer.open()
-        }
-
-        toolbar.setOnMenuItemClickListener {
-            when (it.itemId) {
-                R.id.whatsappChat -> {
-                    openWhatsApp(this.requireContext(), contactInfo.contactWhatsApp, "")
-                    true
-                }
-                else -> false
-            }
-        }
-
-        viewMoreAmazon.setOnClickListener {
-            HomeSimpleStateHolder.
-            navigateTo(findNavController(), Route.MARKET.route)
-        }
-
-        viewMoreNatura.setOnClickListener {
-            HomeSimpleStateHolder
-                .navigateTo(findNavController(), Route.NATURA.route)
-        }
-
-        viewMoreAvon.setOnClickListener {
-            HomeSimpleStateHolder
-                .navigateTo(findNavController(), Route.AVON.route)
-        }
-
-        viewMoreLastSeen.setOnClickListener {
-            HomeSimpleStateHolder
-                .navigateTo(findNavController(), Route.LAST_SEEN.route)
-        }
-
-        searchProduct.setOnClickListener {
-            HomeSimpleStateHolder
-                .navigateTo(findNavController(), Route.SEARCH_DIALOG.route)
-        }
 
         val adapter = HomeItemAdapter { product ->
             viewModel.onProductItemClick(findNavController(), product)
@@ -220,82 +124,147 @@ class HomeFragment : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.mainBanner.collect {
-                    imageMainBanner.load(it.bannerUrlImage)
+                launch {
+                    viewModel.mainBanner.collect {
+                        imageMainBanner.load(it.bannerUrlImage)
+                    }
+                }
+                launch {
+                    viewModel.allProducts.collect {
+                        adapter.submitList(it)
+                    }
+                }
+                launch {
+                    viewModel.amazonProducts.collect {
+                        amazonAdapter.submitList(it)
+                    }
+                }
+                launch {
+                    viewModel.naturaProducts.collect {
+                        naturaAdapter.submitList(it)
+                    }
+                }
+                launch {
+                    viewModel.avonProducts.collect {
+                        avonAdapter.submitList(it)
+                    }
+                }
+                launch {
+                    viewModel.amazonBanner.collect {
+                        imageAmazonBanner.load(it.bannerUrlImage)
+                    }
+                }
+                launch {
+                    viewModel.naturaBanner.collect {
+                        imageNaturaBanner.load(it.bannerUrlImage)
+                    }
+                }
+                launch {
+                    viewModel.avonBanner.collect {
+                        imageAvonBanner.load(it.bannerUrlImage)
+                    }
+                }
+                launch {
+                    viewModel.contactInfo.collect {
+                        contactInfo = it
+                    }
+                }
+                launch {
+                    viewModel.lastSeenProducts.collect {
+                        lastSeenAdapter.submitList(it)
+                        setLastSeenCardVisibility(it.size)
+                    }
+                }
+                launch {
+                    viewModel.notificationCount.collect { nonVisualizedNotificationsCount ->
+                        setNotificationsCountView(
+                            notificationCountView,
+                            nonVisualizedNotificationsCount
+                        )
+                    }
+                }
+                launch {
+                    viewModel.profileUrlPhoto.collect {
+                        if (it.isNotEmpty()) {
+                            profilePhotoView.load(it)
+                        } else {
+                            profilePhotoView.setImageResource(R.drawable.ic_baseline_account_circle_24)
+                        }
+                    }
+                }
+                launch {
+                    viewModel.username.collect {
+                        if (it.isNotEmpty()) {
+                            usernameView.text = getString(R.string.welcome_user_label, it)
+                        } else {
+                            usernameView.text = getString(R.string.welcome_user_default_label)
+                        }
+                    }
                 }
             }
         }
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.allProducts.collect {
-                    adapter.submitList(it)
+        val profileHeader = navView.getHeaderView(0)
+            .findViewById<CardView>(R.id.profile_header)
+        profileHeader.setOnClickListener {
+            findNavController().currentDestination?.let {
+                if (it.id == R.id.accountFragment) {
+                    drawer.close()
+                } else {
+                    drawer.close()
+                    findNavController().apply {
+                        popBackStack(R.id.homeFragment, inclusive = false, saveState = true)
+                        navigate(R.id.action_to_account)
+                    }
                 }
             }
         }
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.amazonProducts.collect {
-                    amazonAdapter.submitList(it)
-                }
-            }
+        viewMoreAmazon.setOnClickListener {
+            HomeSimpleStateHolder.
+            navigateTo(findNavController(), Route.MARKET.route)
         }
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.naturaProducts.collect {
-                    naturaAdapter.submitList(it)
-                }
-            }
+        viewMoreNatura.setOnClickListener {
+            HomeSimpleStateHolder
+                .navigateTo(findNavController(), Route.NATURA.route)
         }
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.avonProducts.collect {
-                    avonAdapter.submitList(it)
-                }
-            }
+        viewMoreAvon.setOnClickListener {
+            HomeSimpleStateHolder
+                .navigateTo(findNavController(), Route.AVON.route)
         }
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.amazonBanner.collect {
-                    imageAmazonBanner.load(it.bannerUrlImage)
-                }
-            }
+        viewMoreLastSeen.setOnClickListener {
+            HomeSimpleStateHolder
+                .navigateTo(findNavController(), Route.LAST_SEEN.route)
         }
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.naturaBanner.collect {
-                    imageNaturaBanner.load(it.bannerUrlImage)
-                }
-            }
+        searchProduct.setOnClickListener {
+            HomeSimpleStateHolder
+                .navigateTo(findNavController(), Route.SEARCH_DIALOG.route)
         }
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.avonBanner.collect {
-                    imageAvonBanner.load(it.bannerUrlImage)
-                }
-            }
+        return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val toolbar = view.findViewById<MaterialToolbar>(R.id.toolbar)
+        toolbar.inflateMenu(R.menu.menu_toolbar)
+        toolbar.setNavigationIcon(R.drawable.ic_baseline_menu_24)
+
+        toolbar.setNavigationOnClickListener {
+            drawer.open()
         }
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.contactInfo.collect {
-                    contactInfo = it
+        toolbar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.whatsappChat -> {
+                    openWhatsApp(this.requireContext(), contactInfo.contactWhatsApp, "")
+                    true
                 }
-            }
-        }
-
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.lastSeenProducts.collect {
-                    lastSeenAdapter.submitList(it)
-                    setLastSeenCardVisibility(it.size)
-                }
+                else -> false
             }
         }
     }
