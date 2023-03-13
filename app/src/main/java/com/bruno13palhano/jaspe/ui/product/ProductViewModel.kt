@@ -14,6 +14,7 @@ import com.bruno13palhano.repository.repository.FavoriteProductRepository
 import com.bruno13palhano.repository.repository.ProductRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.SharingStarted.Companion.WhileSubscribed
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -30,16 +31,15 @@ class ProductViewModel @Inject constructor(
 ) : ViewModel() {
     private val _isFavorite = MutableStateFlow<Boolean>(false)
     val isFavorite = _isFavorite.asStateFlow()
-    private val _contactWhatsApp = MutableStateFlow<String>("")
-    val contactWhatsApp = _contactWhatsApp.asStateFlow()
 
-    init {
-        viewModelScope.launch {
-            contactInfoRepository.getContactInfo(1L).collect {
-                _contactWhatsApp.value = it.contactWhatsApp
-            }
-        }
-    }
+    val contactWhatsApp: StateFlow<String> =
+        contactInfoRepository.getContactInfo(1L)
+            .map { it.contactWhatsApp }
+            .stateIn(
+                initialValue = "",
+                scope = viewModelScope,
+                started = WhileSubscribed(5000)
+            )
 
     fun getRelatedProducts(type: String): Flow<List<Product>> {
         return productRepository.getByType(type)
