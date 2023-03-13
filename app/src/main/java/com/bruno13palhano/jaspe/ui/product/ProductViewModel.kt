@@ -1,7 +1,5 @@
 package com.bruno13palhano.jaspe.ui.product
 
-import android.content.Context
-import android.content.Intent
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bruno13palhano.model.FavoriteProduct
@@ -66,17 +64,6 @@ class ProductViewModel @Inject constructor(
                 }
             }
         }
-    }
-
-    fun shareProduct(context: Context, favoriteProduct: FavoriteProduct) {
-        val shareProductLink = Intent.createChooser(Intent().apply {
-            action = Intent.ACTION_SEND
-            type = "text/*"
-            putExtra(Intent.EXTRA_TEXT, favoriteProduct.favoriteProductUrlLink)
-            putExtra(Intent.EXTRA_TITLE, favoriteProduct.favoriteProductName)
-
-        }, null)
-        context.startActivity(shareProductLink)
     }
 
     fun setFavoriteValue(isFavorite: Boolean) {

@@ -93,7 +93,7 @@ class ProductFragment : Fragment() {
                     true
                 }
                 R.id.shareProduct -> {
-                    viewModel.shareProduct(this@ProductFragment.requireContext(), favoriteProduct)
+                    ProductUtil.shareProduct(this@ProductFragment.requireContext(), favoriteProduct)
                     true
                 }
                 else -> false
@@ -108,7 +108,7 @@ class ProductFragment : Fragment() {
             try {
                 viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                     viewModel.getProductByUrlLink(productUrlLink).collect {
-                        favoriteProduct = convertProductToFavorite(it)
+                        favoriteProduct = ProductUtil.convertProductToFavorite(it)
                         setProductViews(it)
                         setBuyByWhatsAppVisibility(it.productCompany)
                     }
@@ -128,7 +128,7 @@ class ProductFragment : Fragment() {
                     try {
                         viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                             viewModel.getProductLastSeen(productUrlLink).collect {
-                                favoriteProduct = convertProductToFavorite(it)
+                                favoriteProduct = ProductUtil.convertProductToFavorite(it)
                                 setProductViews(it)
                                 setBuyByWhatsAppVisibility(it.productCompany)
                             }
@@ -152,7 +152,7 @@ class ProductFragment : Fragment() {
 
         val relatedProductsRecyclerView = view.findViewById<RecyclerView>(R.id.related_products_recycler_view)
         val relatedProductsAdapter = RelatedProductItemAdapter {
-            favoriteProduct = convertProductToFavorite(it)
+            favoriteProduct = ProductUtil.convertProductToFavorite(it)
             setProductViews(it)
             productUrlLink = it.productUrlLink
             viewLifecycleOwner.lifecycleScope.launch {
@@ -194,20 +194,6 @@ class ProductFragment : Fragment() {
                 }
             }
         }
-    }
-
-    private fun convertProductToFavorite(product: Product): FavoriteProduct {
-        return FavoriteProduct(
-            favoriteProductId = 0L,
-            favoriteProductUrlImage = product.productUrlImage,
-            favoriteProductName = product.productName,
-            favoriteProductPrice = product.productPrice,
-            favoriteProductUrlLink = product.productUrlLink,
-            favoriteProductType = product.productType,
-            favoriteProductDescription = product.productDescription,
-            favoriteProductCompany = product.productCompany,
-            favoriteProductIsVisible = true
-        )
     }
 
     private fun setProductViews(product: Product) {
