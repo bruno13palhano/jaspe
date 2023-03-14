@@ -3,7 +3,6 @@ package com.bruno13palhano.repository.repository.usercase
 import com.bruno13palhano.common.di.ApplicationScope
 import com.bruno13palhano.model.Company
 import com.bruno13palhano.model.Product
-import com.bruno13palhano.model.Type
 import com.bruno13palhano.repository.database.dao.ProductDao
 import com.bruno13palhano.repository.model.asLastSeenProduct
 import com.bruno13palhano.repository.model.asProduct

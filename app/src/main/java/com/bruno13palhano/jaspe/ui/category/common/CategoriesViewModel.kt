@@ -13,8 +13,7 @@ import com.bruno13palhano.model.Type
 import com.bruno13palhano.repository.di.DefaultProductRepository
 import com.bruno13palhano.repository.repository.ProductRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
