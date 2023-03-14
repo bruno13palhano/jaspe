@@ -6,8 +6,6 @@ import androidx.navigation.NavController
 import com.bruno13palhano.authentication.core.DefaultUserFirebase
 import com.bruno13palhano.authentication.core.UserAuthentication
 import com.bruno13palhano.jaspe.ui.common.prepareLastSeenProduct
-import com.bruno13palhano.model.Banner
-import com.bruno13palhano.model.Company
 import com.bruno13palhano.model.ContactInfo
 import com.bruno13palhano.model.Product
 import com.bruno13palhano.repository.di.*
