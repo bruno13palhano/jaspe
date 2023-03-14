@@ -39,76 +39,31 @@ class HomeViewModel @Inject constructor(
     private val authentication: UserAuthentication
 ) : ViewModel() {
 
-    val mainBanner: StateFlow<Banner> =
-        bannerRepository.getLastBannerByCompany(Company.MAIN.company)
-            .stateIn(
-                initialValue = Banner(),
-                scope = viewModelScope,
-                started = WhileSubscribed(5000)
-            )
+    val mainBanner = bannerRepository.mainBanner
 
-    val amazonBanner: StateFlow<Banner> =
-        bannerRepository.getLastBannerByCompany(Company.AMAZON.company)
-            .stateIn(
-                initialValue = Banner(),
-                scope = viewModelScope,
-                started = WhileSubscribed(5000)
-            )
+    val amazonBanner = bannerRepository.amazonBanner
 
-    val naturaBanner: StateFlow<Banner> =
-        bannerRepository.getLastBannerByCompany(Company.NATURA.company)
-            .stateIn(
-                initialValue = Banner(),
-                scope = viewModelScope,
-                started = WhileSubscribed(5000)
-            )
+    val naturaBanner = bannerRepository.naturaBanner
 
-    val avonBanner: StateFlow<Banner> =
-        bannerRepository.getLastBannerByCompany(Company.AVON.company)
-            .stateIn(
-                initialValue = Banner(),
-                scope = viewModelScope,
-                started = WhileSubscribed(5000)
-            )
+    val avonBanner = bannerRepository.avonBanner
 
-    val allProducts: StateFlow<List<Product>> = productRepository.getAll()
-            .stateIn(
-                initialValue = emptyList(),
-                scope = viewModelScope,
-                started = WhileSubscribed(5000)
-            )
+    val allProducts = productRepository.allProducts
 
-    val amazonProducts: StateFlow<List<Product>> =
-        productRepository.getByCompany(Company.AMAZON.company, 0, 6)
-            .stateIn(
-                initialValue = emptyList(),
-                scope = viewModelScope,
-                started = WhileSubscribed(5000)
-            )
+    val amazonProducts = productRepository.amazonProducts.map {
+        try { it.subList(0, 6) } catch (ignored: Exception) { it }
+    }
 
-    val naturaProducts: StateFlow<List<Product>> =
-        productRepository.getByCompany(Company.NATURA.company, 0, 6)
-            .stateIn(
-                initialValue = emptyList(),
-                scope = viewModelScope,
-                started = WhileSubscribed(5000)
-            )
+    val naturaProducts = productRepository.naturaProducts.map {
+        try { it.subList(0, 6) } catch (ignored: Exception) { it }
+    }
 
-    val avonProducts: StateFlow<List<Product>> =
-        productRepository.getByCompany(Company.AVON.company, 0, 6)
-            .stateIn(
-                initialValue = emptyList(),
-                scope = viewModelScope,
-                started = WhileSubscribed(5000)
-            )
+    val avonProducts = productRepository.avonProducts.map {
+        try { it.subList(0, 6) } catch (ignored: Exception) { it }
+    }
 
-    val lastSeenProducts: StateFlow<List<Product>> =
-        productRepository.getLastSeenProducts(0, 6)
-            .stateIn(
-                initialValue = emptyList(),
-                scope = viewModelScope,
-                started = WhileSubscribed(5000)
-            )
+    val lastSeenProducts = productRepository.lastSeenProducts.map {
+        try { it.subList(0, 6) } catch (ignored: Exception) { it }
+    }
 
     val contactInfo: StateFlow<ContactInfo> =
         contactInfoRepository.getContactInfo(1L)
