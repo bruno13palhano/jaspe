@@ -5,17 +5,30 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:layout_marginStart="8dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="8dp"
+    android:padding="2dp"
     android:orientation="vertical">
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/category_item_button"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
-        android:layout_margin="8dp"
-        android:backgroundTint="?colorPrimary"
-        app:tint="@null"
-        android:scaleType="centerCrop"
-        android:contentDescription="@string/category_item_label" />
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:cardUseCompatPadding="true"
+        app:shapeAppearanceOverlay="@style/roundedImageViewRounded">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/category_item_button"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:layout_margin="8dp"
+            android:contentDescription="@string/profile_picture_description"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_baseline_image_24"
+            app:shapeAppearanceOverlay="@style/roundedImageViewRounded" />
+    </com.google.android.material.card.MaterialCardView>
     <TextView
         android:id="@+id/category_item_title"
         android:layout_width="wrap_content"
