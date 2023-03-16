@@ -91,33 +91,38 @@ class HomeFragment : Fragment() {
 
         val categoryRecyclerView = view.findViewById<RecyclerView>(R.id.category_recycler_view)
         val categoryAdapter = CategoryItemAdapter {
-            HomeSimpleStateHolder.navigateTo(findNavController(), it)
+            navigateTo(it)
         }
         categoryRecyclerView.adapter = categoryAdapter
         categoryAdapter.submitList(categoryList)
 
         val adapter = HomeItemAdapter { product ->
-            viewModel.onProductItemClick(findNavController(), product)
+            viewModel.insertLastSeenProduct(product)
+            navigateToProduct(product.productUrlLink, product.productType)
         }
         recyclerView.adapter = adapter
 
         val amazonAdapter = ProductItemAdapter { product ->
-            viewModel.onProductItemClick(findNavController(), product)
+            viewModel.insertLastSeenProduct(product)
+            navigateToProduct(product.productUrlLink, product.productType)
         }
         amazonRecycler.adapter = amazonAdapter
 
         val naturaAdapter = ProductItemAdapter { product ->
-            viewModel.onProductItemClick(findNavController(), product)
+            viewModel.insertLastSeenProduct(product)
+            navigateToProduct(product.productUrlLink, product.productType)
         }
         naturaRecycler.adapter = naturaAdapter
 
         val avonAdapter = ProductItemAdapter { product ->
-            viewModel.onProductItemClick(findNavController(), product)
+            viewModel.insertLastSeenProduct(product)
+            navigateToProduct(product.productUrlLink, product.productType)
         }
         avonRecycler.adapter = avonAdapter
 
         val lastSeenAdapter = ProductHorizontalItemAdapter { product ->
-            viewModel.onProductItemClick(findNavController(), product)
+            viewModel.insertLastSeenProduct(product)
+            navigateToProduct(product.productUrlLink, product.productType)
         }
         lastSeenRecyclerView.adapter = lastSeenAdapter
 
@@ -220,28 +225,23 @@ class HomeFragment : Fragment() {
         }
 
         viewMoreAmazon.setOnClickListener {
-            HomeSimpleStateHolder.
-            navigateTo(findNavController(), Route.MARKET.route)
+            navigateTo( Route.MARKET.route)
         }
 
         viewMoreNatura.setOnClickListener {
-            HomeSimpleStateHolder
-                .navigateTo(findNavController(), Route.NATURA.route)
+            navigateTo(Route.NATURA.route)
         }
 
         viewMoreAvon.setOnClickListener {
-            HomeSimpleStateHolder
-                .navigateTo(findNavController(), Route.AVON.route)
+            navigateTo(Route.AVON.route)
         }
 
         viewMoreLastSeen.setOnClickListener {
-            HomeSimpleStateHolder
-                .navigateTo(findNavController(), Route.LAST_SEEN.route)
+            navigateTo(Route.LAST_SEEN.route)
         }
 
         searchProduct.setOnClickListener {
-            HomeSimpleStateHolder
-                .navigateTo(findNavController(), Route.SEARCH_DIALOG.route)
+            navigateTo(Route.SEARCH_DIALOG.route)
         }
 
         return view
@@ -264,6 +264,32 @@ class HomeFragment : Fragment() {
                     true
                 }
                 else -> false
+            }
+        }
+    }
+
+    private fun navigateToProduct(productUrlLink: String, productType: String) {
+        findNavController().navigate(HomeFragmentDirections
+            .actionHomeToProduct(productUrlLink, productType))
+    }
+
+    private fun navigateTo(route: String) {
+        when (route) {
+            Route.SEARCH_DIALOG.route -> {
+                findNavController().apply {
+                    popBackStack(R.id.homeFragment, inclusive = false, saveState = true)
+                    navigate(R.id.action_to_search_dialog)
+                }
+            }
+            Route.OFFERS.route -> {
+                findNavController().apply {
+                    popBackStack(R.id.homeFragment, inclusive = false, saveState = true)
+                    navigate(R.id.action_to_offers_category)
+                }
+            }
+            else -> {
+                findNavController().navigate(HomeFragmentDirections
+                    .actionHomeToCommonCategories(route))
             }
         }
     }
