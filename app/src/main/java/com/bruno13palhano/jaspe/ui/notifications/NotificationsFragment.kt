@@ -78,7 +78,7 @@ class NotificationsFragment : Fragment() {
         }
     }
 
-    fun navigateTo(type: String) {
+    private fun navigateTo(type: String) {
         when (type) {
             NotificationTypes.ANNOUNCEMENT.type -> {
                 findNavController().navigate(R.id.action_to_blog)
