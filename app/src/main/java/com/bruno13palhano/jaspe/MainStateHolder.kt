@@ -7,16 +7,18 @@ import com.bruno13palhano.jaspe.ui.common.openEmail
 import com.bruno13palhano.jaspe.ui.common.openInstagram
 import com.bruno13palhano.jaspe.ui.common.openWhatsApp
 import com.bruno13palhano.model.ContactInfo
+import kotlinx.coroutines.delay
 
 object MainStateHolder {
 
-    fun navigateTo(
+    suspend fun navigateTo(
         navController: NavController,
         item: MenuItem,
         context: Context,
         contactInfo: ContactInfo
     ) {
         if (!item.isChecked) {
+            delay(275L)
             when (item.itemId) {
                 R.id.homeFragment -> {
                     navController.apply {

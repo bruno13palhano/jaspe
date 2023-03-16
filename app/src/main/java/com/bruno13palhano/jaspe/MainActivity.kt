@@ -8,6 +8,7 @@ import androidx.activity.viewModels
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.coroutineScope
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -16,6 +17,7 @@ import androidx.navigation.ui.onNavDestinationSelected
 import com.bruno13palhano.model.ContactInfo
 import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -51,13 +53,14 @@ class MainActivity : AppCompatActivity(), DrawerLock {
         navView.setNavigationItemSelectedListener { item ->
             drawer.closeDrawer(GravityCompat.START)
 
-            MainStateHolder.navigateTo(
-                navController = navController,
-                item = item,
-                context = this,
-                contactInfo = contactInfo
-            )
-
+            lifecycleScope.launch {
+                MainStateHolder.navigateTo(
+                    navController = navController,
+                    item = item,
+                    context = this@MainActivity,
+                    contactInfo = contactInfo
+                )
+            }
             true
         }
     }
