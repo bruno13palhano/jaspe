@@ -39,8 +39,8 @@ class FavoritesItemAdapter(
         private val productName: TextView = rootView.findViewById(R.id.product_name)
         private val productType: TextView = rootView.findViewById(R.id.product_type)
         private val productPrice: TextView = rootView.findViewById(R.id.product_price)
-        private val removeProduct: CardView = rootView.findViewById(R.id.remove_product)
-        private val shareProduct: CardView = rootView.findViewById(R.id.share_product)
+        private val removeProduct: ImageView = rootView.findViewById(R.id.remove_product)
+        private val shareProduct: ImageView = rootView.findViewById(R.id.share_product)
 
         var currentProduct: FavoriteProduct? = null
 
