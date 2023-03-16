@@ -6,9 +6,8 @@ import com.bruno13palhano.model.FavoriteProduct
 import com.bruno13palhano.repository.di.DefaultFavoriteProductRepository
 import com.bruno13palhano.repository.repository.FavoriteProductRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.SharingStarted.Companion.WhileSubscribed
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -17,16 +16,14 @@ class FavoritesViewModel @Inject constructor(
     @DefaultFavoriteProductRepository
     private val favoriteRepository: FavoriteProductRepository
 ) : ViewModel(){
-    private val _allFavoritesVisible = MutableStateFlow<List<FavoriteProduct>>(emptyList())
-    val allFavoritesVisible = _allFavoritesVisible.asStateFlow()
 
-    init {
-        viewModelScope.launch {
-            favoriteRepository.getAllFavoriteProductsVisible().collect {
-                _allFavoritesVisible.value = it
-            }
-        }
-    }
+    val allFavoritesVisible: StateFlow<List<FavoriteProduct>> =
+        favoriteRepository.getAllFavoriteProductsVisible()
+            .stateIn(
+                initialValue = emptyList(),
+                scope = viewModelScope,
+                started = WhileSubscribed(5000)
+            )
 
     fun deleteProductByUrlLink(favoriteProductUrlLink: String) {
         viewModelScope.launch {
