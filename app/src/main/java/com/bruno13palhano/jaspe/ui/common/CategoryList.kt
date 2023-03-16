@@ -4,8 +4,8 @@ import com.bruno13palhano.jaspe.R
 import com.bruno13palhano.model.CategoryItem
 import com.bruno13palhano.model.Route
 
-fun getCategoryList(): List<CategoryItem> {
-    return listOf(
+val categoryList: List<CategoryItem> =
+    listOf(
         CategoryItem(
             "Baby",
             Route.BABY.route,
@@ -48,4 +48,3 @@ fun getCategoryList(): List<CategoryItem> {
             R.drawable.last_seen_icon
         )
     )
-}

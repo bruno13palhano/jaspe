@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bruno13palhano.jaspe.R
-import com.bruno13palhano.jaspe.ui.common.getCategoryList
+import com.bruno13palhano.jaspe.ui.common.categoryList
 import com.google.android.material.appbar.MaterialToolbar
 
 class CategoryFragment : Fragment() {
@@ -24,7 +24,7 @@ class CategoryFragment : Fragment() {
             CategorySimpleStateHolder.navigateToCommonCategories(findNavController(), it)
         }
         recyclerView.adapter = adapter
-        adapter.submitList(getCategoryList())
+        adapter.submitList(categoryList)
 
         return view
     }

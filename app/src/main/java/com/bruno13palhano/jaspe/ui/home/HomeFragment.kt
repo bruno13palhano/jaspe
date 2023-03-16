@@ -20,7 +20,7 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.bruno13palhano.jaspe.MainActivity
 import com.bruno13palhano.jaspe.R
-import com.bruno13palhano.jaspe.ui.common.getCategoryList
+import com.bruno13palhano.jaspe.ui.common.categoryList
 import com.bruno13palhano.jaspe.ui.common.openWhatsApp
 import com.bruno13palhano.model.Route
 import com.bruno13palhano.model.ContactInfo
@@ -76,8 +76,8 @@ class HomeFragment : Fragment() {
 
         lastSeenCard = view.findViewById(R.id.last_seen_card)
 
-        drawer = ((activity as MainActivity)).findViewById<DrawerLayout>(R.id.drawer_layout)
-        navView = ((activity as MainActivity)).findViewById<NavigationView>(R.id.nav_view)
+        drawer = ((activity as MainActivity)).findViewById(R.id.drawer_layout)
+        navView = ((activity as MainActivity)).findViewById(R.id.nav_view)
 
         val notificationItemMenu = navView.menu.findItem(R.id.notificationsFragment)
         val notificationCountView = notificationItemMenu
@@ -89,13 +89,12 @@ class HomeFragment : Fragment() {
         val usernameView = navView.getHeaderView(0)
             .findViewById<TextView>(R.id.username)
 
-        val categoryItems = getCategoryList()
         val categoryRecyclerView = view.findViewById<RecyclerView>(R.id.category_recycler_view)
         val categoryAdapter = CategoryItemAdapter {
             HomeSimpleStateHolder.navigateTo(findNavController(), it)
         }
         categoryRecyclerView.adapter = categoryAdapter
-        categoryAdapter.submitList(categoryItems)
+        categoryAdapter.submitList(categoryList)
 
         val adapter = HomeItemAdapter { product ->
             viewModel.onProductItemClick(findNavController(), product)
