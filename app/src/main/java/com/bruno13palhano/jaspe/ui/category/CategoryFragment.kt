@@ -9,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bruno13palhano.jaspe.R
 import com.bruno13palhano.jaspe.ui.common.categoryList
+import com.bruno13palhano.model.Route
 import com.google.android.material.appbar.MaterialToolbar
 
 class CategoryFragment : Fragment() {
@@ -21,7 +22,7 @@ class CategoryFragment : Fragment() {
         val recyclerView = view.findViewById<RecyclerView>(R.id.category_list)
 
         val adapter = CategoryListAdapter {
-            CategorySimpleStateHolder.navigateToCommonCategories(findNavController(), it)
+            navigateToCommonCategories(it)
         }
         recyclerView.adapter = adapter
         adapter.submitList(categoryList)
@@ -37,6 +38,19 @@ class CategoryFragment : Fragment() {
 
         toolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
+        }
+    }
+
+    fun navigateToCommonCategories(route: String) {
+        when (route) {
+            Route.OFFERS.route -> {
+                findNavController().navigate(CategoryFragmentDirections
+                    .actionCategoryToOffers())
+            }
+            else -> {
+                findNavController().navigate(CategoryFragmentDirections
+                    .actionCategoryToCommonCategories(route))
+            }
         }
     }
 }
