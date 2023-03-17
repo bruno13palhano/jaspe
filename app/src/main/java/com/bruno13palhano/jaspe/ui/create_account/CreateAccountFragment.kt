@@ -7,8 +7,6 @@ import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
-import android.widget.FrameLayout
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -18,15 +16,12 @@ import androidx.navigation.fragment.findNavController
 import com.bruno13palhano.jaspe.DrawerLock
 import com.bruno13palhano.jaspe.R
 import com.bruno13palhano.jaspe.databinding.FragmentCreateAccountBinding
-import com.google.android.material.button.MaterialButton
-import com.google.android.material.textfield.TextInputEditText
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class CreateAccountFragment : Fragment(), AccountView {
     private val viewModel: CreateAccountViewModel by viewModels()
-    private lateinit var loginProgress: FrameLayout
     private var _binding: FragmentCreateAccountBinding? = null
     private val binding get() = _binding!!
 
@@ -36,17 +31,11 @@ class CreateAccountFragment : Fragment(), AccountView {
     ): View {
         _binding = FragmentCreateAccountBinding.inflate(inflater, container, false)
         val view = binding.root
-        val createAccountButton = view.findViewById<MaterialButton>(R.id.create)
-        val back = view.findViewById<TextView>(R.id.back)
-        val usernameEditText = view.findViewById<TextInputEditText>(R.id.username)
-        val emailEditText = view.findViewById<TextInputEditText>(R.id.email)
-        val passwordEditText = view.findViewById<TextInputEditText>(R.id.password)
-        loginProgress = view.findViewById(R.id.login_progress)
 
-        createAccountButton.setOnClickListener {
-            val username = usernameEditText.text.toString()
-            val email = emailEditText.text.toString()
-            val password = passwordEditText.text.toString()
+        binding.create.setOnClickListener {
+            val username = binding.username.text.toString()
+            val email = binding.email.text.toString()
+            val password = binding.password.text.toString()
 
             viewModel.createAccount(
                 username = username,
@@ -76,7 +65,7 @@ class CreateAccountFragment : Fragment(), AccountView {
             }
         }
 
-        back.setOnClickListener {
+        binding.back.setOnClickListener {
             findNavController().navigateUp()
         }
 
@@ -89,13 +78,13 @@ class CreateAccountFragment : Fragment(), AccountView {
     }
 
     override fun onFail() {
-        loginProgress.visibility = GONE
+        binding.loginProgress.visibility = GONE
         Toast.makeText(requireContext(), R.string.authentication_failed_label,
             Toast.LENGTH_SHORT).show()
     }
 
     override fun onLoading() {
-        loginProgress.visibility = VISIBLE
+        binding.loginProgress.visibility = VISIBLE
     }
 
     private fun setDrawerEnable() {
