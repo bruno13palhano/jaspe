@@ -14,6 +14,7 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.coroutineScope
 import androidx.navigation.fragment.findNavController
+import com.bruno13palhano.jaspe.DrawerLock
 import com.bruno13palhano.jaspe.R
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
@@ -46,18 +47,14 @@ class LoginFragment : Fragment(), LoginView {
         }
 
         createAccount.setOnClickListener {
-            LoginSimpleStateHolder.navigateToCreateAccount(findNavController())
+            findNavController().navigate(LoginFragmentDirections.actionLoginToCreateAccount())
         }
 
         closeLogin.setOnClickListener {
-            LoginSimpleStateHolder.onCloseOrSuccess(
-                navController = findNavController(),
-                activity = this@LoginFragment.requireActivity(),
-                enabled = true
-            )
+            setDrawerEnable(true)
         }
 
-        LoginSimpleStateHolder.setDrawerEnable(this@LoginFragment.requireActivity(), false)
+        setDrawerEnable(false)
 
         viewLifecycleOwner.lifecycle.coroutineScope.launch {
             viewModel.loginStatus.collect {
@@ -82,11 +79,8 @@ class LoginFragment : Fragment(), LoginView {
     }
 
     override fun onLoginSuccess() {
-        LoginSimpleStateHolder.onCloseOrSuccess(
-            navController = findNavController(),
-            activity = this@LoginFragment.requireActivity(),
-            enabled = true
-        )
+        setDrawerEnable(true)
+        findNavController().navigate(LoginFragmentDirections.actionLoginToHome())
     }
 
     override fun onLoginError() {
@@ -104,5 +98,9 @@ class LoginFragment : Fragment(), LoginView {
         if (viewModel.isUserAuthenticated()) {
             onLoginSuccess()
         }
+    }
+
+    private fun setDrawerEnable(enabled: Boolean) {
+        ((activity as DrawerLock)).setDrawerEnable(enabled)
     }
 }
