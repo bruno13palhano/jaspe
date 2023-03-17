@@ -6,6 +6,7 @@ import com.bruno13palhano.authentication.core.DefaultUserFirebase
 import com.bruno13palhano.authentication.core.UserAuthentication
 import com.bruno13palhano.jaspe.ui.common.prepareLastSeenProduct
 import com.bruno13palhano.model.ContactInfo
+import com.bruno13palhano.model.Notification
 import com.bruno13palhano.model.Product
 import com.bruno13palhano.repository.di.*
 import com.bruno13palhano.repository.repository.*
@@ -92,18 +93,12 @@ class HomeViewModel @Inject constructor(
                 started = WhileSubscribed(5000)
             )
 
-    val notificationCount: StateFlow<Long> = notificationRepository.getAllNotifications()
+    val notificationCount: StateFlow<Int> = notificationRepository.getAllNotifications()
         .map { notifications ->
-            var count = 0L
-            notifications.forEach { notification ->
-                if (!notification.isVisualized) {
-                    count++
-                }
-            }
-            count
+            notifications.filterNot(Notification::isVisualized).size
         }
         .stateIn(
-            initialValue = 0L,
+            initialValue = 0,
             scope = viewModelScope,
             started = WhileSubscribed(5000)
         )

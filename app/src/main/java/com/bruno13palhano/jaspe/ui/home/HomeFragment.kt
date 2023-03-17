@@ -294,7 +294,7 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun setNotificationsCountView(countView: TextView?, count: Long) {
+    private fun setNotificationsCountView(countView: TextView?, count: Int) {
         countView?.let {
             if (count > 0) {
                 it.visibility = VISIBLE
