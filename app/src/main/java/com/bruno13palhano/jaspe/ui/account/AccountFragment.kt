@@ -128,13 +128,15 @@ class AccountFragment : Fragment() {
                 }
             }
         } else {
-            AccountSimpleStateHolder.navigateToLogin(findNavController())
+            findNavController().navigate(AccountFragmentDirections.actionAccountToLogin())
         }
 
         toolbar.setOnMenuItemClickListener {
             when(it.itemId){
                 R.id.logout -> {
-                    viewModel.logout(findNavController())
+                    viewModel.logout()
+                    findNavController().navigate(AccountFragmentDirections.actionToHome())
+
                     true
                 }
                 else -> false
