@@ -7,7 +7,6 @@ import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.drawerlayout.widget.DrawerLayout
@@ -16,15 +15,14 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.bruno13palhano.jaspe.MainActivity
 import com.bruno13palhano.jaspe.R
+import com.bruno13palhano.jaspe.databinding.FragmentHomeBinding
 import com.bruno13palhano.jaspe.ui.common.categoryList
 import com.bruno13palhano.jaspe.ui.common.openWhatsApp
 import com.bruno13palhano.model.Route
 import com.bruno13palhano.model.ContactInfo
-import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
@@ -34,47 +32,17 @@ import kotlinx.coroutines.launch
 class HomeFragment : Fragment() {
     private var contactInfo = ContactInfo()
     private val viewModel: HomeViewModel by viewModels()
-    private lateinit var lastSeenCard: CardView
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var searchProduct: CardView
-    private lateinit var amazonRecycler: RecyclerView
-    private lateinit var naturaRecycler: RecyclerView
-    private lateinit var avonRecycler: RecyclerView
-    private lateinit var lastSeenRecyclerView: RecyclerView
-    private lateinit var imageMainBanner: ImageView
-    private lateinit var imageAmazonBanner: ImageView
-    private lateinit var imageNaturaBanner: ImageView
-    private lateinit var imageAvonBanner: ImageView
-    private lateinit var viewMoreAmazon: CardView
-    private lateinit var viewMoreNatura: CardView
-    private lateinit var viewMoreAvon: CardView
-    private lateinit var viewMoreLastSeen: CardView
     private lateinit var drawer: DrawerLayout
     private lateinit var navView: NavigationView
+    private var _binding: FragmentHomeBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_home, container, false)
-        recyclerView = view.findViewById(R.id.home_list)
-        searchProduct = view.findViewById(R.id.search_product)
-        amazonRecycler = view.findViewById(R.id.amazon_recycler_view)
-        naturaRecycler = view.findViewById(R.id.natura_recycler_view)
-        avonRecycler = view.findViewById(R.id.avon_recycler_view)
-        lastSeenRecyclerView = view.findViewById(R.id.last_seen_recycler_view)
-
-        imageMainBanner = view.findViewById(R.id.main_banner)
-        imageAmazonBanner = view.findViewById(R.id.amazon_banner_image)
-        imageNaturaBanner = view.findViewById(R.id.natura_banner_image)
-        imageAvonBanner = view.findViewById(R.id.avon_banner_image)
-
-        viewMoreAmazon = view.findViewById(R.id.amazon_more_products)
-        viewMoreNatura = view.findViewById(R.id.natura_more_products)
-        viewMoreAvon = view.findViewById(R.id.avon_more_products)
-        viewMoreLastSeen = view.findViewById(R.id.last_seen_more_products)
-
-        lastSeenCard = view.findViewById(R.id.last_seen_card)
+    ): View {
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        val view = binding.root
 
         drawer = ((activity as MainActivity)).findViewById(R.id.drawer_layout)
         navView = ((activity as MainActivity)).findViewById(R.id.nav_view)
@@ -89,48 +57,47 @@ class HomeFragment : Fragment() {
         val usernameView = navView.getHeaderView(0)
             .findViewById<TextView>(R.id.username)
 
-        val categoryRecyclerView = view.findViewById<RecyclerView>(R.id.category_recycler_view)
         val categoryAdapter = CategoryItemAdapter {
             navigateTo(it)
         }
-        categoryRecyclerView.adapter = categoryAdapter
+        binding.categoryRecyclerView.adapter = categoryAdapter
         categoryAdapter.submitList(categoryList)
 
         val adapter = HomeItemAdapter { product ->
             viewModel.insertLastSeenProduct(product)
             navigateToProduct(product.productUrlLink, product.productType)
         }
-        recyclerView.adapter = adapter
+        binding.homeList.adapter = adapter
 
         val amazonAdapter = ProductItemAdapter { product ->
             viewModel.insertLastSeenProduct(product)
             navigateToProduct(product.productUrlLink, product.productType)
         }
-        amazonRecycler.adapter = amazonAdapter
+        binding.amazonRecyclerView.adapter = amazonAdapter
 
         val naturaAdapter = ProductItemAdapter { product ->
             viewModel.insertLastSeenProduct(product)
             navigateToProduct(product.productUrlLink, product.productType)
         }
-        naturaRecycler.adapter = naturaAdapter
+        binding.naturaRecyclerView.adapter = naturaAdapter
 
         val avonAdapter = ProductItemAdapter { product ->
             viewModel.insertLastSeenProduct(product)
             navigateToProduct(product.productUrlLink, product.productType)
         }
-        avonRecycler.adapter = avonAdapter
+        binding.avonRecyclerView.adapter = avonAdapter
 
         val lastSeenAdapter = ProductHorizontalItemAdapter { product ->
             viewModel.insertLastSeenProduct(product)
             navigateToProduct(product.productUrlLink, product.productType)
         }
-        lastSeenRecyclerView.adapter = lastSeenAdapter
+        binding.lastSeenRecyclerView.adapter = lastSeenAdapter
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
                     viewModel.mainBanner.collect {
-                        imageMainBanner.load(it.bannerUrlImage)
+                        binding.mainBanner.load(it.bannerUrlImage)
                     }
                 }
                 launch {
@@ -155,17 +122,17 @@ class HomeFragment : Fragment() {
                 }
                 launch {
                     viewModel.amazonBanner.collect {
-                        imageAmazonBanner.load(it.bannerUrlImage)
+                        binding.amazonBannerImage.load(it.bannerUrlImage)
                     }
                 }
                 launch {
                     viewModel.naturaBanner.collect {
-                        imageNaturaBanner.load(it.bannerUrlImage)
+                        binding.naturaBannerImage.load(it.bannerUrlImage)
                     }
                 }
                 launch {
                     viewModel.avonBanner.collect {
-                        imageAvonBanner.load(it.bannerUrlImage)
+                        binding.avonBannerImage.load(it.bannerUrlImage)
                     }
                 }
                 launch {
@@ -224,23 +191,23 @@ class HomeFragment : Fragment() {
             }
         }
 
-        viewMoreAmazon.setOnClickListener {
+        binding.amazonMoreProducts.setOnClickListener {
             navigateTo( Route.MARKET.route)
         }
 
-        viewMoreNatura.setOnClickListener {
+        binding.naturaMoreProducts.setOnClickListener {
             navigateTo(Route.NATURA.route)
         }
 
-        viewMoreAvon.setOnClickListener {
+        binding.avonMoreProducts.setOnClickListener {
             navigateTo(Route.AVON.route)
         }
 
-        viewMoreLastSeen.setOnClickListener {
+        binding.lastSeenMoreProducts.setOnClickListener {
             navigateTo(Route.LAST_SEEN.route)
         }
 
-        searchProduct.setOnClickListener {
+        binding.searchProduct.setOnClickListener {
             navigateTo(Route.SEARCH_DIALOG.route)
         }
 
@@ -249,15 +216,14 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val toolbar = view.findViewById<MaterialToolbar>(R.id.toolbar)
-        toolbar.inflateMenu(R.menu.menu_toolbar)
-        toolbar.setNavigationIcon(R.drawable.ic_baseline_menu_24)
+        binding.toolbar.inflateMenu(R.menu.menu_toolbar)
+        binding.toolbar.setNavigationIcon(R.drawable.ic_baseline_menu_24)
 
-        toolbar.setNavigationOnClickListener {
+        binding.toolbar.setNavigationOnClickListener {
             drawer.open()
         }
 
-        toolbar.setOnMenuItemClickListener {
+        binding.toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.whatsappChat -> {
                     openWhatsApp(this.requireContext(), contactInfo.contactWhatsApp, "")
@@ -266,6 +232,11 @@ class HomeFragment : Fragment() {
                 else -> false
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     private fun navigateToProduct(productUrlLink: String, productType: String) {
@@ -307,7 +278,7 @@ class HomeFragment : Fragment() {
 
     private fun setLastSeenCardVisibility(listSize: Int){
         if (listSize >= 6) {
-            lastSeenCard.visibility = VISIBLE
+            binding.lastSeenCard.visibility = VISIBLE
         }
     }
 }
