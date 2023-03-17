@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bruno13palhano.jaspe.R
@@ -34,7 +35,8 @@ class OffersFragment : Fragment() {
         val quantityProducts = view.findViewById<MaterialTextView>(R.id.products_quantity)
 
         val adapter = CategoriesItemAdapter { product ->
-            viewModel.onProductItemClick(findNavController(), product)
+            viewModel.insertLastSeenProduct(product)
+            navigateToProduct(product.productUrlLink, product.productType)
         }
         commonRecyclerView.adapter = adapter
 
@@ -69,5 +71,13 @@ class OffersFragment : Fragment() {
         toolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
+    }
+
+    private fun navigateToProduct(
+        productUrlLink: String,
+        productType: String
+    ) {
+        findNavController().navigate(OffersFragmentDirections
+            .actionOffersToProduct(productUrlLink, productType))
     }
 }
