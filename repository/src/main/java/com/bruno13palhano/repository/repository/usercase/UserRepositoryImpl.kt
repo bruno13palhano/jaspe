@@ -6,6 +6,7 @@ import com.bruno13palhano.repository.model.asUser
 import com.bruno13palhano.repository.model.asUserRep
 import com.bruno13palhano.repository.repository.UserRepository
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -32,7 +33,9 @@ internal class UserRepositoryImpl @Inject constructor(
                 it.asUser()
             }
         } else {
-            throw Exception()
+            flow {
+                emit(User())
+            }
         }
     }
 
