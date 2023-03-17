@@ -17,6 +17,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.bruno13palhano.jaspe.DrawerLock
 import com.bruno13palhano.jaspe.R
+import com.bruno13palhano.jaspe.databinding.FragmentCreateAccountBinding
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,12 +27,15 @@ import kotlinx.coroutines.launch
 class CreateAccountFragment : Fragment(), AccountView {
     private val viewModel: CreateAccountViewModel by viewModels()
     private lateinit var loginProgress: FrameLayout
+    private var _binding: FragmentCreateAccountBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_create_account, container, false)
+    ): View {
+        _binding = FragmentCreateAccountBinding.inflate(inflater, container, false)
+        val view = binding.root
         val createAccountButton = view.findViewById<MaterialButton>(R.id.create)
         val back = view.findViewById<TextView>(R.id.back)
         val usernameEditText = view.findViewById<TextInputEditText>(R.id.username)
