@@ -11,23 +11,24 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.RecyclerView
 import com.bruno13palhano.jaspe.R
+import com.bruno13palhano.jaspe.databinding.FragmentFavoritesBinding
 import com.bruno13palhano.jaspe.ui.common.navigateToProduct
 import com.bruno13palhano.model.Route
-import com.google.android.material.appbar.MaterialToolbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class FavoritesFragment : Fragment() {
     private val viewModel: FavoritesViewModel by viewModels()
+    private var _binding: FragmentFavoritesBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_favorites, container, false)
-        val recyclerView = view.findViewById<RecyclerView>(R.id.favorite_list)
+    ): View {
+        _binding = FragmentFavoritesBinding.inflate(inflater, container, false)
+        val view = binding.root
 
         val adapter = FavoritesItemAdapter(
             onItemClose = { productUrlLink ->
@@ -54,23 +55,22 @@ class FavoritesFragment : Fragment() {
             }
         }
 
-        recyclerView.adapter = adapter
+        binding.favoriteList.adapter = adapter
 
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val toolbar = view.findViewById<MaterialToolbar>(R.id.toolbar_favorites)
-        toolbar.inflateMenu(R.menu.menu_toolbar_favorites)
-        toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24)
-        toolbar.title = getString(R.string.favorite_label)
+        binding.toolbarFavorites.inflateMenu(R.menu.menu_toolbar_favorites)
+        binding.toolbarFavorites.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24)
+        binding.toolbarFavorites.title = getString(R.string.favorite_label)
 
-        toolbar.setNavigationOnClickListener {
+        binding.toolbarFavorites.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
 
-        toolbar.setOnMenuItemClickListener {
+        binding.toolbarFavorites.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.deleteAll -> {
                     viewModel.deleteAllFavorites()
@@ -80,6 +80,11 @@ class FavoritesFragment : Fragment() {
                 else -> false
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     private fun shareProduct(productName: String, productUrlLink: String) {
