@@ -8,24 +8,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.coroutineScope
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.findNavController
-import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.bruno13palhano.jaspe.R
+import com.bruno13palhano.jaspe.databinding.FragmentProductBinding
 import com.bruno13palhano.jaspe.ui.common.openWhatsApp
 import com.bruno13palhano.model.Company
 import com.bruno13palhano.model.FavoriteProduct
 import com.bruno13palhano.model.Product
 import com.google.android.material.appbar.MaterialToolbar
-import com.google.android.material.button.MaterialButton
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -36,35 +32,24 @@ class ProductFragment : Fragment() {
     private val viewModel: ProductViewModel by viewModels()
     private lateinit var favoriteProduct: FavoriteProduct
     private var isFavorite = false
-    private lateinit var productImage: ImageView
-    private lateinit var productName: TextView
-    private lateinit var productPrice: TextView
-    private lateinit var productType: TextView
-    private lateinit var productDescription: TextView
-    private lateinit var buyByWhatsApp: MaterialButton
+    private var _binding: FragmentProductBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val view = inflater.inflate(R.layout.fragment_product_landscape, container, false)
-
-        productImage = view.findViewById(R.id.product_image)
-        productName = view.findViewById(R.id.product_name)
-        productPrice = view.findViewById(R.id.product_price)
-        productType = view.findViewById(R.id.product_type)
-        productDescription = view.findViewById(R.id.product_description)
+        _binding = FragmentProductBinding.inflate(inflater, container, false)
+        val view = binding.root
 
         productUrlLink = ProductFragmentArgs.fromBundle(requireArguments()).productUrlLink
         productTypeArg = ProductFragmentArgs.fromBundle(requireArguments()).productType
 
-        val buyButton = view.findViewById<ExtendedFloatingActionButton>(R.id.buy_product_button)
-        buyButton.setOnClickListener {
+        binding.buyProductButton.setOnClickListener {
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(productUrlLink)))
         }
 
-        buyByWhatsApp = view.findViewById(R.id.buy_by_whatsapp)
-        buyByWhatsApp.setOnClickListener {
+        binding.buyByWhatsapp.setOnClickListener {
             lifecycle.coroutineScope.launch {
                 viewModel.contactWhatsApp.collect { whatsApp ->
                     openWhatsApp(
@@ -80,13 +65,12 @@ class ProductFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val toolbar = view.findViewById<MaterialToolbar>(R.id.toolbar_product)
-        toolbar.inflateMenu(R.menu.menu_toolbar_product)
-        toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24)
+        binding.toolbarProduct.inflateMenu(R.menu.menu_toolbar_product)
+        binding.toolbarProduct.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24)
 
-        setFavoriteIconAppearance(toolbar)
+        setFavoriteIconAppearance(binding.toolbarProduct)
 
-        toolbar.setOnMenuItemClickListener {
+        binding.toolbarProduct.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.favoriteProduct -> {
                     viewModel.setFavorite(isFavorite, favoriteProduct)
@@ -100,7 +84,7 @@ class ProductFragment : Fragment() {
             }
         }
 
-        toolbar.setNavigationOnClickListener {
+        binding.toolbarProduct.setNavigationOnClickListener {
             it.findNavController().navigateUp()
         }
 
@@ -150,7 +134,6 @@ class ProductFragment : Fragment() {
             } catch (ignored: Exception) {}
         }
 
-        val relatedProductsRecyclerView = view.findViewById<RecyclerView>(R.id.related_products_recycler_view)
         val relatedProductsAdapter = RelatedProductItemAdapter {
             favoriteProduct = ProductUtil.convertProductToFavorite(it)
             setProductViews(it)
@@ -169,7 +152,7 @@ class ProductFragment : Fragment() {
                 }
             }
         }
-        relatedProductsRecyclerView.adapter = relatedProductsAdapter
+        binding.relatedProductsRecyclerView.adapter = relatedProductsAdapter
 
         viewLifecycleOwner.lifecycleScope.launch {
             try {
@@ -180,6 +163,11 @@ class ProductFragment : Fragment() {
                 }
             } catch (ignored: Exception) {}
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     private fun setFavoriteIconAppearance(toolbar: MaterialToolbar) {
@@ -197,25 +185,25 @@ class ProductFragment : Fragment() {
     }
 
     private fun setProductViews(product: Product) {
-        productImage.load(product.productUrlImage)
-        productName.text = product.productName
-        productPrice.text = getString(R.string.product_price_label, product.productPrice)
-        productType.text = product.productType
-        productDescription.text = product.productDescription
+        binding.productImage.load(product.productUrlImage)
+        binding.productName.text = product.productName
+        binding.productPrice.text = getString(R.string.product_price_label, product.productPrice)
+        binding.productType.text = product.productType
+        binding.productDescription.text = product.productDescription
     }
 
     private fun setFavoriteProductViews(favoriteProduct: FavoriteProduct) {
-        productImage.load(favoriteProduct.favoriteProductUrlImage)
-        productName.text = favoriteProduct.favoriteProductName
-        productPrice.text = getString(R.string.product_price_label,
+        binding.productImage.load(favoriteProduct.favoriteProductUrlImage)
+        binding.productName.text = favoriteProduct.favoriteProductName
+        binding.productPrice.text = getString(R.string.product_price_label,
             favoriteProduct.favoriteProductPrice)
-        productType.text = favoriteProduct.favoriteProductType
-        productDescription.text = favoriteProduct.favoriteProductDescription
+        binding.productType.text = favoriteProduct.favoriteProductType
+        binding.productDescription.text = favoriteProduct.favoriteProductDescription
     }
 
     private fun setBuyByWhatsAppVisibility(company: String) {
         if (company == Company.AMAZON.company) {
-            buyByWhatsApp.visibility = GONE
+            binding.buyByWhatsapp.visibility = GONE
         }
     }
 }
