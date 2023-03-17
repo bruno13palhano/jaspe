@@ -7,50 +7,41 @@ import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
-import android.widget.FrameLayout
-import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.coroutineScope
 import androidx.navigation.fragment.findNavController
 import com.bruno13palhano.jaspe.DrawerLock
 import com.bruno13palhano.jaspe.R
-import com.google.android.material.button.MaterialButton
-import com.google.android.material.textfield.TextInputEditText
+import com.bruno13palhano.jaspe.databinding.FragmentLoginBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class LoginFragment : Fragment(), LoginView {
     private val viewModel: LoginViewModel by viewModels()
-    private lateinit var loginProgress: FrameLayout
+    private var _binding: FragmentLoginBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_login, container, false)
-        val loginButton = view.findViewById<MaterialButton>(R.id.login_button)
-        val createAccount = view.findViewById<TextView>(R.id.create_account)
-        val closeLogin = view.findViewById<ImageView>(R.id.close_login)
-        loginProgress = view.findViewById(R.id.login_progress)
+    ): View {
+        _binding = FragmentLoginBinding.inflate(inflater, container, false)
+        val view = binding.root
 
-        val emailEditText = view.findViewById<TextInputEditText>(R.id.email)
-        val passwordEditText = view.findViewById<TextInputEditText>(R.id.password)
-
-        loginButton.setOnClickListener {
+        binding.loginButton.setOnClickListener {
             viewModel.login(
-                email = emailEditText.text.toString(),
-                password = passwordEditText.text.toString()
+                email = binding.email.text.toString(),
+                password = binding.password.text.toString()
             )
         }
 
-        createAccount.setOnClickListener {
+        binding.createAccount.setOnClickListener {
             findNavController().navigate(LoginFragmentDirections.actionLoginToCreateAccount())
         }
 
-        closeLogin.setOnClickListener {
+        binding.closeLogin.setOnClickListener {
             setDrawerEnable(true)
         }
 
@@ -84,13 +75,13 @@ class LoginFragment : Fragment(), LoginView {
     }
 
     override fun onLoginError() {
-        loginProgress.visibility = GONE
+        binding.loginProgress.visibility = GONE
         Toast.makeText(
             context, getString(R.string.invalid_login_params), Toast.LENGTH_SHORT).show()
     }
 
     override fun onLoginLoading() {
-        loginProgress.visibility = VISIBLE
+        binding.loginProgress.visibility = VISIBLE
     }
 
     override fun onStart() {
@@ -98,6 +89,11 @@ class LoginFragment : Fragment(), LoginView {
         if (viewModel.isUserAuthenticated()) {
             onLoginSuccess()
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     private fun setDrawerEnable(enabled: Boolean) {
