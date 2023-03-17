@@ -1,5 +1,6 @@
 package com.bruno13palhano.jaspe.ui.favorite
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -33,11 +34,7 @@ class FavoritesFragment : Fragment() {
                 viewModel.deleteProductByUrlLink(productUrlLink)
             },
             onItemShare = { productName, productLink ->
-                FavoritesSimpleStateHolder.shareProduct(
-                    context = this@FavoritesFragment.requireContext(),
-                    productName = productName,
-                    productUrlLink = productLink
-                )
+                shareProduct(productName, productLink)
             },
             onItemClick = { productUrlLink, productType ->
                 navigateToProduct(
@@ -83,5 +80,16 @@ class FavoritesFragment : Fragment() {
                 else -> false
             }
         }
+    }
+
+    private fun shareProduct(productName: String, productUrlLink: String) {
+        val shareProduct = Intent.createChooser(Intent().apply {
+            action = Intent.ACTION_SEND
+            type = "text/*"
+            putExtra(Intent.EXTRA_TITLE, productName)
+            putExtra(Intent.EXTRA_TEXT, productUrlLink)
+        }, null)
+
+        this@FavoritesFragment.requireActivity().startActivity(shareProduct)
     }
 }
