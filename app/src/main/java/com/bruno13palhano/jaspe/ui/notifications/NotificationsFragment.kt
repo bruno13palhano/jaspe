@@ -77,6 +77,11 @@ class NotificationsFragment : Fragment() {
         }
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     private fun navigateTo(type: String) {
         when (type) {
             NotificationTypes.ANNOUNCEMENT.type -> {
