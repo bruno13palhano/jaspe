@@ -2,7 +2,6 @@ package com.bruno13palhano.jaspe.ui.category.common
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.NavController
 import com.bruno13palhano.jaspe.ui.common.getOrderedProducts
 import com.bruno13palhano.jaspe.ui.common.prepareLastSeenProduct
 import com.bruno13palhano.jaspe.ui.search.FilterType
@@ -13,7 +12,8 @@ import com.bruno13palhano.model.Type
 import com.bruno13palhano.repository.di.DefaultProductRepository
 import com.bruno13palhano.repository.repository.ProductRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -100,16 +100,7 @@ class CategoriesViewModel @Inject constructor(
         getOrderedProducts(_allProducts, filter)
     }
 
-    fun onProductItemClick(navController: NavController, product: Product) {
-        insertLastSeenProduct(product)
-        CategoriesSimpleStateHolder.navigateToProduct(
-            navController = navController,
-            productUrlLink = product.productUrlLink,
-            productType = product.productType
-        )
-    }
-
-    private fun insertLastSeenProduct(product: Product) {
+    fun insertLastSeenProduct(product: Product) {
         val lastSeenProduct = prepareLastSeenProduct(product)
         viewModelScope.launch {
             try {

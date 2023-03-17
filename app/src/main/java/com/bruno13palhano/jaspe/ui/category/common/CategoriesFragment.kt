@@ -15,6 +15,7 @@ import com.bruno13palhano.jaspe.R
 import com.bruno13palhano.jaspe.ui.category.CategoriesItemAdapter
 import com.bruno13palhano.jaspe.ui.search.FilterSearchDialogFragment
 import com.bruno13palhano.jaspe.ui.search.FilterType
+import com.bruno13palhano.model.Route
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.textview.MaterialTextView
 import dagger.hilt.android.AndroidEntryPoint
@@ -39,7 +40,8 @@ class CategoriesFragment : Fragment() {
         viewModel.setProducts(categoryRoute)
 
         val adapter = CategoriesItemAdapter { product ->
-            viewModel.onProductItemClick(findNavController(), product)
+            viewModel.insertLastSeenProduct(product)
+            navigateToProduct(product.productUrlLink, product.productType)
         }
         commonRecyclerView.adapter = adapter
 
@@ -69,10 +71,42 @@ class CategoriesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val toolbar = view.findViewById<MaterialToolbar>(R.id.toolbar_common_category)
         toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24)
-        toolbar.title = CategoriesSimpleStateHolder.setToolbarTitle(requireContext(), categoryRoute)
+        toolbar.title = setToolbarTitle(categoryRoute)
 
         toolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
+        }
+    }
+
+    private fun navigateToProduct(
+        productUrlLink: String,
+        productType: String
+    ) {
+        findNavController().navigate(CategoriesFragmentDirections
+            .actionCategoriesToProduct(productUrlLink, productType))
+    }
+
+    private fun setToolbarTitle(route: String): String {
+        return when (route) {
+            Route.BABY.route -> {
+                requireContext().getString(R.string.baby_category_label)
+            }
+            Route.MARKET.route -> {
+                requireContext().getString(R.string.amazon_category_label)
+            }
+            Route.AVON.route -> {
+                requireContext().getString(R.string.avon_category_label)
+            }
+            Route.NATURA.route -> {
+                requireContext().getString(R.string.natura_category_label)
+            }
+            Route.OFFERS.route -> {
+                requireContext().getString(R.string.offers_category_label)
+            }
+            Route.LAST_SEEN.route -> {
+                requireContext().getString(R.string.last_seen_category_label)
+            }
+            else -> ""
         }
     }
 }
