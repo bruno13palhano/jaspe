@@ -41,7 +41,7 @@ class CategoryFragment : Fragment() {
         }
     }
 
-    fun navigateToCommonCategories(route: String) {
+    private fun navigateToCommonCategories(route: String) {
         when (route) {
             Route.OFFERS.route -> {
                 findNavController().navigate(CategoryFragmentDirections
