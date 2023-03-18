@@ -2,14 +2,12 @@ package com.bruno13palhano.jaspe.ui.favorite
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.bruno13palhano.jaspe.R
+import com.bruno13palhano.jaspe.databinding.FavoriteCardBinding
 import com.bruno13palhano.model.FavoriteProduct
 
 class FavoritesItemAdapter(
@@ -19,9 +17,9 @@ class FavoritesItemAdapter(
 ) : ListAdapter<FavoriteProduct, FavoritesItemAdapter.FavoritesItemViewHolder>(FavoritesDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoritesItemViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.favorite_card, parent, false) as CardView
-        return FavoritesItemViewHolder(view, onItemClose, onItemClick, onItemShare)
+        val binding = FavoriteCardBinding
+            .inflate(LayoutInflater.from(parent.context), parent, false)
+        return FavoritesItemViewHolder(binding, onItemClose, onItemClick, onItemShare)
     }
 
     override fun onBindViewHolder(holder: FavoritesItemViewHolder, position: Int) {
@@ -30,34 +28,28 @@ class FavoritesItemAdapter(
     }
 
     class FavoritesItemViewHolder(
-        rootView: CardView,
+        val binding: FavoriteCardBinding,
         val onItemClose: (productUrlLink: String) -> Unit,
         val onItemClick: (productUrlLink: String, productType: String) -> Unit,
         val onItemShare: (productName: String, productLink: String) -> Unit
-    ) : RecyclerView.ViewHolder(rootView) {
-        private val productImage: ImageView = rootView.findViewById(R.id.product_image)
-        private val productName: TextView = rootView.findViewById(R.id.product_name)
-        private val productType: TextView = rootView.findViewById(R.id.product_type)
-        private val productPrice: TextView = rootView.findViewById(R.id.product_price)
-        private val removeProduct: ImageView = rootView.findViewById(R.id.remove_product)
-        private val shareProduct: ImageView = rootView.findViewById(R.id.share_product)
+    ) : RecyclerView.ViewHolder(binding.root) {
 
         var currentProduct: FavoriteProduct? = null
 
         init {
-            removeProduct.setOnClickListener {
+            binding.removeProduct.setOnClickListener {
                 currentProduct?.let {
                     onItemClose(it.favoriteProductUrlLink)
                 }
             }
 
-            shareProduct.setOnClickListener {
+            binding.shareProduct.setOnClickListener {
                 currentProduct?.let {
                     onItemShare(it.favoriteProductName, it.favoriteProductUrlLink)
                 }
             }
 
-            rootView.setOnClickListener {
+            binding.root.setOnClickListener {
                 currentProduct?.let {
                     onItemClick(it.favoriteProductUrlLink, it.favoriteProductType)
                 }
@@ -66,10 +58,10 @@ class FavoritesItemAdapter(
 
         fun bind(item: FavoriteProduct) {
             currentProduct = item
-            productImage.load(item.favoriteProductUrlImage)
-            productName.text = item.favoriteProductName
-            productPrice.text =itemView.resources.getString(R.string.product_price_label, item.favoriteProductPrice)
-            productType.text = item.favoriteProductType
+            binding.productImage.load(item.favoriteProductUrlImage)
+            binding.productName.text = item.favoriteProductName
+            binding.productPrice.text =itemView.resources.getString(R.string.product_price_label, item.favoriteProductPrice)
+            binding.productType.text = item.favoriteProductType
         }
     }
 
