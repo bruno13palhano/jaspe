@@ -1,42 +1,25 @@
 package com.bruno13palhano.repository.repository.usercase
 
-import com.bruno13palhano.common.di.ApplicationScope
-import com.bruno13palhano.model.Company
 import com.bruno13palhano.model.Product
 import com.bruno13palhano.repository.database.dao.ProductDao
 import com.bruno13palhano.repository.model.asLastSeenProduct
 import com.bruno13palhano.repository.model.asProduct
 import com.bruno13palhano.repository.model.asProductRep
 import com.bruno13palhano.repository.repository.ProductRepository
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.SharingStarted.Companion.WhileSubscribed
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 internal class ProductRepositoryImpl @Inject constructor(
     private val dao: ProductDao,
-    @ApplicationScope private val scoped: CoroutineScope
 ) : ProductRepository {
     override suspend fun insertProducts(productList: List<Product>) {
         dao.insertAll(productList.map {
              it.asProductRep()
         })
     }
-
-    override val allProducts: Flow<List<Product>> =
-        dao.getAll().map {
-            it.map { productRep ->
-                productRep.asProduct()
-            }
-        }.stateIn(
-            initialValue = emptyList(),
-            scope = scoped,
-            started = WhileSubscribed(5000)
-        )
 
     override fun getAll(): Flow<List<Product>> {
         return dao.getAll().map {
@@ -58,46 +41,6 @@ internal class ProductRepositoryImpl @Inject constructor(
                 }
             }
     }
-
-    override val amazonProducts: Flow<List<Product>> =
-        dao.getByCompany(Company.AMAZON.company, 0, 20)
-            .map {
-                it.map { productRep ->
-                    productRep.asProduct()
-                }
-            }
-            .stateIn(
-                initialValue = emptyList(),
-                scope = scoped,
-                started = WhileSubscribed(5000)
-            )
-
-    override val avonProducts: Flow<List<Product>> =
-        dao.getByCompany(Company.AVON.company, 0, 20)
-            .map {
-                it.map { productRep ->
-                    productRep.asProduct()
-                }
-            }
-            .stateIn(
-                initialValue = emptyList(),
-                scope = scoped,
-                started = WhileSubscribed(5000)
-            )
-
-    override val naturaProducts: Flow<List<Product>> =
-        dao.getByCompany(Company.NATURA.company, 0, 20)
-            .map {
-                it.map { productRep ->
-                    productRep.asProduct()
-                }
-            }
-            .stateIn(
-                initialValue = emptyList(),
-                scope = scoped,
-                started = WhileSubscribed(5000)
-            )
-
 
     override fun getByType(productType: String): Flow<List<Product>> {
         return dao.getByType(productType).map {
@@ -128,18 +71,6 @@ internal class ProductRepositoryImpl @Inject constructor(
     override suspend fun deleteLastSeenByUrlLink(productUrlLink: String) {
         dao.deleteLastSeenByUrlLink(productUrlLink)
     }
-
-    override val lastSeenProducts: Flow<List<Product>> =
-        dao.getLastSeenProducts(0, 20).map {
-                it.map { lastSeenRep ->
-                    lastSeenRep.asProduct()
-                }
-            }
-            .stateIn(
-                initialValue = emptyList(),
-                scope = scoped,
-                started = WhileSubscribed(5000)
-            )
 
     override fun getAllLastSeenProducts(): Flow<List<Product>> {
         return dao.getAllLastSeen().map {

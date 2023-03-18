@@ -15,9 +15,4 @@ interface ProductRepository {
     fun getAllLastSeenProducts(): Flow<List<Product>>
     fun getLastSeenProduct(productUrlLink: String): Flow<Product>
     fun getLastSeenProducts(offset: Int, limit: Int): Flow<List<Product>>
-    val allProducts: Flow<List<Product>>
-    val amazonProducts: Flow<List<Product>>
-    val avonProducts: Flow<List<Product>>
-    val naturaProducts: Flow<List<Product>>
-    val lastSeenProducts: Flow<List<Product>>
 }
