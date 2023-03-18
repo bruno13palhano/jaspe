@@ -2,14 +2,12 @@ package com.bruno13palhano.jaspe.ui.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.bruno13palhano.jaspe.R
+import com.bruno13palhano.jaspe.databinding.CardItemBinding
 import com.bruno13palhano.model.Product
 
 class HomeItemAdapter(
@@ -17,9 +15,9 @@ class HomeItemAdapter(
 ) : ListAdapter<Product, HomeItemAdapter.HomeItemViewHolder>(HomeDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeItemViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.card_item, parent, false) as CardView
-        return HomeItemViewHolder(view, onClick)
+        val binding = CardItemBinding
+            .inflate(LayoutInflater.from(parent.context), parent, false)
+        return HomeItemViewHolder(binding, onClick)
     }
 
     override fun onBindViewHolder(holder: HomeItemViewHolder, position: Int) {
@@ -28,17 +26,14 @@ class HomeItemAdapter(
     }
 
     class HomeItemViewHolder(
-        rootView: CardView,
+        val binding: CardItemBinding,
         val onClick: (product: Product) -> Unit
-    ) : RecyclerView.ViewHolder(rootView) {
-        private val productName: TextView = rootView.findViewById(R.id.product_name)
-        private val productPrice: TextView = rootView.findViewById(R.id.product_price)
-        private val productImage: ImageView = rootView.findViewById(R.id.product_image)
+    ) : RecyclerView.ViewHolder(binding.root) {
 
         var currentProduct: Product? = null
 
         init {
-            rootView.setOnClickListener {
+            binding.cardItem.setOnClickListener {
                 currentProduct?.let {
                     onClick(it)
                 }
@@ -47,9 +42,9 @@ class HomeItemAdapter(
 
         fun bind(item: Product) {
             currentProduct = item
-            productName.text = item.productName
-            productPrice.text = itemView.resources.getString(R.string.product_price_label, item.productPrice)
-            productImage.load(item.productUrlImage)
+            binding.productName.text = item.productName
+            binding.productPrice.text = itemView.resources.getString(R.string.product_price_label, item.productPrice)
+            binding.productImage.load(item.productUrlImage)
         }
     }
 
