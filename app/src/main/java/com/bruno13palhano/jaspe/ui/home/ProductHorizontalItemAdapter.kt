@@ -2,14 +2,12 @@ package com.bruno13palhano.jaspe.ui.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.bruno13palhano.jaspe.R
+import com.bruno13palhano.jaspe.databinding.ProductCardHorizontalBinding
 import com.bruno13palhano.model.Product
 
 class ProductHorizontalItemAdapter(
@@ -21,9 +19,9 @@ class ProductHorizontalItemAdapter(
         parent: ViewGroup,
         viewType: Int
     ): ProductHorizontalItemViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.product_card_horizontal, parent, false) as CardView
-        return ProductHorizontalItemViewHolder(view, onClick)
+        val binding = ProductCardHorizontalBinding
+            .inflate(LayoutInflater.from(parent.context), parent, false)
+        return ProductHorizontalItemViewHolder(binding, onClick)
     }
 
     override fun onBindViewHolder(holder: ProductHorizontalItemViewHolder, position: Int) {
@@ -31,17 +29,14 @@ class ProductHorizontalItemAdapter(
     }
 
     class ProductHorizontalItemViewHolder(
-        rootView: CardView,
+        val binding: ProductCardHorizontalBinding,
         val onClick: (product: Product) -> Unit
-    ) : RecyclerView.ViewHolder(rootView) {
-        private val productImage: ImageView = rootView.findViewById(R.id.product_image)
-        private val productDescription: TextView = rootView.findViewById(R.id.product_description)
-        private val productPrice: TextView = rootView.findViewById(R.id.product_price)
+    ) : RecyclerView.ViewHolder(binding.root) {
 
         private var currentProduct: Product? = null
 
         init {
-            rootView.setOnClickListener {
+            binding.root.setOnClickListener {
                 currentProduct?.let {
                     onClick(it)
                 }
@@ -50,9 +45,9 @@ class ProductHorizontalItemAdapter(
 
         fun bind(item: Product) {
             currentProduct = item
-            productImage.load(item.productUrlImage)
-            productDescription.text = item.productDescription
-            productPrice.text = itemView.resources.getString(R.string.product_price_label, item.productPrice)
+            binding.productImage.load(item.productUrlImage)
+            binding.productDescription.text = item.productDescription
+            binding.productPrice.text = itemView.resources.getString(R.string.product_price_label, item.productPrice)
         }
     }
 
