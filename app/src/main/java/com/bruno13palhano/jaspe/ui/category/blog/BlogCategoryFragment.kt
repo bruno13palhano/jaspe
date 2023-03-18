@@ -10,27 +10,28 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.findNavController
-import androidx.recyclerview.widget.RecyclerView
 import com.bruno13palhano.jaspe.R
-import com.google.android.material.appbar.MaterialToolbar
+import com.bruno13palhano.jaspe.databinding.FragmentBlogCategoryBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class BlogCategoryFragment : Fragment() {
     private val viewModel: BlogViewModel by viewModels()
+    private var _binding: FragmentBlogCategoryBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_blog_category, container, false)
-        val recyclerView = view.findViewById<RecyclerView>(R.id.blog_category_list)
+    ): View {
+        _binding = FragmentBlogCategoryBinding.inflate(inflater, container, false)
+        val view = binding.root
 
         val blogAdapter = BlogListAdapter {
 
         }
-        recyclerView.adapter = blogAdapter
+        binding.blogCategoryList.adapter = blogAdapter
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -45,17 +46,21 @@ class BlogCategoryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val toolbar = view.findViewById<MaterialToolbar>(R.id.toolbar_blog_category)
-        toolbar.inflateMenu(R.menu.menu_toolbar)
-        toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24)
-        toolbar.setTitle(R.string.blog_category_label)
+        binding.toolbarBlogCategory.inflateMenu(R.menu.menu_toolbar)
+        binding.toolbarBlogCategory.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24)
+        binding.toolbarBlogCategory.setTitle(R.string.blog_category_label)
 
-        toolbar.setOnMenuItemClickListener {
+        binding.toolbarBlogCategory.setOnMenuItemClickListener {
             false
         }
 
-        toolbar.setNavigationOnClickListener {
+        binding.toolbarBlogCategory.setNavigationOnClickListener {
             it.findNavController().navigateUp()
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
