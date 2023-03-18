@@ -41,6 +41,11 @@ class CategoryFragment : Fragment() {
         }
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     private fun navigateToCommonCategories(route: String) {
         when (route) {
             Route.OFFERS.route -> {
