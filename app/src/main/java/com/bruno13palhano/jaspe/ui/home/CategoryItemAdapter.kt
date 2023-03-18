@@ -2,15 +2,12 @@ package com.bruno13palhano.jaspe.ui.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.bruno13palhano.jaspe.R
+import com.bruno13palhano.jaspe.databinding.CategoryCardItemBinding
 import com.bruno13palhano.model.CategoryItem
-import com.google.android.material.imageview.ShapeableImageView
 
 class CategoryItemAdapter(
     private val onClick: (String) -> Unit
@@ -19,9 +16,9 @@ class CategoryItemAdapter(
     ) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryItemViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.category_card_item, parent, false) as LinearLayout
-        return CategoryItemViewHolder(view, onClick)
+        val binding = CategoryCardItemBinding
+            .inflate(LayoutInflater.from(parent.context), parent, false)
+        return CategoryItemViewHolder(binding, onClick)
     }
 
     override fun onBindViewHolder(holder: CategoryItemViewHolder, position: Int) {
@@ -29,17 +26,14 @@ class CategoryItemAdapter(
     }
 
     class CategoryItemViewHolder(
-        rootView: LinearLayout,
+        val binding: CategoryCardItemBinding,
         val onClick: (String) -> Unit
-    ) : RecyclerView.ViewHolder(rootView) {
-
-        private val categoryItemImage = rootView.findViewById<ShapeableImageView>(R.id.category_item_button)
-        private val categoryItemTitle = rootView.findViewById<TextView>(R.id.category_item_title)
+    ) : RecyclerView.ViewHolder(binding.root) {
 
         var currentCategoryItem: CategoryItem? = null
 
         init {
-            categoryItemImage.setOnClickListener {
+            binding.categoryItemButton.setOnClickListener {
                 currentCategoryItem?.let {
                     onClick(it.categoryItemRoute)
                 }
@@ -48,8 +42,8 @@ class CategoryItemAdapter(
 
         fun bind(item: CategoryItem) {
             currentCategoryItem = item
-            categoryItemImage.load(item.categoryItemImage)
-            categoryItemTitle.text = item.categoryItemTitle
+            binding.categoryItemButton.load(item.categoryItemImage)
+            binding.categoryItemTitle.text = item.categoryItemTitle
         }
     }
 
@@ -63,5 +57,4 @@ class CategoryItemAdapter(
         }
 
     }
-
 }
