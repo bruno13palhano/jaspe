@@ -87,6 +87,11 @@ class CreateAccountFragment : Fragment(), AccountView {
         binding.loginProgress.visibility = VISIBLE
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     private fun setDrawerEnable() {
         ((activity as DrawerLock)).setDrawerEnable(true)
     }
