@@ -2,14 +2,11 @@ package com.bruno13palhano.jaspe.ui.category.blog
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.appcompat.widget.AppCompatImageView
-import androidx.appcompat.widget.AppCompatTextView
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.bruno13palhano.jaspe.R
+import com.bruno13palhano.jaspe.databinding.BlogCardItemBinding
 import com.bruno13palhano.model.BlogPost
 
 class BlogListAdapter(
@@ -17,9 +14,9 @@ class BlogListAdapter(
 ) : ListAdapter<BlogPost, BlogListAdapter.BlogItemViewHolder>(BlogDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BlogItemViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.blog_card_item, parent, false) as CardView
-        return BlogItemViewHolder(view, onItemClick)
+        val binding = BlogCardItemBinding
+            .inflate(LayoutInflater.from(parent.context), parent, false)
+        return BlogItemViewHolder(binding, onItemClick)
     }
 
     override fun onBindViewHolder(holder: BlogItemViewHolder, position: Int) {
@@ -27,17 +24,14 @@ class BlogListAdapter(
     }
 
     class BlogItemViewHolder(
-        rootView: CardView,
+        val binding: BlogCardItemBinding,
         val onItemClick: (postUrl: String) -> Unit
-    ) : RecyclerView.ViewHolder(rootView) {
-        private val postTitle: AppCompatTextView = rootView.findViewById(R.id.post_title)
-        private val postDescription: AppCompatTextView = rootView.findViewById(R.id.post_description)
-        private val postImage: AppCompatImageView = rootView.findViewById(R.id.post_image)
+    ) : RecyclerView.ViewHolder(binding.root) {
 
         private var currentPost: BlogPost? = null
 
         init {
-            rootView.setOnClickListener {
+            binding.root.setOnClickListener {
                 currentPost?.let {
                     onItemClick(it.postUrlLink)
                 }
@@ -46,9 +40,9 @@ class BlogListAdapter(
 
         fun bind(item: BlogPost) {
             currentPost = item
-            postTitle.text = item.postTitle
-            postDescription.text = item.postDescription
-            postImage.load(item.postUrlImage)
+            binding.postTitle.text = item.postTitle
+            binding.postDescription.text = item.postDescription
+            binding.postImage.load(item.postUrlImage)
         }
     }
 
