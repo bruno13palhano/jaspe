@@ -10,14 +10,12 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.RecyclerView
 import com.bruno13palhano.jaspe.R
+import com.bruno13palhano.jaspe.databinding.CategoriesCommonFragmentBinding
 import com.bruno13palhano.jaspe.ui.category.CategoriesItemAdapter
 import com.bruno13palhano.jaspe.ui.search.FilterSearchDialogFragment
 import com.bruno13palhano.jaspe.ui.search.FilterType
 import com.bruno13palhano.model.Route
-import com.google.android.material.appbar.MaterialToolbar
-import com.google.android.material.textview.MaterialTextView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -25,14 +23,15 @@ import kotlinx.coroutines.launch
 class CategoriesFragment : Fragment() {
     private val viewModel: CategoriesViewModel by viewModels()
     private var categoryRoute = ""
+    private var _binding: CategoriesCommonFragmentBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.categories_common_fragment, container, false)
-        val commonRecyclerView = view.findViewById<RecyclerView>(R.id.common_category_list)
-        val quantityProducts = view.findViewById<MaterialTextView>(R.id.products_quantity)
+    ): View {
+        _binding = CategoriesCommonFragmentBinding.inflate(inflater, container, false)
+        val view = binding.root
 
         categoryRoute = CategoriesFragmentArgs.fromBundle(requireArguments())
             .categoryRoute
@@ -43,19 +42,18 @@ class CategoriesFragment : Fragment() {
             viewModel.insertLastSeenProduct(product)
             navigateToProduct(product.productUrlLink, product.productType)
         }
-        commonRecyclerView.adapter = adapter
+        binding.commonCategoryList.adapter = adapter
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.allProducts.collect {
                     adapter.submitList(it)
-                    quantityProducts.text = getString(R.string.quantity_of_products_label, it.size)
+                    binding.productsQuantity.text = getString(R.string.quantity_of_products_label, it.size)
                 }
             }
         }
 
-        val filterButton = view.findViewById<MaterialTextView>(R.id.filter_options_button)
-        filterButton.setOnClickListener {
+        binding.filterOptionsButton.setOnClickListener {
             val filterDialog = FilterSearchDialogFragment(object  : FilterSearchDialogFragment.FilterDialogListener {
                 override fun onDialogPositiveClick(filter: FilterType) {
                     viewModel.getOrderedProducts(filter)
@@ -69,13 +67,17 @@ class CategoriesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val toolbar = view.findViewById<MaterialToolbar>(R.id.toolbar_common_category)
-        toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24)
-        toolbar.title = setToolbarTitle(categoryRoute)
+        binding.toolbarCommonCategory.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24)
+        binding.toolbarCommonCategory.title = setToolbarTitle(categoryRoute)
 
-        toolbar.setNavigationOnClickListener {
+        binding.toolbarCommonCategory.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     private fun navigateToProduct(
