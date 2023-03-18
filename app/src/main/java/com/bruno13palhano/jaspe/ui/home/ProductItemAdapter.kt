@@ -2,14 +2,12 @@ package com.bruno13palhano.jaspe.ui.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.bruno13palhano.jaspe.R
+import com.bruno13palhano.jaspe.databinding.ProductCardItemBinding
 import com.bruno13palhano.model.Product
 
 class ProductItemAdapter(
@@ -17,9 +15,9 @@ class ProductItemAdapter(
 ) : ListAdapter<Product, ProductItemAdapter.AmazonItemViewHolder>(AmazonDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AmazonItemViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.product_card_item, parent, false) as CardView
-        return AmazonItemViewHolder(view, onClick)
+        val binding = ProductCardItemBinding
+            .inflate(LayoutInflater.from(parent.context), parent, false)
+        return AmazonItemViewHolder(binding, onClick)
     }
 
     override fun onBindViewHolder(holder: AmazonItemViewHolder, position: Int) {
@@ -28,17 +26,14 @@ class ProductItemAdapter(
     }
 
     class AmazonItemViewHolder(
-        rootView: CardView,
+        val binding: ProductCardItemBinding,
         val onClick: (product: Product) -> Unit
-    ) : RecyclerView.ViewHolder(rootView) {
-        private val productImage: ImageView = rootView.findViewById(R.id.image)
-        private val productName: TextView = rootView.findViewById(R.id.name)
-        private val productPrice: TextView = rootView.findViewById(R.id.price)
+    ) : RecyclerView.ViewHolder(binding.root) {
 
         var currentProduct: Product? = null
 
         init {
-            rootView.setOnClickListener {
+            binding.card.setOnClickListener {
                 currentProduct?.let {
                     onClick(it)
                 }
@@ -47,9 +42,9 @@ class ProductItemAdapter(
 
         fun bind(item: Product) {
             currentProduct = item
-            productImage.load(item.productUrlImage)
-            productName.text = item.productName
-            productPrice.text = itemView.resources.getString(R.string.product_price_label, item.productPrice)
+            binding.image .load(item.productUrlImage)
+            binding.name.text = item.productName
+            binding.price.text = itemView.resources.getString(R.string.product_price_label, item.productPrice)
         }
     }
 
