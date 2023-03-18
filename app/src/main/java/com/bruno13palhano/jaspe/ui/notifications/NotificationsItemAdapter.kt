@@ -3,12 +3,11 @@ package com.bruno13palhano.jaspe.ui.notifications
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bruno13palhano.jaspe.R
+import com.bruno13palhano.jaspe.databinding.NotificationCardItemBinding
 import com.bruno13palhano.model.Notification
 import com.bruno13palhano.model.NotificationTypes
 
@@ -19,9 +18,9 @@ class NotificationsItemAdapter(
         .NotificationItemViewHolder>(NotificationDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotificationItemViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.notification_card_item, parent, false) as CardView
-        return NotificationItemViewHolder(view, onCloseClick, onItemClick)
+        val binding = NotificationCardItemBinding
+            .inflate(LayoutInflater.from(parent.context), parent, false)
+        return NotificationItemViewHolder(binding, onCloseClick, onItemClick)
     }
 
     override fun onBindViewHolder(holder: NotificationItemViewHolder, position: Int) {
@@ -29,26 +28,21 @@ class NotificationsItemAdapter(
     }
 
     class NotificationItemViewHolder(
-        rootView: CardView,
+        val binding: NotificationCardItemBinding,
         val onCloseClick: (notification: Notification) -> Unit,
         val onItemClick: (type: String) -> Unit
-    ) : RecyclerView.ViewHolder(rootView) {
-        private val notificationTitle: TextView = rootView.findViewById(R.id.notification_title)
-        private val notificationDescription: TextView =
-            rootView.findViewById(R.id.notification_description)
-        private val notificationIcon: ImageView = rootView.findViewById(R.id.notification_icon)
-        private val notificationClose: ImageView = rootView.findViewById(R.id.notification_close)
+    ) : RecyclerView.ViewHolder(binding.root) {
 
         var currentNotification: Notification? = null
 
         init {
-            notificationClose.setOnClickListener {
+            binding.notificationClose.setOnClickListener {
                 currentNotification?.let {
                     onCloseClick(it)
                 }
             }
 
-            rootView.setOnClickListener {
+            binding.root.setOnClickListener {
                 currentNotification?.let {
                     onItemClick(it.type)
                 }
@@ -57,9 +51,9 @@ class NotificationsItemAdapter(
 
         fun bind(item: Notification) {
             currentNotification = item
-            notificationTitle.text = item.title
-            notificationDescription.text = item.description
-            setNotificationIcon(notificationIcon, item.type)
+            binding.notificationTitle.text = item.title
+            binding.notificationDescription.text = item.description
+            setNotificationIcon(binding.notificationIcon, item.type)
         }
 
         private fun setNotificationIcon(iconView: ImageView, type: String) {
