@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -15,27 +14,23 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import coil.load
 import com.bruno13palhano.jaspe.R
-import com.google.android.material.appbar.MaterialToolbar
-import com.google.android.material.imageview.ShapeableImageView
+import com.bruno13palhano.jaspe.databinding.FragmentAccountBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class AccountFragment : Fragment() {
-    private lateinit var userProfileImage: ShapeableImageView
-    private lateinit var usernameTextView: TextView
-    private lateinit var emailTextView: TextView
     private val viewModel: AccountViewModel by viewModels()
     private lateinit var photoObserver: ProfilePhotoLifecycleObserver
+    private var _binding: FragmentAccountBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_account, container, false)
-        userProfileImage = view.findViewById(R.id.profile_image)
-        usernameTextView = view.findViewById(R.id.username)
-        emailTextView = view.findViewById(R.id.email)
+    ): View {
+        _binding = FragmentAccountBinding.inflate(inflater, container, false)
+        val view = binding.root
 
         photoObserver = ProfilePhotoLifecycleObserver(
             registry = requireActivity().activityResultRegistry,
@@ -69,16 +64,15 @@ class AccountFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val toolbar = view.findViewById<MaterialToolbar>(R.id.toolbar_account)
-        toolbar.inflateMenu(R.menu.menu_toolbar_account)
-        toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24)
-        toolbar.title = getString(R.string.account_label)
+        binding.toolbarAccount.inflateMenu(R.menu.menu_toolbar_account)
+        binding.toolbarAccount.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24)
+        binding.toolbarAccount.title = getString(R.string.account_label)
 
-        userProfileImage.setOnClickListener {
+        binding.profileImage.setOnClickListener {
             photoObserver.selectImage()
         }
 
-        usernameTextView.setOnClickListener {
+        binding.username.setOnClickListener {
             val dialog = UpdateUsernameDialogFragment(object : UpdateUsernameDialogFragment
                 .UsernameListener {
                 override fun onDialogPositiveClick(newUsername: String) {
@@ -107,7 +101,7 @@ class AccountFragment : Fragment() {
             viewLifecycleOwner.lifecycleScope.launch {
                 viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                     viewModel.username.collect {
-                        usernameTextView.text = it
+                        binding.username.text = it
                     }
                 }
             }
@@ -115,7 +109,7 @@ class AccountFragment : Fragment() {
             viewLifecycleOwner.lifecycleScope.launch {
                 viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                     viewModel.userEmail.collect {
-                        emailTextView.text = it
+                        binding.email.text = it
                     }
                 }
             }
@@ -123,7 +117,7 @@ class AccountFragment : Fragment() {
             viewLifecycleOwner.lifecycleScope.launch {
                 viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                     viewModel.userUrlPhoto.collect {
-                        userProfileImage.load(it)
+                        binding.profileImage.load(it)
                     }
                 }
             }
@@ -131,7 +125,7 @@ class AccountFragment : Fragment() {
             findNavController().navigate(AccountFragmentDirections.actionAccountToLogin())
         }
 
-        toolbar.setOnMenuItemClickListener {
+        binding.toolbarAccount.setOnMenuItemClickListener {
             when(it.itemId){
                 R.id.logout -> {
                     viewModel.logout()
@@ -143,8 +137,13 @@ class AccountFragment : Fragment() {
             }
         }
 
-        toolbar.setNavigationOnClickListener {
+        binding.toolbarAccount.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
