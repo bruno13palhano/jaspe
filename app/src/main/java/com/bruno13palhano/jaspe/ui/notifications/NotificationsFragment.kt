@@ -35,7 +35,7 @@ class NotificationsFragment : Fragment() {
                 viewModel.deleteNotification(it)
             },
             onItemClick = {
-                navigateTo(it)
+                navigateTo(NotificationTypes.valueOf(it))
             }
         )
         binding.notificationsList.adapter = adapter
@@ -82,18 +82,18 @@ class NotificationsFragment : Fragment() {
         _binding = null
     }
 
-    private fun navigateTo(type: String) {
+    private fun navigateTo(type: NotificationTypes) {
         when (type) {
-            NotificationTypes.ANNOUNCEMENT.type -> {
+            NotificationTypes.ANNOUNCEMENT -> {
                 findNavController().navigate(R.id.action_to_blog)
             }
-            NotificationTypes.NEW_PRODUCTS.type -> {
+            NotificationTypes.NEW_PRODUCTS -> {
                 findNavController().navigate(R.id.action_to_product)
             }
-            NotificationTypes.OFFERS.type -> {
+            NotificationTypes.OFFERS -> {
                 findNavController().navigate(R.id.action_to_offers_category)
             }
-            NotificationTypes.DEFAULT.type -> {
+            NotificationTypes.DEFAULT -> {
                 findNavController().navigate(R.id.action_to_home)
             }
         }
