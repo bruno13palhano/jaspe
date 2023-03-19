@@ -6,8 +6,8 @@ import com.bruno13palhano.model.Notification
 import com.bruno13palhano.repository.di.DefaultNotificationRepository
 import com.bruno13palhano.repository.repository.NotificationRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.SharingStarted.Companion.WhileSubscribed
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -17,22 +17,22 @@ class NotificationsViewModel @Inject constructor(
     private val notificationRepository: NotificationRepository
 ) : ViewModel() {
 
-    private val _notifications = MutableStateFlow<List<Notification>>(emptyList())
-    val notifications = _notifications.asStateFlow()
-
-    init {
-        viewModelScope.launch {
-            notificationRepository.getAllNotifications().collect {
-                it.forEach { notification ->
-                    if(!notification.isVisualized) {
-                        notificationRepository
-                            .setNotificationVisualized(notification.id, true)
-                    }
+    val notifications: StateFlow<List<Notification>> =
+        notificationRepository.getAllNotifications()
+            .map { notifications ->
+                notifications.filterNot {
+                    notification -> notification.isVisualized
+                }.forEach { notification ->
+                    notificationRepository
+                        .setNotificationVisualized(notification.id, true)
                 }
-                _notifications.value = it
+                notifications
             }
-        }
-    }
+            .stateIn(
+                initialValue = emptyList(),
+                scope = viewModelScope,
+                started = WhileSubscribed(5_000)
+            )
 
     fun deleteNotification(notification: Notification) {
         viewModelScope.launch {
