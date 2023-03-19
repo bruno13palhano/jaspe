@@ -58,7 +58,7 @@ class HomeFragment : Fragment() {
             .findViewById<TextView>(R.id.username)
 
         val categoryAdapter = CategoryItemAdapter {
-            navigateTo(it)
+            navigateTo(Route.valueOf(it))
         }
         binding.categoryRecyclerView.adapter = categoryAdapter
         categoryAdapter.submitList(categoryList)
@@ -133,23 +133,23 @@ class HomeFragment : Fragment() {
         }
 
         binding.amazonMoreProducts.setOnClickListener {
-            navigateTo( Route.MARKET.route)
+            navigateTo(Route.MARKET)
         }
 
         binding.naturaMoreProducts.setOnClickListener {
-            navigateTo(Route.NATURA.route)
+            navigateTo(Route.NATURA)
         }
 
         binding.avonMoreProducts.setOnClickListener {
-            navigateTo(Route.AVON.route)
+            navigateTo(Route.AVON)
         }
 
         binding.lastSeenMoreProducts.setOnClickListener {
-            navigateTo(Route.LAST_SEEN.route)
+            navigateTo(Route.LAST_SEEN)
         }
 
         binding.searchProduct.setOnClickListener {
-            navigateTo(Route.SEARCH_DIALOG.route)
+            navigateTo(Route.SEARCH_DIALOG)
         }
 
         return view
@@ -185,15 +185,15 @@ class HomeFragment : Fragment() {
             .actionHomeToProduct(productUrlLink, productType))
     }
 
-    private fun navigateTo(route: String) {
+    private fun navigateTo(route: Route) {
         when (route) {
-            Route.SEARCH_DIALOG.route -> {
+            Route.SEARCH_DIALOG -> {
                 findNavController().apply {
                     popBackStack(R.id.homeFragment, inclusive = false, saveState = true)
                     navigate(R.id.action_to_search_dialog)
                 }
             }
-            Route.OFFERS.route -> {
+            Route.OFFERS -> {
                 findNavController().apply {
                     popBackStack(R.id.homeFragment, inclusive = false, saveState = true)
                     navigate(R.id.action_to_offers_category)
@@ -201,7 +201,7 @@ class HomeFragment : Fragment() {
             }
             else -> {
                 findNavController().navigate(HomeFragmentDirections
-                    .actionHomeToCommonCategories(route))
+                    .actionHomeToCommonCategories(route.route))
             }
         }
     }

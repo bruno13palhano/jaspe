@@ -1,15 +1,15 @@
 package com.bruno13palhano.model
 
 enum class Route(val route: String) {
-    BABY("category_baby"),
-    MARKET("category_market"),
-    AVON("category_avon"),
-    NATURA("category_natura"),
-    OFFERS("category_offers"),
-    LAST_SEEN("category_last_seen"),
-    BLOG("category_blog"),
-    SEARCH_DIALOG("search_dialog"),
-    SEARCH("search"),
-    FAVORITE("favorite"),
-    HOME("home")
+    BABY("BABY"),
+    MARKET("MARKET"),
+    AVON("AVON"),
+    NATURA("NATURA"),
+    OFFERS("OFFERS"),
+    LAST_SEEN("LAST_SEEN"),
+    BLOG("BLOG"),
+    SEARCH_DIALOG("SEARCH_DIALOG"),
+    SEARCH("SEARCH"),
+    FAVORITE("FAVORITE"),
+    HOME("HOME")
 }
