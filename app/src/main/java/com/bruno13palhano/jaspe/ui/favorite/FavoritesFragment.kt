@@ -40,7 +40,7 @@ class FavoritesFragment : Fragment() {
             onItemClick = { productUrlLink, productType ->
                 navigateToProduct(
                     navController = findNavController(),
-                    route = Route.FAVORITE.route,
+                    route = Route.FAVORITE,
                     firstArg = productUrlLink,
                     secondArg = productType
                 )

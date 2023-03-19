@@ -100,7 +100,7 @@ class SearchDialogFragment : DialogFragment() {
         inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
         navigateToProduct(
             navController = findNavController(),
-            route = Route.SEARCH_DIALOG.route,
+            route = Route.SEARCH_DIALOG,
             firstArg = text,
             secondArg = ""
         )

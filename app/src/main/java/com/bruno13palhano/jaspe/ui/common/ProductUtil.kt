@@ -25,27 +25,28 @@ fun prepareLastSeenProduct(product: Product): Product {
 
 fun navigateToProduct(
     navController: NavController,
-    route: String,
+    route: Route,
     firstArg: String,
     secondArg: String,
 ) {
     when (route) {
-        Route.SEARCH_DIALOG.route -> {
+        Route.SEARCH_DIALOG -> {
             navController.navigate(
                 SearchDialogFragmentDirections.actionSearchDialogToSearch(firstArg))
         }
-        Route.SEARCH.route -> {
+        Route.SEARCH -> {
             navController.navigate(
                 SearchFragmentDirections.actionSearchToProduct(firstArg, secondArg))
         }
-        Route.FAVORITE.route -> {
+        Route.FAVORITE -> {
             navController.navigate(
                 FavoritesFragmentDirections.actionFavoriteToProduct(firstArg, secondArg))
         }
-        Route.HOME.route -> {
+        Route.HOME -> {
             navController.navigate(
                 HomeFragmentDirections.actionHomeToProduct(firstArg, secondArg))
         }
+        else -> {}
     }
 }
 

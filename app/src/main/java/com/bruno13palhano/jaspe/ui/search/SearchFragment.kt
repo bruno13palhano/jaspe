@@ -95,7 +95,7 @@ class SearchFragment : Fragment() {
         viewModel.insertLastSeenProduct(lastSeen)
         navigateToProduct(
             navController = findNavController(),
-            route = Route.SEARCH.route,
+            route = Route.SEARCH,
             firstArg = productUrl,
             secondArg = productType
         )
