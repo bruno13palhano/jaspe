@@ -1,4 +1,4 @@
-package com.bruno13palhano.repository.repository
+package com.bruno13palhano.repository.repository.blog
 
 import com.bruno13palhano.model.BlogPost
 import kotlinx.coroutines.flow.Flow

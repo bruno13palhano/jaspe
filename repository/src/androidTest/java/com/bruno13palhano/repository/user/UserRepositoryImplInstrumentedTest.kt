@@ -7,11 +7,11 @@ import androidx.test.filters.SmallTest
 import androidx.test.platform.app.InstrumentationRegistry
 import app.cash.turbine.test
 import com.bruno13palhano.model.User
-import com.bruno13palhano.repository.JaspeDatabase
+import com.bruno13palhano.repository.database.JaspeDatabase
 import com.bruno13palhano.repository.user.UserFactory.createUser
-import com.bruno13palhano.repository.dao.UserDao
-import com.bruno13palhano.repository.external.UserRepository
-import com.bruno13palhano.repository.external.UserRepositoryImpl
+import com.bruno13palhano.repository.database.dao.UserDao
+import com.bruno13palhano.repository.repository.user.UserRepository
+import com.bruno13palhano.repository.repository.user.UserRepositoryImpl
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert

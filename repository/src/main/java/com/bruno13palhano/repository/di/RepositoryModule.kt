@@ -2,10 +2,22 @@ package com.bruno13palhano.repository.di
 
 import com.bruno13palhano.repository.repository.*
 import com.bruno13palhano.repository.repository.usercase.*
-import com.bruno13palhano.repository.repository.usercase.BannerRepositoryImpl
-import com.bruno13palhano.repository.repository.usercase.BlogPostRepositoryImpl
-import com.bruno13palhano.repository.repository.usercase.ContactInfoRepositoryImpl
-import com.bruno13palhano.repository.repository.usercase.FavoriteProductRepositoryImpl
+import com.bruno13palhano.repository.repository.banner.BannerRepositoryImpl
+import com.bruno13palhano.repository.repository.blog.BlogPostRepositoryImpl
+import com.bruno13palhano.repository.repository.contact.ContactInfoRepositoryImpl
+import com.bruno13palhano.repository.repository.favorite.FavoriteProductRepositoryImpl
+import com.bruno13palhano.repository.repository.banner.BannerRepository
+import com.bruno13palhano.repository.repository.blog.BlogPostRepository
+import com.bruno13palhano.repository.repository.cache.SearchCacheRepository
+import com.bruno13palhano.repository.repository.cache.SearchCacheRepositoryImpl
+import com.bruno13palhano.repository.repository.contact.ContactInfoRepository
+import com.bruno13palhano.repository.repository.favorite.FavoriteProductRepository
+import com.bruno13palhano.repository.repository.notification.NotificationRepository
+import com.bruno13palhano.repository.repository.notification.NotificationRepositoryImpl
+import com.bruno13palhano.repository.repository.product.ProductRepository
+import com.bruno13palhano.repository.repository.product.ProductRepositoryImpl
+import com.bruno13palhano.repository.repository.user.UserRepository
+import com.bruno13palhano.repository.repository.user.UserRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

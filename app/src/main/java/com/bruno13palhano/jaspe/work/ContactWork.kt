@@ -5,7 +5,7 @@ import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.bruno13palhano.repository.di.DefaultContactInfoRepository
-import com.bruno13palhano.repository.repository.ContactInfoRepository
+import com.bruno13palhano.repository.repository.contact.ContactInfoRepository
 import com.example.network.DefaultContactInfoNetwork
 import com.example.network.service.contact.ContactInfoNetwork
 import dagger.assisted.Assisted

@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.bruno13palhano.authentication.core.DefaultUserFirebase
 import com.bruno13palhano.authentication.core.UserAuthentication
 import com.bruno13palhano.repository.di.DefaultUserRepository
-import com.bruno13palhano.repository.repository.UserRepository
+import com.bruno13palhano.repository.repository.user.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted.Companion.WhileSubscribed
 import kotlinx.coroutines.flow.map

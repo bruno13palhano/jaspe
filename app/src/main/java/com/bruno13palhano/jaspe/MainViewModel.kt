@@ -10,7 +10,7 @@ import androidx.work.WorkManager
 import com.bruno13palhano.jaspe.work.*
 import com.bruno13palhano.model.ContactInfo
 import com.bruno13palhano.repository.di.DefaultContactInfoRepository
-import com.bruno13palhano.repository.repository.ContactInfoRepository
+import com.bruno13palhano.repository.repository.contact.ContactInfoRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

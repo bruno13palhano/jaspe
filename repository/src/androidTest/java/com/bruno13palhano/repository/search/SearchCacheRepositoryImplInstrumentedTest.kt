@@ -6,10 +6,10 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
 import androidx.test.platform.app.InstrumentationRegistry
 import app.cash.turbine.test
-import com.bruno13palhano.repository.JaspeDatabase
-import com.bruno13palhano.repository.dao.SearchCacheRepDao
-import com.bruno13palhano.repository.external.SearchCacheRepository
-import com.bruno13palhano.repository.external.SearchCacheRepositoryImpl
+import com.bruno13palhano.repository.database.JaspeDatabase
+import com.bruno13palhano.repository.database.dao.SearchCacheDao
+import com.bruno13palhano.repository.repository.cache.SearchCacheRepository
+import com.bruno13palhano.repository.repository.cache.SearchCacheRepositoryImpl
 import com.bruno13palhano.repository.search.SearchCacheFactory.makeSearchCache
 import kotlinx.coroutines.runBlocking
 import org.junit.*
@@ -22,7 +22,7 @@ class SearchCacheRepositoryImplInstrumentedTest {
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
     private lateinit var jaspeDatabase: JaspeDatabase
-    private lateinit var searchCacheDao: SearchCacheRepDao
+    private lateinit var searchCacheDao: SearchCacheDao
     private lateinit var repository: SearchCacheRepository
 
     @Before

@@ -6,12 +6,11 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
 import androidx.test.platform.app.InstrumentationRegistry
 import app.cash.turbine.test
-import com.bruno13palhano.model.BlogPost
-import com.bruno13palhano.repository.JaspeDatabase
+import com.bruno13palhano.repository.database.JaspeDatabase
 import com.bruno13palhano.repository.blog.BlogFactory.createBlogPost
-import com.bruno13palhano.repository.dao.BlogPostDao
-import com.bruno13palhano.repository.external.BlogPostRepository
-import com.bruno13palhano.repository.external.BlogPostRepositoryImpl
+import com.bruno13palhano.repository.database.dao.BlogPostDao
+import com.bruno13palhano.repository.repository.blog.BlogPostRepository
+import com.bruno13palhano.repository.repository.blog.BlogPostRepositoryImpl
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert

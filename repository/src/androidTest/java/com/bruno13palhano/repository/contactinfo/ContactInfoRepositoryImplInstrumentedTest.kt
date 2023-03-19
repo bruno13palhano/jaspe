@@ -6,11 +6,11 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
 import androidx.test.platform.app.InstrumentationRegistry
 import app.cash.turbine.test
-import com.bruno13palhano.repository.JaspeDatabase
+import com.bruno13palhano.repository.database.JaspeDatabase
 import com.bruno13palhano.repository.contactinfo.ContactInfoFactory.createContactInfo
-import com.bruno13palhano.repository.dao.ContactInfoDao
-import com.bruno13palhano.repository.external.ContactInfoRepository
-import com.bruno13palhano.repository.external.ContactInfoRepositoryImpl
+import com.bruno13palhano.repository.database.dao.ContactInfoDao
+import com.bruno13palhano.repository.repository.contact.ContactInfoRepository
+import com.bruno13palhano.repository.repository.contact.ContactInfoRepositoryImpl
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert

@@ -2,14 +2,13 @@ package com.bruno13palhano.jaspe.ui.category.offers
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.NavController
 import com.bruno13palhano.jaspe.ui.common.getOrderedProducts
 import com.bruno13palhano.jaspe.ui.common.prepareLastSeenProduct
 import com.bruno13palhano.jaspe.ui.search.FilterType
 import com.bruno13palhano.model.Company
 import com.bruno13palhano.model.Product
 import com.bruno13palhano.repository.di.DefaultProductRepository
-import com.bruno13palhano.repository.repository.ProductRepository
+import com.bruno13palhano.repository.repository.product.ProductRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

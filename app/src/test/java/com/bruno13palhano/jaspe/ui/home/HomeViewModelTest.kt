@@ -8,7 +8,12 @@ import com.bruno13palhano.jaspe.ui.ModelFactory.makeNotification
 import com.bruno13palhano.jaspe.ui.ModelFactory.makeProduct
 import com.bruno13palhano.jaspe.ui.ModelFactory.makeUser
 import com.bruno13palhano.model.*
-import com.bruno13palhano.repository.external.*
+import com.bruno13palhano.repository.repository.*
+import com.bruno13palhano.repository.repository.banner.BannerRepository
+import com.bruno13palhano.repository.repository.contact.ContactInfoRepository
+import com.bruno13palhano.repository.repository.notification.NotificationRepository
+import com.bruno13palhano.repository.repository.product.ProductRepository
+import com.bruno13palhano.repository.repository.user.UserRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flow

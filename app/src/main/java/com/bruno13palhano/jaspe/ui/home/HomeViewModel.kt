@@ -7,7 +7,11 @@ import com.bruno13palhano.authentication.core.UserAuthentication
 import com.bruno13palhano.jaspe.ui.common.prepareLastSeenProduct
 import com.bruno13palhano.model.*
 import com.bruno13palhano.repository.di.*
-import com.bruno13palhano.repository.repository.*
+import com.bruno13palhano.repository.repository.banner.BannerRepository
+import com.bruno13palhano.repository.repository.contact.ContactInfoRepository
+import com.bruno13palhano.repository.repository.notification.NotificationRepository
+import com.bruno13palhano.repository.repository.product.ProductRepository
+import com.bruno13palhano.repository.repository.user.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.flow.SharingStarted.Companion.WhileSubscribed

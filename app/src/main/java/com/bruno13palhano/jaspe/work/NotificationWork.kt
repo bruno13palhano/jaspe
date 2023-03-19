@@ -18,7 +18,7 @@ import com.bruno13palhano.jaspe.MainActivity
 import com.bruno13palhano.jaspe.R
 import com.bruno13palhano.model.Notification
 import com.bruno13palhano.repository.di.DefaultNotificationRepository
-import com.bruno13palhano.repository.repository.NotificationRepository
+import com.bruno13palhano.repository.repository.notification.NotificationRepository
 import com.example.network.DefaultNotificationNetwork
 import com.example.network.service.notification.NotificationNetwork
 import dagger.assisted.Assisted

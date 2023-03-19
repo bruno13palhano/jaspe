@@ -6,11 +6,11 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
 import androidx.test.platform.app.InstrumentationRegistry
 import app.cash.turbine.test
-import com.bruno13palhano.repository.JaspeDatabase
+import com.bruno13palhano.repository.database.JaspeDatabase
 import com.bruno13palhano.repository.banner.BannerFactory.createBanner
-import com.bruno13palhano.repository.dao.BannerDao
-import com.bruno13palhano.repository.external.BannerRepository
-import com.bruno13palhano.repository.external.BannerRepositoryImpl
+import com.bruno13palhano.repository.database.dao.BannerDao
+import com.bruno13palhano.repository.repository.banner.BannerRepository
+import com.bruno13palhano.repository.repository.banner.BannerRepositoryImpl
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert

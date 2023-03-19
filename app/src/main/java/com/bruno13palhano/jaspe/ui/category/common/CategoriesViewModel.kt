@@ -10,7 +10,7 @@ import com.bruno13palhano.model.Product
 import com.bruno13palhano.model.Route
 import com.bruno13palhano.model.Type
 import com.bruno13palhano.repository.di.DefaultProductRepository
-import com.bruno13palhano.repository.repository.ProductRepository
+import com.bruno13palhano.repository.repository.product.ProductRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

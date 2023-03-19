@@ -4,7 +4,7 @@ import app.cash.turbine.test
 import com.bruno13palhano.jaspe.ui.home.MainDispatcherRule
 import com.bruno13palhano.jaspe.ui.ModelFactory.makeFavoriteProduct
 import com.bruno13palhano.model.FavoriteProduct
-import com.bruno13palhano.repository.external.FavoriteProductRepository
+import com.bruno13palhano.repository.repository.favorite.FavoriteProductRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.runTest

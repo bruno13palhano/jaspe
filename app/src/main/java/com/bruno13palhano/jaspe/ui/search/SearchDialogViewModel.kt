@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bruno13palhano.model.SearchCache
 import com.bruno13palhano.repository.di.DefaultSearchCacheRepository
-import com.bruno13palhano.repository.repository.SearchCacheRepository
+import com.bruno13palhano.repository.repository.cache.SearchCacheRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted.Companion.WhileSubscribed
 import kotlinx.coroutines.flow.StateFlow

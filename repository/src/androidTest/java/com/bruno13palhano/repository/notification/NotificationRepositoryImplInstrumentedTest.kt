@@ -6,10 +6,10 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
 import androidx.test.platform.app.InstrumentationRegistry
 import app.cash.turbine.test
-import com.bruno13palhano.repository.JaspeDatabase
-import com.bruno13palhano.repository.dao.NotificationDao
-import com.bruno13palhano.repository.external.NotificationRepository
-import com.bruno13palhano.repository.external.NotificationRepositoryImpl
+import com.bruno13palhano.repository.database.JaspeDatabase
+import com.bruno13palhano.repository.database.dao.NotificationDao
+import com.bruno13palhano.repository.repository.notification.NotificationRepository
+import com.bruno13palhano.repository.repository.notification.NotificationRepositoryImpl
 import com.bruno13palhano.repository.notification.NotificationFactory.makeRandomNotification
 import kotlinx.coroutines.runBlocking
 import org.junit.*

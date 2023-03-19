@@ -6,10 +6,10 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
 import androidx.test.platform.app.InstrumentationRegistry
 import app.cash.turbine.test
-import com.bruno13palhano.repository.JaspeDatabase
-import com.bruno13palhano.repository.dao.ProductDao
-import com.bruno13palhano.repository.external.ProductRepository
-import com.bruno13palhano.repository.external.ProductRepositoryImpl
+import com.bruno13palhano.repository.database.JaspeDatabase
+import com.bruno13palhano.repository.database.dao.ProductDao
+import com.bruno13palhano.repository.repository.product.ProductRepository
+import com.bruno13palhano.repository.repository.product.ProductRepositoryImpl
 import com.bruno13palhano.repository.product.ProductFactory.makeProduct
 import com.bruno13palhano.repository.product.ProductFactory.makeRandomString
 import kotlinx.coroutines.runBlocking

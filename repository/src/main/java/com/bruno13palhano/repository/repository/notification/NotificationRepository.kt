@@ -1,4 +1,4 @@
-package com.bruno13palhano.repository.repository
+package com.bruno13palhano.repository.repository.notification
 
 import com.bruno13palhano.model.Notification
 import kotlinx.coroutines.flow.Flow

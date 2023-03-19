@@ -4,7 +4,7 @@ import app.cash.turbine.test
 import com.bruno13palhano.jaspe.ui.ModelFactory.makeSearchCache
 import com.bruno13palhano.jaspe.ui.home.MainDispatcherRule
 import com.bruno13palhano.model.SearchCache
-import com.bruno13palhano.repository.external.SearchCacheRepository
+import com.bruno13palhano.repository.repository.cache.SearchCacheRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.runTest

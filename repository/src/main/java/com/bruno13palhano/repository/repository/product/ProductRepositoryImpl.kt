@@ -1,11 +1,10 @@
-package com.bruno13palhano.repository.repository.usercase
+package com.bruno13palhano.repository.repository.product
 
 import com.bruno13palhano.model.Product
 import com.bruno13palhano.repository.database.dao.ProductDao
 import com.bruno13palhano.repository.model.asLastSeenProduct
 import com.bruno13palhano.repository.model.asProduct
 import com.bruno13palhano.repository.model.asProductRep
-import com.bruno13palhano.repository.repository.ProductRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject

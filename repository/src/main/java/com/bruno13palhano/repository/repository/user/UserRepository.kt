@@ -1,4 +1,4 @@
-package com.bruno13palhano.repository.repository
+package com.bruno13palhano.repository.repository.user
 
 import com.bruno13palhano.model.User
 import kotlinx.coroutines.flow.Flow

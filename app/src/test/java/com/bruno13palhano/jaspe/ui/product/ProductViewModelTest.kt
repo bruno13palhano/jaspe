@@ -8,9 +8,9 @@ import com.bruno13palhano.jaspe.ui.ModelFactory.makeProduct
 import com.bruno13palhano.model.ContactInfo
 import com.bruno13palhano.model.FavoriteProduct
 import com.bruno13palhano.model.Product
-import com.bruno13palhano.repository.external.ContactInfoRepository
-import com.bruno13palhano.repository.external.FavoriteProductRepository
-import com.bruno13palhano.repository.external.ProductRepository
+import com.bruno13palhano.repository.repository.contact.ContactInfoRepository
+import com.bruno13palhano.repository.repository.favorite.FavoriteProductRepository
+import com.bruno13palhano.repository.repository.product.ProductRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.runTest

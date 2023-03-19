@@ -1,10 +1,9 @@
-package com.bruno13palhano.repository.repository.usercase
+package com.bruno13palhano.repository.repository.notification
 
 import com.bruno13palhano.model.Notification
 import com.bruno13palhano.repository.database.dao.NotificationDao
 import com.bruno13palhano.repository.model.asNotification
 import com.bruno13palhano.repository.model.asNotificationRep
-import com.bruno13palhano.repository.repository.NotificationRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject

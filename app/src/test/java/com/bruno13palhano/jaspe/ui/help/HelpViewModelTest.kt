@@ -4,7 +4,7 @@ import app.cash.turbine.test
 import com.bruno13palhano.jaspe.ui.home.MainDispatcherRule
 import com.bruno13palhano.jaspe.ui.ModelFactory.makeContactInfo
 import com.bruno13palhano.model.ContactInfo
-import com.bruno13palhano.repository.external.ContactInfoRepository
+import com.bruno13palhano.repository.repository.contact.ContactInfoRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.runTest

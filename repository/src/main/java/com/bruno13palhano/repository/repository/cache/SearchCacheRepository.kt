@@ -1,4 +1,4 @@
-package com.bruno13palhano.repository.repository
+package com.bruno13palhano.repository.repository.cache
 
 import com.bruno13palhano.model.SearchCache
 import kotlinx.coroutines.flow.Flow

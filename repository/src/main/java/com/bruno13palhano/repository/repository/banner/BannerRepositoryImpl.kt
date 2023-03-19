@@ -1,10 +1,9 @@
-package com.bruno13palhano.repository.repository.usercase
+package com.bruno13palhano.repository.repository.banner
 
 import com.bruno13palhano.model.Banner
 import com.bruno13palhano.repository.database.dao.BannerDao
 import com.bruno13palhano.repository.model.asBanner
 import com.bruno13palhano.repository.model.asBannerRep
-import com.bruno13palhano.repository.repository.BannerRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject

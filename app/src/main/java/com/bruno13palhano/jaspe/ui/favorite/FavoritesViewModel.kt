@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bruno13palhano.model.FavoriteProduct
 import com.bruno13palhano.repository.di.DefaultFavoriteProductRepository
-import com.bruno13palhano.repository.repository.FavoriteProductRepository
+import com.bruno13palhano.repository.repository.favorite.FavoriteProductRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.flow.SharingStarted.Companion.WhileSubscribed

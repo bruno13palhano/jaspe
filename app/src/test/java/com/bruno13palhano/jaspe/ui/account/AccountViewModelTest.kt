@@ -5,7 +5,7 @@ import com.bruno13palhano.authentication.core.UserAuthentication
 import com.bruno13palhano.jaspe.ui.home.MainDispatcherRule
 import com.bruno13palhano.jaspe.ui.ModelFactory.makeUser
 import com.bruno13palhano.model.User
-import com.bruno13palhano.repository.external.UserRepository
+import com.bruno13palhano.repository.repository.user.UserRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.runTest

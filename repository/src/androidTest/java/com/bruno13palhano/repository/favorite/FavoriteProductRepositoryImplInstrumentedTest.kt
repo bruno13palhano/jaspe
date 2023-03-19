@@ -7,10 +7,10 @@ import androidx.test.filters.SmallTest
 import androidx.test.platform.app.InstrumentationRegistry
 import app.cash.turbine.test
 import com.bruno13palhano.model.FavoriteProduct
-import com.bruno13palhano.repository.JaspeDatabase
-import com.bruno13palhano.repository.dao.FavoriteProductDao
-import com.bruno13palhano.repository.external.FavoriteProductRepository
-import com.bruno13palhano.repository.external.FavoriteProductRepositoryImpl
+import com.bruno13palhano.repository.database.JaspeDatabase
+import com.bruno13palhano.repository.database.dao.FavoriteProductDao
+import com.bruno13palhano.repository.repository.favorite.FavoriteProductRepository
+import com.bruno13palhano.repository.repository.favorite.FavoriteProductRepositoryImpl
 import com.bruno13palhano.repository.favorite.FavoriteFactory.createFavorite
 import com.bruno13palhano.repository.favorite.FavoriteFactory.makeRandomString
 import kotlinx.coroutines.runBlocking

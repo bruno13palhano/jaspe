@@ -5,7 +5,7 @@ import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.bruno13palhano.repository.di.DefaultBannerRepository
-import com.bruno13palhano.repository.repository.BannerRepository
+import com.bruno13palhano.repository.repository.banner.BannerRepository
 import com.example.network.DefaultBannerNetwork
 import com.example.network.service.banner.BannerNetwork
 import dagger.assisted.Assisted

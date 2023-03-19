@@ -7,7 +7,7 @@ import com.bruno13palhano.model.Company
 import com.bruno13palhano.model.Product
 import com.bruno13palhano.model.Route
 import com.bruno13palhano.model.Type
-import com.bruno13palhano.repository.external.ProductRepository
+import com.bruno13palhano.repository.repository.product.ProductRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.runTest

@@ -5,7 +5,7 @@ import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.bruno13palhano.repository.di.DefaultProductRepository
-import com.bruno13palhano.repository.repository.ProductRepository
+import com.bruno13palhano.repository.repository.product.ProductRepository
 import com.example.network.DefaultProductNetwork
 import com.example.network.service.product.ProductNetwork
 import dagger.assisted.Assisted

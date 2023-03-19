@@ -7,9 +7,9 @@ import com.bruno13palhano.model.Product
 import com.bruno13palhano.repository.di.DefaultContactInfoRepository
 import com.bruno13palhano.repository.di.DefaultFavoriteProductRepository
 import com.bruno13palhano.repository.di.DefaultProductRepository
-import com.bruno13palhano.repository.repository.ContactInfoRepository
-import com.bruno13palhano.repository.repository.FavoriteProductRepository
-import com.bruno13palhano.repository.repository.ProductRepository
+import com.bruno13palhano.repository.repository.contact.ContactInfoRepository
+import com.bruno13palhano.repository.repository.favorite.FavoriteProductRepository
+import com.bruno13palhano.repository.repository.product.ProductRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.flow.SharingStarted.Companion.WhileSubscribed

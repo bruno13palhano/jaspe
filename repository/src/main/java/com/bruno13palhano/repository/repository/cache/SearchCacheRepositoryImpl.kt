@@ -1,10 +1,9 @@
-package com.bruno13palhano.repository.repository.usercase
+package com.bruno13palhano.repository.repository.cache
 
 import com.bruno13palhano.model.SearchCache
 import com.bruno13palhano.repository.database.dao.SearchCacheDao
 import com.bruno13palhano.repository.model.asSearchCache
 import com.bruno13palhano.repository.model.asSearchCacheRep
-import com.bruno13palhano.repository.repository.SearchCacheRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject

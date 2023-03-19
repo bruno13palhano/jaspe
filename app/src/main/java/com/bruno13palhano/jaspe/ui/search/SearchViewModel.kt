@@ -6,7 +6,7 @@ import com.bruno13palhano.jaspe.ui.common.getOrderedProducts
 import com.bruno13palhano.jaspe.ui.common.prepareLastSeenProduct
 import com.bruno13palhano.model.Product
 import com.bruno13palhano.repository.di.DefaultProductRepository
-import com.bruno13palhano.repository.repository.ProductRepository
+import com.bruno13palhano.repository.repository.product.ProductRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
