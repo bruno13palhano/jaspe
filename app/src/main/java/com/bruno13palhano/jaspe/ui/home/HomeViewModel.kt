@@ -5,9 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.bruno13palhano.authentication.core.DefaultUserFirebase
 import com.bruno13palhano.authentication.core.UserAuthentication
 import com.bruno13palhano.jaspe.ui.common.prepareLastSeenProduct
-import com.bruno13palhano.model.ContactInfo
-import com.bruno13palhano.model.Notification
-import com.bruno13palhano.model.Product
+import com.bruno13palhano.model.*
 import com.bruno13palhano.repository.di.*
 import com.bruno13palhano.repository.repository.*
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -37,70 +35,59 @@ class HomeViewModel @Inject constructor(
     private val authentication: UserAuthentication
 ) : ViewModel() {
 
-    val mainBanner = bannerRepository.mainBanner
-
-    val amazonBanner = bannerRepository.amazonBanner
-
-    val naturaBanner = bannerRepository.naturaBanner
-
-    val avonBanner = bannerRepository.avonBanner
-
-    val allProducts = productRepository.allProducts
-
-    val amazonProducts = productRepository.amazonProducts.map {
-        try { it.subList(0, 6) } catch (ignored: Exception) { it }
-    }
-
-    val naturaProducts = productRepository.naturaProducts.map {
-        try { it.subList(0, 6) } catch (ignored: Exception) { it }
-    }
-
-    val avonProducts = productRepository.avonProducts.map {
-        try { it.subList(0, 6) } catch (ignored: Exception) { it }
-    }
-
-    val lastSeenProducts = productRepository.lastSeenProducts.map {
-        try { it.subList(0, 6) } catch (ignored: Exception) { it }
-    }
-
-    val contactInfo: StateFlow<ContactInfo> =
-        contactInfoRepository.getContactInfo(1L)
-            .stateIn(
-                initialValue = ContactInfo(),
-                scope = viewModelScope,
-                started = WhileSubscribed(5000)
-            )
-
-    val username: StateFlow<String> =
-        userRepository.getUserByUid(authentication.getCurrentUser().uid)
-            .map {
+    val uiState = combine(
+        combine(
+            productRepository.getAll(),
+            productRepository.getByCompany(Company.AMAZON.company,0, 6),
+            productRepository.getByCompany(Company.NATURA.company, 0, 6),
+            ::Triple
+        ),
+        combine(
+            productRepository.getByCompany(Company.AVON.company, 0, 6),
+            productRepository.getLastSeenProducts(0, 6),
+            bannerRepository.getLastBannerByCompany(Company.MAIN.company),
+            ::Triple
+        ),
+        combine(
+            bannerRepository.getLastBannerByCompany(Company.AVON.company),
+            bannerRepository.getLastBannerByCompany(Company.AMAZON.company),
+            bannerRepository.getLastBannerByCompany(Company.NATURA.company),
+            ::Triple
+        ),
+        combine(
+            contactInfoRepository.getContactInfo(1L),
+            userRepository.getUserByUid(authentication.getCurrentUser().uid).map {
                 it.username
-            }
-            .stateIn(
-                initialValue = "",
-                scope = viewModelScope,
-                started = WhileSubscribed(5000)
-            )
-
-    val profileUrlPhoto =
-        userRepository.getUserByUid(authentication.getCurrentUser().uid)
-            .map {
+            },
+            userRepository.getUserByUid(authentication.getCurrentUser().uid).map {
                 it.urlPhoto
-            }
-            .stateIn(
-                initialValue = "",
-                scope = viewModelScope,
-                started = WhileSubscribed(5000)
-            )
-
-    val notificationCount: StateFlow<Int> = notificationRepository.getAllNotifications()
-        .map { notifications ->
-            notifications.filterNot(Notification::isVisualized).size
+            },
+            ::Triple
+        ),
+        notificationRepository.getAllNotifications().map {
+            it.filterNot { notification -> notification.isVisualized }.size
         }
+    ) { products, productsAndBanners, banners, contactAndUser, notificationCount ->
+        HomeUiState(
+            allProducts = products.first,
+            amazonProducts = products.second,
+            naturaProducts = products.third,
+            avonProducts = productsAndBanners.first,
+            lastSeenProducts = productsAndBanners.second,
+            mainBanner = productsAndBanners.third,
+            amazonBanner = banners.first,
+            naturaBanner = banners.second,
+            avonBanner = banners.third,
+            contactInfo = contactAndUser.first,
+            username = contactAndUser.second,
+            profileUrlPhoto = contactAndUser.third,
+            notificationCount = notificationCount
+        )
+    }
         .stateIn(
-            initialValue = 0,
+            initialValue = HomeUiState(),
             scope = viewModelScope,
-            started = WhileSubscribed(5000)
+            started = WhileSubscribed(5_000)
         )
 
     fun insertLastSeenProduct(product: Product) {
