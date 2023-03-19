@@ -23,7 +23,7 @@ class CategoryFragment : Fragment() {
         val view = binding.root
 
         val adapter = CategoryListAdapter {
-            navigateToCommonCategories(it)
+            navigateToCommonCategories(Route.valueOf(it))
         }
         binding.favoriteList.adapter = adapter
         adapter.submitList(categoryList)
@@ -46,15 +46,15 @@ class CategoryFragment : Fragment() {
         _binding = null
     }
 
-    private fun navigateToCommonCategories(route: String) {
+    private fun navigateToCommonCategories(route: Route) {
         when (route) {
-            Route.OFFERS.route -> {
+            Route.OFFERS -> {
                 findNavController().navigate(CategoryFragmentDirections
                     .actionCategoryToOffers())
             }
             else -> {
                 findNavController().navigate(CategoryFragmentDirections
-                    .actionCategoryToCommonCategories(route))
+                    .actionCategoryToCommonCategories(route.route))
             }
         }
     }

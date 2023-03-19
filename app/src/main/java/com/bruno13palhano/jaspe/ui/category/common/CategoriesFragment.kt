@@ -68,7 +68,7 @@ class CategoriesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.toolbarCommonCategory.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24)
-        binding.toolbarCommonCategory.title = setToolbarTitle(categoryRoute)
+        binding.toolbarCommonCategory.title = setToolbarTitle(Route.valueOf(categoryRoute))
 
         binding.toolbarCommonCategory.setNavigationOnClickListener {
             findNavController().navigateUp()
@@ -88,24 +88,24 @@ class CategoriesFragment : Fragment() {
             .actionCategoriesToProduct(productUrlLink, productType))
     }
 
-    private fun setToolbarTitle(route: String): String {
+    private fun setToolbarTitle(route: Route): String {
         return when (route) {
-            Route.BABY.route -> {
+            Route.BABY -> {
                 requireContext().getString(R.string.baby_category_label)
             }
-            Route.MARKET.route -> {
+            Route.MARKET -> {
                 requireContext().getString(R.string.amazon_category_label)
             }
-            Route.AVON.route -> {
+            Route.AVON -> {
                 requireContext().getString(R.string.avon_category_label)
             }
-            Route.NATURA.route -> {
+            Route.NATURA -> {
                 requireContext().getString(R.string.natura_category_label)
             }
-            Route.OFFERS.route -> {
+            Route.OFFERS -> {
                 requireContext().getString(R.string.offers_category_label)
             }
-            Route.LAST_SEEN.route -> {
+            Route.LAST_SEEN -> {
                 requireContext().getString(R.string.last_seen_category_label)
             }
             else -> ""
