@@ -100,24 +100,10 @@ class AccountFragment : Fragment() {
         if (viewModel.isUserAuthenticated()) {
             viewLifecycleOwner.lifecycleScope.launch {
                 viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                    viewModel.username.collect {
-                        binding.username.text = it
-                    }
-                }
-            }
-
-            viewLifecycleOwner.lifecycleScope.launch {
-                viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                    viewModel.userEmail.collect {
-                        binding.email.text = it
-                    }
-                }
-            }
-
-            viewLifecycleOwner.lifecycleScope.launch {
-                viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                    viewModel.userUrlPhoto.collect {
-                        binding.profileImage.load(it)
+                    viewModel.uiState.collect {
+                        binding.username.text = it.username
+                        binding.email.text = it.email
+                        binding.profileImage.load(it.profileImage)
                     }
                 }
             }

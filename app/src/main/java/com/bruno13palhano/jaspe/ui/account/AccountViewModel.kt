@@ -8,8 +8,9 @@ import com.bruno13palhano.authentication.core.UserAuthentication
 import com.bruno13palhano.repository.di.DefaultUserRepository
 import com.bruno13palhano.repository.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.SharingStarted.Companion.WhileSubscribed
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -22,26 +23,19 @@ class AccountViewModel @Inject constructor(
     private val userRepository: UserRepository
 ) : ViewModel() {
 
-    private val _userUrlPhoto = MutableStateFlow("")
-    val userUrlPhoto = _userUrlPhoto.asStateFlow()
-
-    private val _username = MutableStateFlow("")
-    val username = _username.asStateFlow()
-
-    private val _userEmail = MutableStateFlow("")
-    val userEmail = _userEmail.asStateFlow()
-
-    init {
-        viewModelScope.launch {
-            try {
-                userRepository.getUserByUid(authentication.getCurrentUser().uid).collect {
-                    _username.value = it.username
-                    _userEmail.value = it.email
-                    _userUrlPhoto.value = it.urlPhoto
-                }
-            } catch (ignored: Exception) {}
+    val uiState = userRepository.getUserByUid(authentication.getCurrentUser().uid)
+        .map {
+            AccountUiState(
+                username = it.username,
+                email = it.email,
+                profileImage = it.urlPhoto
+            )
         }
-    }
+        .stateIn(
+            initialValue = AccountUiState(),
+            scope = viewModelScope,
+            started = WhileSubscribed(5_000)
+        )
 
     fun updateUserUrlPhoto(
         photo: Bitmap,
