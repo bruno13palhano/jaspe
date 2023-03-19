@@ -39,16 +39,9 @@ class HelpFragment : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.instagramInfo.collect {
-                    instagram = it
-                }
-            }
-        }
-
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.whatsAppInfo.collect {
-                    whatsApp = it
+                viewModel.uiState.collect {
+                    instagram = it.instagramInfo
+                    whatsApp = it.whatsAppInfo
                 }
             }
         }

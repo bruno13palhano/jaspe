@@ -14,33 +14,17 @@ class HelpViewModel @Inject constructor(
     @DefaultContactInfoRepository
     private val contactInfoRepository: ContactInfoRepository
 ) : ViewModel() {
-//    private val _instagramInfo = MutableStateFlow("")
-//    val instagramInfo = _instagramInfo.asStateFlow()
-    val instagramInfo: StateFlow<String> = contactInfoRepository.getContactInfo(1L)
-            .map { it.contactInstagram }
-            .stateIn(
-                initialValue = "",
-                scope = viewModelScope,
-                started = WhileSubscribed(5000)
-            )
 
-//    private val _whatsAppInfo = MutableStateFlow("")
-//    val whatsAppInfo = _whatsAppInfo.asStateFlow()
-    val whatsAppInfo: StateFlow<String> = contactInfoRepository.getContactInfo(1L)
-            .map { it.contactWhatsApp }
-            .stateIn(
-                initialValue = "",
-                scope = viewModelScope,
-                started = WhileSubscribed(5000)
+    val uiState = contactInfoRepository.getContactInfo(1L)
+        .map {
+            HelpUiState(
+                instagramInfo = it.contactInstagram,
+                whatsAppInfo = it.contactWhatsApp
             )
-//    init {
-//        viewModelScope.launch {
-//            try {
-//                contactInfoRepository.getContactInfo(1L).collect {
-//                    _instagramInfo.value = it.contactInstagram
-//                    _whatsAppInfo.value = it.contactWhatsApp
-//                }
-//            } catch (ignored: Exception) {}
-//        }
-//    }
+        }
+        .stateIn(
+            initialValue = HelpUiState(),
+            scope = viewModelScope,
+            started = WhileSubscribed(5_000)
+        )
 }
