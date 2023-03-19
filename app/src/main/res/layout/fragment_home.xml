@@ -106,7 +106,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/natura_recycler_view"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="788dp"
                     android:orientation="vertical"
                     android:layout_marginHorizontal="8dp"
                     android:layout_marginTop="8dp"
@@ -159,7 +159,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/amazon_recycler_view"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="788dp"
                     android:orientation="vertical"
                     android:layout_marginHorizontal="8dp"
                     android:layout_marginTop="8dp"
@@ -212,7 +212,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/avon_recycler_view"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="788dp"
                     android:orientation="vertical"
                     android:layout_marginHorizontal="8dp"
                     android:layout_marginTop="8dp"
@@ -280,7 +280,7 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/last_seen_recycler_view"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="828dp"
                         android:orientation="vertical"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
                 </androidx.cardview.widget.CardView>
