@@ -96,80 +96,21 @@ class HomeFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
-                    viewModel.mainBanner.collect {
-                        binding.mainBanner.load(it.bannerUrlImage)
-                    }
-                }
-                launch {
-                    viewModel.allProducts.collect {
-                        adapter.submitList(it)
-                    }
-                }
-                launch {
-                    viewModel.amazonProducts.collect {
-                        amazonAdapter.submitList(it)
-                    }
-                }
-                launch {
-                    viewModel.naturaProducts.collect {
-                        naturaAdapter.submitList(it)
-                    }
-                }
-                launch {
-                    viewModel.avonProducts.collect {
-                        avonAdapter.submitList(it)
-                    }
-                }
-                launch {
-                    viewModel.amazonBanner.collect {
-                        binding.amazonBannerImage.load(it.bannerUrlImage)
-                    }
-                }
-                launch {
-                    viewModel.naturaBanner.collect {
-                        binding.naturaBannerImage.load(it.bannerUrlImage)
-                    }
-                }
-                launch {
-                    viewModel.avonBanner.collect {
-                        binding.avonBannerImage.load(it.bannerUrlImage)
-                    }
-                }
-                launch {
-                    viewModel.contactInfo.collect {
-                        contactInfo = it
-                    }
-                }
-                launch {
-                    viewModel.lastSeenProducts.collect {
-                        lastSeenAdapter.submitList(it)
-                        setLastSeenCardVisibility(it.size)
-                    }
-                }
-                launch {
-                    viewModel.notificationCount.collect { nonVisualizedNotificationsCount ->
-                        setNotificationsCountView(
-                            notificationCountView,
-                            nonVisualizedNotificationsCount
-                        )
-                    }
-                }
-                launch {
-                    viewModel.profileUrlPhoto.collect {
-                        if (it.isNotEmpty()) {
-                            profilePhotoView.load(it)
-                        } else {
-                            profilePhotoView.setImageResource(R.drawable.ic_baseline_account_circle_24)
-                        }
-                    }
-                }
-                launch {
-                    viewModel.username.collect {
-                        if (it.isNotEmpty()) {
-                            usernameView.text = getString(R.string.welcome_user_label, it)
-                        } else {
-                            usernameView.text = getString(R.string.welcome_user_default_label)
-                        }
+                    viewModel.uiState.collect {
+                        binding.mainBanner.load(it.mainBanner.bannerUrlImage)
+                        binding.amazonBannerImage.load(it.amazonBanner.bannerUrlImage)
+                        binding.naturaBannerImage.load(it.naturaBanner.bannerUrlImage)
+                        binding.avonBannerImage.load(it.avonBanner.bannerUrlImage)
+                        contactInfo = it.contactInfo
+                        adapter.submitList(it.allProducts)
+                        amazonAdapter.submitList(it.amazonProducts)
+                        naturaAdapter.submitList(it.naturaProducts)
+                        avonAdapter.submitList(it.avonProducts)
+                        lastSeenAdapter.submitList(it.lastSeenProducts)
+                        setLastSeenCardVisibility(it.lastSeenProducts.size)
+                        setProfileUrlPhoto(profilePhotoView, it.profileUrlPhoto)
+                        setUsername(usernameView, it.username)
+                        setNotificationsCountView(notificationCountView, it.notificationCount)
                     }
                 }
             }
@@ -279,6 +220,22 @@ class HomeFragment : Fragment() {
     private fun setLastSeenCardVisibility(listSize: Int){
         if (listSize >= 6) {
             binding.lastSeenCard.visibility = VISIBLE
+        }
+    }
+
+    private fun setProfileUrlPhoto(profilePhotoView: ShapeableImageView, photoUrl: String) {
+        if (photoUrl.isNotEmpty()) {
+            profilePhotoView.load(photoUrl)
+        } else {
+            profilePhotoView.setImageResource(R.drawable.ic_baseline_account_circle_24)
+        }
+    }
+
+    private fun setUsername(usernameView: TextView, username: String) {
+        if (username.isNotEmpty()) {
+            usernameView.text = getString(R.string.welcome_user_label, username)
+        } else {
+            usernameView.text = getString(R.string.welcome_user_default_label)
         }
     }
 }
