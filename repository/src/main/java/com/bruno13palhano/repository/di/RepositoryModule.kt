@@ -1,7 +1,6 @@
 package com.bruno13palhano.repository.di
 
 import com.bruno13palhano.repository.repository.*
-import com.bruno13palhano.repository.repository.usercase.*
 import com.bruno13palhano.repository.repository.banner.BannerRepositoryImpl
 import com.bruno13palhano.repository.repository.blog.BlogPostRepositoryImpl
 import com.bruno13palhano.repository.repository.contact.ContactInfoRepositoryImpl
