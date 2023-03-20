@@ -15,14 +15,20 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.onNavDestinationSelected
+import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.PeriodicWorkRequest
+import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkManager
 import com.bruno13palhano.jaspe.ui.common.openEmail
 import com.bruno13palhano.jaspe.ui.common.openInstagram
 import com.bruno13palhano.jaspe.ui.common.openWhatsApp
+import com.bruno13palhano.jaspe.work.*
 import com.bruno13palhano.model.ContactInfo
 import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.util.concurrent.TimeUnit
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(), DrawerLock {
@@ -33,6 +39,30 @@ class MainActivity : AppCompatActivity(), DrawerLock {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val workManager = WorkManager.getInstance(application)
+        val fetchProductData =
+            PeriodicWorkRequestBuilder<ProductWork>(1, TimeUnit.HOURS)
+                .build()
+        val fetchBannerData =
+            PeriodicWorkRequestBuilder<BannerWork>(1, TimeUnit.HOURS)
+                .build()
+
+        val fetchContactData =
+            PeriodicWorkRequestBuilder<ContactWork>(1, TimeUnit.HOURS)
+                .build()
+
+        val fetchNotificationData =
+            PeriodicWorkRequestBuilder<NotificationWork>(15, TimeUnit.MINUTES)
+                .build()
+
+        initWorks(
+            workManager = workManager,
+            productPeriodicWorkRequest = fetchProductData,
+            bannerPeriodicWorkRequest = fetchBannerData,
+            contactPeriodicWorkRequest = fetchContactData,
+            notificationPeriodicWorkRequest = fetchNotificationData
+        )
 
         contactInfo = ContactInfo()
 
@@ -176,6 +206,28 @@ class MainActivity : AppCompatActivity(), DrawerLock {
                 }
             }
         }
+    }
+
+    private fun initWorks(
+        workManager: WorkManager,
+        productPeriodicWorkRequest: PeriodicWorkRequest,
+        bannerPeriodicWorkRequest: PeriodicWorkRequest,
+        contactPeriodicWorkRequest: PeriodicWorkRequest,
+        notificationPeriodicWorkRequest: PeriodicWorkRequest
+    ) {
+        setWork(WorkNames.PRODUCT, workManager, productPeriodicWorkRequest)
+        setWork(WorkNames.BANNER, workManager, bannerPeriodicWorkRequest)
+        setWork(WorkNames.CONTACT, workManager, contactPeriodicWorkRequest)
+        setWork(WorkNames.NOTIFICATION, workManager, notificationPeriodicWorkRequest)
+    }
+
+    private fun setWork(
+        workName: WorkNames,
+        workManager: WorkManager,
+        periodicWorkRequest: PeriodicWorkRequest
+    ) {
+        workManager.enqueueUniquePeriodicWork(
+            workName.tag, ExistingPeriodicWorkPolicy.KEEP, periodicWorkRequest)
     }
 }
 
