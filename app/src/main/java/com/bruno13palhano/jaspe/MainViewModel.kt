@@ -12,18 +12,15 @@ import com.bruno13palhano.model.ContactInfo
 import com.bruno13palhano.repository.di.DefaultContactInfoRepository
 import com.bruno13palhano.repository.repository.contact.ContactInfoRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.SharingStarted.Companion.WhileSubscribed
+import kotlinx.coroutines.flow.stateIn
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
     application: Application,
-
-    @DefaultContactInfoRepository
-    private val contactInfoRepository: ContactInfoRepository
+    @DefaultContactInfoRepository private val contactInfoRepository: ContactInfoRepository,
 ) : ViewModel() {
 
     private val workManager = WorkManager.getInstance(application)
@@ -42,19 +39,15 @@ class MainViewModel @Inject constructor(
         PeriodicWorkRequestBuilder<NotificationWork>(15, TimeUnit.MINUTES)
             .build()
 
-    private val _contactInfo = MutableStateFlow(ContactInfo())
-    val contactInfo = _contactInfo.asStateFlow()
+    val contactInfo = contactInfoRepository.getContactInfoStream(1L)
+        .stateIn(
+            initialValue = ContactInfo(),
+            scope = viewModelScope,
+            started = WhileSubscribed(5_000)
+        )
 
     init {
         initWorks()
-
-        viewModelScope.launch {
-            try {
-                contactInfoRepository.getContactInfoStream(1L).collect {
-                    _contactInfo.value = it
-                }
-            } catch (ignored: Exception) {}
-        }
     }
 
     private fun initWorks() {
