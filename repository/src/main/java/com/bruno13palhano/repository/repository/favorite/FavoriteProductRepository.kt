@@ -7,8 +7,8 @@ interface FavoriteProductRepository {
     suspend fun insertFavoriteProduct(favoriteProduct: FavoriteProduct)
     suspend fun deleteAllFavoriteProduct(favoriteProductList: List<FavoriteProduct>)
     suspend fun deleteFavoriteProductByUrlLink(favoriteProductUrlLink: String)
-    fun getFavoriteByLink(favoriteProductLink: String): Flow<FavoriteProduct>
-    fun getAllFavoriteProducts(): Flow<List<FavoriteProduct>>
-    fun getAllFavoriteProductsVisible(): Flow<List<FavoriteProduct>>
+    fun getFavoriteByLinkStream(favoriteProductLink: String): Flow<FavoriteProduct>
+    fun getAllFavoriteProductsStream(): Flow<List<FavoriteProduct>>
+    fun getAllFavoriteProductsVisibleStream(): Flow<List<FavoriteProduct>>
     suspend fun setFavoriteProductVisibilityByUrl(favoriteProductUrlLink: String, favoriteProductIsVisible: Boolean)
 }

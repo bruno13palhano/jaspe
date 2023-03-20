@@ -27,13 +27,13 @@ internal class FavoriteProductRepositoryImpl @Inject constructor(
         dao.deleteFavoriteProductByUrlLink(favoriteProductUrlLink)
     }
 
-    override fun getFavoriteByLink(favoriteProductLink: String): Flow<FavoriteProduct> {
+    override fun getFavoriteByLinkStream(favoriteProductLink: String): Flow<FavoriteProduct> {
         return dao.getFavoriteByLink(favoriteProductLink).map {
             it.asFavoriteProduct()
         }
     }
 
-    override fun getAllFavoriteProducts(): Flow<List<FavoriteProduct>> {
+    override fun getAllFavoriteProductsStream(): Flow<List<FavoriteProduct>> {
         return dao.getAllFavorites().map {
             it.map { favorite ->
                 favorite.asFavoriteProduct()
@@ -41,7 +41,7 @@ internal class FavoriteProductRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun getAllFavoriteProductsVisible(): Flow<List<FavoriteProduct>> {
+    override fun getAllFavoriteProductsVisibleStream(): Flow<List<FavoriteProduct>> {
         return dao.getAllFavoritesVisible().map {
             it.map { favorite ->
                 favorite.asFavoriteProduct()

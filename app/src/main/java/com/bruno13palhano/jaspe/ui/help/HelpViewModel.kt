@@ -15,7 +15,7 @@ class HelpViewModel @Inject constructor(
     private val contactInfoRepository: ContactInfoRepository
 ) : ViewModel() {
 
-    val uiState = contactInfoRepository.getContactInfo(1L)
+    val uiState = contactInfoRepository.getContactInfoStream(1L)
         .map {
             HelpUiState(
                 instagramInfo = it.contactInstagram,

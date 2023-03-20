@@ -23,7 +23,7 @@ class AccountViewModel @Inject constructor(
     private val userRepository: UserRepository
 ) : ViewModel() {
 
-    val uiState = userRepository.getUserByUid(authentication.getCurrentUser().uid)
+    val uiState = userRepository.getUserByUidStream(authentication.getCurrentUser().uid)
         .map {
             AccountUiState(
                 username = it.username,

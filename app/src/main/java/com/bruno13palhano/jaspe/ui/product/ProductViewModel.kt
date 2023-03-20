@@ -31,7 +31,7 @@ class ProductViewModel @Inject constructor(
     val isFavorite = _isFavorite.asStateFlow()
 
     val contactWhatsApp: StateFlow<String> =
-        contactInfoRepository.getContactInfo(1L)
+        contactInfoRepository.getContactInfoStream(1L)
             .map { it.contactWhatsApp }
             .stateIn(
                 initialValue = "",
@@ -40,7 +40,7 @@ class ProductViewModel @Inject constructor(
             )
 
     fun getRelatedProducts(type: String): Flow<List<Product>> {
-        return productRepository.getByType(type)
+        return productRepository.getProductsByTypeStream(type)
     }
 
     fun setFavorite(
@@ -76,15 +76,15 @@ class ProductViewModel @Inject constructor(
     }
 
     fun getFavoriteProductByUrlLink(favoriteProductUrlLink: String): Flow<FavoriteProduct> {
-        return favoriteProductRepository.getFavoriteByLink(favoriteProductUrlLink)
+        return favoriteProductRepository.getFavoriteByLinkStream(favoriteProductUrlLink)
     }
 
     fun getProductByUrlLink(productUrlLink: String): Flow<Product> {
-        return productRepository.getProductByLink(productUrlLink)
+        return productRepository.getProductByLinkStream(productUrlLink)
     }
 
     fun getProductLastSeen(productUrlLink: String): Flow<Product> {
-        return productRepository.getLastSeenProduct(productUrlLink)
+        return productRepository.getLastSeenProductStream(productUrlLink)
     }
 
     private suspend fun deleteFavoriteProductByUrlLink(favoriteProductUrlLink: String) {

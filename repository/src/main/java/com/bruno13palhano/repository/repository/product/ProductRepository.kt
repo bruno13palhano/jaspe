@@ -5,14 +5,14 @@ import kotlinx.coroutines.flow.Flow
 
 interface ProductRepository {
     suspend fun insertProducts(productList: List<Product>)
-    fun getAll(): Flow<List<Product>>
-    fun getByCompany(productCompany: String, offset: Int, limit: Int): Flow<List<Product>>
-    fun getByType(productType: String): Flow<List<Product>>
-    fun searchProduct(productName: String): Flow<List<Product>>
-    fun getProductByLink(productUrlLink: String): Flow<Product>
+    fun getProductsStream(): Flow<List<Product>>
+    fun getProductsByCompanyStream(productCompany: String, offset: Int, limit: Int): Flow<List<Product>>
+    fun getProductsByTypeStream(productType: String): Flow<List<Product>>
+    fun searchProductsStream(productName: String): Flow<List<Product>>
+    fun getProductByLinkStream(productUrlLink: String): Flow<Product>
     suspend fun insertLastSeenProduct(product: Product)
     suspend fun deleteLastSeenByUrlLink(productUrlLink: String)
-    fun getAllLastSeenProducts(): Flow<List<Product>>
-    fun getLastSeenProduct(productUrlLink: String): Flow<Product>
-    fun getLastSeenProducts(offset: Int, limit: Int): Flow<List<Product>>
+    fun getAllLastSeenProductsStream(): Flow<List<Product>>
+    fun getLastSeenProductStream(productUrlLink: String): Flow<Product>
+    fun getLastSeenProductsStream(offset: Int, limit: Int): Flow<List<Product>>
 }

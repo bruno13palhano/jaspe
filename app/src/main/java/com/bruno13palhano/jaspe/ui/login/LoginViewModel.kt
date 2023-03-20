@@ -45,7 +45,7 @@ class LoginViewModel @Inject constructor(
     }
 
     fun getUserByUid(userUid: String): Flow<User> {
-        return userRepository.getUserByUid(userUid)
+        return userRepository.getUserByUidStream(userUid)
     }
 
     fun isUserAuthenticated(): Boolean {

@@ -25,7 +25,7 @@ class OffersViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            productRepository.getByCompany(Company.AMAZON.company, 0, 20).collect {
+            productRepository.getProductsByCompanyStream(Company.AMAZON.company, 0, 20).collect {
                 _allProducts.value = it
             }
         }
@@ -39,7 +39,7 @@ class OffersViewModel @Inject constructor(
         val lastSeenProduct = prepareLastSeenProduct(product)
         viewModelScope.launch {
             try {
-                productRepository.getLastSeenProduct(lastSeenProduct.productUrlLink).collect {
+                productRepository.getLastSeenProductStream(lastSeenProduct.productUrlLink).collect {
                     productRepository.deleteLastSeenByUrlLink(lastSeenProduct.productUrlLink)
                 }
             } catch (ignored: Exception) {

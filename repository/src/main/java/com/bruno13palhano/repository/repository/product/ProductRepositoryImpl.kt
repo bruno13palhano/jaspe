@@ -20,7 +20,7 @@ internal class ProductRepositoryImpl @Inject constructor(
         })
     }
 
-    override fun getAll(): Flow<List<Product>> {
+    override fun getProductsStream(): Flow<List<Product>> {
         return dao.getAll().map {
             it.map { productRep ->
                 productRep.asProduct()
@@ -28,7 +28,7 @@ internal class ProductRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun getByCompany(
+    override fun getProductsByCompanyStream(
         productCompany: String,
         offset: Int,
         limit: Int
@@ -41,7 +41,7 @@ internal class ProductRepositoryImpl @Inject constructor(
             }
     }
 
-    override fun getByType(productType: String): Flow<List<Product>> {
+    override fun getProductsByTypeStream(productType: String): Flow<List<Product>> {
         return dao.getByType(productType).map {
             it.map { productRep ->
                 productRep.asProduct()
@@ -49,7 +49,7 @@ internal class ProductRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun searchProduct(productName: String): Flow<List<Product>> {
+    override fun searchProductsStream(productName: String): Flow<List<Product>> {
         return dao.searchProduct(productName).map {
             it.map { productRep ->
                 productRep.asProduct()
@@ -57,7 +57,7 @@ internal class ProductRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun getProductByLink(productUrlLink: String): Flow<Product> {
+    override fun getProductByLinkStream(productUrlLink: String): Flow<Product> {
         return dao.getProductByLink(productUrlLink).map {
             it.asProduct()
         }
@@ -71,7 +71,7 @@ internal class ProductRepositoryImpl @Inject constructor(
         dao.deleteLastSeenByUrlLink(productUrlLink)
     }
 
-    override fun getAllLastSeenProducts(): Flow<List<Product>> {
+    override fun getAllLastSeenProductsStream(): Flow<List<Product>> {
         return dao.getAllLastSeen().map {
             it.map { lastSeenRep ->
                 lastSeenRep.asProduct()
@@ -79,13 +79,13 @@ internal class ProductRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun getLastSeenProduct(productUrlLink: String): Flow<Product> {
+    override fun getLastSeenProductStream(productUrlLink: String): Flow<Product> {
         return dao.getLastSeenProduct(productUrlLink).map {
             it.asProduct()
         }
     }
 
-    override fun getLastSeenProducts(offset: Int, limit: Int): Flow<List<Product>> {
+    override fun getLastSeenProductsStream(offset: Int, limit: Int): Flow<List<Product>> {
         return dao.getLastSeenProducts(offset, limit).map {
             it.map { lastSeenRep ->
                 lastSeenRep.asProduct()

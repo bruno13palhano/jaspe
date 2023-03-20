@@ -20,7 +20,7 @@ internal class BannerRepositoryImpl @Inject constructor(
         })
     }
 
-    override fun getByCompany(
+    override fun getBannersByCompanyStream(
         bannerCompany: String,
         offset: Int, limit: Int
     ): Flow<List<Banner>> {
@@ -32,7 +32,7 @@ internal class BannerRepositoryImpl @Inject constructor(
             }
     }
 
-    override fun getLastBannerByCompany(bannerCompany: String): Flow<Banner> {
+    override fun getLastBannerByCompanyStream(bannerCompany: String): Flow<Banner> {
         return dao.getLastBannerByCompany(bannerCompany).map {
             try {
                 it.asBanner()

@@ -18,7 +18,7 @@ class FavoritesViewModel @Inject constructor(
 ) : ViewModel(){
 
     val allFavoritesVisible: StateFlow<List<FavoriteProduct>> =
-        favoriteRepository.getAllFavoriteProductsVisible()
+        favoriteRepository.getAllFavoriteProductsVisibleStream()
             .stateIn(
                 initialValue = emptyList(),
                 scope = viewModelScope,
@@ -40,6 +40,6 @@ class FavoritesViewModel @Inject constructor(
     }
 
     private fun getAllFavorites(): Flow<List<FavoriteProduct>> {
-        return favoriteRepository.getAllFavoriteProducts()
+        return favoriteRepository.getAllFavoriteProductsStream()
     }
 }

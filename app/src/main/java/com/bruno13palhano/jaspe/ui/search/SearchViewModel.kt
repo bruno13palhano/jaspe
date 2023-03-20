@@ -25,7 +25,7 @@ class SearchViewModel @Inject constructor(
     fun searchProduct(productName: String) {
         if (isNotTextEmpty(productName)) {
             viewModelScope.launch {
-                productRepository.searchProduct(productName.trim()).collect {
+                productRepository.searchProductsStream(productName.trim()).collect {
                     _searchProducts.value = it
                 }
             }
@@ -40,7 +40,7 @@ class SearchViewModel @Inject constructor(
         val lastSeenProduct = prepareLastSeenProduct(product)
         viewModelScope.launch {
             try {
-                productRepository.getLastSeenProduct(lastSeenProduct.productUrlLink).collect {
+                productRepository.getLastSeenProductStream(lastSeenProduct.productUrlLink).collect {
                     productRepository.deleteLastSeenByUrlLink(lastSeenProduct.productUrlLink)
                 }
             } catch (ignored: Exception) {

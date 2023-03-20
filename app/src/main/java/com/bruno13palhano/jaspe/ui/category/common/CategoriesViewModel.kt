@@ -50,7 +50,7 @@ class CategoriesViewModel @Inject constructor(
 
     private fun getBabyProducts() {
         viewModelScope.launch {
-            productRepository.getByType(Type.BABY.type).collect {
+            productRepository.getProductsByTypeStream(Type.BABY.type).collect {
                 _allProducts.value = it
             }
         }
@@ -58,7 +58,7 @@ class CategoriesViewModel @Inject constructor(
 
     private fun getMarketProducts() {
         viewModelScope.launch {
-            productRepository.getByType(Type.MARKET.type).collect {
+            productRepository.getProductsByTypeStream(Type.MARKET.type).collect {
                 _allProducts.value = it
             }
         }
@@ -66,7 +66,7 @@ class CategoriesViewModel @Inject constructor(
 
     private fun getNaturaProducts() {
         viewModelScope.launch {
-            productRepository.getByCompany(Company.NATURA.company, 0, 20).collect {
+            productRepository.getProductsByCompanyStream(Company.NATURA.company, 0, 20).collect {
                 _allProducts.value = it
             }
         }
@@ -74,7 +74,7 @@ class CategoriesViewModel @Inject constructor(
 
     private fun getAvonProducts() {
         viewModelScope.launch {
-            productRepository.getByCompany(Company.AVON.company, 0, 20).collect {
+            productRepository.getProductsByCompanyStream(Company.AVON.company, 0, 20).collect {
                 _allProducts.value = it
             }
         }
@@ -82,7 +82,7 @@ class CategoriesViewModel @Inject constructor(
 
     private fun getOffersProducts() {
         viewModelScope.launch {
-            productRepository.getByCompany(Company.AMAZON.company, 0, 20).collect {
+            productRepository.getProductsByCompanyStream(Company.AMAZON.company, 0, 20).collect {
                 _allProducts.value = it
             }
         }
@@ -90,7 +90,7 @@ class CategoriesViewModel @Inject constructor(
 
     private fun getLastSeenProducts() {
         viewModelScope.launch {
-            productRepository.getLastSeenProducts(0, 20).collect {
+            productRepository.getLastSeenProductsStream(0, 20).collect {
                 _allProducts.value = it
             }
         }
@@ -104,7 +104,7 @@ class CategoriesViewModel @Inject constructor(
         val lastSeenProduct = prepareLastSeenProduct(product)
         viewModelScope.launch {
             try {
-                productRepository.getLastSeenProduct(lastSeenProduct.productUrlLink).collect {
+                productRepository.getLastSeenProductStream(lastSeenProduct.productUrlLink).collect {
                     productRepository.deleteLastSeenByUrlLink(lastSeenProduct.productUrlLink)
                 }
             } catch (ignored: Exception) {

@@ -15,7 +15,7 @@ class BlogViewModel @Inject constructor(
     private val blogPostRepository: BlogPostRepository
 ) : ViewModel() {
 
-    val allBlogPosts = blogPostRepository.getAllBlogPosts()
+    val allBlogPosts = blogPostRepository.getAllBlogPostsStream()
         .stateIn(
             initialValue = emptyList(),
             scope = viewModelScope,

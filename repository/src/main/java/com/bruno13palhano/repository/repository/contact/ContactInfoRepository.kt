@@ -5,5 +5,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface ContactInfoRepository {
     suspend fun insertContactInfo(contactInfo: ContactInfo)
-    fun getContactInfo(contactInfoId: Long): Flow<ContactInfo>
+    fun getContactInfoStream(contactInfoId: Long): Flow<ContactInfo>
 }

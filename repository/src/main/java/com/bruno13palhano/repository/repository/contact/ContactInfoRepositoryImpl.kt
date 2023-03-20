@@ -18,7 +18,7 @@ internal class ContactInfoRepositoryImpl @Inject constructor(
         dao.insert(contactInfo.asContactInfoRep())
     }
 
-    override fun getContactInfo(contactInfoId: Long): Flow<ContactInfo> {
+    override fun getContactInfoStream(contactInfoId: Long): Flow<ContactInfo> {
         return dao.getContactInfo(contactInfoId).map {
             try {
                 it.asContactInfo()

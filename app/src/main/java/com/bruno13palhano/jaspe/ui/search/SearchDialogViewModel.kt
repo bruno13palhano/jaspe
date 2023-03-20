@@ -19,7 +19,7 @@ class SearchDialogViewModel @Inject constructor(
 ) : ViewModel() {
 
     val searchCache: StateFlow<List<SearchCache>> =
-        searchCacheRepository.getAllSearchCache()
+        searchCacheRepository.getAllSearchCachesStream()
             .stateIn(
                 initialValue = emptyList(),
                 scope = viewModelScope,

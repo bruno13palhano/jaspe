@@ -7,5 +7,5 @@ interface UserRepository {
     suspend fun insertUser(user: User)
     suspend fun updateUsername(newUsername: String, userUid: String)
     suspend fun updateUserUrlPhoto(newUrlPhoto: String, userUid: String)
-    fun getUserByUid(userUid: String?): Flow<User>
+    fun getUserByUidStream(userUid: String?): Flow<User>
 }

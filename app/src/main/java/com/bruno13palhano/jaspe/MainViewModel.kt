@@ -50,7 +50,7 @@ class MainViewModel @Inject constructor(
 
         viewModelScope.launch {
             try {
-                contactInfoRepository.getContactInfo(1L).collect {
+                contactInfoRepository.getContactInfoStream(1L).collect {
                     _contactInfo.value = it
                 }
             } catch (ignored: Exception) {}

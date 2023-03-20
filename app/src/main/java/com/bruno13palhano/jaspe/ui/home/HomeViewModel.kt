@@ -41,34 +41,34 @@ class HomeViewModel @Inject constructor(
 
     val uiState = combine(
         combine(
-            productRepository.getAll(),
-            productRepository.getByCompany(Company.AMAZON.company,0, 6),
-            productRepository.getByCompany(Company.NATURA.company, 0, 6),
+            productRepository.getProductsStream(),
+            productRepository.getProductsByCompanyStream(Company.AMAZON.company,0, 6),
+            productRepository.getProductsByCompanyStream(Company.NATURA.company, 0, 6),
             ::Triple
         ),
         combine(
-            productRepository.getByCompany(Company.AVON.company, 0, 6),
-            productRepository.getLastSeenProducts(0, 6),
-            bannerRepository.getLastBannerByCompany(Company.MAIN.company),
+            productRepository.getProductsByCompanyStream(Company.AVON.company, 0, 6),
+            productRepository.getLastSeenProductsStream(0, 6),
+            bannerRepository.getLastBannerByCompanyStream(Company.MAIN.company),
             ::Triple
         ),
         combine(
-            bannerRepository.getLastBannerByCompany(Company.AVON.company),
-            bannerRepository.getLastBannerByCompany(Company.AMAZON.company),
-            bannerRepository.getLastBannerByCompany(Company.NATURA.company),
+            bannerRepository.getLastBannerByCompanyStream(Company.AVON.company),
+            bannerRepository.getLastBannerByCompanyStream(Company.AMAZON.company),
+            bannerRepository.getLastBannerByCompanyStream(Company.NATURA.company),
             ::Triple
         ),
         combine(
-            contactInfoRepository.getContactInfo(1L),
-            userRepository.getUserByUid(authentication.getCurrentUser().uid).map {
+            contactInfoRepository.getContactInfoStream(1L),
+            userRepository.getUserByUidStream(authentication.getCurrentUser().uid).map {
                 it.username
             },
-            userRepository.getUserByUid(authentication.getCurrentUser().uid).map {
+            userRepository.getUserByUidStream(authentication.getCurrentUser().uid).map {
                 it.urlPhoto
             },
             ::Triple
         ),
-        notificationRepository.getAllNotifications().map {
+        notificationRepository.getAllNotificationsStream().map {
             it.filterNot { notification -> notification.isVisualized }.size
         }
     ) { products, productsAndBanners, banners, contactAndUser, notificationCount ->
@@ -98,7 +98,7 @@ class HomeViewModel @Inject constructor(
         val lastSeenProduct = prepareLastSeenProduct(product)
         viewModelScope.launch {
             try {
-                productRepository.getLastSeenProduct(lastSeenProduct.productUrlLink).collect {
+                productRepository.getLastSeenProductStream(lastSeenProduct.productUrlLink).collect {
                     productRepository.deleteLastSeenByUrlLink(lastSeenProduct.productUrlLink)
                 }
             } catch (ignored: Exception) {

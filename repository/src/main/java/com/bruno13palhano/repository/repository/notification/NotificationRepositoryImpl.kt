@@ -26,7 +26,7 @@ internal class NotificationRepositoryImpl @Inject constructor(
         notificationDao.deleteAll(notifications.map { it.asNotificationRep() })
     }
 
-    override fun getAllNotifications(): Flow<List<Notification>> {
+    override fun getAllNotificationsStream(): Flow<List<Notification>> {
         return notificationDao.getAllNotifications().map {
             it.map { notificationRep ->
                 notificationRep.asNotification()

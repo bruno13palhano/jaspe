@@ -27,7 +27,7 @@ internal class UserRepositoryImpl @Inject constructor(
         userDao.updateUserUrlPhoto(newUrlPhoto, userUid)
     }
 
-    override fun getUserByUid(userUid: String?): Flow<User> {
+    override fun getUserByUidStream(userUid: String?): Flow<User> {
         return if (isUserUidValid(userUid)) {
             userDao.getUserByUid(userUid).map {
                 it.asUser()

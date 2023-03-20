@@ -20,7 +20,7 @@ internal class BlogPostRepositoryImpl @Inject constructor(
         })
     }
 
-    override fun getAllBlogPosts(): Flow<List<BlogPost>> {
+    override fun getAllBlogPostsStream(): Flow<List<BlogPost>> {
         return dao.getAllBlogPost().map {
             it.map { blogPostRep ->
                 blogPostRep.asBlogPost()

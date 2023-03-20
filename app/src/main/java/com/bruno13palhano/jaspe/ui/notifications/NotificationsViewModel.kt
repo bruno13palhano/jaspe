@@ -18,7 +18,7 @@ class NotificationsViewModel @Inject constructor(
 ) : ViewModel() {
 
     val notifications: StateFlow<List<Notification>> =
-        notificationRepository.getAllNotifications()
+        notificationRepository.getAllNotificationsStream()
             .map { notifications ->
                 notifications.filterNot {
                     notification -> notification.isVisualized
