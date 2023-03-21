@@ -43,6 +43,7 @@ class LoginFragment : Fragment(), LoginView {
 
         binding.closeLogin.setOnClickListener {
             setDrawerEnable(true)
+            findNavController().navigate(LoginFragmentDirections.actionLoginToHome())
         }
 
         setDrawerEnable(false)
