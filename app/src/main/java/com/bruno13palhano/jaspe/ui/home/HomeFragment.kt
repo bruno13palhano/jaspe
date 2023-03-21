@@ -227,7 +227,7 @@ class HomeFragment : Fragment() {
         if (photoUrl.isNotEmpty()) {
             profilePhotoView.load(photoUrl)
         } else {
-            profilePhotoView.setImageResource(R.drawable.ic_baseline_account_circle_24)
+            profilePhotoView.load(R.drawable.ic_baseline_account_circle_24)
         }
     }
 
