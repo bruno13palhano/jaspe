@@ -4,9 +4,9 @@ import com.bruno13palhano.model.Product
 import kotlinx.coroutines.flow.Flow
 
 interface ProductNetwork {
-    fun getProducts(params: List<Int>): Flow<List<Product>>
-    fun getProductById(productId: Long): Flow<Product>
-    fun getAmazonProducts(): Flow<List<Product>>
-    fun getNaturaProducts(): Flow<List<Product>>
-    fun getAvonProducts(): Flow<List<Product>>
+    fun getProductsStream(params: List<Int>): Flow<List<Product>>
+    fun getProductByIdStream(productId: Long): Flow<Product>
+    fun getAmazonProductsStream(): Flow<List<Product>>
+    fun getNaturaProductsStream(): Flow<List<Product>>
+    fun getAvonProductsStream(): Flow<List<Product>>
 }

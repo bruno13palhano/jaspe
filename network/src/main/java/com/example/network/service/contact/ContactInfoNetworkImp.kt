@@ -17,7 +17,7 @@ internal class ContactInfoNetworkImp @Inject constructor(
     private val apiService: Service,
     @Dispatcher(IO) private val dispatcher: CoroutineDispatcher
 ) : ContactInfoNetwork {
-    override fun getContactInfo(): Flow<ContactInfo>  = flow {
+    override fun getContactInfoStream(): Flow<ContactInfo>  = flow {
         try {
             emit(apiService.getContact().asContactInfo())
         } catch (e: Exception) {

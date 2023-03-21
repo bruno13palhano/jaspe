@@ -34,7 +34,7 @@ class NotificationWork @AssistedInject constructor(
 
     override suspend fun doWork(): Result {
 
-        offerNotificationNetwork.getOfferNotification().collect {
+        offerNotificationNetwork.getOfferNotificationStream().collect {
             notificationRepository.insertNotification(it)
             initOfferNotification(it)
         }

@@ -17,7 +17,7 @@ internal class BlogPostNetworkImpl @Inject constructor(
     private val apiService: Service,
     @Dispatcher(IO) private val dispatcher: CoroutineDispatcher
 ) : BlogPostNetwork {
-    override fun getBlogPosts(): Flow<List<BlogPost>> = flow {
+    override fun getBlogPostsStream(): Flow<List<BlogPost>> = flow {
         try {
             emit(apiService.getBlogPosts().map {
                 it.asBlogPost()

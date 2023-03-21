@@ -18,7 +18,7 @@ internal class BannerNetworkImpl @Inject constructor(
     @Dispatcher(IO) private val dispatcher: CoroutineDispatcher
 ) : BannerNetwork {
 
-    override fun getBanners(): Flow<List<Banner>> = flow {
+    override fun getBannersStream(): Flow<List<Banner>> = flow {
         try {
             emit(apiService.getBanners().map {
                 it.asBanner()
@@ -28,7 +28,7 @@ internal class BannerNetworkImpl @Inject constructor(
         }
     }.flowOn(dispatcher)
 
-    override fun getBannerById(bannerId: Long): Flow<Banner> = flow {
+    override fun getBannerByIdStream(bannerId: Long): Flow<Banner> = flow {
         try {
             emit(apiService.getBannerById(bannerId).asBanner())
         } catch (e: Exception) {
@@ -36,7 +36,7 @@ internal class BannerNetworkImpl @Inject constructor(
         }
     }.flowOn(dispatcher)
 
-    override fun getAmazonBanners(): Flow<List<Banner>> = flow {
+    override fun getAmazonBannersStream(): Flow<List<Banner>> = flow {
         try {
             emit(
                 apiService.getAmazonBanners().map {
@@ -48,7 +48,7 @@ internal class BannerNetworkImpl @Inject constructor(
         }
     }.flowOn(dispatcher)
 
-    override fun getNaturaBanners(): Flow<List<Banner>> = flow {
+    override fun getNaturaBannersStream(): Flow<List<Banner>> = flow {
         try {
             emit(
                 apiService.getNaturaBanners().map {
@@ -60,7 +60,7 @@ internal class BannerNetworkImpl @Inject constructor(
         }
     }.flowOn(dispatcher)
 
-    override fun getAvonBanners(): Flow<List<Banner>> = flow {
+    override fun getAvonBannersStream(): Flow<List<Banner>> = flow {
         try {
             emit(
                 apiService.getAvonBanners().map {

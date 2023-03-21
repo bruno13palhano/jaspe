@@ -20,7 +20,7 @@ class ContactWork @AssistedInject constructor(
 ) : CoroutineWorker(context, params){
 
     override suspend fun doWork(): Result {
-        contactInfoNetwork.getContactInfo().collect {
+        contactInfoNetwork.getContactInfoStream().collect {
             contactInfoRepository.insertContactInfo(it)
         }
 

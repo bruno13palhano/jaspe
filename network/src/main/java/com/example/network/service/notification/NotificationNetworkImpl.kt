@@ -17,7 +17,7 @@ internal class NotificationNetworkImpl @Inject constructor(
     private val apiService: Service,
     @Dispatcher(IO) private val dispatcher: CoroutineDispatcher
 ) : NotificationNetwork{
-    override fun getOfferNotification(): Flow<Notification> = flow {
+    override fun getOfferNotificationStream(): Flow<Notification> = flow {
         try {
             emit(apiService.getOfferNotification().asOfferNotification())
         } catch (e: Exception) {

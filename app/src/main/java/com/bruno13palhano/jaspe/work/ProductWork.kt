@@ -20,7 +20,7 @@ class ProductWork @AssistedInject constructor(
 ) : CoroutineWorker(context, params) {
 
     override suspend fun doWork(): Result {
-        productNetwork.getProducts(listOf(0, 100)).collect {
+        productNetwork.getProductsStream(listOf(0, 100)).collect {
             productRepository.insertProducts(it)
         }
 

@@ -20,7 +20,7 @@ class BannerWork @AssistedInject constructor(
 ) : CoroutineWorker(context, params) {
 
     override suspend fun doWork(): Result {
-        bannerNetwork.getBanners().collect {
+        bannerNetwork.getBannersStream().collect {
             bannerRepository.insertBanners(it)
         }
 

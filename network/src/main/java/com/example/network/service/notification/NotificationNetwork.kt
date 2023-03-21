@@ -4,5 +4,5 @@ import com.bruno13palhano.model.Notification
 import kotlinx.coroutines.flow.Flow
 
 interface NotificationNetwork {
-    fun getOfferNotification(): Flow<Notification>
+    fun getOfferNotificationStream(): Flow<Notification>
 }

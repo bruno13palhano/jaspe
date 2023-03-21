@@ -18,7 +18,7 @@ internal class ProductNetworkImpl @Inject constructor(
     @Dispatcher(IO) private val dispatcher: CoroutineDispatcher
 ) : ProductNetwork {
 
-    override fun getProducts(params: List<Int>): Flow<List<Product>> = flow {
+    override fun getProductsStream(params: List<Int>): Flow<List<Product>> = flow {
         try {
             emit(apiService.getProducts(params).map {
                 it.asProduct()
@@ -29,7 +29,7 @@ internal class ProductNetworkImpl @Inject constructor(
     }.flowOn(dispatcher)
 
 
-    override fun getProductById(productId: Long): Flow<Product> = flow {
+    override fun getProductByIdStream(productId: Long): Flow<Product> = flow {
         try {
             emit(apiService.getProductById(productId).asProduct())
         } catch (e: Exception) {
@@ -37,7 +37,7 @@ internal class ProductNetworkImpl @Inject constructor(
         }
     }.flowOn(dispatcher)
 
-    override fun getAmazonProducts(): Flow<List<Product>> = flow {
+    override fun getAmazonProductsStream(): Flow<List<Product>> = flow {
         try {
             emit(
                 apiService.getAmazonProducts().map {
@@ -49,7 +49,7 @@ internal class ProductNetworkImpl @Inject constructor(
         }
     }.flowOn(dispatcher)
 
-    override fun getNaturaProducts(): Flow<List<Product>> = flow {
+    override fun getNaturaProductsStream(): Flow<List<Product>> = flow {
         try {
             emit(
                 apiService.getNaturaProducts().map {
@@ -61,7 +61,7 @@ internal class ProductNetworkImpl @Inject constructor(
         }
     }.flowOn(dispatcher)
 
-    override fun getAvonProducts(): Flow<List<Product>> = flow {
+    override fun getAvonProductsStream(): Flow<List<Product>> = flow {
         try {
             emit(
                 apiService.getAvonProducts().map {
