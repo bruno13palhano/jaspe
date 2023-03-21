@@ -97,20 +97,28 @@ class HomeFragment : Fragment() {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
                     viewModel.uiState.collect {
+                        contactInfo = it.contactInfo
+                        setProfileUrlPhoto(profilePhotoView, it.profileUrlPhoto)
+                        setUsername(usernameView, it.username)
+                        setNotificationsCountView(notificationCountView, it.notificationCount)
+                    }
+                }
+                launch {
+                    viewModel.bannersUiState.collect {
                         binding.mainBanner.load(it.mainBanner.bannerUrlImage)
                         binding.amazonBannerImage.load(it.amazonBanner.bannerUrlImage)
                         binding.naturaBannerImage.load(it.naturaBanner.bannerUrlImage)
                         binding.avonBannerImage.load(it.avonBanner.bannerUrlImage)
-                        contactInfo = it.contactInfo
-                        adapter.submitList(it.allProducts)
+                    }
+                }
+                launch {
+                    viewModel.productsUiState.collect {
+                        adapter.submitList(it.products)
                         amazonAdapter.submitList(it.amazonProducts)
                         naturaAdapter.submitList(it.naturaProducts)
                         avonAdapter.submitList(it.avonProducts)
                         lastSeenAdapter.submitList(it.lastSeenProducts)
                         setLastSeenCardVisibility(it.lastSeenProducts.size)
-                        setProfileUrlPhoto(profilePhotoView, it.profileUrlPhoto)
-                        setUsername(usernameView, it.username)
-                        setNotificationsCountView(notificationCountView, it.notificationCount)
                     }
                 }
             }

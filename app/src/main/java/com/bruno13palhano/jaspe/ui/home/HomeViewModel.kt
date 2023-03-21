@@ -40,56 +40,61 @@ class HomeViewModel @Inject constructor(
 ) : ViewModel() {
 
     val uiState = combine(
-        combine(
-            productRepository.getProductsStream(),
-            productRepository.getProductsByCompanyStream(Company.AMAZON.company,0, 6),
-            productRepository.getProductsByCompanyStream(Company.NATURA.company, 0, 6),
-            ::Triple
-        ),
-        combine(
-            productRepository.getProductsByCompanyStream(Company.AVON.company, 0, 6),
-            productRepository.getLastSeenProductsStream(0, 6),
-            bannerRepository.getLastBannerByCompanyStream(Company.MAIN.company),
-            ::Triple
-        ),
-        combine(
-            bannerRepository.getLastBannerByCompanyStream(Company.AVON.company),
-            bannerRepository.getLastBannerByCompanyStream(Company.AMAZON.company),
-            bannerRepository.getLastBannerByCompanyStream(Company.NATURA.company),
-            ::Triple
-        ),
-        combine(
-            contactInfoRepository.getContactInfoStream(1L),
-            userRepository.getUserByUidStream(authentication.getCurrentUser().uid).map {
-                it.username
-            },
-            userRepository.getUserByUidStream(authentication.getCurrentUser().uid).map {
-                it.urlPhoto
-            },
-            ::Triple
-        ),
+        contactInfoRepository.getContactInfoStream(1L),
+        userRepository.getUserByUidStream(authentication.getCurrentUser().uid),
         notificationRepository.getAllNotificationsStream().map {
             it.filterNot { notification -> notification.isVisualized }.size
         }
-    ) { products, productsAndBanners, banners, contactAndUser, notificationCount ->
+    ) { contactInfo, user, notificationsCount ->
         HomeUiState(
-            allProducts = products.first,
-            amazonProducts = products.second,
-            naturaProducts = products.third,
-            avonProducts = productsAndBanners.first,
-            lastSeenProducts = productsAndBanners.second,
-            mainBanner = productsAndBanners.third,
-            amazonBanner = banners.first,
-            naturaBanner = banners.second,
-            avonBanner = banners.third,
-            contactInfo = contactAndUser.first,
-            username = contactAndUser.second,
-            profileUrlPhoto = contactAndUser.third,
-            notificationCount = notificationCount
+            contactInfo = contactInfo,
+            username = user.username,
+            profileUrlPhoto = user.urlPhoto,
+            notificationCount = notificationsCount
         )
     }
         .stateIn(
             initialValue = HomeUiState(),
+            scope = viewModelScope,
+            started = WhileSubscribed(5_000)
+        )
+
+    val productsUiState = combine(
+        productRepository.getProductsStream(),
+        productRepository.getProductsByCompanyStream(Company.AMAZON.company, 0, 6),
+        productRepository.getProductsByCompanyStream(Company.NATURA.company, 0, 6),
+        productRepository.getProductsByCompanyStream(Company.AVON.company, 0, 6),
+        productRepository.getLastSeenProductsStream(0, 6)
+    ) { products, amazonProducts, naturaProducts, avonProducts, lastSeenProducts ->
+        HomeProductsUiState(
+            products = products,
+            amazonProducts = amazonProducts,
+            naturaProducts = naturaProducts,
+            avonProducts = avonProducts,
+            lastSeenProducts = lastSeenProducts
+        )
+    }
+        .stateIn(
+            initialValue = HomeProductsUiState(),
+            scope = viewModelScope,
+            started = WhileSubscribed(5_000)
+        )
+
+    val bannersUiState = combine(
+        bannerRepository.getLastBannerByCompanyStream(Company.MAIN.company),
+        bannerRepository.getLastBannerByCompanyStream(Company.AMAZON.company),
+        bannerRepository.getLastBannerByCompanyStream(Company.NATURA.company),
+        bannerRepository.getLastBannerByCompanyStream(Company.AVON.company)
+    ) { main, amazon, natura, avon ->
+        HomeBannersUiState(
+            mainBanner = main,
+            amazonBanner = amazon,
+            naturaBanner = natura,
+            avonBanner = avon
+        )
+    }
+        .stateIn(
+            initialValue = HomeBannersUiState(),
             scope = viewModelScope,
             started = WhileSubscribed(5_000)
         )
