@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/categories_navigation"
+    app:startDestination="@id/categoryFragment">
+
+    <fragment
+        android:id="@+id/categoriesFragment"
+        android:name="com.bruno13palhano.jaspe.ui.category.common.CategoriesFragment"
+        android:label="CategoriesFragment"
+        tools:layout="@layout/categories_common_fragment">
+
+        <argument
+            android:name="categoryRoute"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_categories_to_product"
+            app:popUpTo="@id/categoriesFragment"
+            app:popUpToInclusive="false"
+            app:popUpToSaveState="true"
+            app:destination="@id/product_navigation" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/categoryFragment"
+        android:name="com.bruno13palhano.jaspe.ui.category.CategoryFragment"
+        android:label="CategoriesFragment"
+        tools:layout="@layout/fragment_category">
+
+        <action
+            android:id="@+id/action_category_to_common_categories"
+            app:popUpTo="@id/categoryFragment"
+            app:popUpToInclusive="false"
+            app:popUpToSaveState="true"
+            app:destination="@id/categoriesFragment" />
+        <action
+            android:id="@+id/action_category_to_offers"
+            app:popUpTo="@id/categoryFragment"
+            app:popUpToInclusive="false"
+            app:popUpToSaveState="true"
+            app:destination="@id/offers_navigation" />
+    </fragment>
+</navigation>

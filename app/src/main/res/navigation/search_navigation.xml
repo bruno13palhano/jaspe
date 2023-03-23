@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/search_navigation"
+    app:startDestination="@id/searchDialogFragment">
+
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.bruno13palhano.jaspe.ui.search.SearchFragment"
+        android:label="@string/search_label"
+        tools:layout="@layout/fragment_search">
+
+        <argument
+            android:name="searchCacheName"
+            app:argType="string" />
+
+        <action
+            android:id="@+id/action_search_to_product"
+            app:popUpTo="@id/searchFragment"
+            app:popUpToInclusive="false"
+            app:popUpToSaveState="true"
+            app:destination="@id/product_navigation" />
+
+        <action
+            android:id="@+id/action_search_category_to_search_dialog"
+            app:popUpTo="@id/searchFragment"
+            app:popUpToInclusive="false"
+            app:popUpToSaveState="true"
+            app:destination="@id/searchDialogFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/searchDialogFragment"
+        android:name="com.bruno13palhano.jaspe.ui.search.SearchDialogFragment"
+        android:label="SearchDialog"
+        tools:layout="@layout/search_dialog">
+
+        <action
+            android:id="@+id/action_search_dialog_to_search"
+            app:popUpTo="@id/searchDialogFragment"
+            app:popUpToInclusive="false"
+            app:popUpToSaveState="true"
+            app:destination="@id/searchFragment" />
+    </fragment>
+</navigation>

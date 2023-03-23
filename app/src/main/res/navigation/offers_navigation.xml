@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/offers_navigation"
+    app:startDestination="@id/offersFragment">
+
+    <fragment
+        android:id="@+id/offersFragment"
+        android:name="com.bruno13palhano.jaspe.ui.category.offers.OffersFragment"
+        android:label="@string/offers_label"
+        tools:layout="@layout/categories_common_fragment">
+
+        <action
+            android:id="@+id/action_offers_to_product"
+            app:popUpTo="@id/offersFragment"
+            app:popUpToInclusive="false"
+            app:popUpToSaveState="true"
+            app:destination="@id/product_navigation"/>
+    </fragment>
+</navigation>

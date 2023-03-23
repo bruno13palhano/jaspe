@@ -30,14 +30,7 @@
             app:popUpTo="@id/notificationsFragment"
             app:popUpToInclusive="false"
             app:popUpToSaveState="true"
-            app:destination="@id/homeFragment" />
-
-        <action
-            android:id="@+id/action_notifications_to_product"
-            app:popUpTo="@id/notificationsFragment"
-            app:popUpToInclusive="false"
-            app:popUpToSaveState="true"
-            app:destination="@id/productFragment" />
+            app:destination="@id/home_navigation" />
     </fragment>
 
     <fragment
@@ -57,27 +50,6 @@
             app:popUpTo="@id/offersFragment"
             app:popUpToInclusive="false"
             app:popUpToSaveState="true"
-            app:destination="@id/productFragment" />
-
-    </fragment>
-
-    <fragment
-        android:id="@+id/homeFragment"
-        android:name="com.bruno13palhano.jaspe.ui.home.HomeFragment"
-        android:label="@string/app_name"
-        tools:layout="@layout/fragment_home" />
-
-    <fragment
-        android:id="@+id/productFragment"
-        android:name="com.bruno13palhano.jaspe.ui.product.ProductFragment"
-        android:label="Product"
-        tools:layout="@layout/fragment_product">
-
-        <argument
-            android:name="productUrlLink"
-            app:argType="string" />
-        <argument
-            android:name="productType"
-            app:argType="string" />
+            app:destination="@id/product_navigation"/>
     </fragment>
 </navigation>
