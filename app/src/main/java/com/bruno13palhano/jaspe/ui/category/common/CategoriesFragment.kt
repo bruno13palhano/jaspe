@@ -85,7 +85,7 @@ class CategoriesFragment : Fragment() {
         productType: String
     ) {
         findNavController().navigate(CategoriesFragmentDirections
-            .actionCategoriesToProduct(productUrlLink, productType))
+            .actionToProduct(productUrlLink, productType))
     }
 
     private fun setToolbarTitle(route: Route): String {

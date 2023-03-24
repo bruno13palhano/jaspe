@@ -108,7 +108,7 @@ class AccountFragment : Fragment() {
                 }
             }
         } else {
-            findNavController().navigate(AccountFragmentDirections.actionAccountToLogin())
+            findNavController().navigate(AccountFragmentDirections.actionToLogin())
         }
 
         binding.toolbarAccount.setOnMenuItemClickListener {

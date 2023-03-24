@@ -79,6 +79,6 @@ class OffersFragment : Fragment() {
         productType: String
     ) {
         findNavController().navigate(OffersFragmentDirections
-            .actionOffersToProduct(productUrlLink, productType))
+            .actionToProduct(productUrlLink, productType))
     }
 }

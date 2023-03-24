@@ -49,12 +49,11 @@ class CategoryFragment : Fragment() {
     private fun navigateToCommonCategories(route: Route) {
         when (route) {
             Route.OFFERS -> {
-                findNavController().navigate(CategoryFragmentDirections
-                    .actionCategoryToOffers())
+                findNavController().navigate(CategoryFragmentDirections.actionToOffersCategory())
             }
             else -> {
                 findNavController().navigate(CategoryFragmentDirections
-                    .actionCategoryToCommonCategories(route.route))
+                    .actionToCommonCategories(route.route))
             }
         }
     }
