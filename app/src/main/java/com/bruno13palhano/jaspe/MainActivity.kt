@@ -132,7 +132,7 @@ class MainActivity : AppCompatActivity(), DrawerLock {
             when (item.itemId) {
                 R.id.homeFragment -> {
                     navController.apply {
-                        popBackStack(R.id.homeFragment, inclusive = false, saveState = true)
+                        popBackStack(R.id.homeFragment, inclusive = true, saveState = true)
                         navigate(R.id.action_to_home)
                     }
                 }
@@ -182,7 +182,7 @@ class MainActivity : AppCompatActivity(), DrawerLock {
                 R.id.blogFragment -> {
                     navController.apply {
                         popBackStack(R.id.homeFragment, inclusive = false, saveState = true)
-                        navigate(R.id.action_to_blog)
+                        navigate(R.id.action_to_blog_category)
                     }
                 }
 
