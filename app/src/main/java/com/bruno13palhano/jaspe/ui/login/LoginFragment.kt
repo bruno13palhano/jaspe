@@ -43,7 +43,10 @@ class LoginFragment : Fragment(), LoginView {
 
         binding.closeLogin.setOnClickListener {
             setDrawerEnable(true)
-            findNavController().navigate(LoginFragmentDirections.actionLoginToHome())
+            findNavController().apply {
+                popBackStack(R.id.homeFragment, inclusive = true, saveState = true)
+                navigate(R.id.action_to_home)
+            }
         }
 
         setDrawerEnable(false)
@@ -72,7 +75,10 @@ class LoginFragment : Fragment(), LoginView {
 
     override fun onLoginSuccess() {
         setDrawerEnable(true)
-        findNavController().navigate(LoginFragmentDirections.actionLoginToHome())
+        findNavController().apply {
+            popBackStack(R.id.homeFragment, inclusive = true, saveState = true)
+            navigate(R.id.action_to_home)
+        }
     }
 
     override fun onLoginError() {

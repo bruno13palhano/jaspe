@@ -97,7 +97,9 @@ class CreateAccountFragment : Fragment(), AccountView {
     }
 
     private fun navigateToHome() {
-        findNavController().navigate(CreateAccountFragmentDirections
-            .actionCreateAccountToHome())
+        findNavController().apply {
+            popBackStack(R.id.homeFragment, inclusive = false, saveState = true)
+            navigate(R.id.action_to_home)
+        }
     }
 }

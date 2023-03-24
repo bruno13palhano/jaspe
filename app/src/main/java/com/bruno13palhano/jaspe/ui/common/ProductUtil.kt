@@ -36,15 +36,15 @@ fun navigateToProduct(
         }
         Route.SEARCH -> {
             navController.navigate(
-                SearchFragmentDirections.actionSearchToProduct(firstArg, secondArg))
+                SearchFragmentDirections.actionToProduct(firstArg, secondArg))
         }
         Route.FAVORITE -> {
             navController.navigate(
-                FavoritesFragmentDirections.actionFavoriteToProduct(firstArg, secondArg))
+                FavoritesFragmentDirections.actionToProduct(firstArg, secondArg))
         }
         Route.HOME -> {
             navController.navigate(
-                HomeFragmentDirections.actionHomeToProduct(firstArg, secondArg))
+                HomeFragmentDirections.actionToProduct(firstArg, secondArg))
         }
         else -> {}
     }
