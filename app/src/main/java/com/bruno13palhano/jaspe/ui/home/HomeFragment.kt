@@ -190,7 +190,7 @@ class HomeFragment : Fragment() {
 
     private fun navigateToProduct(productUrlLink: String, productType: String) {
         findNavController().navigate(HomeFragmentDirections
-            .actionHomeToProduct(productUrlLink, productType))
+            .actionToProduct(productUrlLink, productType))
     }
 
     private fun navigateTo(route: Route) {
@@ -208,8 +208,8 @@ class HomeFragment : Fragment() {
                 }
             }
             else -> {
-                findNavController().navigate(HomeFragmentDirections
-                    .actionHomeToCommonCategories(route.route))
+                findNavController().navigate(
+                    HomeFragmentDirections.actionToCommonCategories(route.route))
             }
         }
     }
