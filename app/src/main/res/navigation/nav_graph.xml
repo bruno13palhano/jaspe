@@ -4,17 +4,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/homeFragment">
 
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.bruno13palhano.jaspe.ui.login.LoginFragment"
         android:label="LoginFragment"
         tools:layout="@layout/fragment_login">
-
-        <action
-            android:id="@+id/action_login_to_home"
-            app:destination="@id/homeFragment" />
 
         <action
             android:id="@+id/action_login_to_create_account"
@@ -25,12 +21,7 @@
         android:id="@+id/createAccountFragment"
         android:name="com.bruno13palhano.jaspe.ui.create_account.CreateAccountFragment"
         android:label="CreateAccount"
-        tools:layout="@layout/fragment_create_account">
-
-        <action
-            android:id="@+id/action_create_account_to_home"
-            app:destination="@id/homeFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_create_account" />
 
     <action
         android:id="@+id/action_to_product"
@@ -69,27 +60,22 @@
         app:destination="@id/accountFragment" />
 
     <action
-        android:id="@+id/action_to_blog"
-        app:destination="@id/blogFragment" />
+        android:id="@+id/action_to_blog_category"
+        app:destination="@id/blogCategoryFragment" />
 
     <action
         android:id="@+id/action_to_help"
         app:destination="@id/helpFragment" />
 
+    <action
+        android:id="@+id/action_to_common_categories"
+        app:destination="@id/categoriesFragment" />
+
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.bruno13palhano.jaspe.ui.home.HomeFragment"
         android:label="@string/app_name"
-        tools:layout="@layout/fragment_home">
-
-        <action
-            android:id="@+id/action_home_to_product"
-            app:destination="@id/productFragment" />
-
-        <action
-            android:id="@+id/action_home_to_common_categories"
-            app:destination="@id/categoriesFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/searchFragment"
@@ -100,10 +86,6 @@
         <argument
             android:name="searchCacheName"
             app:argType="string" />
-
-        <action
-            android:id="@+id/action_search_to_product"
-            app:destination="@id/productFragment" />
 
         <action
             android:id="@+id/action_search_category_to_search_dialog"
@@ -124,48 +106,26 @@
         android:name="com.bruno13palhano.jaspe.ui.favorite.FavoritesFragment"
         android:label="@string/favorite_label"
         tools:layout="@layout/fragment_favorites" >
-
-        <action
-            android:id="@+id/action_favorite_to_product"
-            app:destination="@id/productFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/offersFragment"
         android:name="com.bruno13palhano.jaspe.ui.category.offers.OffersFragment"
-        android:label="@string/favorite_label"
+        android:label="@string/offers_label"
         tools:layout="@layout/categories_common_fragment" >
-
-        <action
-            android:id="@+id/action_offers_to_product"
-            app:destination="@id/productFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/categoryFragment"
         android:name="com.bruno13palhano.jaspe.ui.category.CategoryFragment"
         android:label="@string/categories_label"
-        tools:layout="@layout/fragment_category">
-
-        <action
-            android:id="@+id/action_category_to_common_categories"
-            app:destination="@id/categoriesFragment" />
-
-        <action
-            android:id="@+id/action_category_to_offers"
-            app:destination="@id/offersFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_category" />
 
     <fragment
         android:id="@+id/accountFragment"
         android:name="com.bruno13palhano.jaspe.ui.account.AccountFragment"
         android:label="@string/account_label"
-        tools:layout="@layout/fragment_account">
-
-        <action
-            android:id="@+id/action_account_to_login"
-            app:destination="@id/loginFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_account" />
 
     <fragment
         android:id="@+id/helpFragment"
@@ -187,10 +147,26 @@
     </fragment>
 
     <fragment
-        android:id="@+id/blogFragment"
+        android:id="@+id/blogCategoryFragment"
         android:name="com.bruno13palhano.jaspe.ui.category.blog.BlogCategoryFragment"
         android:label="BlogCategory"
-        tools:layout="@layout/fragment_blog_category"/>
+        tools:layout="@layout/fragment_blog_category">
+
+        <action
+            android:id="@+id/action_blog_category_to_blog"
+            app:destination="@+id/blogFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/blogFragment"
+        android:name="com.bruno13palhano.jaspe.ui.category.blog.BlogFragment"
+        android:label="Blog"
+        tools:layout="@layout/fragment_blog">
+
+        <argument
+            android:name="postId"
+            app:argType="long" />
+    </fragment>
 
     <fragment
         android:id="@+id/searchDialogFragment"
@@ -212,8 +188,5 @@
         <argument
             android:name="categoryRoute"
             app:argType="string" />
-        <action
-            android:id="@+id/action_categories_to_product"
-            app:destination="@id/productFragment" />
     </fragment>
 </navigation>
