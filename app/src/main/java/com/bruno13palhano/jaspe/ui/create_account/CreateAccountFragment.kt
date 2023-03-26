@@ -8,7 +8,7 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -16,14 +16,15 @@ import androidx.navigation.fragment.findNavController
 import com.bruno13palhano.jaspe.DrawerLock
 import com.bruno13palhano.jaspe.R
 import com.bruno13palhano.jaspe.databinding.FragmentCreateAccountBinding
+import com.bruno13palhano.jaspe.ui.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class CreateAccountFragment : Fragment(), AccountView {
-    private val viewModel: CreateAccountViewModel by viewModels()
     private var _binding: FragmentCreateAccountBinding? = null
     private val binding get() = _binding!!
+    private val userViewModel: UserViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,7 +38,7 @@ class CreateAccountFragment : Fragment(), AccountView {
             val email = binding.email.text.toString()
             val password = binding.password.text.toString()
 
-            viewModel.createAccount(
+            userViewModel.createAccount(
                 username = username,
                 email = email,
                 password = password
@@ -46,18 +47,18 @@ class CreateAccountFragment : Fragment(), AccountView {
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.createAccountStatus.collect {
+                userViewModel.loginStatus.collect {
                     when (it) {
-                        CreateAccountStatus.Success -> {
+                        UserViewModel.LoginStatus.Success -> {
                             onSuccess()
                         }
-                        CreateAccountStatus.Error -> {
+                        UserViewModel.LoginStatus.Error -> {
                             onFail()
                         }
-                        CreateAccountStatus.Loading -> {
+                        UserViewModel.LoginStatus.Loading -> {
                             onLoading()
                         }
-                        CreateAccountStatus.Default -> {
+                        UserViewModel.LoginStatus.Default -> {
 
                         }
                     }
@@ -73,6 +74,7 @@ class CreateAccountFragment : Fragment(), AccountView {
     }
 
     override fun onSuccess() {
+        userViewModel.restoreLoginStatus()
         setDrawerEnable()
         navigateToHome()
     }

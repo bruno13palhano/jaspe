@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -15,15 +15,16 @@ import androidx.navigation.fragment.findNavController
 import coil.load
 import com.bruno13palhano.jaspe.R
 import com.bruno13palhano.jaspe.databinding.FragmentAccountBinding
+import com.bruno13palhano.jaspe.ui.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class AccountFragment : Fragment() {
-    private val viewModel: AccountViewModel by viewModels()
     private lateinit var photoObserver: ProfilePhotoLifecycleObserver
     private var _binding: FragmentAccountBinding? = null
     private val binding get() = _binding!!
+    private val userViewModel: UserViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,7 +38,7 @@ class AccountFragment : Fragment() {
             contentResolver = requireContext().contentResolver,
             photoListener = object : PhotoListener {
                 override fun onSuccess(bitmapPhoto: Bitmap) {
-                    viewModel.updateUserUrlPhoto(
+                    userViewModel.updateUserUrlPhoto(
                         photo = bitmapPhoto,
                         onSuccess = {
                             Toast.makeText(requireContext(),
@@ -59,6 +60,22 @@ class AccountFragment : Fragment() {
         )
         lifecycle.addObserver(photoObserver)
 
+        if (userViewModel.isUserAuthenticated()) {
+        viewLifecycleOwner.lifecycleScope.launch {
+                viewLifecycleOwner.lifecycleScope.launch {
+                    viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                        userViewModel.getUserState().collect {
+                            binding.username.text = it.username
+                            binding.email.text = it.email
+                            binding.profileImage.load(it.urlPhoto)
+                        }
+                    }
+                }
+            }
+        } else {
+            findNavController().navigate(AccountFragmentDirections.actionToLogin())
+        }
+
         return view
     }
 
@@ -77,7 +94,7 @@ class AccountFragment : Fragment() {
                 .UsernameListener {
                 override fun onDialogPositiveClick(newUsername: String) {
                     if (newUsername.isNotEmpty()) {
-                        viewModel.updateUsername(
+                        userViewModel.updateUsername(
                             username = newUsername,
                             onSuccess = {
                                 Toast.makeText(requireContext(),
@@ -97,24 +114,10 @@ class AccountFragment : Fragment() {
                 "UpdateUsernameDialogFragment")
         }
 
-        if (viewModel.isUserAuthenticated()) {
-            viewLifecycleOwner.lifecycleScope.launch {
-                viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                    viewModel.uiState.collect {
-                        binding.username.text = it.username
-                        binding.email.text = it.email
-                        binding.profileImage.load(it.profileImage)
-                    }
-                }
-            }
-        } else {
-            findNavController().navigate(AccountFragmentDirections.actionToLogin())
-        }
-
         binding.toolbarAccount.setOnMenuItemClickListener {
             when(it.itemId){
                 R.id.logout -> {
-                    viewModel.logout()
+                    userViewModel.logout()
                     findNavController().navigate(AccountFragmentDirections.actionToHome())
 
                     true

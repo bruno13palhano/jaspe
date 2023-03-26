@@ -8,18 +8,21 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.coroutineScope
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.bruno13palhano.jaspe.DrawerLock
 import com.bruno13palhano.jaspe.R
 import com.bruno13palhano.jaspe.databinding.FragmentLoginBinding
+import com.bruno13palhano.jaspe.ui.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class LoginFragment : Fragment(), LoginView {
-    private val viewModel: LoginViewModel by viewModels()
+    private val userViewModel: UserViewModel by activityViewModels()
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
 
@@ -31,10 +34,12 @@ class LoginFragment : Fragment(), LoginView {
         val view = binding.root
 
         binding.loginButton.setOnClickListener {
-            viewModel.login(
-                email = binding.email.text.toString(),
-                password = binding.password.text.toString()
-            )
+            viewLifecycleOwner.lifecycleScope.launch {
+                userViewModel.login(
+                    email = binding.email.text.toString(),
+                    password = binding.password.text.toString()
+                )
+            }
         }
 
         binding.createAccount.setOnClickListener {
@@ -51,20 +56,24 @@ class LoginFragment : Fragment(), LoginView {
 
         setDrawerEnable(false)
 
-        viewLifecycleOwner.lifecycle.coroutineScope.launch {
-            viewModel.loginStatus.collect {
-                when (it) {
-                    LoginStatus.Loading -> {
-                        onLoginLoading()
-                    }
-                    LoginStatus.Success -> {
-                        onLoginSuccess()
-                    }
-                    LoginStatus.Error -> {
-                        onLoginError()
-                    }
-                    LoginStatus.Default -> {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                launch {
+                    userViewModel.loginStatus.collect {
+                        when (it) {
+                            UserViewModel.LoginStatus.Loading -> {
+                                onLoginLoading()
+                            }
+                            UserViewModel.LoginStatus.Success -> {
+                                onLoginSuccess()
+                            }
+                            UserViewModel.LoginStatus.Error -> {
+                                onLoginError()
+                            }
+                            UserViewModel.LoginStatus.Default -> {
 
+                            }
+                        }
                     }
                 }
             }
@@ -75,6 +84,7 @@ class LoginFragment : Fragment(), LoginView {
 
     override fun onLoginSuccess() {
         setDrawerEnable(true)
+        userViewModel.restoreLoginStatus()
         findNavController().apply {
             popBackStack(R.id.homeFragment, inclusive = true, saveState = true)
             navigate(R.id.action_to_home)
@@ -93,7 +103,7 @@ class LoginFragment : Fragment(), LoginView {
 
     override fun onStart() {
         super.onStart()
-        if (viewModel.isUserAuthenticated()) {
+        if (userViewModel.isUserAuthenticated()) {
             onLoginSuccess()
         }
     }
