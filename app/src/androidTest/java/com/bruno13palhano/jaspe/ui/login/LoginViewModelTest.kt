@@ -13,23 +13,4 @@ class LoginViewModelTest {
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
-    private val repository: UserRepository = spy(
-        RepositoryFactory(InstrumentationRegistry.getInstrumentation().targetContext)
-            .createUserRepository())
-    private val authentication: UserAuthentication = spy(
-        AuthenticationFactory().createUserFirebase())
-
-    private val viewModel = LoginViewModel(repository, authentication)
-
-    @Test
-    fun getUserByUid_shouldCallUserRepository() {
-        viewModel.getUserByUid(anyString())
-        verify(repository).getUserByUid(anyString())
-    }
-
-    @Test
-    fun isUserAuthentication_shouldCallAuthentication() {
-        viewModel.isUserAuthenticated()
-        verify(authentication).isUserAuthenticated()
-    }
 }

@@ -9,16 +9,5 @@ import org.mockito.kotlin.verify
 
 class LoginFirebaseTest {
 
-    private val loginFirebase = mock<LoginFirebase>()
 
-    val callback = object : Login.LoginCallback {
-        override fun onSuccess(user: User) {
-            TODO("Not yet implemented")
-        }
-
-        override fun onFail() {
-            TODO("Not yet implemented")
-        }
-
-    }
 }
