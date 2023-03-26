@@ -10,7 +10,6 @@ import com.bruno13palhano.repository.di.DefaultUserRepository
 import com.bruno13palhano.repository.repository.user.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.flow.SharingStarted.Companion.WhileSubscribed
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -23,27 +22,11 @@ class UserViewModel @Inject constructor(
     private val _loginStatus = MutableStateFlow<LoginStatus>(LoginStatus.Default)
     val loginStatus = _loginStatus.asStateFlow()
 
-//    private var _uiState = MutableStateFlow(User())
-//    val uiState = _uiState.asStateFlow()
+    fun getUserState(): Flow<User> {
+        return userRepository.getUserByUidStream(authentication.getCurrentUser().uid)
+    }
 
-//    init {
-//        viewModelScope.launch {
-//            userRepository.getUserByUidStream(authentication.getCurrentUser().uid).collect { user ->
-//                _uiState.value = user
-//                println("valor do usuário na viewModel: $user")
-//            }
-//        }
-
-//    }
-
-    val uiState = userRepository.getUserByUidStream(authentication.getCurrentUser().uid)
-        .stateIn(
-            initialValue = User(),
-            scope = viewModelScope,
-            started = WhileSubscribed(5_000)
-        )
-
-    suspend fun isUserAuthenticated(): Boolean {
+    fun isUserAuthenticated(): Boolean {
         return if (authentication.isUserAuthenticated()) {
             val user = authentication.getCurrentUser()
             viewModelScope.launch {
@@ -67,7 +50,6 @@ class UserViewModel @Inject constructor(
                 successfulCallback = {
                     _loginStatus.value = LoginStatus.Success
                     viewModelScope.launch {
-                        println("usuátio corrente no login: ${authentication.getCurrentUser()}")
                         userRepository.insertUser(authentication.getCurrentUser())
                     }
                 },
@@ -171,6 +153,10 @@ class UserViewModel @Inject constructor(
 
     private fun loading() {
         _loginStatus.value = LoginStatus.Loading
+    }
+
+    fun restoreLoginStatus() {
+        _loginStatus.value = LoginStatus.Default
     }
 
     sealed class LoginStatus {
