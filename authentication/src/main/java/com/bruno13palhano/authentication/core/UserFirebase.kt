@@ -19,7 +19,7 @@ internal class UserFirebase @Inject constructor(
 
     override fun createUser(
         user: User,
-        successfulCallback: () -> Unit,
+        successfulCallback: (userUid: String) -> Unit,
         failedCallback: () -> Unit
     ) {
         auth.createUserWithEmailAndPassword(user.email, user.password)
@@ -27,7 +27,7 @@ internal class UserFirebase @Inject constructor(
                 if (task.isSuccessful) {
                     auth.currentUser?.uid?.let {
                         onSuccessfulCreateUser(user.username, it)
-                        successfulCallback()
+                        successfulCallback(it)
                     }
                 } else {
                     failedCallback()
